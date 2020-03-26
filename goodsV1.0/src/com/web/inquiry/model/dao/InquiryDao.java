@@ -190,6 +190,7 @@ public class InquiryDao {
 				ia.setIa_Content(rs.getString("ia_content"));
 				ia.setIa_Date(rs.getDate("ia_date"));
 				ia.setIa_Original_Filename(rs.getString("ia_original_filename"));
+				ia.setIa_Renamed_Filename(rs.getString("ia_renamed_filename"));
 				ia.setIa_Status(rs.getString("ia_status"));
 				
 

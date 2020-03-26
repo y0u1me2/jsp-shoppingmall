@@ -28,12 +28,8 @@
                         서울시 강남구 테헤란로14길 남도빌딩<br><br>
                         <br><br> -->
             <div id="footImg">
-                <img src="<%=request.getContextPath()%>/images/풋터 로고.png" width="50px height:50px">
-                <img src="https://fiprofile.cdnpk.net/img/login/flaticon.svg?key=45b5fb5140415973f21b0218c76af53e2020021204"
-                    width="100px">
-                <img src="https://www.snaps.com/images/icon/svg/logo-snaps-9034.svg" width="50px">
-                <img src="https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/common/logo1.svg"
-                    width="50px height:50px">
+                <img src="<%=request.getContextPath()%>/images/common/sns.png" width="200px height:100px">
+                
             </div>
         </div>
     </footer>

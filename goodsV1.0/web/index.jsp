@@ -263,7 +263,7 @@
         <div>
             <div style="position: absolute;">
                 <div style="position: relative; top: 10px; left: 10px;">
-                    <img id="goodslogo" src="<%=request.getContextPath()%>/images/영문검정.png"></img>
+                    <img id="goodslogo" src="<%=request.getContextPath()%>/images/common/영문검정.png"></img>
 
                     <ul class="typing-txt">
                         <li>굿즈계의 떠오르는 샛별</li>
@@ -281,7 +281,7 @@
                     <!-- <h2 class="goodstext">굿즈계의 떠오르는 샛별<br>G 굿즈를 만나보세요<br>good goods</h2> -->
                 </div>
             </div>
-            <img id="star" src="<%=request.getContextPath()%>/images/이미지.jpg"></img>
+            <img id="star" src="<%=request.getContextPath()%>/images/common/이미지.jpg"></img>
         </div>
     </div>
    
@@ -290,34 +290,34 @@
 
         <div>
             <div id="airpod">
-                <img src="<%=request.getContextPath()%>/images/에어팟2.jpg" width="300px" alt="">
+                <img src="<%=request.getContextPath()%>/images/product/thumbnail/airpods.jpg" width="300px" alt="">
                 <br><br><a href="">에어팟 케이스</a>
                 <br>
                 <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
                     매일매일 새로운 에어팟을 즐겨보세요.</p>
-                <img id="sale" src="<%=request.getContextPath()%>/images/대량구매.png" width="50px">
+                <img id="sale" src="<%=request.getContextPath()%>/images/common/대량구매.png" width="50px">
             </div>
         </div>
 
         <div id="phone">
-            <img src="<%=request.getContextPath()%>/images/핸드폰.jpg" width="300px" alt="">
+            <img src="<%=request.getContextPath()%>/images/product/thumbnail/smartphone.jpg" width="300px" alt="">
             <br><br> <a href="">핸드폰 케이스</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
                 매일매일 바꿔끼고 싶은<br>특별한 케이스를 만들어보세요.</p>
         </div>
 
         <div id="key">
-            <img src="<%=request.getContextPath()%>/images/키링.jpg" width="300px" alt="">
-            <br><br> <a href="">호텔 키링</a>
+            <img src="<%=request.getContextPath()%>/images/product/thumbnail/keyring.jpg" width="300px" alt="">
+            <br><br> <a href="">키링</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109); margin-top: 10px;">
-                요즘 인싸들의 대란템!<br>호텔 키링을 만나보세요.</p>
+                요즘 인싸들의 대란템!<br>키링을 만나보세요.</p>
         </div>
     </div>
 
     <div class="imgss2">
 
         <div id="badge">
-            <img src="<%=request.getContextPath()%>/images/뱃지.jpg" width="300px  margin-top: 10px;">
+            <img src="<%=request.getContextPath()%>/images/product/thumbnail/badge.jpg" width="300px  margin-top: 10px;">
             <br><br><a href="">뱃지</a>
             <br>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
@@ -325,14 +325,14 @@
         </div>
 
         <div id="tee">
-            <img src="<%=request.getContextPath()%>/images/티셔츠.jpg" width="300px" alt="">
+            <img src="<%=request.getContextPath()%>/images/product/thumbnail/tshirt.jpg" width="300px" alt="">
             <br><br> <a href="">티셔츠</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
                 친구들과 함께<br>커스텀 티셔츠를 만들어보세요.</p>
         </div>
 
         <div id="bag">
-            <img src="<%=request.getContextPath()%>/images/에코백.jpg" width="300px" alt="">
+            <img src="<%=request.getContextPath()%>/images/product/thumbnail/ecobag.jpg" width="300px" alt="">
             <br><br><a href="">에코백</a>
             <br>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
@@ -349,28 +349,28 @@
 
             <div class="pro-text">
                 <div class="ptext1">
-                    <img src="<%=request.getContextPath()%>/images/상품선택.png" alt="">
+                    <img src="<%=request.getContextPath()%>/images/common/상품선택.png" alt="">
                     <p style="font-weight: bold;">01. 상품 선택</p><br>
                     <p style="font-size: 13px;">만들고 싶은 상품을<br>
                         선택해주세요.</p>
                 </div>
 
                 <div class="ptext2">
-                    <img src="<%=request.getContextPath()%>/images/사진저장.png" alt="">
+                    <img src="<%=request.getContextPath()%>/images/common/사진저장.png" alt="">
                     <p style="font-weight: bold;">02. 사진 추가</p><br>
                     <p style="font-size: 13px;">사진 영역에 원하시는 사진을<br>
                         추가해주세요.</p>
                 </div>
 
                 <div class="ptext3">
-                    <img src="<%=request.getContextPath()%>/images/cart.png" alt="">
+                    <img src="<%=request.getContextPath()%>/images/common/cart.png" alt="">
                     <p style="font-weight: bold;">03. 장바구니 저장</p><br>
                     <p style="font-size: 13px;">내맘대로 사진을 편집하고,<br>
                         장바구니 클릭하면 끝!</p>
                 </div>
 
                 <div class="ptext4">
-                    <img src="<%=request.getContextPath()%>/images/배송.png" alt="">
+                    <img src="<%=request.getContextPath()%>/images/common/배송.png" alt="">
                     <p style="font-weight: bold;">04. 굿즈빠른배송</p><br>
                     <p style="font-size: 13px;">지금 주문하면 내일 출고 예정!<br>
                 </div>
@@ -381,6 +381,8 @@
     </div>
 
 </section>
+
+
 <script>
     // 로고 밑에 타이핑 되는 테스트
 

@@ -48,7 +48,7 @@
 	<!-- ======================================================================================== -->
 
 
-	<header>
+<header>
 		<!-- 상부 우측메뉴 -->
 		<div class="util">
 			<div class="container">
@@ -112,7 +112,7 @@
 
 			<!-- 로고 -->
 			<span class="logo"> <img
-				src="<%=request.getContextPath()%>/images/영문검정.png" width="300px"
+				src="<%=request.getContextPath()%>/images/common/영문검정.png" width="300px"
 				height="150px" alt="goodgoods">
 			</span>
 
@@ -127,9 +127,9 @@
 					<li><span><a href="<%=request.getContextPath()%>/reviewList"> 리뷰</a></span></li>
 					<li id="middleBar-img"></li>
 					<li><a href="https://www.kakaocorp.com/"><img id="cart"
-							src="<%=request.getContextPath()%>/images/cart.png" alt=""></a></li>
+							src="<%=request.getContextPath()%>/images/common/cart.png" alt=""></a></li>
 					<li><a href="https://www.kakaocorp.com/"><img id="love"
-							src="<%=request.getContextPath()%>/images/icon.png" alt=""></a></li>
+							src="<%=request.getContextPath()%>/images/common/love.png" alt=""></a></li>
 				</ul>
 
 				<ul class="mainMenu2">
@@ -178,7 +178,7 @@
 					method="post" onsubmit="return loginSubmit();">
 					<div class="top-login">
 						<span> <img class="login-logo"
-							src="<%=request.getContextPath()%>/images/로그인영문.png">
+							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
 						</span>
 						<div class="inputLogin">
 							<input type="text" name="email" placeholder="이메일 또는 아이디">
@@ -190,19 +190,19 @@
 					</div>
 					<div id="loginCenterImg">
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/kakao.png"
+							<img src="<%=request.getContextPath()%>/images/common/kakao.png"
 								alt="kakao">
 						</div>
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/face.png"
+							<img src="<%=request.getContextPath()%>/images/common/face.png"
 								alt="facebook">
 						</div>
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/googleicon.png"
+							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/naver.png"
+							<img src="<%=request.getContextPath()%>/images/common/naver.png"
 								alt="naver">
 						</div>
 					</div>
@@ -408,7 +408,7 @@
 					관리자에게 문의하세요
 					</h4>
 				</div>
-				<div class="enrollEnd">
+				<div class="enrol lEnd">
 					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">

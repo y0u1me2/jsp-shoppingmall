@@ -33,6 +33,7 @@
 	background: transparent
 		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
 		no-repeat left 6px;
+	text-decoration:none;
 }
 
 ul {
