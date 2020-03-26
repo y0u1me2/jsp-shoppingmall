@@ -11,19 +11,18 @@
 <%
 
 	Member loginMember = (Member) session.getAttribute("loginedMember");//로그인 세션
+	String loginResult=(String)session.getAttribute("loginResult");
 	//boolean isUseAble=(boolean)request.getAttribute("isUseAble");//중복사용 가능 불가능
 	//String checkedEmail=(String)request.getAttribute("emailCheck");//중복검사한 이메일
 	//int duplication=Integer.parseInt(request.getParameter("duplication"));
-
-	String str="아시댕";//이거는 시발
 	
 	
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
 %>
 <script>
-		var loginMember=<%=request.getParameter("login")%>;
-		console.log(loginMember);
+		var loginResult='<%=loginResult%>';
+		console.log(loginResult);
 </script>
 
 <!DOCTYPE html>
