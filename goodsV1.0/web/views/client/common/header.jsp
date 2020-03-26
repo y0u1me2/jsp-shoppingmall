@@ -54,7 +54,7 @@
 			<div class="container">
 				<ul class="right-top">
 					<li>
-						<button type="button">고객센터</button>
+						<button type="button"><a href="<%=request.getContextPath() %>/schome">고객센터</a></button>
 					</li>
 					<li>
 						<button type="button">주문/배송</button>
