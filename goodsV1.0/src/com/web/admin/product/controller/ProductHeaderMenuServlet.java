@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.product.service.ProductService;
+import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
 
@@ -28,7 +28,7 @@ public class ProductHeaderMenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//헤더 메뉴 상품 가져오기
-		List<Product> list =  new ProductService().productCategory();
+		List<Product> list =  new AdminProductService().productCategory();
 		
 		
 		
