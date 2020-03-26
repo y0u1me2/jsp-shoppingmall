@@ -1,5 +1,6 @@
 package com.web.product.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -34,8 +35,18 @@ public class ProductCustomEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		//파일저장경로
 		String path = getServletContext().getRealPath("/upload/custom");
+		File folder = new File(path);
+
+		// 해당 디렉토리가 없을경우 디렉토리를 생성
+		if (!folder.exists()) {
+			try{
+				folder.mkdir();
+		    }catch(Exception e){
+	        	e.getStackTrace();
+	        }  
+	    }
+		
 				
 		//업로드 파일 최대용량 설정
 		int maxSize = 1024*1024*10;//10메가

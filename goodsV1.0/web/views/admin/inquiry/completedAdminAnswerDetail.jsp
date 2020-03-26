@@ -125,7 +125,7 @@ table#tbl-detail td {
 					<th>첨부파일</th>
 					<td>
 						<%if(ia.getIa_Original_Filename()!=null){ %> 
-						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=ia.getIa_Original_Filename()%>">
+						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=ia.getIa_Renamed_Filename()%>">
 							<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
 								<span><%=ia.getIa_Original_Filename()%></span> 
 						</a>

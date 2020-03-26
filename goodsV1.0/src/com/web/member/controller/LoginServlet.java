@@ -42,12 +42,18 @@ public class LoginServlet extends HttpServlet {
 		// 2. DB에 id와 pw가 일치한 값이 있는지 확인하고, 일치하는 값이 있으면 그 데이터를 가져오자
 		Member m = new MemberService().loginMember(email, pw);
 		HttpSession session = request.getSession();
-		int result=0;
-		if (m != null) {
-			session.setAttribute("loginedMember", m);
-			result=1;
-			session.setAttribute("login", result);
+		String loginResult="N";
+		String emailCheck=m.getM_EmailCheck();
+		String m_status=m.getM_Status();
+		System.out.println(emailCheck);
+		System.out.println(m_status);
+		if (m != null&&m_status.equals("Y")&&emailCheck.equals("Y")) {
+			loginResult="Y";		
 		}
+		session.setAttribute("loginedMember", m);
+		session.setAttribute("loginResult", loginResult);
+		session.setAttribute("emailCheck", emailCheck);
+		session.setAttribute("m_status", m_status);
 		response.sendRedirect(request.getContextPath());
 
 	}

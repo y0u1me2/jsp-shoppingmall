@@ -6,14 +6,18 @@
 <%
 	List<Inquiry> list = (List) request.getAttribute("list");
 
-/* 원하는  조회기간 별로 출력하기 */
-int cPage = (int)request.getAttribute("cPage");
-String numPer = request.getParameter("numPerPage");
+	/* 원하는  조회기간 별로 출력하기 */
+	int cPage = (int)request.getAttribute("cPage");
+	String numPer = request.getParameter("numPerPage");
 %>
 
 <%@ include file="/views/admin/common/header.jsp"%>
 
 <style>
+div.content-wrapper{
+	background-color:white;
+}
+
 * {
 	margin: 0;
 }
@@ -27,11 +31,9 @@ body {
 div.back {
 	width: 80%;
 	position: relative;
+	left:200px;
 	top: 50px;
-	bottom: 50px;
-	display: flex;
-	left: 360px;
-	height: 880px;
+	height: auto;
 }
 
 /* content 공간 */
@@ -98,10 +100,6 @@ div#pageBar a {
 	color: rgb(95, 93, 93);
 }
 
-/*  a{
-    	text-decoration: none;
-        color: rgb(95, 93, 93);
-    } */
 
 /* 답변상태 버튼 */
 #inquiry-btn {
@@ -140,13 +138,13 @@ div#pageBar a {
 /* 버튼위치 */
 .gleft{
 	position:relative;
-	right:330px;
+	right:250px;
 
 }
 
 #numPerPage{
 	position:relative;
-	left:370px;
+	left:285px;
 	top:-25px;
 }
 
@@ -172,13 +170,33 @@ div#pageBar a {
 	color: rgb(255, 109, 1);
 }
 
+   #pageBar{
+      width:80%;
+      margin: 40px 0 40px 0;
+      text-align:center;
+   }
+   #pageBar>a,#pageBar>span{
+      width: 40px;
+       height: 40px;
+       text-align: center;
+       line-height: 40px;
+       border: 1px solid #eee;
+       color: #999;
+       background-color: #fff;
+       margin: 0 2px;
+       position: relative;
+       font-size: 13px;
+       font-family: "YoonGothicPro760";
+       display: inline-block;
+       vertical-align: top;
+   }
 
 </style>
 
 <!-- ============================================================== -->
 
 
-<section>
+ <div class="content-wrapper">
 	<div class="back">
 
 		<div class="goodsback">
@@ -208,22 +226,20 @@ div#pageBar a {
 					</div>
 
 					<div class="gright" id="numPerPage-container">
+					
 						<form name="numPerPageFrm" id="numPerPageFrm"
-							style="margin-left: 5px"
-							action="<%=request.getContextPath()%>/InquiryList">
-							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
-								name="numPerPage" id="numPerPage">
-								<option value="10"
-									<%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩
-									보기</option>
-								<option value="20"
-									<%=numPer==null || numPer.equals("20")?"selected":"" %>>20개씩
-									보기</option>
-								<option value="30"
-									<%=numPer==null || numPer.equals("30")?"selected":"" %>>30개씩
-									보기</option>
+						action="<%=request.getContextPath()%>/InquiryList">
+							
+							<input type="hidden" name="cPage" value="<%=cPage%>">
+							 
+							<select name="numPerPage" id="numPerPage">
+								<option value="10" <%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩 보기</option>
+								<option value="20" <%=numPer==null || numPer.equals("20")?"selected":"" %>>20개씩 보기</option>
+								<option value="30" <%=numPer==null || numPer.equals("30")?"selected":"" %>>30개씩 보기</option>
 							</select>
+							
 						</form>
+											
 					</div>
 				</div>
 				</br>
@@ -322,9 +338,14 @@ div#pageBar a {
 
 		}
 		
+		//사용자가 조회기간 지정하기		
+	   $("#numPerPage").change(()=>{
+	        $("#numPerPageFrm").submit();
+	     });
+				
 		
 	</script>
 
-</section>
+</div>
 
 <%@ include file="/views/admin/common/footer.jsp"%>

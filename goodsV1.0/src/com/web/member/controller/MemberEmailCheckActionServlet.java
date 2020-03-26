@@ -40,15 +40,6 @@ public class MemberEmailCheckActionServlet extends HttpServlet {
 		if (request.getParameter("code") != null) {
 			code = request.getParameter("code");
 		}
-
-		/*
-		 * String email = null; if(request.getAttribute("email")!=null) {
-		 * email=(String)request.getAttribute("email"); }if(email == null) { PrintWriter
-		 * script = response.getWriter(); script.println("<script>");
-		 * script.println("<alert('로그인해주세요')>");
-		 * script.println("location.href='userLogin.jsp'"); script.println("</script>");
-		 * script.close(); }
-		 */
 		String userName=(String) request.getParameter("userName");
 		Member m=new MemberService().searchEmail(userName);
 		
@@ -66,8 +57,6 @@ public class MemberEmailCheckActionServlet extends HttpServlet {
 				loc="/";
 			}
 			request.getRequestDispatcher(loc).forward(request, response);
-		}else {
-			
 		}
 	}
 

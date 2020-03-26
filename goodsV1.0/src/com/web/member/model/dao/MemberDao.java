@@ -18,7 +18,7 @@ public class MemberDao {
 
 	public MemberDao() {
 		try {
-			String path=MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
+			String path=MemberDao.class.getResource("/sql/client/member-query.properties").getPath();
 			prop.load(new FileReader(path));
 		}catch(IOException e) {
 			e.printStackTrace();
@@ -45,6 +45,8 @@ public class MemberDao {
 				m.setM_Post(rs.getString("M_POST"));
 				m.setM_Phone(rs.getString("M_PHONE"));
 				m.setM_Enroll(rs.getDate("M_ENROLL"));
+				m.setM_EmailCheck(rs.getString("M_EMAILCHECK"));
+				m.setM_Status(rs.getString("M_STATUS"));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
