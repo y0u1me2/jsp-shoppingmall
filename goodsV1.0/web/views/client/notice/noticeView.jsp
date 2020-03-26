@@ -121,7 +121,7 @@
 	<p class="not-btn">
 		<span class="button small">
 			<span class="typeA">
-				<button type="button" class="list" onclikc="goList()">목록</button>
+				<button type="button" class="list" onclick="goList()">목록</button>
 			</span>
 		</span>
 	</p>

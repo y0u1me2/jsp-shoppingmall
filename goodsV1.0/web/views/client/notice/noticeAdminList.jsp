@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/admin/common/header.jsp" %>
-<%@ page import="java.util.List,com.web.member.model.vo.Member" %>
+<%@ page import="java.util.List,com.web.notice.model.vo.Notice" %>
 
 <%
-   List<Member> list=(List)request.getAttribute("list");
+   List<Notice> list=(List)request.getAttribute("list");
    String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";
    String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
-   int totalMember=(int)request.getAttribute("totalMember");
-   int finderMember=(int)request.getAttribute("finderMember");
+   int totalDate=(int)request.getAttribute("totalDate");
+   int finderDate=(int)request.getAttribute("finderDate");
    int cPage=(int)request.getAttribute("cPage");
    int numPer=(int)request.getAttribute("numPerPage");
 %>
@@ -84,6 +84,7 @@
         display: block;
     }
     /* 회원정보 조회테이블 스타일 */
+    
     div.memberSearch>table{
         line-height: 1.5;
         background-color: #fff;
@@ -307,7 +308,28 @@
         padding: 50px 0;
         text-align: center;
    }
-    
+    /* 페이지바 */
+    #pageBar{
+		width:80%;
+		margin: 40px 0 40px 0;
+		text-align:center;
+	}
+	#pageBar>a,#pageBar>span{
+		width: 40px;
+	    height: 40px;
+	    text-align: center;
+	    line-height: 40px;
+	    border: 1px solid #eee;
+	    color: #999;
+	    background-color: #fff;
+	    margin: 0 2px;
+	    position: relative;
+	    font-size: 13px;
+	    font-family: "YoonGothicPro760";
+	    display: inline-block;
+	    vertical-align: top;
+	}
+
     </style>
 
 
@@ -320,14 +342,14 @@
         <div class="goodsback">
             <br><br>
 
-            <h1 id="one">회원조회/목록</h1>
+            <h1 id="one">게시판조회/목록</h1>
             <hr id="gline">
             <br/><br/>
             
             <!-- 회원정보 조회 div -->
             
             <div style="margin-bottom: 30px;">
-              <h4 style="font-size: 17px;">회원 조회</h4>
+              <h4 style="font-size: 17px;">게시판 조회</h4>
                 <div class="memberSearch">
                     <!-- 회원정보 조회 테이블 -->
                     <table border="1" summary >
@@ -345,67 +367,42 @@
                                 <td colspan="3">
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
                                      <select name="serach_Type" id="serach_Type" class="fSelect">
-                                        <option value="All" <%=type!=null&&type.equals("All")?"selected":"" %>>전체검색</option>
-                                        <option value="m_Name" <%=type!=null&&type.equals("m_Name")?"selected":"" %>>이름</option>
-                                        <option value="m_Email" <%=type!=null&&type.equals("m_Email")?"selected":"" %>>이메일</option>
-                                        <option value="m_Enroll" <%=type!=null&&type.equals("m_Enroll")?"selected":"" %>>가입일</option>
-                                        <option value="m_NickName" <%=type!=null&&type.equals("m_NickName")?"selected":"" %>>닉네임</option>
-                                        <option value="m_No" <%=type!=null&&type.equals("m_No")?"selected":"" %>>회원번호</option>
-                                        <option value="m_Phone" <%=type!=null&&type.equals("m_Phone")?"selected":"" %>>전화번호</option>
+                                        <option value="All">전체검색</option>
+                                        <option value="m_Name">제목</option>
+                                        <option value="m_Email">작성자</option>
+                                        <option value="m_Enroll">번호</option>
                                        </select> 
                                     <!-- 개인정보 검색 -->
 
                                     <div id="search_All">
-                                       <form action="<%=request.getContextPath()%>/admin/memberList">
+                                       <form action="<%=request.getContextPath()%>/admin/noticeList">
                                           <input type="hidden" name="searchType" value="All"/>
-                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("All")?keyword:""%>" placeholder="전체 검색" readonly/>
+                                          <input type="text" name="searchKeyword"  placeholder="전체 검색" readonly/>
                                            <button type="submit" class="btn_Search">검색</button>
                                         </form>
                                     </div>
 
                                       <div id="search_m_Name">
-                                         <form action="<%=request.getContextPath()%>/admin/memberFinder">
+                                         <form action="<%=request.getContextPath()%>/admin/noticeFinder">
                                           <input type="hidden" name="searchType" value="m_Name"/>
-                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_Name")?keyword:""%>" placeholder="검색할 이름 입력"/>
+                                          <input type="text" name="searchKeyword" placeholder="검색할 제목 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
                                      <div id="search_m_Email">
-                                        <form action="<%=request.getContextPath()%>/admin/memberFinder">
+                                        <form action="<%=request.getContextPath()%>/admin/noticeFinder">
                                           <input type="hidden" name="searchType" value="m_Email"/>
-                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_Email")?keyword:""%>" placeholder="검색할  이메일 입력"/>
+                                          <input type="text" name="searchKeyword" placeholder="검색할  작성자 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
                                      <div id="search_m_Enroll">
-                                        <form action="<%=request.getContextPath()%>/admin/memberFinder">
+                                        <form action="<%=request.getContextPath()%>/admin/noticeFinder">
                                           <input type="hidden" name="searchType" value="m_Enroll"/>
-                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_Enroll")?keyword:""%>" placeholder="검색할 가입일 입력"/>
+                                          <input type="text" name="searchKeyword" placeholder="검색할 번호 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
-                                     <div id="search_m_NickName">
-                                        <form action="<%=request.getContextPath()%>/admin/memberFinder">
-                                          <input type="hidden" name="searchType" value="m_NickName"/>
-                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_NickName")?keyword:""%>" placeholder="검색할 닉네임 입력"/>
-                                          <button type="submit" class="btn_Search">검색</button>
-                                       </form>
-                                    </div>
-                                     <div id="search_m_No">
-                                        <form action="<%=request.getContextPath()%>/admin/memberFinder">
-                                          <input type="hidden" name="searchType" value="m_No"/>
-                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_No")?keyword:""%>" placeholder="검색할 회원번호 입력"/>
-                                          <button type="submit" class="btn_Search">검색</button>
-                                       </form>
-                                    </div>
-                                     <div id="search_m_Phone">
-                                        <form action="<%=request.getContextPath()%>/admin/memberFinder">
-                                          <input type="hidden" name="searchType" value="m_Phone"/>
-                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_Phone")?keyword:""%>" placeholder="검색할 전화번호 입력"/>
-                                          <button type="submit" class="btn_Search">검색</button>
-                                       </form>
-                                    </div>
-                                    
                                 </td>
                             </tr>
                         </tbody>
@@ -418,32 +415,33 @@
             <div style="margin-bottom: 30px;">
                 <div class="mListTitle">
                 <!-- 회원목록 타이틀 -->
-                    <h4 style="font-size: 17px;">회원 목록</h4>
+                    <h4 style="font-size: 17px;">게시판 목록</h4>
                 </div>
                 <!-- 총 회원수 및 검색 결과 -->
                 <div class="mState">
                     <p class="total">
-                        [총 회원수 <strong><%=totalMember%></strong>명] 검색결과 
-                        <strong><%=finderMember%></strong>건
+                        [총 게시판목록 <strong><%=totalDate%></strong>명] 검색결과 
+                        <strong><%=finderDate%></strong>건
                     </p>
                 </div>
                 <!-- 회원목록 박스 헤더 -->
                 <div class="mListHeader">
                     <div class="gleft">
-                        <button type="button" class="btn_Wihte" onclick=" mAllClickSelect()">전체선택</button>
-                        <button type="button" class="btn_Wihte" onclick=" mAllClickRelease()">선택해제</button>
-                        <button type="button" class="btn_Wihte" onclick=" mCkDelete()">삭제</button>
+                        <button type="button" class="btn_Wihte" >전체선택</button>
+                        <button type="button" class="btn_Wihte" >선택해제</button>
+                        <button type="button" class="btn_Wihte" >삭제</button>
+                        <button type="button" class="btn_Wihte" id="write">글쓰기</button>
                     </div>
                     
                     <div class="gright" id="numPerPage-container">
-                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==null||type.equals("All")?"memberList":"memberFinder"%>">   
+                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==null||type.equals("All")?"noticeList":"noticeFinder"%>">   
                        <input type="hidden" name="cPage" value="<%=cPage%>">
                        <input type="hidden" name="searchType" value="<%=type%>">
                        <input type="hidden" name="searchKeyword" value="<%=keyword%>">                                          
                        <select name="numPerPage" id="numPerPage">
-                          <option value="10" <%=numPer==10?"selected":"" %>>10개씩 보기</option>
-                          <option value="20" <%=numPer==20?"selected":"" %>>20개씩 보기</option>
-                          <option value="30" <%=numPer==30?"selected":"" %>>30개씩 보기</option>
+                          <option value="10">10개씩 보기</option>
+                          <option value="20">20개씩 보기</option>
+                          <option value="30">30개씩 보기</option>
                        </select>
                        
                  <!-- select선택을하면 데이터 출력갯수가 옵션값으로 변경 -->
@@ -457,163 +455,62 @@
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
                         <col style="width:90px;">
-                        <col style="width:90px;">
-                        <col style="width:100px;">
-                        <col style="width:130px;">
-                        <col style="width:130px;">
                         <col style="width:auto;">
-                        <col style="width:155px;">
+                        <col style="width:100px;">
+                        <col style="width:100px;">
+                        <col style="width:100px">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox"  onclick="mAllClick()"></th>
-                                <th scope="col">가입일</th>
-                                <th scope="col">회원번호</th>
-                                <th scope="col">이름</th>
-                                <th scope="col">아이디</th>
-                                <th scope="col">전화번호</th>     
-                                <th scope="col">이메일</th>
+                                <th scope="col"><input type="checkbox"></th>
+                                <th scope="col">번호</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">작성일</th>
                                 <th scope="col">회원삭제</th>
                             </tr>
                         </thead>
-                       
+                                         
                         <tbody>
                         <%if (list.isEmpty()) {%>
                              <tr>
-                              <td id="conbox" colspan='8'>
+                              <td id="conbox" colspan='6'>
                                  <p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
                               </td>
                            </tr>
                         <%} else { %>
-                           <%for(Member m : list){ %>                            
+                           <%for(Notice m : list){ %>                            
                               <tr>
-                                 <td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="<%=m.getM_Email()%>"></td>
+                                 <td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="<%=m.getnNo()%>"></td>
                                  
-                                 <td><%=m.getM_Enroll() %></td>
-                                 <td><%=m.getM_No() %></td>
-                                 <td><%=m.getM_Name() %></td>
-                                 <td><%=m.getM_NickName() %></td>
-                                 <td><%=m.getM_Phone() %></td>
-                                 <td><%=m.getM_Email() %></td>
+                                 <td><%=m.getnNo()%></td>
+                                 <td><%=m.getnTitle()%></td>
+                                 <td><%=m.getnWriter()%></td>
+                                 <td><%=m.getnDate()%></td>
                                  <td>
-                                    <button type="button" class="btn_Wihte" onclick="memberDelete();" value="<%=m.getM_Email()%>">삭제</button>
+                                    <button type="button" class="btn_Wihte" onclick="memberDelete();" value="<%=m.getnNo()%>">삭제</button>
                                  </td>
                               </tr>                      
                            <%} %>
                        <%} %>
                         </tbody>
-                       
+              
                     </table>
                     
                   <!--   <p class="empty">검색한 회원 결과가 없습니다.</p> -->
                 </div>
                 </form>
-            <div id="pageBar" style="width:80%; text-align:center; padding:20px 0;">
+            <div id="pageBar">
                     <%=request.getAttribute("pageBar") %>
-              </div>
-      
             </div>
-            
-            
+            </div>
         </div>
     </div>
     </section>
    <script>
-         $(function(){
-            $("#serach_Type").change(()=>{
-               //console.log($(event.target).val());
-               let type=$("#serach_Type").val();
-               let sarchAll=$("#search_All");
-               let mName=$("#search_m_Name");
-               let mEmail=$("#search_m_Email");
-               let mEnroll=$("#search_m_Enroll");
-               let mNickName=$("#search_m_NickName");
-               let mNo=$("#search_m_No");
-               let mPhone=$("#search_m_Phone");
-               sarchAll.hide();
-               mName.hide();
-               mEmail.hide();
-               mEnroll.hide();
-               mNickName.hide();
-               mNo.hide();
-               mPhone.hide();   
-               $("#search_"+type).css("display","inline-block");
-            })
-             $("#serach_Type").trigger("change"); 
-            /* 떳다 사라짐 들어갈때 실행이됨 */
-         });
-         
-         $(function(){
-            
-         $("#numPerPage").change(function(){
-            $("#numPerPageFrm").submit();
-         });
-      });
-         
-      //체크박스 전체선택하기
-        var check = false;
-        var chk = document.getElementsByName("mRowCheck");
-        function mAllClick(){
-         
-           if (check == false) {
-              check = true;
-              for (var i = 0; i < chk.length; i++) {
-                 chk[i].checked = true; //모두 체크
-              }
-           } else {
-              check = false;
-              for (var i = 0; i < chk.length; i++) {
-                 chk[i].checked = false; //모두 해제
-              }
-           }
-        };
-        function mAllClickSelect(){
-            check = true;
-             for (var i = 0; i < chk.length; i++) {
-                chk[i].checked = true; //모두 체크
-             }
-        };
-        function mAllClickRelease(){
-             check = false;
-              for (var i = 0; i < chk.length; i++) {
-                 chk[i].checked = false; //모두 해제
-              }
-        }
-        
-        //멤버 삭제
-        function memberDelete(){
-          var result = confirm('회원을 탈퇴시키겠습니까?'); 
-          if(result) { 
-            var deleteMail=$(event.target).val();
-             location.replace("<%=request.getContextPath()%>/admin/memberDelete?m_Email="+deleteMail);
-          } else {
-          }   
-       }
-        
-        //멤버삭제 위에 버튼
-        function mCkDelete(){   
-           //mRowCheck
-           var result = confirm('회원을 탈퇴시키겠습니까?'); 
-           var count=0;
-           var mRowCheck=$(".mRowCheck");
-          if(result) { 
-              var mRowCheck=$(".mRowCheck");
-             for(let i=0;i<mRowCheck.length;i++){
-                if(mRowCheck[i].checked==true){
-                   
-                   console.log(mRowCheck[i]);
-                   count++;
-                }
-             }
-             if(count==0){
-                alert("체크를 해주세요.");
-             }
-          }else {
-             
-          }   
-
-        }
-        
-      </script>
+   		$("#write").click(function(){
+   			location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
+   		})
+   </script>
 
 
 

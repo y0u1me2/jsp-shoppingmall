@@ -48,9 +48,11 @@
 		padding-left:50px;
 	}
 	#pageBar{
+		width:80%;
 		margin: 40px 0 40px 0;
+		text-align:center;
 	}
-	#pageBar>a,#spanBar{
+	#pageBar>a,#pageBar>span{
 		width: 40px;
 	    height: 40px;
 	    text-align: center;
@@ -64,9 +66,6 @@
 	    font-family: "YoonGothicPro760";
 	    display: inline-block;
 	    vertical-align: top;
-	}
-	#pageBar{
-		text-align:center;
 	}
 </style>
 <section class="back">
