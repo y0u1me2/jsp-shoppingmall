@@ -8,7 +8,7 @@
     $("ul.mainMenu").mouseenter(function () {
         $(".subMenu").slideDown(1000);        
     })
-    $$(".topMenu").mouseleave(function() {
+    $(".topMenu").mouseleave(function() {
     	$(".subMenu").slideUp(1000);  
     })
 
