@@ -13,7 +13,6 @@
     /* a태그 방문시 텍스트 색상 */
    
     a{
-        text-decoration: none;
         color: rgb(95, 93, 93);
     }
 

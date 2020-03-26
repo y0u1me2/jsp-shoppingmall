@@ -31,6 +31,7 @@ ul.lnb_list a {
 	background: transparent
 		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
 		no-repeat left 6px;
+	text-decoration:none;
 }
 
 ul {
@@ -79,6 +80,7 @@ table.box {
 table.box>tr, th, td {
 	border-top: 1px solid #e2e0e0;
 	border-bottom: 1px solid #e2e0e0;
+	padding:7px;
 }
 
 /* 1:1문의하기 텍스트 */

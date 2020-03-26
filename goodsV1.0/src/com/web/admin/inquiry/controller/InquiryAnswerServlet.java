@@ -1,5 +1,6 @@
 package com.web.admin.inquiry.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -46,9 +47,18 @@ public class InquiryAnswerServlet extends HttpServlet {
 				
 		//파일 업로드를 위한 로직처리
 		//1.파일을 저장할 경로설정
-		String path = getServletContext().getRealPath("/upload/inquiryAnswer/");
-		System.out.println("경로 : "+path);
-				
+		String path = getServletContext().getRealPath("/upload/inquiryAnswer");
+	      File folder = new File(path);
+
+	      // 해당 디렉토리가 없을경우 디렉토리를 생성
+	      if (!folder.exists()) {
+	         try{
+	            folder.mkdir();
+	          }catch(Exception e){
+	              e.getStackTrace();
+	           }  
+	       }
+	      
 		//2.업로드 파일에 대한 최대용량을 설정
 		int maxSize = 1024*1024*10; //10MB
 				
