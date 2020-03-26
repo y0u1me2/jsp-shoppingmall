@@ -53,7 +53,7 @@
 	<div class="back">
 		<div class="writeback">
 			<br><br>
-			<h1 id="one">공지사항 글쓰기</h1>
+			<h1 id="one">공지사항 수정</h1>
 			<hr id="gline">
 			<br><br>
 	<form action="<%=request.getContextPath() %>/notice/noticeWriteEnd" method="post" enctype="multipart/form-data">
@@ -81,7 +81,7 @@
         </tr>
         <tr>
             <th colspan="2" id="subm">
-               	<input type="submit" value="작성완료"/>
+               	<input type="submit" value="수정완료"/>
             </th>
         </tr>
     </table>
