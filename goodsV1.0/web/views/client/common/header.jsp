@@ -55,6 +55,9 @@
 			<div class="container">
 				<ul class="right-top">
 					<li>
+						<button type="button"><a href="<%=request.getContextPath() %>/notice/noticeList">공지사항</a></button>
+					</li>
+					<li>
 						<button type="button"><a href="<%=request.getContextPath() %>/schome">고객센터</a></button>
 					</li>
 					<li>
