@@ -412,7 +412,7 @@
             </div>
 
             <!-- 회원 목록 div -->
-            <div style="margin-bottom: 30px;">
+            <div style="margin-bottom: 150px;">
                 <div class="mListTitle">
                 <!-- 회원목록 타이틀 -->
                     <h4 style="font-size: 17px;">게시판 목록</h4>
