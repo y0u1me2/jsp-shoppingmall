@@ -12,6 +12,8 @@
 
 	Member loginMember = (Member) session.getAttribute("loginedMember");//로그인 세션
 	String loginResult=(String)session.getAttribute("loginResult");
+	String emailCheck=(String)session.getAttribute("emailCheck");//이메일체크 여부
+	String m_status=(String)session.getAttribute("m_status");//회원상태	
 	//boolean isUseAble=(boolean)request.getAttribute("isUseAble");//중복사용 가능 불가능
 	//String checkedEmail=(String)request.getAttribute("emailCheck");//중복검사한 이메일
 	//int duplication=Integer.parseInt(request.getParameter("duplication"));
@@ -62,7 +64,7 @@
 						<button type="button">장바구니</button>
 					</li>
 					<%
-						if (loginMember == null) {
+						if (loginMember == null || loginMember != null&&emailCheck.equals("N")) {
 					%>
 					<li>
 						<button type="button" onclick="openEnroll()">회원가입</button>
@@ -416,5 +418,39 @@
 			</div>
 		</div>	
 			<%} %>
+			<!-- 로그인 실패시 알림창 -->
+		<% if(loginMember!=null) {
+		if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("Y")) { %> <!-- 로그인 실패 -->
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class=" modal-enrollEnd animate">
+				<div>
+					<h4>이메일을 확인하여 인증을 완료해주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("N")) {%>
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class=" modal-enrollEnd animate">
+				<div>
+					<h4>로그인에 실패하였습니다.
+					관리자에게 문의하여주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} }%>
 		
 	</header>

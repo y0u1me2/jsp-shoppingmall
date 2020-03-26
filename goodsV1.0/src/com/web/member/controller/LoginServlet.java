@@ -43,11 +43,17 @@ public class LoginServlet extends HttpServlet {
 		Member m = new MemberService().loginMember(email, pw);
 		HttpSession session = request.getSession();
 		String loginResult="N";
-		if (m != null) {
-			session.setAttribute("loginedMember", m);
-			loginResult="Y";
+		String emailCheck=m.getM_EmailCheck();
+		String m_status=m.getM_Status();
+		System.out.println(emailCheck);
+		System.out.println(m_status);
+		if (m != null&&m_status.equals("Y")&&emailCheck.equals("Y")) {
+			loginResult="Y";		
 		}
+		session.setAttribute("loginedMember", m);
 		session.setAttribute("loginResult", loginResult);
+		session.setAttribute("emailCheck", emailCheck);
+		session.setAttribute("m_status", m_status);
 		response.sendRedirect(request.getContextPath());
 
 	}
