@@ -33,7 +33,7 @@ div.back {
 	position: relative;
 	left:200px;
 	top: 50px;
-	height: auto;
+	height: 1100px;
 }
 
 /* content 공간 */
@@ -90,7 +90,7 @@ td#conbox {
 /* 페이지바 위치 */
 div#pageBar {
 	position: relative;
-	left: 360px;
+	
 	top: 20px;
 }
 
