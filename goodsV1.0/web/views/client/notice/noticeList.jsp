@@ -1,6 +1,8 @@
+<%@page import="com.web.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/client/common/header.jsp" %>
+<% List<Notice> list=(List)request.getAttribute("list"); %>
 
 <style>
 	section.back{
@@ -48,9 +50,11 @@
 		padding-left:50px;
 	}
 	#pageBar{
+		width:100%;
 		margin: 40px 0 40px 0;
+		text-align:center;
 	}
-	#pageBar>a,#spanBar{
+	#pageBar>a,#pageBar>span{
 		width: 40px;
 	    height: 40px;
 	    text-align: center;
@@ -64,9 +68,6 @@
 	    font-family: "YoonGothicPro760";
 	    display: inline-block;
 	    vertical-align: top;
-	}
-	#pageBar{
-		text-align:center;
 	}
 </style>
 <section class="back">
@@ -82,51 +83,26 @@
 			<col width="70%">
 			<col width="15%">
 		</colgroup>
+			<thead>
             <tr id="trstyle">
                 <th>번호</th>
                 <th>제목</th>
                 <th>작성일</th>
             </tr>
+            </thead>
+            <tbody>
+            <%for(Notice n: list) {%>
             <tr class="trst">
-                <td class="td1">번호</td>
-                <td class="td2">제목</td>
-                <td class="td3">작성일</td>
+                <td class="td1"><%=n.getnNo() %></td>
+                <td class="td2"><%=n.getnTitle() %></td>
+                <td class="td3"><%=n.getnDate() %></td>
             </tr>
-            <tr class="trst">
-                <td class="td1">번호</td>
-                <td class="td2">제목</td>
-                <td class="td3">작성일</td>
-            </tr>
-            <tr class="trst">
-                <td class="td1">번호</td>
-                <td class="td2">제목</td>
-                <td class="td3">작성일</td>
-            </tr>
-            <tr class="trst">
-                <td class="td1">번호</td>
-                <td class="td2">제목</td>
-                <td class="td3">작성일</td>
-            </tr>
-            <tr class="trst">
-                <td class="td1">번호</td>
-                <td class="td2">제목</td>
-                <td class="td3">작성일</td>
-            </tr>
-            <tr class="trst">
-                <td class="td1">번호</td>
-                <td class="td2">제목</td>
-                <td class="td3">작성일</td>
-            </tr>
+            <%} %>
+            </tbody>
         </table>
 	</div>
 	<div id="pageBar">
-		<a href="#"><</a>
-		<a href="#">1</a>
-		<a href="#">1</a>
-		<a href="#">1</a>
-		<a href="#">1</a>
-		<a href="#">1</a>
-		<a href="#">></a>
+		<%=request.getAttribute("pageBar") %>
 	</div>
 </section>
 

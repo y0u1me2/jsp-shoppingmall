@@ -20,6 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -159,6 +160,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
           </li>
           
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-clipboard"></i>
+              <p>
+         		공지사항
+                <i class="right fas fa-angle-right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/admin/noticeList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>공지사항 목록/삭제</p>
+                </a>
+              </li> 
+            </ul>
+         
+          </li>
          
         
           

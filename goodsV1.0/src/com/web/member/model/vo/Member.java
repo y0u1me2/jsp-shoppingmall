@@ -115,6 +115,14 @@ public class Member {
 		this.m_EmailCheck = m_EmailCheck;
 	}
 
+	public String getM_Status() {
+		return m_Status;
+	}
+
+	public void setM_Status(String m_Status) {
+		this.m_Status = m_Status;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [m_No=" + m_No + ", m_NickName=" + m_NickName + ", m_Name=" + m_Name + ", m_Password="

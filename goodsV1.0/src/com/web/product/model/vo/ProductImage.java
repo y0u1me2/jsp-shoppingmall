@@ -55,6 +55,9 @@ public class ProductImage {
 		return "ProductImage [pImageNo=" + pImageNo + ", pNo=" + pNo + ", color=" + color + ", fileName=" + fileName
 				+ "]";
 	}
+
+	
+	
 	
 	
 	
