@@ -1,4 +1,4 @@
-package com.web.admin.model.service;
+package com.web.admin.member.model.service;
 
 
 import static com.web.common.JDBCTemplate.close;
@@ -8,11 +8,12 @@ import static com.web.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
-import com.web.admin.model.dao.AdminDao;
+
+import com.web.admin.member.model.dao.AdminMemberDao;
 import com.web.member.model.vo.Member;
-public class AdminService {
+public class AdminMemberService {
 	
-	private AdminDao dao = new AdminDao();
+	private AdminMemberDao dao = new AdminMemberDao();
 	
 	public List<Member> searchMember(int cPage, int numPerPage){
 		//connection관리

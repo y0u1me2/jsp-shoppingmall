@@ -6,12 +6,10 @@
     $("ul.subMenu").hide();
     // 메인메뉴 li에 마우스 클릭하면
     $("ul.mainMenu").mouseenter(function () {
-        $(".subMenu").slideToggle(1000).css({
-            width: "100%",
-            height: "100%"
-        });
-
-        // $('body').toggle().css('overflow', 'hidden');
+        $(".subMenu").slideDown(1000);        
+    })
+    $(".topMenu").mouseleave(function() {
+    	$(".subMenu").slideUp(1000);  
     })
 
 
@@ -158,7 +156,7 @@
 //    console.log('<%=memberName%>');
 //    if(!=null) {
     	//console.log(loginMember);
-    	if(loginMember>0) {
+    	if(loginResult=='Y') {
     		console.log("실행");
     		var nameBar = document.getElementById("memberName");
     		console.log(nameBar);

@@ -1,4 +1,4 @@
-package com.web.admin.controller;
+package com.web.admin.member.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.model.service.AdminService;
+import com.web.admin.member.model.service.AdminMemberService;
 import com.web.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberStatusServlet
  */
 @WebServlet("/admin/memberStatus")
-public class MemberStatusServlet extends HttpServlet {
+public class AdminMemberStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberStatusServlet() {
+    public AdminMemberStatusServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,12 +33,12 @@ public class MemberStatusServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		List<Member> list = new AdminService().memberNew();
+		List<Member> list = new AdminMemberService().memberNew();
 		
 		
-		int totalMember=new AdminService().memberCount(); //토탈회원
-		int deleteMember=new AdminService().memberDeleteCount();//탈퇴회원
-		int todayEnrollMember=new AdminService().memberTodayEnrollCount();//오늘가입회원
+		int totalMember=new AdminMemberService().memberCount(); //토탈회원
+		int deleteMember=new AdminMemberService().memberDeleteCount();//탈퇴회원
+		int todayEnrollMember=new AdminMemberService().memberTodayEnrollCount();//오늘가입회원
 		
 		
 		request.setAttribute("list", list);

@@ -1,4 +1,4 @@
-package com.web.admin.controller;
+package com.web.admin.member.controller;
 
 import java.io.IOException;
 
@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.model.service.AdminService;
+import com.web.admin.member.model.service.AdminMemberService;
 
 /**
- * Servlet implementation class MemberCkDeleteServlet
+ * Servlet implementation class MemberDeleteServlet
  */
-@WebServlet("/admin/memberCkDelete")
-public class AjaxMemberCkDeleteServlet extends HttpServlet {
+@WebServlet("/admin/memberDelete")
+public class AdminMemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxMemberCkDeleteServlet() {
+    public AdminMemberDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,10 +31,10 @@ public class AjaxMemberCkDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String[] memCkDelete = request.getParameterValues("memCkArray[]");
+		String deleteEmail=request.getParameter("m_Email");
+		System.out.println(deleteEmail);
+		int result=new AdminMemberService().memberDelete(deleteEmail);
 		
-		int result=new AdminService().memberCkDelete(memCkDelete);
-		System.out.println("result값 : "+result);
 		String msg="";//사용자자에게 띄울 메세지 내용
 		String loc="/admin/memberList";//메세지 띄운 후 이동할 페이지
 		if(result>0) {
@@ -44,18 +44,11 @@ public class AjaxMemberCkDeleteServlet extends HttpServlet {
 			msg="회원삭제실패";
 			
 		}
-		
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(msg);
-		//request.setAttribute("msg", msg);
-		//request.setAttribute("loc", loc);
-		//RequestDispatcher rd=request.getRequestDispatcher("/views/common/msg.jsp");
-		//rd.forward(request, response);
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		RequestDispatcher rd=request.getRequestDispatcher("/views/common/msg.jsp");
+		rd.forward(request, response);
 
-//		System.out.println("넘어오냐");
-//		for(int i=0;i<member.length;i++) {
-//			System.out.println(member[i]);
-//		}
 	}
 
 	/**

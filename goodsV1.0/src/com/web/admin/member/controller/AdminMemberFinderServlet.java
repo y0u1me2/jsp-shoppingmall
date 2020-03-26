@@ -1,4 +1,4 @@
-package com.web.admin.controller;
+package com.web.admin.member.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import com.web.admin.model.service.AdminService;
+import com.web.admin.member.model.service.AdminMemberService;
 import com.web.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberFinderServlet
  */
 @WebServlet("/admin/memberFinder")
-public class MemberFinderServlet extends HttpServlet {
+public class AdminMemberFinderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberFinderServlet() {
+    public AdminMemberFinderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,12 +48,12 @@ public class MemberFinderServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			numPerPage=10;
 		}
-		List<Member> list = new AdminService().searchMemberPage(cPage,numPerPage,type,keyword);
+		List<Member> list = new AdminMemberService().searchMemberPage(cPage,numPerPage,type,keyword);
 		//pageBar만들기
 		
 		
-		int totalMember=new AdminService().memberCount();
-		int finderMember=new AdminService().memberCount(type,keyword);
+		int totalMember=new AdminMemberService().memberCount();
+		int finderMember=new AdminMemberService().memberCount(type,keyword);
 		int totalPage=(int)Math.ceil((double)finderMember/numPerPage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;

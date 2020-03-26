@@ -20,6 +20,7 @@
     #img-container{
          border: 1px solid black;
          width: 50%;
+         height: 680px;
     }
 	
 	
@@ -79,11 +80,13 @@
     
      /* 라디오 버튼 클릭했을 때 공통 스타일 */
     input[type="radio"]:checked{
-    	border: 2px solid rgb(131, 130, 130);
+    	/*border: 2px solid rgb(131, 130, 130);*/
+    	border: 2px solid pink;
     }
     
     /* 빨강색 버튼 클릭했을때 테두리 색깔 파란색 */
-    input[type="radio"]#black:checked{
+    input[type="radio"]#블랙:checked{
+    
     }
 	
 	/* 라디오 버튼 밑에 써있는 텍스트 */
@@ -94,56 +97,56 @@
     }
 
     /* 흰색 버튼 */
-    input[type="radio"]#white{
+    input[type="radio"]#화이트{
          background:white;   
      }
 	
 	
 
     /* 검정색  버튼*/
-    input[type="radio"]#black{
+    input[type="radio"]#블랙{
          background:black;
     }
     
     
 
     /* 분홍색 버튼 */
-    input[type="radio"]#pink{
+    input[type="radio"]#핑크{
         background:palevioletred; 
     }
              
 
     /* 초록색 버튼 */
-    input[type="radio"]#green{
+    input[type="radio"]#그린{
          background:rgb(143, 245, 202);
     }
         
 
      /* 파란색 버튼 */
-    input[type="radio"]#blue{
+    input[type="radio"]#블루{
          background:rgb(138, 226, 241);
     }
     
     
      /* 노랑색 버튼 */
-    input[type="radio"]#yellow{
+    input[type="radio"]#옐로우{
          background:yellow;
     }
     
      /* 빨강색 버튼 */
-    input[type="radio"]#red{
+    input[type="radio"]#레드{
          background:red;
     }
     
      
     
      /* 네이비색 버튼 */
-    input[type="radio"]#navy{
+    input[type="radio"]#네이비{
          background:navy;
     }
     
      /* 보라색 버튼 */
-    input[type="radio"]#purple{
+    input[type="radio"]#퍼플{
          background:purple;
     }
    
@@ -213,7 +216,7 @@
     
     
         <div class="color-select" style="text-align:center; border:1px solid black; position:relative; top:50px; margin-bottom:50px;">
-        	<h4 style="">색상 선택</h4>
+        	<p style="font-size:20px;  font-weight: bold; ">색상 선택</p>
     		
     		<form action="<%=request.getContextPath() %>/product/custom" method="post" onsubmit="return invalid();">
     			<input type="hidden" name="pNo" value="<%=p.getpNo()%>">
@@ -224,8 +227,8 @@
     				<%for(String key : images.keySet() ){ %>
     					<div class="radio-div">
     						<input type="hidden" value="<%=images.get(key)%>">
-		                    <input id="<%=key %>" type="radio" name="colorType" value="<%=key %>">
-	                        <label for="<%=key %>"><span class="label"><%=key %></span></label>
+		                    <input id="<%=key %>" type="radio" name="colorType" value="<%=key %>" style="display: block;">
+	                        <label for="<%=key %>"><span class="label" style="display: block;"><%=key %></span></label>
 	               		</div>
     		        <%} %>
     			
@@ -273,10 +276,16 @@
 	}
 
 	$(function(){
+		//처음 페이지 로딩됐을 때 모든 라디오 버튼 선택 해제
+		$('input[type=radio]').each(function(){
+			$(this).prop("checked", false);
+		});
+		
+		//첫번째 색상을 임의로 이미지 컨테이너에 띄워줌
 		var firstRadio = $('.radio-div:first input[type=radio]');
 		$('#img-container img').attr('src', '<%=request.getContextPath()%>/images/product/'+firstRadio.prev().val());
 		
-		
+		//라디오 버튼 누를때마다 이미지 컨테이너에 보여지는 이미지 바꿔주고, 인풋 태그에 해당 파일명 넣어주기 
 		$('.radio-div input').click(function(){
 			var file = $(this).prev().val();
 			$('#img-container img').attr('src', '<%=request.getContextPath()%>/images/product/'+file);
