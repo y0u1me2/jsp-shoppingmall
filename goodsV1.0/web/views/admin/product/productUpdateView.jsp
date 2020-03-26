@@ -4,6 +4,19 @@
 
 <%@ include file="/views/admin/common/header.jsp"%>
 <style>
+div.content-wrapper{
+	background-color:white;
+	position: relative;
+	left: 100px;
+}
+
+div.goodsback{
+	width:80%;
+	height:auto;
+	position: relative;
+	top:100px;
+}
+
 * {
 	margin: 0;
 }
@@ -13,15 +26,12 @@ body {
 	height: auto;
 }
 
+
 /* 섹션안 공간  */
 div.back {
 	width: 80%;
 	position: relative;
-	top: 50px;
-	bottom: 50px;
-	display: flex;
-	left: 360px;
-	height: 850px;
+	left:150px;
 }
 
 
@@ -85,7 +95,7 @@ div.back {
 <!-- ============================================================== -->
 
 
-<section>
+ <div class="content-wrapper">
 	<div class="back">
 
 		
@@ -140,7 +150,7 @@ div.back {
 
 		</div>
 	</div>
-</section>
+</div>
 
 
 <%@ include file="/views/admin/common/footer.jsp"%>

@@ -5,6 +5,19 @@
 <%@ include file="/views/admin/common/header.jsp"%>
 
 <style>
+div.content-wrapper{
+	background-color:white;
+	position: relative;
+	left: 100px;
+}
+
+div.goodsback{
+	width:80%;
+	height:auto;
+	position: relative;
+	top:100px;
+}
+
 * {
 	margin: 0;
 }
@@ -19,11 +32,7 @@ body {
 div.back {
 	width: 80%;
 	position: relative;
-	top: 50px;
-	bottom: 50px;
-	display: flex;
-	left: 360px;
-	height: 850px;
+	left:150px;
 }
 
 /* 밑에 라인 */
@@ -55,16 +64,14 @@ div.back {
 /* 테이블 선 색상 */
 .box>tr, td {
 	border: 1px solid #e2e0e0;
+	padding:10px;
 }
+
 
 /* 테이블 크기 */
 .box {
 	width: 80%;
 	height: 250px;
-}
-
-#td1, #td2, #td3, #fbtn {
-	margin-left: 10px;
 }
 
 /* 전체 1:1상담 목록 텍스트 */
@@ -86,7 +93,7 @@ div.back {
 <!-- ============================================================== -->
 
 
-<section>
+ <div class="content-wrapper">
 	<div class="back">
 
 
@@ -140,37 +147,37 @@ div.back {
 							<td>상품 색상 설정</td>
 							<td>
 								<div id="td3">
-									<input type="radio" name="option" id="option" checked>
+									<input type="checkbox" name="option" id="option" checked>
 									<label for="option">화이트</label>
 									
-									<input type="radio" name="option" id="option2" >
+									<input type="checkbox" name="option" id="option2" >
 									<label for="option2">블랙</label>
 									
-									<input type="radio" name="option" id="option3" >
+									<input type="checkbox" name="option" id="option3" >
 									<label for="option3">핑크</label>
 									
-									<input type="radio" name="option" id="option4" >
+									<input type="checkbox" name="option" id="option4" >
 									<label for="option4">그린</label>
 									
-									<input type="radio" name="option" id="option5" >
+									<input type="checkbox" name="option" id="option5" >
 									<label for="option5">블루</label>
 									
-									<input type="radio" name="option" id="option6" >
+									<input type="checkbox" name="option" id="option6" >
 									<label for="option6">옐로우</label>
 									
-									<input type="radio" name="option" id="option7" >
+									<input type="checkbox" name="option" id="option7" >
 									<label for="option7">레드</label>
 									
-									<input type="radio" name="option" id="option8" >
+									<input type="checkbox" name="option" id="option8" >
 									<label for="option8">네이비</label>
 									
-									<input type="radio" name="option" id="option9" >
+									<input type="checkbox" name="option" id="option9" >
 									<label for="option9">퍼플</label>
 									
-									<input type="radio" name="option" id="option10" >
+									<input type="checkbox" name="option" id="option10" >
 									<label for="option10">연그레이</label>
 									
-									<input type="radio" name="option" id="option11" >
+									<input type="checkbox" name="option" id="option11" >
 									<label for="option11">진그레이</label>
 																										
 								</div>
@@ -184,6 +191,6 @@ div.back {
 
 		</div>
 	</div>
-</section>
+</div>
 
 <%@ include file="/views/admin/common/footer.jsp"%>

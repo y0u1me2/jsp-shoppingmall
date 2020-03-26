@@ -5,15 +5,25 @@
     
     
     <style>
-	
-	*{    
-        margin: 0; 
-    }
-    .
-     body{
-        width: 1366px;
-        height: auto;
-    } 
+div.content-wrapper{
+	background-color:white;
+	position: relative;
+	left: 180px;
+}
+
+div.goodsback{
+	width:80%;
+	height:auto;
+}
+
+* {
+	margin: 0;
+}
+
+body {
+	width: 1366px;
+	height: auto;
+}
 
         .back {
             height: 100%;
@@ -22,7 +32,6 @@
             top:50px;
             bottom:50px;
             display: flex;
-            left:360px;
         }
    
         /*리스트 스타일*/
@@ -46,7 +55,7 @@
         border: 1px solid rgb(177, 174, 174);
         position: relative;
         top: 20px;
-        width: 80%;
+        width: 100%;
     }
 
     .goodsback{
@@ -104,7 +113,7 @@
     /* 버튼들 위치 */
     .btns{
         position: relative;
-        left: 350px;
+        left: 200px;
         top: 480px;
     }
 
@@ -147,7 +156,8 @@
 
 <!-- ============================================================== -->
 
-    <section style="height:850px;">
+ <div class="content-wrapper">
+ 
         <div class="back">
    
         <div class="goodsback">
@@ -195,7 +205,7 @@
             </div>
         </div>
 
-    </section>
+    </div>
 
 <%@ include file="/views/admin/common/footer.jsp" %>
   

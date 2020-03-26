@@ -9,14 +9,28 @@
 
 <style>
 
-section.back {
-	width: 80%;
+div.content-wrapper{
+	background-color:white;
 	position: relative;
-	left: 360px;
-	display: flex;
-	height: 1100px;
+	left: 100px;
+}
+
+div.goodsback{
+	width:80%;
+	height:auto;
+	position: relative;
 	top:100px;
 }
+
+* {
+	margin: 0;
+}
+
+body {
+	width: 1366px;
+	height: auto;
+}
+
 
 /* 1:1문의 텍스트 */
 h1#title {
@@ -29,9 +43,10 @@ h1#title {
 
 /*제목 밑에 라인 */
 hr#line1 {
-	border: 1px solid rgb(78, 77, 77);
-	position: relative;
-	top: 20px;
+	   border: 1px solid rgb(177, 174, 174);
+        position: relative;
+        top: 20px;
+        width: 100%;
 }
 
 h1#title2 {
@@ -96,7 +111,7 @@ table#tbl-detail td {
 
 
 
-<section class="back">
+ <div class="content-wrapper">
 
 		<br><br>
 		<div class="goodsback">
@@ -160,7 +175,7 @@ table#tbl-detail td {
 		
 	</script>	
 		
-</section>
+</div>
 
 
 
