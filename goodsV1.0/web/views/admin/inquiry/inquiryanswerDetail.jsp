@@ -14,7 +14,7 @@ section.back {
 	position: relative;
 	left: 360px;
 	display: flex;
-	height:850px;
+	height: 1100px;
 	top:100px;
 }
 
