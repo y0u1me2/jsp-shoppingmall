@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <title>base</title>
+    <style>
+    *{
+        margin: 0;          
+    }
+    /* 바디 해상도 및 폰트 */
+    body{
+        /* border:1px solid black; */
+        width: 1366px;
+        height: 768px;
+        font-family:"Nanum Gothic";
+    }
+    /* 상부 유틸 메뉴 스타일 */
+    .util{
+        /* border:1px solid red; */
+        background-color:rgb(245, 245, 245);
+        border-bottom: rgb(214, 214, 214);
+        /* margin: 0; */
+        width: 100%;
+        padding: 0;
+        height: 60px;
+    }
+    /* 유틸메뉴 위치 설정 */
+    .right-top{
+        /* border:1px solid blue; */
+        float: right;
+        padding: 0;
+        /* 이걸로 메뉴 중앙정렬 */
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        /* margin-inline-start: 0px;
+        margin-inline-end: 0px; */
+        /* padding-inline-start: 40px; */
+    }
+    .right-top>li{
+        /* border:1px solid red; */
+        /* 우측 고정 */
+        float:right;
+        /* 리스트 표시 없음 */
+        list-style-type: none;
+        /* 메뉴 사이 간격 벌림 */
+        margin-left: 10px;
+    }
+    /* 유틸 메뉴의 버튼 모양 */
+    .right-top>li>button{
+        /* 버튼 색 */
+        background-color: transparent;
+        /* 버튼 외곽선 */
+        border: none;
+        /* 커서 변화 */
+        cursor: pointer;
+        /* 버튼 폰트 사이즈 및 폰트 
+            일괄 적용이 불가능하여 따로 설정함 */
+        font-size: 12px;
+        font-family: "Nanum Gothic";
+    }
+    /* 메뉴바 스타일 */
+    /* 로고사진 위치 */
+    .container2{
+        /* border: 1px solid red; */
+        display: inline-flex;
+    }
+    .logo{
+        margin-left: 120px;
+    }
+    .mainMenu{
+        /* border: 1px solid blue; */
+        display: inline-flex;
+        font-weight: bold;
+        list-style-type: none;
+        padding-top: 40px;
+        padding-right: 35px;
+    }
+    .mainMenu>li{        
+        margin-right: 30px;
+        font-size: 20px;
+        color: rgb(25, 25, 25);
+    }
+    /* 메뉴바 a링크 스타일 */
+    .mainMenu>li>a{
+        text-decoration: none;
+        color: black;
+    }
+    /* 카테고리 중간에 삽입된 OR 표시 스타일 */
+    #middleBar{
+        font-size: 15px;
+        color: rgb(168, 168, 168);
+    }
+    section{
+        width: 100%;
+        height: 50%;
+    }
+    /* 로그인 팝업 스타일 */
+    /* 팝업시 백그라운드 */
+    .modal-back {
+        display: none;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        position: fixed;
+        /* border: 1px solid black; */
+        background-color: rgba(0,0,0,0.5);       
+    }
+    /* 팝업 크기 */
+    .modal-login {
+        /* border: 1px solid black; */
+        width: 360px;
+        height: 470px;
+        padding: 40px;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        position: relative;
+    }
+    /* 로그인 상부 화면 */
+    .top-login {
+        /* border: 1px solid red; */
+        width: 100%;
+        height: 50%;
+    }
+    /* 닫기버튼(X) */
+    .close-btn {        
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .close-btn>.close {     
+        position: relative;                
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .close:hover {
+        color:red;
+    }
+    
+    /* 로그인 하부 화면 */
+    .bottom-login {
+        /* border: 1px solid blue; */
+        width: 100%;
+        height: 50%;
+        padding: 150px 0px 0px;
+    }
+    /* 로고 사진 */
+    .login-logo {
+        /* padding-bottom: 40px; */
+        padding: 0 127px 40px 127px;
+        width: 30%;
+        
+    }
+    /* 아이디 입력창 */
+    .ID>.input, .password>.input {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 1px solid rgb(238, 238, 238);
+        font-size: 14px;
+        cursor: text;
+    }
+    /* 아이디 입력창 선택시 */
+    .ID>.input:active, .password>.input:active  {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: 14px;
+        cursor: text;
+    }
+    /* 비번 입력창
+    .login-logo>.input {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 1px solid rgb(238, 238, 238);
+        font-size: 14px;
+        cursor: text;
+    }
+    비번 입력창 선택시
+    .inputId:active {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: 14px;
+        cursor: text;
+    } */
+    /* 아무것도 안쓰고 로그인 눌렀을때 나올껀데 아직 할 줄 모름 ㅇㅇ */
+    .error {
+        display: none;
+        font-size: 12pt;
+        color: red;
+    }
+    /* 로그인 버튼 */
+    .big-gray-btn {
+        padding: 0 97px;
+        line-height: 48px;
+        width: 100%;
+        font-size: 13px;
+        text-align: center;
+        font-weight: bold;
+        background-color: #757575;
+        border: 1px solid #757575;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+    }
+    /* 로그인 버튼 호버시 */
+    .big-gray-btn:hover {
+        background-color: #646464;
+        border: 1px solid #646464;
+        cursor: pointer;
+    }
+    /* 로그인창 하단 회원가입, 비번찾기 구역 */
+    .find-info {
+        padding: 30px 0 0 0;
+        width: 100%;
+        text-align: center;
+    }
+    /* 로그인창 하단 회원가입, 비번찾기 버튼 */
+    .find-info>button {
+        margin: 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        color: #191919;
+    }
+    .find-info>.line {
+        width: 1px;
+        height: 11px;
+        padding: 0 10px;
+        color: rgb(221, 221, 221);
+    }
+
+    /* 회원가입 창 스타일 */
+    .modal-enroll {
+        border: 1px solid black;
+        width: 440px;
+        padding: 40px 0 30px 0;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        position: relative;
+    }
+    /* 회원가입 중간 폼 태그 */
+    .modal-enroll>div>form {
+        border: 1px solid red;
+        width: 440px;
+    }
+    /* 회원가입 상부 타이틀 스타일 */
+    .top-enroll>h1 {
+        padding: 0 0 40px 0;
+        text-align: center;
+        font-size: 24px;
+        font-weight: normal;
+        color: black;
+    }
+    /* 회원가입 중간부 스타일 */
+    .middle-enroll {
+        border: 1px solid blue;
+        width: 380px;
+        padding: 0 30px;
+    }
+    /* 회원가입 양식 테이블 스타일 */
+    .enroll-form {
+        width: 100%;
+        text-align: left;
+        font-size: 12px;
+        border-spacing: 0;
+    }
+    /* 가입양식 로우 칸 높이 */
+    .enroll-form>tbody {
+        line-height: 50px;
+    }
+    /* 테이블 로우마다 줄 긋기 실패 */
+    .enroll-form>tbody+tr {
+        border: 1px solid red;
+    }
+    /* td부분 상하 패딩처리 */
+    .enroll-form>tbody>tr>td {
+        padding: 8px 0;
+        display: table-cell;
+    }
+    /* 가입양식 입력 input 스타일 */
+    .empty {
+        width: 90%;
+        height: 34px;
+        padding: 0 10px;
+        line-height: 34px;
+        border: 0;
+        outline: 1px solid rgb(212, 212, 212);
+    }
+    /* 회원가입 양식 중 * 별표 스타일 */
+    .enroll-form tbody tr th em {
+        color :#e5362c;
+        font-style: normal;
+        font-weight: normal;
+    }
+    /* 이용약관 동의부분 스타일 */
+    .agreement {
+        padding: 30px 0 0 0;
+    }
+    /* 이용약관 클릭부분 */
+    .agree-btn {
+        font-size: 12px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        text-decoration: underline;
+        padding: 0;
+    }
+    /* 체크박스 부분 스타일 */
+    .checkbox {
+        padding-bottom: 10px;
+    }
+    /* 약관 동의 글 스타일 */
+    .checkbox>label {
+        line-height: 16px;
+        font-size: 12px;
+        vertical-align: top;
+    }
+    /* 체크박스 체크부분 input 스타일 */
+    .checkbox>input {
+        width: 16px;
+        height: 16px;
+    }
+    /* 가입창 하단부 스타일 */
+    .bottom-enroll {
+        border: 1px solid red;
+        padding: 30px 30px 0 30px;
+    }
+    /* 비번찾기 링크 팝업 스타일 */
+    .modal-findPw {
+        border: 1px solid black;
+        width: 440px;
+        height: 535px;
+        padding: 40px 30px 30px 30px;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        position: relative;
+    }
+
+    /* 이용약관 링크 팝업 스타일 */
+    .modal-usePolicy {
+        border: 1px solid black;
+        width: 440px;
+        height: 564px;
+        padding: 40px 30px 30px 30px;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        position: relative;
+    }
+    /* 개인정보 수집 팝업 스타일 */
+    .modal-personalInfo {
+        border: 1px solid black;
+        width: 440px;
+        height: 564px;
+        padding: 40px 30px 30px 30px;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        position: relative;
+    }
+    .url-html {
+        /* border: 1px solid red; */
+        width: 100%;
+        height: 100%;
+    }
+    #htmlPolicy, #htmlpInfo, #htmlPw {
+        margin: 0;
+        padding-right: 0;
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+       /* Add Zoom Animation 
+    팝업시 줌 애니메이션*/
+    .animate {
+        -webkit-animation: animatezoom 0.6s;
+        animation: animatezoom 0.6s
+    }
+        
+    /* @-webkit-keyframes animatezoom {
+        from {-webkit-transform: scale(0)} 
+        to {-webkit-transform: scale(1)}
+    } */
+          
+    @keyframes animatezoom {
+        from {transform: scale(0)} 
+        to {transform: scale(1)}
+    }
+    .Info-Update {
+        margin: 0;
+        padding: 0;
+    }
+    .Info-top {
+        text-align: center;
+        font-size: 28px;
+        line-height: 140px;
+    }
+    
+    
+
+    /* 풋터고정 */
+    .foot{
+        border: 1px solid red;
+        width: 100%;
+        height: 100px;
+        font-size: 12px;
+        text-align: left;
+    }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <!-- 상부 우측메뉴 -->
+        <div class="util">
+            <div class="container">
+                <ul class="right-top">
+                    <li>
+                        <button id="base">고객센터</button>
+                    </li>
+                    <li>
+                        <button id="base">주문/배송</button>
+                    </li>
+                    <li>
+                        <button id="base">장바구니</button>
+                    </li>
+                    <li>
+                        <button id="base" onclick="enroll();">회원가입</button>
+                    </li>
+                    <li>
+                        <button id="base" onclick="login();">로그인</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 메뉴바 -->
+        <div class="container2">
+            <!-- 로고 -->
+            <span class="logo">
+                <img src="goodgoods.jpg" width="150px" height="100px" alt="goodgoods">
+            </span>
+            <!-- 메뉴바 -->
+            <div class="menuBar">
+                <ul class="mainMenu">
+                    <li><a href="https://www.naver.com/"># 케이스</a></li>
+                    <li id="middleBar">|</li>
+                    <li><a href="http://www.google.com"># 키링</a></li>
+                    <li id="middleBar">|</li>
+                    <li><a href="http://www.daum.net"># 패션</a></li>
+                    <li id="middleBar">|</li>
+                    <li><a href="https://www.youtube.com/"># 생활용품</a></li>
+                    <li id="middleBar">|</li>
+                    <li><a href="https://www.kakaocorp.com/"># 톡게시판</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="modal-back" id="login">
+            <!-- 로그인 팝업 -->
+            <div class="modal-login animate">
+                <form>
+                    <div class="top-login">
+                        <img class="login-logo" src="goodgoods.jpg">                    
+                        <div class="ID">
+                            <input type="text" class="input" placeholder="이메일 또는 아이디">
+                            <span class="error">아이디를 입력해주세요.</span>
+                        </div>
+                        <div class="password">
+                            <input type="password" class="input" placeholder="비밀번호" maxlength="15">
+                            <span class="error">비밀번호를 입력해주세요.</span>
+                        </div>
+                    </div>
+                    <div class="bottom-login">
+                        <button type="submit" class="big-gray-btn">로그인</button>
+                        <div class="find-info">
+                            <button type="button" onclick="enroll(); closeLogin()">회원가입</button>
+                            <span class="line">|</span>
+                            <button type="button" onclick="findPw(); closeLogin();">비밀번호 찾기</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- 로그인 창 X표시 -->
+                <div class="close-btn">
+                    <span onclick="closeLogin();" class="close" title="Close Modal">&times;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 비밀번호 찾기 -->
+        <div class="modal-back" id="findPw">
+            <!-- 이용약관 팝업-->
+            <div class="modal-findPw animate">
+                <div class="url-html">
+                    <object type="text/html" data="findPw.html" id="htmlPw"></object>
+                </div>
+                <div class="close-btn">
+                    <span onclick="closefindPw();" class="close" title="Close Modal">&times;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 회원가입 창 -->
+        <!-- 회원가입 팝업 뒷배경 -->
+        <div class="modal-back" id="enroll">
+            <!-- 회원가입 팝업-->
+            <div class="modal-enroll animate">
+                <form>
+                    <div class="top-enroll">
+                        <h1>회원가입</h1>
+                    </div>
+                    <div class="middle-enroll">
+                        <table class="enroll-form">
+                            <colgroup>
+                                <col style="width: 25%;">
+                                <col style="width: 75%;">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>이메일 <em>*</em></th>
+                                    <td>
+                                        <input class="empty" type="email" value="" 
+                                            placeholder="@를 포함한 이메일 주소 입력" maxlength="40">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>이메일 확인 <em>*</em></th>
+                                    <td>
+                                        <input class="empty" type="email" value="" 
+                                            placeholder="이메일 주소 다시 입력" maxlength="40">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>비밀번호 <em>*</em></th>
+                                    <td>
+                                        <input class="empty" type="password"" value="" 
+                                            placeholder="영문·숫자·특수문자 조합 6~15자리" maxlength="15">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>이름 <em>*</em></th>
+                                    <td>
+                                        <input class="empty" type="text" value="" 
+                                            placeholder="이름 입력" maxlength="15">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- 이용약관 -->
+                        <div class="agreement">
+                            <div class="checkbox">
+                                <input type="checkbox" onclick="agreeAll();" name="join.agreements-select-all" value="">
+                                <label for="join.agreements-select-all">
+                                    <strong>전체동의</strong>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="join.agreements[0]" value="">
+                                <label for="join.agreements[0]">
+                                    <span class="desc">만 14세 이상입니다. (필수)</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="join.agreements[1]" value="">
+                                <label for="join.agreements[1]">
+                                    <span class="desc">
+                                        <!-- react-text: 539 -->
+                                        굿굿즈 
+                                        <!-- /react-text -->
+                                        <button type="button" class="agree-btn" onclick="usePolicy(); closeEnroll();">
+                                            이용약관
+                                        </button>
+                                        <!-- react-text: 541 --> 
+                                        동의 (필수)
+                                        <!-- /react-text -->
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" name="join.agreements[2]" value="">
+                                <label for="join.agreements[2]">
+                                    <span class="desc">
+                                    <button type="button" class="agree-btn" onclick="personalInfo(); closeEnroll();">
+                                        개인정보 수집 및 이용
+                                    </button>
+                                    <!-- react-text: 547 --> 
+                                    동의 (필수)
+                                    <!-- /react-text -->
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 가입창 하단부 -->
+                    <div class="bottom-enroll">
+                        <button type="submit" class="big-gray-btn">완료</button>
+                    </div>
+                </form>
+                <div class="close-btn">
+                    <span onclick="closeEnroll();" class="close" title="Close Modal">&times;</span>
+                </div>
+            </div>            
+        </div>
+
+        <!-- 이용약관 링크 팝업 -->
+        <!-- 뒷배경 -->
+        <div class="modal-back" id="usePolicy">
+            <!-- 이용약관 팝업-->
+            <div class="modal-usePolicy animate">
+                <div class="url-html">
+                    <object type="text/html" data="usePolicy.html" id="htmlPolicy"></object>
+                </div>
+                <div class="close-btn">
+                    <span onclick="closeusePolicy(); enroll();" class="close" title="Close Modal">&times;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 개인정보 수집 링크 팝업 -->
+        <!-- 뒷배경 -->
+        <div class="modal-back" id="personalInfo">
+            <!-- 개인정보 수집 팝업-->
+            <div class="modal-personalInfo animate">
+                <div class="url-html">
+                    <object type="text/html" data="personalInfo.html" id="htmlpInfo"></object>
+                </div>
+                <div class="close-btn">
+                    <span onclick="closepersonalInfo(); enroll();" class="close" title="Close Modal">&times;</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        <div class="Info-Update">
+            <div class="Info-top">
+                회원정보수정
+            </div>
+            <table>
+                <thead>
+                    <th colspan="2">
+                        기본정보
+                    </th>
+                </thead>
+            </table>
+        </div>
+    </section>
+
+    <hr>
+    <footer class="foot">
+        
+        <pre>
+            <p>(주) 굿굿즈 대표이사 윤희연 사업자등록번호 103-39-239893 통신판매신고 2020-서울강남구-1293</p>
+            <p>개인정보관리책임 이승원 서울시 강남구 강남대로 23 3층 고객만족센터 1577-3822 </p>
+        </pre>
+    </footer>
+
+    <script>
+        // 로그인 창 닫기
+        function closeLogin() {
+            document.getElementById('login').style.display='none';
+        }
+        // 가입 창 닫기
+        function closeEnroll() {
+            document.getElementById('enroll').style.display='none';
+        }
+        // 로그인 열기
+        function login() {
+            document.getElementById('login').style.display='block';
+        }
+        // 가입 열기
+        function enroll() {
+            document.getElementById('enroll').style.display='block';
+        }
+        // 비번찾기 열기
+        function findPw() {
+            document.getElementById('findPw').style.display='block';
+        }
+        // 비번찾기 닫기
+        function closefindPw() {
+            document.getElementById('findPw').style.display='none';
+        }
+        // 이용약관 열기
+        function usePolicy() {
+            document.getElementById('usePolicy').style.display='block';
+        }
+        // 이용약관 닫기
+        function closeusePolicy() {
+            document.getElementById('usePolicy').style.display='none';
+        }
+        // 개인정보 열기
+        function personalInfo() {
+            document.getElementById('personalInfo').style.display='block';
+        }
+        // 개인정보 닫기
+        function closepersonalInfo() {
+            document.getElementById('personalInfo').style.display='none';
+        }
+        // function agreeAll() {
+        //     var agree=document.getElementsByName('join.agreements-select-all')[0].value;
+        //     console.log(agree);
+        //     if(agree==true) {
+        //         document.getElementsByName('join.agreements[0]')[0].value=true;
+        //         document.getElementsByName('join.agreements[1]')[0].value=true;
+        //         document.getElementsByName('join.agreements[2]')[0].value=true;
+        //     }
+            
+        // }
+        
+    </script>
+    
+</body>
+</html>

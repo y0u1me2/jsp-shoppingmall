@@ -1,0 +1,45 @@
+$.ajax({
+			url : 'GetUserServlet',
+			data : {
+				userName : $('#userName').val()
+			},
+			success : function(responseText) {
+				$('#ajaxGetUserServletResponse').text(responseText);
+			}
+		});
+
+String userName = request.getParameter("userName").trim();
+		if(userName == null || "".equals(userName)){
+			userName = "Guest";
+		}
+		
+		String greetings = "Hello " + userName;
+		
+		response.setContentType("text/plain");
+		response.getWriter().write(greetings);
+
+
+
+
+
+
+
+
+
+
+.store-intro-wrap.cms .comps .review>.contents>table>tbody>tr>td>div:last-child>button.open>span {
+    display: inline-block;
+    width: 76px;
+    height: 15px;
+    line-height: 15px;
+    background: url(/images/icon/svg/open-1212.svg) 62px 1px no-repeat;
+}
+
+
+.store-intro-wrap.cms .comps .review>.contents>table>tbody>tr>td>ul>li:first-child>span.right>button.close>span {
+    display: inline-block;
+    width: 65px;
+    height: 15px;
+    line-height: 15px;
+    background: url(/images/icon/svg/open-1212-on.svg) 51px 1px no-repeat;
+}
