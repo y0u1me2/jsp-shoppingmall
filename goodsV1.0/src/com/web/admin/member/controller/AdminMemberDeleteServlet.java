@@ -46,7 +46,7 @@ public class AdminMemberDeleteServlet extends HttpServlet {
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		RequestDispatcher rd=request.getRequestDispatcher("/views/common/msg.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/views/client/common/msg.jsp");
 		rd.forward(request, response);
 
 	}

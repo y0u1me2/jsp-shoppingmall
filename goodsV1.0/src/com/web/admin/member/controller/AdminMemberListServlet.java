@@ -63,10 +63,10 @@ public class AdminMemberListServlet extends HttpServlet {
 		String pageBar="";
 		
 		if(pageNo==1) {
-			pageBar+="<span>◀ 이전 </span>";
+			pageBar+="<span><</span>";
 		}else {
 //			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)+"'>[이전]</a>";
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>◀ 이전 </a> ";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'><</a> ";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -82,9 +82,9 @@ public class AdminMemberListServlet extends HttpServlet {
 
 		//다음
 		if(pageNo>totalPage) {
-			pageBar+="<span> 다음 ▶</span>";
+			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+pageNo+"&numPerPage="+numPerPage+"'> 다음 ▶</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+pageNo+"&numPerPage="+numPerPage+"'>></a>";
 		}
 		
 		request.setAttribute("finderMember", finderMember);
@@ -93,7 +93,7 @@ public class AdminMemberListServlet extends HttpServlet {
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/admin/memberList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/member/memberList.jsp").forward(request, response);
 	}
 
 	/**

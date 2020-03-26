@@ -62,9 +62,9 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		String pageBar="";
 		//이전페이지 만들기
 		if(pageNo==1) {
-			pageBar+="<span>◀ 이전 <span>";
+			pageBar+="<span><<span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>◀ 이전 </a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/memberFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'><</a>";
 		}																							//타입과 키워드가 유지되게하는 로직
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -77,9 +77,9 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		}
 		
 		if(pageNo>totalPage) {
-			pageBar+="<span> 다음 ▶</span>";
+			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'> 다음 ▶</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/memberFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
 		}
 		
 		
@@ -92,7 +92,7 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/admin/memberList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/member/memberList.jsp").forward(request, response);
 		
 	
 		
