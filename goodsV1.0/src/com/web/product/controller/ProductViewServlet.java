@@ -33,8 +33,7 @@ public class ProductViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-//		int pNo = Integer.parseInt(request.getParameter("pNo"));
-		int pNo = 1;
+		int pNo = Integer.parseInt(request.getParameter("pNo"));
 		
 		Product p = new ProductService().getProduct(pNo);
 		LinkedHashMap<String, String> images = new ProductService().getProductImages(pNo); // 키:값을 '색상':'파일명'으로 매핑
