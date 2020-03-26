@@ -216,7 +216,6 @@
     /* 섹션스타일 */
     .scstyle {
         position: relative;
-        height: 90%;
         top: 1px;
         bottom: 100px;
     }
@@ -232,7 +231,7 @@
     .foot {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: auto;
         font-size: 11px;
         text-align: left;
 		top:60px;
@@ -243,7 +242,8 @@
         margin: -50px 0 0 -50px;
 
     }
-
+	
+	
     #footImg {
         position: relative;
         left: 200px;
