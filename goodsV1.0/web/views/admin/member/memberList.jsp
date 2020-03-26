@@ -308,6 +308,33 @@
         padding: 50px 0;
         text-align: center;
    }
+   
+   /* 페이지바 */
+    #pageBar{
+      width:80%;
+      margin: 40px 0 40px 0;
+      text-align:center;
+   }
+   #pageBar>a,#pageBar>span{
+      width: 40px;
+       height: 40px;
+       text-align: center;
+       line-height: 40px;
+       border: 1px solid #d5d5d5;
+       color: #999;
+       background-color: #fff;
+       margin: 0 2px;
+       position: relative;
+       font-size: 13px;
+       font-family: "YoonGothicPro760";
+       display: inline-block;
+       vertical-align: top;
+   }
+    /* 페이지바 cpage span */
+    #pageBar>span.cPage{
+    	border: 1px solid #191919;
+    	color: #191919;
+    }
     
     </style>
 
