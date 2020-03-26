@@ -25,4 +25,11 @@ public class NoticeService {
 		close(conn);
 		return count;
 	}
+	public Notice oneNotice(int nNo) {
+		Connection conn=getConnection();
+		Notice n=dao.oneNotice(conn,nNo);
+		close(conn);
+		return n;
+		
+	}
 }

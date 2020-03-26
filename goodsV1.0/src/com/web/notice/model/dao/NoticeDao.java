@@ -77,6 +77,35 @@ public class NoticeDao {
 		return count;
 	}
 	
+	public Notice oneNotice(Connection conn,int nNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("oneNotice");
+		Notice n=null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				n=new Notice();
+				n.setnNo(rs.getInt("n_no"));
+				n.setnWriter(rs.getString("n_writer"));
+				n.setnTitle(rs.getString("n_title"));
+				n.setnContent(rs.getString("n_content"));
+				n.setnOriginalFile(rs.getString("n_original_file"));
+				n.setnRenamedFile(rs.getString("n_renamed_file"));
+				n.setnDate(rs.getDate("n_date"));
+				n.setnReadcount(rs.getInt("n_readcount"));
+				n.setnStatus(rs.getString("n_status"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return n;
+	}
 	
 	
 	
