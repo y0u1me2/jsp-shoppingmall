@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.member.model.service.MemberService;
-import com.web.member.model.vo.Member;
+import com.web.profile.model.service.ProfileService;
 
 /**
  * Servlet implementation class Profile
  */
-@WebServlet("/profile")
+@WebServlet(name="profileServlet", urlPatterns ="/profile")
 public class Profile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,14 +30,20 @@ public class Profile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("editMember");
-		String pw = request.getParameter("pw");	
-		/* Member m = new MemberService().loginMember(email,pw); */
+		String pw = request.getParameter("password");//사용자가 입력하는 비밀번호값
+		System.out.println("암호화된 비밀번호:"+pw);//암호화됐는지 확인위해 출력테스트 
 		
-		if( "editMember" != email  && "<%=loginMember.getM_Password()%>" != pw) {	
-		request.getRequestDispatcher("/views/client/MyPage/MemberModify.jsp").forward(request, response);
-		}else {	
+		int result = new ProfileService().pwCheck(email, pw);
+		System.out.println(result);
+		
+		if(result == 1) {
+			request.getRequestDispatcher("/views/client/mypage/Mpwinput.jsp").forward(request, response);
+		}else {
+			//비밀번호가 일치하지 않기 때문에 다시 입력받아야 함
+			response.setContentType("text/html; charset=UTF-8"); 
+			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.');</script>");
+			
 		}
-		request.getRequestDispatcher("/views/client/MyPage/Mpwinput.jsp").forward(request, response);
 	}
 
 	/**
