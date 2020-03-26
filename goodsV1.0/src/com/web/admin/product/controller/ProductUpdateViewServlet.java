@@ -1,11 +1,15 @@
 package com.web.admin.product.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.web.admin.product.service.AdminProductService;
+import com.web.product.model.vo.Product;
 
 
 @WebServlet("/productUpdateView")
@@ -19,6 +23,8 @@ public class ProductUpdateViewServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
 		
 		request.getRequestDispatcher("/views/admin/product/productUpdateView.jsp")
 		.forward(request, response);

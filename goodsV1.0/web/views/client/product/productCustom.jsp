@@ -48,6 +48,7 @@
                     name: 'OriginalImage'
                 },
                 theme: whiteTheme, // or whiteTheme
+                menu : ['draw', 'shape', 'icon', 'text', 'mask'],
                 initMenu: 'mask',
                 menuBarPosition: 'bottom'
             },

@@ -29,11 +29,10 @@ body {
 
 /* 섹션안 공간  */
 div.back {
-	width: 80%;
 	position: relative;
-	left:200px;
+	left:110px;
 	top: 50px;
-	height: auto;
+	height: 1100px;
 }
 
 /* content 공간 */
@@ -44,7 +43,7 @@ div.goodsback {
 /* 전체 1:1상담 목록 텍스트 */
 h1#title {
 	font-weight: bolder;
-	font-size: 25px;
+	font-size: 30px;
 	position: relative;
 	top: 10px;
 }
@@ -89,8 +88,7 @@ td#conbox {
 
 /* 페이지바 위치 */
 div#pageBar {
-	position: relative;
-	left: 360px;
+	position: relative;	
 	top: 20px;
 }
 
@@ -135,16 +133,17 @@ div#pageBar a {
 	top:23px;
 }
 
-/* 버튼위치 */
+/* 삭제 버튼위치 */
 .gleft{
 	position:relative;
-	right:250px;
+	right:330px;
+	top:2px;
 
 }
 
 #numPerPage{
 	position:relative;
-	left:285px;
+	left:370px;
 	top:-25px;
 }
 
