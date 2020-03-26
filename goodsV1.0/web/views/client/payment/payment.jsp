@@ -640,7 +640,7 @@
                                             <div class="input-box-large">
                                                 <label></label>
                                                 <div>
-                                                    <input class="pilsu" name="userEmail" value="">
+                                                    <input class="pilsu" name="userEmail" id="userEmail" value="">
                                                 </div>
                                             </div>
                                         </td>
@@ -739,7 +739,7 @@
                                             <!-- 주소 상세입력(동,호수) -->
                                             <div class="addrBox">
                                                 <div>
-                                                    <input class="pilsu" name="userAddr" id="detailAddress"
+                                                    <input class="pilsu" name="detailAddress" id="detailAddress"
                                                         placeholder="상세주소를 입력해주세요.">
                                                 </div>
                                             </div>
@@ -895,29 +895,29 @@
                                             <td>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="payChoice" value checked>
-                                                        신용카드</label>
+                                                        <input type="radio" name="payChoice" value="card">
+                                                              신용카드</label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="payChoice" value>
-                                                        휴대폰 결제</label>
+                                                        <input type="radio" name="payChoice" value="phone" checked>
+                                                           휴대폰 결제</label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="payChoice" value>
-                                                        실시간 계좌이체</label>
+                                                        <input type="radio" name="payChoice" value="trans">
+                                                           실시간 계좌이체</label>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="payChoice" value>
-                                                        무통장 입금</label>
+                                                        <input type="radio" name="payChoice" value="vbank">
+                                                           가상계좌</label>
                                                 </div>
                                             </td>
                                         </tr>
@@ -982,7 +982,9 @@
                                     <!-- 최종결제 헤더 인라인 스타일 -->
                                     <tr style="line-height: 90px;border-bottom: 1px solid black;">
                                         <th style="text-align: left; font-size: 20px;">합계</th>
-                                        <td style="text-align: right; font-size: 22px;"><em>30,900원</em></td>
+                                        <td style="text-align: right; font-size: 22px; color:#e8625a">
+                                        <input type="hidden" name="payAmount" id="payAmount" value="1">
+                                        <em>30,900</em> 원</td>
                                     </tr>
                                 </thead>
                                 <!-- 최종결제 바디 padding 위아래 40px -->
@@ -1020,8 +1022,8 @@
                             <!-- 약관동의 span 스타일설정,내용 및 약관보기 클릭 -->
                             <span
                                 style="display: block; color: #666; padding: 20px; line-height: 1.67em; font-size: 13px;">
-                                주문할 상품의 상품명,상품가격, 배송정보를 확인하였으며,<br>
-                                구매에 동의하시겠습니까? <button type="button">
+						                                주문할 상품의 상품명,상품가격, 배송정보를 확인하였으며,<br>
+						                                구매에 동의하시겠습니까? <button type="button">
                                     <p style="text-decoration: underline;">약관보기</p>
                                 </button>
                                 <br>
@@ -1050,126 +1052,126 @@
     var agreeWon=$('div>label>input[type="checkbox"]');//요거 유혀성검사 약관동의하기 input 변수
     var paymentBt=$("#paymenyBt");
         $(function () {
-        	
-	        	$("#agreeWon").change(function(){
-	        		if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
-	                        $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
-	                        $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
-	        			//인풋 필수 0~11까지 || 약관동의 체크가 안됐을대 if 들어감
-	        			if ($(agreeWon[0]).parent().siblings('span.error').length != 0) {
-	                        //input밑에 span.error가 있을때 != 0 니깐 if 들어감
-	                        $(agreeWon[0]).parent().removeClass('error');
-	                        //input에 에러클래스 지워줌
-	                        $(agreeWon[0]).parent().siblings('span').remove();
-	                        //input에 span 지워줌
-	                    }
-						if(agreeWon[0].checked==false){
-							//위에서 있던 에러 다 지워주고 (중복안되게) 다시 에러 생성
-							$(agreeWon[0]).parent().after($('<span>').html('필수 항목입니다.').addClass('error'));
-							//에러를 다시 생성해줌
-			            	$("#paymentBt").css("color","#eee");
-			            	$("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
-							//필수항목들을 전부다 하지 않았으므로 다시 결제하기 버튼 글자 컬러 원래 색으로 (#eee)변경
-						}
-	        		}else{
-	        			if ($(agreeWon[0]).parent().siblings('span.error').length != 0) {
-	                        //input밑에 span.error가 있을때 != 0 니깐 if 들어감
-	                        $(agreeWon[0]).parent().removeClass('error');
-	                        //input에 에러클래스 지워줌
-	                        $(agreeWon[0]).parent().siblings('span').remove();
-	                        //input에 span 지워줌
-	                    }
-	            		$("#paymentBt").css("color","black");
-	            		$("#paymentBt").css("border","1px solid black");
-	            		// 필수 항목들이  전부다 입력돼서 블랙으로 바꿔줌
-	            	}
-				});
-        	
-        	
-        	
-	            $(".pilsu").blur(function () {
-	            	if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
-	                        $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
-	                        $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
+           
+              $("#agreeWon").change(function(){
+                 if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
+                           $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
+                           $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
+                    //인풋 필수 0~11까지 || 약관동의 체크가 안됐을대 if 들어감
+                    if ($(agreeWon[0]).parent().siblings('span.error').length != 0) {
+                           //input밑에 span.error가 있을때 != 0 니깐 if 들어감
+                           $(agreeWon[0]).parent().removeClass('error');
+                           //input에 에러클래스 지워줌
+                           $(agreeWon[0]).parent().siblings('span').remove();
+                           //input에 span 지워줌
+                       }
+                  if(agreeWon[0].checked==false){
+                     //위에서 있던 에러 다 지워주고 (중복안되게) 다시 에러 생성
+                     $(agreeWon[0]).parent().after($('<span>').html('필수 항목입니다.').addClass('error'));
+                     //에러를 다시 생성해줌
+                        $("#paymentBt").css("color","#eee");
+                        $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                     //필수항목들을 전부다 하지 않았으므로 다시 결제하기 버튼 글자 컬러 원래 색으로 (#eee)변경
+                  }
+                 }else{
+                    if ($(agreeWon[0]).parent().siblings('span.error').length != 0) {
+                           //input밑에 span.error가 있을때 != 0 니깐 if 들어감
+                           $(agreeWon[0]).parent().removeClass('error');
+                           //input에 에러클래스 지워줌
+                           $(agreeWon[0]).parent().siblings('span').remove();
+                           //input에 span 지워줌
+                       }
+                     $("#paymentBt").css("color","black");
+                     $("#paymentBt").css("border","1px solid black");
+                     // 필수 항목들이  전부다 입력돼서 블랙으로 바꿔줌
+                  }
+            });
+           
+           
+           
+               $(".pilsu").blur(function () {
+                  if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
+                           $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
+                           $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
 
-		                //필수 클릭후 다른데 클릭했을때 이벤트 발생
-		                $(this).removeClass('error');
-		                //input에 클래스 에러(있을때) 삭제
-		                $(this).siblings('span').remove();
-		                //input밑에 span경고창(있을때) 삭제
-		                if ($(this).val() == "") {
-		                    // input에 값이 없을때 if 들어감
-		                    if ($(this).siblings('span.error').length == 0) {
-		                        // input안에 span이 없을때 if 들어감
-		                        $(this).addClass('error');
-		                        // input안에 error클래스 추가 해줌
-		                        $(this).after($('<span>').html("필수 항목입니다.").addClass('error'));
-		                        // input다음에 span을 넣어줌 html(내용).addclass는(css)
-		                        $("#paymentBt").css("color","#eee");
-				            	$("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
-		                    }
-		                } else {
-		                    //얘는 input에 내용이 있을때 들어감
-		                    if ($(this).attr('name') == "userPhone[2]" && $(this).val().length < 4) {
-		                        //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
-		                        $(this).addClass('error');
-		                        // input안에 error클래스 추가 해줌
-		                        $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
-		                        // input다음에 span을 넣어줌 html(내용).addclass는(css
-		                        $("#paymentBt").css("color","#eee");
-				            	$("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
-		                    }
-		                    if ($(this).attr('name') == "userPhone2[2]" && $(this).val().length < 4) {
-		                        //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
-		                        $(this).addClass('error');
-		                        // input안에 error클래스 추가 해줌
-		                        $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
-		                        // input다음에 span을 넣어줌 html(내용).addclass는(css
-		                        $("#paymentBt").css("color","#eee");
-				            	$("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
-		                    }
-		                }
-	            	}else{
-	            		console.log(this);
-	            		 if ($(this).attr('name') == "userPhone[2]" && $(this).val().length < 4) {
-	            				console.log("언제쯤나오냐");
-	            			 $(this).removeClass('error');
-				                //input에 클래스 에러(있을때) 삭제
-				                $(this).siblings('span').remove();
-				                //input밑에 span경고창(있을때) 삭제
-		                        //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
-		                        $(this).addClass('error');
-		                        // input안에 error클래스 추가 해줌
-		                        $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
-		                        // input다음에 span을 넣어줌 html(내용).addclass는(css
-		                        $("#paymentBt").css("color","#eee");
-				            	$("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
-		                    }else if($(this).attr('name') == "userPhone2[2]" && $(this).val().length < 4) {
-		                    	 $(this).removeClass('error');
-					                //input에 클래스 에러(있을때) 삭제
-					                $(this).siblings('span').remove();
-					                //input밑에 span경고창(있을때) 삭제
-		                        //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
-		                        $(this).addClass('error');
-		                        // input안에 error클래스 추가 해줌
-		                        $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
-		                        // input다음에 span을 넣어줌 html(내용).addclass는(css
-		                        $("#paymentBt").css("color","#eee");
-				            	$("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
-		                     }else{
-		                    	 $(this).removeClass('error');
-					                //input에 클래스 에러(있을때) 삭제
-					                $(this).siblings('span').remove();
-					                //input밑에 span경고창(있을때) 삭제
-			            	
-					            	$("#paymentBt").css("color","black");
-				            		$("#paymentBt").css("border","1px solid black");
-		                     } 
-	            		  
-	            	}
-	            });
-	         
-        	
+                      //필수 클릭후 다른데 클릭했을때 이벤트 발생
+                      $(this).removeClass('error');
+                      //input에 클래스 에러(있을때) 삭제
+                      $(this).siblings('span').remove();
+                      //input밑에 span경고창(있을때) 삭제
+                      if ($(this).val() == "") {
+                          // input에 값이 없을때 if 들어감
+                          if ($(this).siblings('span.error').length == 0) {
+                              // input안에 span이 없을때 if 들어감
+                              $(this).addClass('error');
+                              // input안에 error클래스 추가 해줌
+                              $(this).after($('<span>').html("필수 항목입니다.").addClass('error'));
+                              // input다음에 span을 넣어줌 html(내용).addclass는(css)
+                              $("#paymentBt").css("color","#eee");
+                           $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                          }
+                      } else {
+                          //얘는 input에 내용이 있을때 들어감
+                          if ($(this).attr('name') == "userPhone[2]" && $(this).val().length < 4) {
+                              //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
+                              $(this).addClass('error');
+                              // input안에 error클래스 추가 해줌
+                              $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
+                              // input다음에 span을 넣어줌 html(내용).addclass는(css
+                              $("#paymentBt").css("color","#eee");
+                           $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                          }
+                          if ($(this).attr('name') == "userPhone2[2]" && $(this).val().length < 4) {
+                              //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
+                              $(this).addClass('error');
+                              // input안에 error클래스 추가 해줌
+                              $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
+                              // input다음에 span을 넣어줌 html(내용).addclass는(css
+                              $("#paymentBt").css("color","#eee");
+                           $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                          }
+                      }
+                  }else{
+                     console.log(this);
+                      if ($(this).attr('name') == "userPhone[2]" && $(this).val().length < 4) {
+                           console.log("언제쯤나오냐");
+                         $(this).removeClass('error');
+                            //input에 클래스 에러(있을때) 삭제
+                            $(this).siblings('span').remove();
+                            //input밑에 span경고창(있을때) 삭제
+                              //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
+                              $(this).addClass('error');
+                              // input안에 error클래스 추가 해줌
+                              $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
+                              // input다음에 span을 넣어줌 html(내용).addclass는(css
+                              $("#paymentBt").css("color","#eee");
+                           $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                          }else if($(this).attr('name') == "userPhone2[2]" && $(this).val().length < 4) {
+                              $(this).removeClass('error');
+                               //input에 클래스 에러(있을때) 삭제
+                               $(this).siblings('span').remove();
+                               //input밑에 span경고창(있을때) 삭제
+                              //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
+                              $(this).addClass('error');
+                              // input안에 error클래스 추가 해줌
+                              $(this).after($('<span>').html("최소 4자리이상.").addClass('error'));
+                              // input다음에 span을 넣어줌 html(내용).addclass는(css
+                              $("#paymentBt").css("color","#eee");
+                           $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                           }else{
+                              $(this).removeClass('error');
+                               //input에 클래스 에러(있을때) 삭제
+                               $(this).siblings('span').remove();
+                               //input밑에 span경고창(있을때) 삭제
+                        
+                              $("#paymentBt").css("color","black");
+                              $("#paymentBt").css("border","1px solid black");
+                           } 
+                       
+                  }
+               });
+            
+           
           
         })
 
@@ -1200,12 +1202,12 @@
              }
           /*   }) */
           if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
-	                        $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
-	                        $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
+                           $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
+                           $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
           
           }else{
-        		$("#paymentBt").css("color","black");
-        		$("#paymentBt").css("border","1px solid black");
+              $("#paymentBt").css("color","black");
+              $("#paymentBt").css("border","1px solid black");
           }
             
             
@@ -1352,7 +1354,7 @@
                         }
                     }
                     if ($(inputPilsu[i]).attr('name') == "userPhone[2]" && $(inputPilsu[i]).val().length < 4) {
-                    	  $(inputPilsu[i]).siblings('span').remove();
+                         $(inputPilsu[i]).siblings('span').remove();
                         //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
                         $(inputPilsu[i]).addClass('error');
                         // input안에 error클래스 추가 해줌
@@ -1361,7 +1363,7 @@
                     }
                     
                     if ($(inputPilsu[i]).attr('name') == "userPhone2[2]" && $(inputPilsu[i]).val().length < 4) {
-                  	  $(inputPilsu[i]).siblings('span').remove();
+                       $(inputPilsu[i]).siblings('span').remove();
                       //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
                       $(inputPilsu[i]).addClass('error');
                       // input안에 error클래스 추가 해줌
@@ -1372,43 +1374,50 @@
                 
                 }
              if(agreeWon[0].checked==false){
-            	 $(agreeWon[0]).parent().siblings('span').remove(); //그러면 어 그 span이 있을수도 있고 내가 몰랐을수 있으니까 지워주고
-            	 $(agreeWon[0]).parent().addClass('error'); //error클래스 추가하고
-            	 $(agreeWon[0]).parent().after($('<span>').html('필수 항목입니다.').addClass('error')); //span태그 추가하긔
+                $(agreeWon[0]).parent().siblings('span').remove(); //그러면 어 그 span이 있을수도 있고 내가 몰랐을수 있으니까 지워주고
+                $(agreeWon[0]).parent().addClass('error'); //error클래스 추가하고
+                $(agreeWon[0]).parent().after($('<span>').html('필수 항목입니다.').addClass('error')); //span태그 추가하긔
              }
               
                 
             } else {
-            	
-            	if ($(inputPilsu[3]).attr('name') == "userPhone[2]" && $(inputPilsu[3]).val().length < 4) {
-              	  $(inputPilsu[3]).siblings('span').remove();
+               
+               if ($(inputPilsu[3]).attr('name') == "userPhone[2]" && $(inputPilsu[3]).val().length < 4) {
+                   $(inputPilsu[3]).siblings('span').remove();
                   //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
                   $(inputPilsu[3]).addClass('error');
                   // input안에 error클래스 추가 해줌
                   $(inputPilsu[3]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                   // input다음에 span을 넣어줌 html(내용).addclass는(css
               }else if ($(inputPilsu[8]).attr('name') == "userPhone2[2]" && $(inputPilsu[8]).val().length < 4) {
-            	  $(inputPilsu[8]).siblings('span').remove();
+                 $(inputPilsu[8]).siblings('span').remove();
                 //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
                 $(inputPilsu[8]).addClass('error');
                 // input안에 error클래스 추가 해줌
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
              }else{
-            	var IMP = window.IMP; // 생략가능
-                IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-
+               var IMP = window.IMP; // 생략가능
+               var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
+               var payAmount=$("#payAmount").val();//가격
+               var userName=$("#userName").val();//이름
+               var userEmail=$("#userEmail").val();//이메일
+               var userAddr=$("#address").val()+' '+$("#detailAddress").val();//주소
+               var postcode=$("#postcode").val();//우편번호
+               var userPhone=$(inputPilsu[1]).val()+'-'+$(inputPilsu[2]).val()+'-'+$(inputPilsu[3]).val();
+              
+                IMP.init('imp39029830'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
                 IMP.request_pay({
                     pg: 'inicis', // version 1.1.0부터 지원.
-                    pay_method: 'card',
+                    pay_method: payChoice,
                     merchant_uid: 'merchant_' + new Date().getTime(),
-                    name: '주문명:결제테스트',
-                    amount: 100,
-                    buyer_email: 'iamport@siot.do',
-                    buyer_name: '구매자이름',
-                    buyer_tel: '010-1234-5678',
-                    buyer_addr: '서울특별시 강남구 삼성동',
-                    buyer_postcode: '123-456',
+                    name: '주문명: 굿굿즈 결제',
+                    amount: 1000,
+                    buyer_email: userEmail,
+                    buyer_name: userName,
+                    buyer_tel: userPhone,
+                    buyer_addr: userAddr,
+                    buyer_postcode: postcode,
                     m_redirect_url: 'https://www.yourdomain.com/payments/complete'
                 }, function (rsp) {
                     if (rsp.success) {
@@ -1422,12 +1431,11 @@
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
                     alert(msg);
-                });
+                }); 
              }
             }
         }
-        
-
+      
     </script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
