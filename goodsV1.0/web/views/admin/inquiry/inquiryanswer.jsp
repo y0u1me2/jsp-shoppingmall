@@ -8,11 +8,10 @@
 div.content-wrapper{
 	background-color:white;
 	position: relative;
-	left: 180px;
+	left: 110px;
 }
 
 div.goodsback{
-	width:80%;
 	height:auto;
 }
 
@@ -104,8 +103,8 @@ body {
 
     /* 전체 1:1상담 목록 텍스트 */
     #one{
-        font-weight: bolder;
-        font-size: 25px;
+       font-weight: bolder;
+		font-size: 30px;
         position: relative;
         top: 10px;
     }
@@ -113,7 +112,7 @@ body {
     /* 버튼들 위치 */
     .btns{
         position: relative;
-        left: 200px;
+        left: 300px;
         top: 480px;
     }
 
@@ -151,6 +150,11 @@ body {
         background:rgb(251, 251, 249);
         outline: none;
     } 
+    
+    div#answer-content{
+    	position:relative;
+    	left:100px;
+    }
       
     </style>
 
@@ -171,6 +175,7 @@ body {
              
              	<input type="hidden" name="ino" value="<%=request.getParameter("ino")%>">
              	
+             	<div id="answer-content">
                 <table class="box">
                     <tr>
                         <th style="height:40px">제목</th>
@@ -197,9 +202,9 @@ body {
                      <div class="btns">
                   <button id="btn1" type="submit">등록</button>
                   <button id=btn2>취소</button>
-                </div>
+                	</div>
                 </table>
-
+				</div>
                
             </form>
             </div>

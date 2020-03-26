@@ -12,7 +12,6 @@ div.content-wrapper{
 }
 
 div.goodsback{
-	width:80%;
 	height:auto;
 	position: relative;
 	top:100px;
@@ -30,9 +29,8 @@ body {
 
 /* 섹션안 공간  */
 div.back {
-	width: 80%;
+	width: 100%;
 	position: relative;
-	left:150px;
 }
 
 /* 밑에 라인 */
@@ -43,7 +41,7 @@ div.back {
 	width: 80%;
 }
 
-.goodsback {
+div.goodsback {
 	width: 100%;
 }
 
@@ -62,9 +60,9 @@ div.back {
 }
 
 /* 테이블 선 색상 */
-.box>tr, td {
+.box>tr,td {
 	border: 1px solid #e2e0e0;
-	padding:10px;
+	padding:10px 30px 10px 10px;
 }
 
 
@@ -82,10 +80,25 @@ div.back {
 	top: 10px;
 }
 
-#btnSubmit {
+input#submit-btn {
 	position: relative;
 	top: 30px;
 	left: 400px;
+	width:100px;
+	height:40px;
+        border: solid 1px rgb(147, 147, 194);
+        background: white;
+        border-radius: 5px;
+        font-size: 15px;
+        color: rgb(134, 134, 133);
+        margin-right: 5px;
+        position:relative;
+    }
+
+   input#submit-btn:hover{
+        background:rgb(251, 251, 249);
+        outline: none;
+    } 
 }
 </style>
 </head>
@@ -185,12 +198,16 @@ div.back {
 						</tr> 
 					
 					</table>
-					<button type="submit" id="btnSubmit">상품등록</button>
+					<input type="submit" id="submit-btn" value="상품등록">
 				</form>
 			</div>
 
 		</div>
 	</div>
+	
+	
+	
+	
 </div>
 
 <%@ include file="/views/admin/common/footer.jsp"%>

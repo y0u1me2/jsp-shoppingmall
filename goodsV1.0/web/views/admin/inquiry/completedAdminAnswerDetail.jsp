@@ -33,8 +33,8 @@ body {
 
 /* 1:1문의 텍스트 */
 h1#title {
-	/* font-weight: bolder; */
-	font-size: 25px;
+	font-weight: bolder;
+	font-size: 30px;
 	position: relative;
 	top: 10px;
 	;

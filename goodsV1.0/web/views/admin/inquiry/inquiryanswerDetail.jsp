@@ -34,8 +34,8 @@ body {
 
 /* 1:1문의 텍스트 */
 h1#title {
-	/* font-weight: bolder; */
-	font-size: 25px;
+	font-weight: bolder;
+	font-size: 30px;
 	position: relative;
 	top: 10px;
 	;
@@ -78,8 +78,8 @@ table#tbl-detail td {
 	text-align: left;
 }
 
- /* 나가기버튼 */
-#back-btn{
+ /* 답변하기 버튼 */
+#update-btn{
         height: 35px;
         width: 100px;
         border: solid 1px rgb(147, 147, 194);
@@ -89,8 +89,7 @@ table#tbl-detail td {
         color: rgb(134, 134, 133);
         margin-right: 5px;
         position:relative;
-        top:20px;
-        left:350px;
+        top:-2px;
     }
 
     .back-btn:hover{
