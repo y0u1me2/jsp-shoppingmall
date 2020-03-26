@@ -160,7 +160,7 @@ select {
 
 #pageBar {
 	position: relative;
-	left: 380px;
+	left:100px;
 	top: 20px;
 }
 
@@ -168,6 +168,28 @@ div#pageBar a {
 	text-decoration:none;
 	color: rgb(95, 93, 93);
 }
+
+/* 페이지바 */
+    #pageBar{
+      width:80%;
+      margin: 40px 0 40px 0;
+      text-align:center;
+   }
+   #pageBar>a,#pageBar>span{
+      width: 40px;
+       height: 40px;
+       text-align: center;
+       line-height: 40px;
+       border: 1px solid #eee;
+       color: #999;
+       background-color: #fff;
+       margin: 0 2px;
+       position: relative;
+       font-size: 13px;
+       font-family: "YoonGothicPro760";
+       display: inline-block;
+       vertical-align: top;
+   }
 
 /* 전화문의 운영시간 */
 #call {
