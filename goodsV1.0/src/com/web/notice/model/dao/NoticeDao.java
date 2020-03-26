@@ -20,7 +20,7 @@ public class NoticeDao {
 	
 	public NoticeDao() {
 		try {
-			String path=NoticeDao.class.getResource("sql/notice/notice.properties").getPath();
+			String path=NoticeDao.class.getResource("/sql/client/notice.properties").getPath();
 			prop.load(new FileReader(path));
 		}catch(IOException e) {
 			e.printStackTrace();

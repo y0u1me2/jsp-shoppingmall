@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javafx.scene.control.Alert;
+import com.web.member.model.service.MemberService;
+import com.web.member.model.vo.Member;
 
 /**
  * Servlet implementation class Profile
@@ -29,10 +30,11 @@ public class Profile extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String pw = request.getParameter("pw");
+		String email = request.getParameter("editMember");
+		String pw = request.getParameter("pw");	
+		/* Member m = new MemberService().loginMember(email,pw); */
 		
-		if(email != null && pw != null) {	
+		if( "editMember" != email  && "<%=loginMember.getM_Password()%>" != pw) {	
 		request.getRequestDispatcher("/views/client/MyPage/MemberModify.jsp").forward(request, response);
 		}else {	
 		}

@@ -11,19 +11,20 @@
 <%
 
 	Member loginMember = (Member) session.getAttribute("loginedMember");//로그인 세션
+	String loginResult=(String)session.getAttribute("loginResult");
+	String emailCheck=(String)session.getAttribute("emailCheck");//이메일체크 여부
+	String m_status=(String)session.getAttribute("m_status");//회원상태	
 	//boolean isUseAble=(boolean)request.getAttribute("isUseAble");//중복사용 가능 불가능
 	//String checkedEmail=(String)request.getAttribute("emailCheck");//중복검사한 이메일
 	//int duplication=Integer.parseInt(request.getParameter("duplication"));
-
-	String str="아시댕";//이거는 시발
 	
 	
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
 %>
 <script>
-		var loginMember=<%=request.getParameter("login")%>;
-		console.log(loginMember);
+		var loginResult='<%=loginResult%>';
+		console.log(loginResult);
 </script>
 
 <!DOCTYPE html>
@@ -48,13 +49,13 @@
 	<!-- ======================================================================================== -->
 
 
-	<header>
+<header>
 		<!-- 상부 우측메뉴 -->
 		<div class="util">
 			<div class="container">
 				<ul class="right-top">
 					<li>
-						<button type="button">고객센터</button>
+						<button type="button"><a href="<%=request.getContextPath() %>/schome">고객센터</a></button>
 					</li>
 					<li>
 						<button type="button">주문/배송</button>
@@ -63,7 +64,7 @@
 						<button type="button">장바구니</button>
 					</li>
 					<%
-						if (loginMember == null) {
+						if (loginMember == null || loginMember != null&&emailCheck.equals("N")) {
 					%>
 					<li>
 						<button type="button" onclick="openEnroll()">회원가입</button>
@@ -112,7 +113,7 @@
 
 			<!-- 로고 -->
 			<span class="logo"> <img
-				src="<%=request.getContextPath()%>/images/영문검정.png" width="300px"
+				src="<%=request.getContextPath()%>/images/common/영문검정.png" width="300px"
 				height="150px" alt="goodgoods">
 			</span>
 
@@ -127,9 +128,9 @@
 					<li><span><a href="<%=request.getContextPath()%>/reviewList"> 리뷰</a></span></li>
 					<li id="middleBar-img"></li>
 					<li><a href="https://www.kakaocorp.com/"><img id="cart"
-							src="<%=request.getContextPath()%>/images/cart.png" alt=""></a></li>
+							src="<%=request.getContextPath()%>/images/common/cart.png" alt=""></a></li>
 					<li><a href="https://www.kakaocorp.com/"><img id="love"
-							src="<%=request.getContextPath()%>/images/icon.png" alt=""></a></li>
+							src="<%=request.getContextPath()%>/images/common/love.png" alt=""></a></li>
 				</ul>
 
 				<ul class="mainMenu2">
@@ -178,7 +179,7 @@
 					method="post" onsubmit="return loginSubmit();">
 					<div class="top-login">
 						<span> <img class="login-logo"
-							src="<%=request.getContextPath()%>/images/로그인영문.png">
+							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
 						</span>
 						<div class="inputLogin">
 							<input type="text" name="email" placeholder="이메일 또는 아이디">
@@ -190,19 +191,19 @@
 					</div>
 					<div id="loginCenterImg">
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/kakao.png"
+							<img src="<%=request.getContextPath()%>/images/common/kakao.png"
 								alt="kakao">
 						</div>
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/face.png"
+							<img src="<%=request.getContextPath()%>/images/common/face.png"
 								alt="facebook">
 						</div>
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/googleicon.png"
+							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
 						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/naver.png"
+							<img src="<%=request.getContextPath()%>/images/common/naver.png"
 								alt="naver">
 						</div>
 					</div>
@@ -408,7 +409,7 @@
 					관리자에게 문의하세요
 					</h4>
 				</div>
-				<div class="enrollEnd">
+				<div class="enrol lEnd">
 					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
@@ -417,5 +418,39 @@
 			</div>
 		</div>	
 			<%} %>
+			<!-- 로그인 실패시 알림창 -->
+		<% if(loginMember!=null) {
+		if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("Y")) { %> <!-- 로그인 실패 -->
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class=" modal-enrollEnd animate">
+				<div>
+					<h4>이메일을 확인하여 인증을 완료해주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("N")) {%>
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class=" modal-enrollEnd animate">
+				<div>
+					<h4>로그인에 실패하였습니다.
+					관리자에게 문의하여주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} }%>
 		
 	</header>

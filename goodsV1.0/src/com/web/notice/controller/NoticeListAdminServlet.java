@@ -46,7 +46,7 @@ public class NoticeListAdminServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			numPerPage=10;
 		}
-		List<Notice> list=new ArrayList();
+		List<Notice> list=new NoticeService().selectNotice(cPage, numPerPage);
 		int totalDate=new NoticeService().countNotice();
 		int finderDate=new NoticeService().countNotice();
 		int totalPage=(int)Math.ceil((double)totalDate/numPerPage);
@@ -81,6 +81,14 @@ public class NoticeListAdminServlet extends HttpServlet {
 		}else {
 			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeList?cPage="+pageNo+"&numPerPage="+numPerPage+"'>></a>";
 		}
+		
+		request.setAttribute("finderDate", finderDate);
+		request.setAttribute("totalDate", totalDate);
+		request.setAttribute("list", list);
+		request.setAttribute("pageBar", pageBar);
+		request.setAttribute("cPage", cPage);
+		request.setAttribute("numPerPage", numPerPage);
+		request.getRequestDispatcher("/views/client/notice/noticeAdminList.jsp").forward(request, response);
 		
 	}
 

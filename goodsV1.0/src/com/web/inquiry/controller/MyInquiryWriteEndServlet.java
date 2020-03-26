@@ -32,10 +32,19 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		// 1:1 문의하기
 
 		// 파일 업로드를 위한 로직처리
-		// 1.파일을 저장할 경로설정
-		String path = getServletContext().getRealPath("/upload/inquiry/");
-		System.out.println("경로 : " + path);
+		// 1.파일을 저장할 경로설정		
+		String path = getServletContext().getRealPath("/upload/inquiry");
+	      File folder = new File(path);
 
+	      // 해당 디렉토리가 없을경우 디렉토리를 생성
+	      if (!folder.exists()) {
+	         try{
+	            folder.mkdir();
+	          }catch(Exception e){
+	              e.getStackTrace();
+	           }  
+	       }
+	      
 		// 2. multipart/formdata로 형석이 넘어왔는지 확인
 		if (!ServletFileUpload.isMultipartContent(request)) {
 
