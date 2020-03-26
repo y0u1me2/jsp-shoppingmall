@@ -1,4 +1,4 @@
-package com.web.admin.controller;
+package com.web.admin.member.controller;
 
 import java.io.IOException;
 
@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.model.service.AdminService;
+import com.web.admin.member.model.service.AdminMemberService;
 
 /**
  * Servlet implementation class MemberDeleteServlet
  */
 @WebServlet("/admin/memberDelete")
-public class MemberDeleteServlet extends HttpServlet {
+public class AdminMemberDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDeleteServlet() {
+    public AdminMemberDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,7 @@ public class MemberDeleteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String deleteEmail=request.getParameter("m_Email");
 		System.out.println(deleteEmail);
-		int result=new AdminService().memberDelete(deleteEmail);
+		int result=new AdminMemberService().memberDelete(deleteEmail);
 		
 		String msg="";//사용자자에게 띄울 메세지 내용
 		String loc="/admin/memberList";//메세지 띄운 후 이동할 페이지
