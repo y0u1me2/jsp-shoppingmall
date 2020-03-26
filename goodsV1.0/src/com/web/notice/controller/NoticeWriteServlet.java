@@ -29,7 +29,7 @@ public class NoticeWriteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		request.getRequestDispatcher("/views/notice/noticeWrite.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/client/notice/noticeWrite.jsp").forward(request, response);
 		
 	}
 
