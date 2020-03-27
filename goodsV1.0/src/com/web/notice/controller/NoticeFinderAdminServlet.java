@@ -37,6 +37,7 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String type=request.getParameter("searchType");
 		String keyword=request.getParameter("searchKeyword");
+		
 		int cPage;
 
 		try {
@@ -95,7 +96,7 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/admin/memberList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/client/notice/noticeAdminList.jsp").forward(request, response);
 		
 	
 		

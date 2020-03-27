@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.List,com.web.inquiry.model.vo.Inquiry"%>
+<%@ page import="java.util.List,com.web.product.model.vo.Product"%>
 
 <%
-	List<Inquiry> list = (List) request.getAttribute("list");
+	List<Product> list = (List) request.getAttribute("list");
 
 	/* 원하는  조회기간 별로 출력하기 */
 	int cPage = (int)request.getAttribute("cPage");
@@ -14,8 +14,8 @@
 <%@ include file="/views/admin/common/header.jsp"%>
 
 <style>
-div.content-wrapper{
-	background-color:white;
+div.content-wrapper {
+	background-color: white;
 }
 
 * {
@@ -30,7 +30,7 @@ body {
 /* 섹션안 공간  */
 div.back {
 	position: relative;
-	left:110px;
+	left: 110px;
 	top: 50px;
 	height: 1100px;
 }
@@ -65,7 +65,7 @@ div.list-container {
 div.box>th, tr, td {
 	border: 1px solid #e2e0e0;
 	border-right: 1px solid #e2e0e0;
-	padding:7px;
+	padding: 7px;
 }
 
 /* 테이블 스타일 */
@@ -75,7 +75,6 @@ table.box {
 	border: 1px solid #e2e0e0;
 	border-collapse: collapse;
 }
-
 
 /* 문의내용이 존재하지 않습니다. */
 td#conbox {
@@ -88,7 +87,7 @@ td#conbox {
 
 /* 페이지바 위치 */
 div#pageBar {
-	position: relative;	
+	position: relative;
 	top: 20px;
 }
 
@@ -97,7 +96,6 @@ div#pageBar a {
 	text-decoration: none;
 	color: rgb(95, 93, 93);
 }
-
 
 /* 답변상태 버튼 */
 #inquiry-btn {
@@ -129,22 +127,21 @@ div#pageBar a {
 	z-index: 1;
 	margin-bottom: -1px;
 	width: 80%;
-	height:50px;
-	top:23px;
+	height: 50px;
+	top: 23px;
 }
 
 /* 삭제 버튼위치 */
-.gleft{
-	position:relative;
-	right:330px;
-	top:2px;
-
+.gleft {
+	position: relative;
+	right: 330px;
+	top: 2px;
 }
 
-#numPerPage{
-	position:relative;
-	left:370px;
-	top:-25px;
+#numPerPage {
+	position: relative;
+	left: 370px;
+	top: -25px;
 }
 
 /* 삭제  버튼 스타일 */
@@ -165,52 +162,77 @@ div#pageBar a {
 	margin: 2px 8px 0px 0px;
 }
 
-.total>strong {
-	color: rgb(255, 109, 1);
+#pageBar {
+	width: 80%;
+	margin: 40px 0 40px 0;
+	text-align: center;
 }
 
-   #pageBar{
-      width:80%;
-      margin: 40px 0 40px 0;
-      text-align:center;
-   }
-   #pageBar>a,#pageBar>span{
-      width: 40px;
-       height: 40px;
-       text-align: center;
-       line-height: 40px;
-       border: 1px solid #eee;
-       color: #999;
-       background-color: #fff;
-       margin: 0 2px;
-       position: relative;
-       font-size: 13px;
-       font-family: "YoonGothicPro760";
-       display: inline-block;
-       vertical-align: top;
-   }
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #eee;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+}
 
+input#update-btn {
+	height: 30px;
+	width: 80px;
+	background: #313030;
+	border-radius: 3px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 0;
+	font-size: 15px;
+	color: rgb(233, 233, 229);
+	position: relative;
+	left: 2px;
+}
+
+input#update-btn:hover {
+	background: black;
+	outline: none;
+}
+
+input#color-btn {
+	height: 30px;
+	width: 80px;
+	border: solid 1px rgb(190, 190, 196);
+	background: white;
+	border-radius: 3px;
+	font-size: 15px;
+	color: rgb(134, 134, 133);
+	margin-right: 5px;
+}
+
+input#color-btn:hover {
+	background: rgb(251, 251, 249);
+	outline: none;
+}
 </style>
 
 <!-- ============================================================== -->
 
 
- <div class="content-wrapper">
+<div class="content-wrapper">
 	<div class="back">
 
 		<div class="goodsback">
 			<br> <br>
 
-			<h1 id="title">전체1:1문의 목록</h1>
+			<h1 id="title">전체상품목록</h1>
 			<hr id="gline">
 
 			<br> <br>
-
-			<p class="total">
-				[오늘 등록된 새 글<strong><%=request.getAttribute("todayInquiry")%></strong>건]
-				검색결과<strong><%=request.getAttribute("totalInquiry")%></strong>건
-			</p>
-
 
 			<div class="list-container">
 
@@ -225,20 +247,25 @@ div#pageBar a {
 					</div>
 
 					<div class="gright" id="numPerPage-container">
-					
+
 						<form name="numPerPageFrm" id="numPerPageFrm"
-						action="<%=request.getContextPath()%>/InquiryList">
-							
-							<input type="hidden" name="cPage" value="<%=cPage%>">
-							 
-							<select name="numPerPage" id="numPerPage">
-								<option value="30" <%=numPer==null || numPer.equals("30")?"selected":"" %>>30개씩 보기</option>
-								<option value="20" <%=numPer==null || numPer.equals("20")?"selected":"" %>>20개씩 보기</option>
-								<option value="10" <%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩 보기</option>
+							action="<%=request.getContextPath()%>/ProductListView">
+
+							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
+								name="numPerPage" id="numPerPage">
+								<option value="15"
+									<%=numPer==null || numPer.equals("5")?"selected":"" %>>15개씩
+									보기</option>
+								<option value="10"
+									<%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩
+									보기</option>
+								<option value="5"
+									<%=numPer==null || numPer.equals("15")?"selected":"" %>>5개씩
+									보기</option>
 							</select>
-							
+
 						</form>
-											
+
 					</div>
 				</div>
 				</br>
@@ -248,8 +275,11 @@ div#pageBar a {
 						<td><input type="checkbox" name="allCheck"
 							onclick="allChk();"></td>
 						<td>번호</td>
-						<td>제목</td>
-						<td>답변상태</td>
+						<td>카테고리</td>
+						<td>이미지</td>
+						<td>상품명</td>
+						<td>상품가격</td>
+						<td>수정</td>
 
 					</tr>
 
@@ -257,37 +287,38 @@ div#pageBar a {
 							if (list.isEmpty()) {
 						%>
 					<tr>
-						<td id="conbox" colspan='5'>문의 내용이 존재 하지 않습니다.</td>
+						<td id="conbox" colspan='6'>상품 내역이 존재 하지 않습니다.</td>
 					</tr>
 					<%
 							} else {
 						%>
 
 					<%
-							for (Inquiry i : list) {
+							for (Product p : list) {
 						%>
 					<tr>
 						<td><input type="checkbox" name="rowCheck"
-							value="<%=i.getI_No()%>"></td>
+							value="<%=p.getpNo()%>"></td>
 
-						<td><%=i.getI_No()%></td>
+						<td><%=p.getpNo()%></td>
 
-						<td><a> <%=i.getI_Title()%></a></td>
+						<td><%=p.getpCategory()%></td>
+
+						<td><img
+							src="<%=request.getContextPath()%>/images/product/thumbnail/<%=p.getpThumbnail() %>"
+							width="40px" alt="이미지 없음"></td>
+
+						<td><%=p.getpName()%></td>
+
+						<td><%=p.getpPrice()%></td>
+
+						<td><a href="<%=request.getContextPath()%>/productUpdateView?no=<%=p.getpNo()%>">
+						<input type="button" id="update-btn" value="정보수정" />
+						</a> 
+						<a href="<%=request.getContextPath()%>/productUpdateColor?no=<%=p.getpNo()%>">
+						<input type="button" id="color-btn"  value="색상수정" /></a></td>
+
 						</form>
-
-
-						<%if(i.getAnswer_status().equals("Y")) { %>
-						<td><a
-							href="<%=request.getContextPath()%>/InquiryAdminAnswer?ino=<%=i.getI_No()%>">
-								<button id="inquiry-btn">답변완료</button>
-						</a></td>
-						<%}else{ %>
-						<td><a
-							href="<%=request.getContextPath()%>/inquiryAnswerDetail?no=<%=i.getI_No()%>">
-								<button id="inquiry-btn">답변전</button>
-						</a></td>
-
-						<%} %>
 					</tr>
 					<%
 							}

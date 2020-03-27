@@ -5,8 +5,8 @@
 
 <%
    List<Notice> list=(List)request.getAttribute("list");
-   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";
-   String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
+   String type=request.getParameter("searchType");
+   String keyword=request.getParameter("searchKeyword");
    int totalDate=(int)request.getAttribute("totalDate");
    int finderDate=(int)request.getAttribute("finderDate");
    int cPage=(int)request.getAttribute("cPage");
@@ -368,10 +368,10 @@
                                 <td colspan="3">
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
                                      <select name="search_Type" id="search_Type" class="fSelect">
-                                        <option value="All">전체검색</option>
-                                        <option value="n_title">제목</option>
-                                        <option value="n_writer">작성자</option>
-                                        <option value="n_no">번호</option>
+                                        <option value="All" <%=type!=null&&type.equals("All")?"selected":"" %>>전체검색</option>
+                                        <option value="n_title" <%=type!=null&&type.equals("All")?"selected":"" %>>제목</option>
+                                        <option value="n_writer" <%=type!=null&&type.equals("All")?"selected":"" %>>작성자</option>
+                                        <option value="n_no" <%=type!=null&&type.equals("All")?"selected":"" %>>번호</option>
                                        </select>
                                     <!-- 개인정보 검색 -->
 
@@ -386,21 +386,21 @@
                                       <div id="search_n_title">
                                          <form action="<%=request.getContextPath()%>/admin/noticeFinder">
                                           <input type="hidden" name="searchType" value="n_title"/>
-                                          <input type="text" name="searchKeyword" placeholder="검색할 제목 입력"/>
+                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("n_title")?keyword:""%>" placeholder="검색할 제목 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
                                      <div id="search_n_writer">
                                         <form action="<%=request.getContextPath()%>/admin/noticeFinder">
                                           <input type="hidden" name="searchType" value="n_writer"/>
-                                          <input type="text" name="searchKeyword" placeholder="검색할  작성자 입력"/>
+                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("n_writer")?keyword:""%>" placeholder="검색할  작성자 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
                                      <div id="search_n_no">
                                         <form action="<%=request.getContextPath()%>/admin/noticeFinder">
                                           <input type="hidden" name="searchType" value="n_no"/>
-                                          <input type="text" name="searchKeyword" placeholder="검색할 번호 입력"/>
+                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("n_no")?keyword:""%>" placeholder="검색할 번호 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
@@ -468,7 +468,7 @@
                                 <th scope="col">제목</th>
                                 <th scope="col">작성자</th>
                                 <th scope="col">작성일</th>
-                                <th scope="col">회원삭제</th>
+                                <th scope="col">글삭제</th>
                             </tr>
                         </thead>
                                          
@@ -516,6 +516,25 @@
    				location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
    			})
    		})
+   		//검색기능
+   		//검색기능 나오게하기
+   		$(function(){
+   			$("#search_Type").change(function(){
+   				let value=$("#search_Type").val();
+   				let all=$("#search_All");
+   				let writer=$("#search_n_writer");
+   				let no=$("#search_n_no");
+   				let title=$("#search_n_title");
+   				all.hide();
+   				writer.hide();
+   				no.hide();
+   				title.hide();
+   				console.log(value);
+   				$("#search_"+value).css("display","inline-block");
+   			})
+   		})
+   		
+   		
    		//전체선택
    		$(function(){
    			$("#allcheck").click(function(){
@@ -530,6 +549,7 @@
    		})
    		
    		//선택삭제
+   		
    		//선택삭제
    		
    </script>
