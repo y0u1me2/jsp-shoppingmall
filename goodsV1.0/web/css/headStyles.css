@@ -43,6 +43,7 @@
     /* 유틸메뉴 위치 설정 */
     .right-top {
         float: right;
+        padding: 10px 15px 0 0;
 
     }
 

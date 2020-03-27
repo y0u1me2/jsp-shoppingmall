@@ -48,6 +48,22 @@ public class ProductService {
 		
 		return result;
 	}
+
+	public int getCustomNo(Custom c) {
+		Connection conn = getConnection();
+		int cno = dao.getCustomNo(conn, c); 
+		close(conn);
+		return cno; //커스텀 제품 번호
+	}
+
+	public int insertCustomImage(int cno, List<String> files) {
+		Connection conn = getConnection();
+		int result = dao.insertCustomImage(conn, cno, files);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 	
 	
 }

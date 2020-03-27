@@ -5,6 +5,18 @@
 <%@ include file="/views/admin/common/header.jsp"%>
 
 <style>
+div.content-wrapper{
+	background-color:white;
+	position: relative;
+	left: 100px;
+}
+
+div.goodsback{
+	height:auto;
+	position: relative;
+	top:100px;
+}
+
 * {
 	margin: 0;
 }
@@ -17,13 +29,8 @@ body {
 
 /* 섹션안 공간  */
 div.back {
-	width: 80%;
+	width: 100%;
 	position: relative;
-	top: 50px;
-	bottom: 50px;
-	display: flex;
-	left: 360px;
-	height: 850px;
 }
 
 /* 밑에 라인 */
@@ -34,7 +41,7 @@ div.back {
 	width: 80%;
 }
 
-.goodsback {
+div.goodsback {
 	width: 100%;
 }
 
@@ -53,18 +60,16 @@ div.back {
 }
 
 /* 테이블 선 색상 */
-.box>tr, td {
+.box>tr,td {
 	border: 1px solid #e2e0e0;
+	padding:10px 30px 10px 10px;
 }
+
 
 /* 테이블 크기 */
 .box {
 	width: 80%;
 	height: 250px;
-}
-
-#td1, #td2, #td3, #fbtn {
-	margin-left: 10px;
 }
 
 /* 전체 1:1상담 목록 텍스트 */
@@ -75,10 +80,25 @@ div.back {
 	top: 10px;
 }
 
-#btnSubmit {
+input#submit-btn {
 	position: relative;
 	top: 30px;
 	left: 400px;
+	width:100px;
+	height:40px;
+        border: solid 1px rgb(147, 147, 194);
+        background: white;
+        border-radius: 5px;
+        font-size: 15px;
+        color: rgb(134, 134, 133);
+        margin-right: 5px;
+        position:relative;
+    }
+
+   input#submit-btn:hover{
+        background:rgb(251, 251, 249);
+        outline: none;
+    } 
 }
 </style>
 </head>
@@ -86,7 +106,7 @@ div.back {
 <!-- ============================================================== -->
 
 
-<section>
+ <div class="content-wrapper">
 	<div class="back">
 
 
@@ -140,37 +160,37 @@ div.back {
 							<td>상품 색상 설정</td>
 							<td>
 								<div id="td3">
-									<input type="radio" name="option" id="option" checked>
+									<input type="checkbox" name="option" id="option" checked>
 									<label for="option">화이트</label>
 									
-									<input type="radio" name="option" id="option2" >
+									<input type="checkbox" name="option" id="option2" >
 									<label for="option2">블랙</label>
 									
-									<input type="radio" name="option" id="option3" >
+									<input type="checkbox" name="option" id="option3" >
 									<label for="option3">핑크</label>
 									
-									<input type="radio" name="option" id="option4" >
+									<input type="checkbox" name="option" id="option4" >
 									<label for="option4">그린</label>
 									
-									<input type="radio" name="option" id="option5" >
+									<input type="checkbox" name="option" id="option5" >
 									<label for="option5">블루</label>
 									
-									<input type="radio" name="option" id="option6" >
+									<input type="checkbox" name="option" id="option6" >
 									<label for="option6">옐로우</label>
 									
-									<input type="radio" name="option" id="option7" >
+									<input type="checkbox" name="option" id="option7" >
 									<label for="option7">레드</label>
 									
-									<input type="radio" name="option" id="option8" >
+									<input type="checkbox" name="option" id="option8" >
 									<label for="option8">네이비</label>
 									
-									<input type="radio" name="option" id="option9" >
+									<input type="checkbox" name="option" id="option9" >
 									<label for="option9">퍼플</label>
 									
-									<input type="radio" name="option" id="option10" >
+									<input type="checkbox" name="option" id="option10" >
 									<label for="option10">연그레이</label>
 									
-									<input type="radio" name="option" id="option11" >
+									<input type="checkbox" name="option" id="option11" >
 									<label for="option11">진그레이</label>
 																										
 								</div>
@@ -178,12 +198,16 @@ div.back {
 						</tr> 
 					
 					</table>
-					<button type="submit" id="btnSubmit">상품등록</button>
+					<input type="submit" id="submit-btn" value="상품등록">
 				</form>
 			</div>
 
 		</div>
 	</div>
-</section>
+	
+	
+	
+	
+</div>
 
 <%@ include file="/views/admin/common/footer.jsp"%>

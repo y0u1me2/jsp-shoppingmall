@@ -222,12 +222,9 @@
    }
 
     div#search_All{display:inline-block;}
-    div#search_m_Name{display:none;}
-    div#search_m_Email{display:none;}
-    div#search_m_Enroll{display:none;}
-    div#search_m_NickName{display:none;}
-    div#search_m_No{display:none;}
-    div#search_m_Phone{display:none;}
+    div#search_n_title{display:none;}
+    div#search_n_writer{display:none;}
+    div#search_n_no{display:none;}
     
     #numPerPage{
        padding:4px;
@@ -329,7 +326,11 @@
 	    display: inline-block;
 	    vertical-align: top;
 	}
-
+	/* 공지사항 관리 글귀 */
+	#one{
+		font-weight: bolder;
+   		font-size: 30px;
+	}
     </style>
 
 
@@ -366,12 +367,12 @@
                                 <!-- 개인정보 테이블 바디 -->
                                 <td colspan="3">
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
-                                     <select name="serach_Type" id="serach_Type" class="fSelect">
+                                     <select name="search_Type" id="search_Type" class="fSelect">
                                         <option value="All">전체검색</option>
-                                        <option value="m_Name">제목</option>
-                                        <option value="m_Email">작성자</option>
-                                        <option value="m_Enroll">번호</option>
-                                       </select> 
+                                        <option value="n_title">제목</option>
+                                        <option value="n_writer">작성자</option>
+                                        <option value="n_no">번호</option>
+                                       </select>
                                     <!-- 개인정보 검색 -->
 
                                     <div id="search_All">
@@ -382,23 +383,23 @@
                                         </form>
                                     </div>
 
-                                      <div id="search_m_Name">
+                                      <div id="search_n_title">
                                          <form action="<%=request.getContextPath()%>/admin/noticeFinder">
-                                          <input type="hidden" name="searchType" value="m_Name"/>
+                                          <input type="hidden" name="searchType" value="n_title"/>
                                           <input type="text" name="searchKeyword" placeholder="검색할 제목 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
-                                     <div id="search_m_Email">
+                                     <div id="search_n_writer">
                                         <form action="<%=request.getContextPath()%>/admin/noticeFinder">
-                                          <input type="hidden" name="searchType" value="m_Email"/>
+                                          <input type="hidden" name="searchType" value="n_writer"/>
                                           <input type="text" name="searchKeyword" placeholder="검색할  작성자 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
-                                     <div id="search_m_Enroll">
+                                     <div id="search_n_no">
                                         <form action="<%=request.getContextPath()%>/admin/noticeFinder">
-                                          <input type="hidden" name="searchType" value="m_Enroll"/>
+                                          <input type="hidden" name="searchType" value="n_no"/>
                                           <input type="text" name="searchKeyword" placeholder="검색할 번호 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
@@ -408,7 +409,7 @@
                         </tbody>
                     </table>
                 </div>
-               
+         
             </div>
 
             <!-- 회원 목록 div -->
@@ -427,10 +428,11 @@
                 <!-- 회원목록 박스 헤더 -->
                 <div class="mListHeader">
                     <div class="gleft">
-                        <button type="button" class="btn_Wihte" >전체선택</button>
-                        <button type="button" class="btn_Wihte" >선택해제</button>
+                        <button type="button" class="btn_Wihte" id="allcheck" >전체선택</button>
+                        <button type="button" class="btn_Wihte" id="removecheck" >선택해제</button>
                         <button type="button" class="btn_Wihte" >삭제</button>
                         <button type="button" class="btn_Wihte" id="write">글쓰기</button>
+                        <button type="button" class="btn_Wihte" id="writeup">글수정</button>
                     </div>
                     
                     <div class="gright" id="numPerPage-container">
@@ -461,7 +463,7 @@
                         <col style="width:100px">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox"></th>
+                                <th scope="col"><input type="checkbox" class="mRowCheck"></th>
                                 <th scope="col">번호</th>
                                 <th scope="col">제목</th>
                                 <th scope="col">작성자</th>
@@ -499,6 +501,7 @@
                   <!--   <p class="empty">검색한 회원 결과가 없습니다.</p> -->
                 </div>
                 </form>
+
             <div id="pageBar">
                     <%=request.getAttribute("pageBar") %>
             </div>
@@ -507,9 +510,28 @@
     </div>
     </section>
    <script>
-   		$("#write").click(function(){
-   			location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
+   		//글쓰기
+   		$(function(){
+   			$("#write").click(function(){
+   				location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
+   			})
    		})
+   		//전체선택
+   		$(function(){
+   			$("#allcheck").click(function(){
+   				$(".mRowCheck").prop("checked",true);
+   			})
+   		})
+   		//전체해제
+   		$(function(){
+   			$("#removecheck").click(function(){
+   				$(".mRowCheck").prop("checked",false);
+   			})
+   		})
+   		
+   		//선택삭제
+   		//선택삭제
+   		
    </script>
 
 

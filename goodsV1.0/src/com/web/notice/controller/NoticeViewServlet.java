@@ -1,23 +1,27 @@
 package com.web.notice.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.notice.model.service.NoticeService;
+import com.web.notice.model.vo.Notice;
+
 /**
- * Servlet implementation class NoticeFiinderAdminServlet
+ * Servlet implementation class NoticeViewServlet
  */
-@WebServlet("/admin/noticeFinder")
-public class NoticeFiinderAdminServlet extends HttpServlet {
+@WebServlet("/notice/noticeView")
+public class NoticeViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeFiinderAdminServlet() {
+    public NoticeViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +31,13 @@ public class NoticeFiinderAdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int nNo=Integer.parseInt(request.getParameter("nNo"));
+		
+		Notice n=new NoticeService().oneNotice(nNo);
+		
+		request.setAttribute("notice",n);
+		request.getRequestDispatcher("/views/client/notice/noticeView.jsp").forward(request, response);
+		
 	}
 
 	/**

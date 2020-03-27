@@ -59,6 +59,41 @@ public class NoticeDao {
 		return list;
 	}
 	
+	public List<Notice> searchNoticePage(Connection conn,int cPage,
+			int numPerPage,String type,String keyword){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("searchNotice");
+		List<Notice> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, type);
+			pstmt.setString(2, keyword);
+			pstmt.setInt(3, (cPage-1)*numPerPage+1);
+			pstmt.setInt(4, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Notice n=new Notice();
+				n.setnNo(rs.getInt("n_no"));
+				n.setnWriter(rs.getString("n_writer"));
+				n.setnTitle(rs.getString("n_title"));
+				n.setnContent(rs.getString("n_content"));
+				n.setnOriginalFile(rs.getString("n_original_file"));
+				n.setnRenamedFile(rs.getString("n_renamed_file"));
+				n.setnDate(rs.getDate("n_date"));
+				n.setnReadcount(rs.getInt("n_readcount"));
+				n.setnStatus(rs.getString("n_status"));
+				list.add(n);				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	public int countNotice(Connection conn) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -77,6 +112,55 @@ public class NoticeDao {
 		return count;
 	}
 	
+	public int countNotice(Connection conn,String type,String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		String sql=prop.getProperty("countNotice2");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, type);
+			pstmt.setString(2, keyword);
+			rs=pstmt.executeQuery();
+			if(rs.next()) count=rs.getInt("count(*)");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public Notice oneNotice(Connection conn,int nNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("oneNotice");
+		Notice n=null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				n=new Notice();
+				n.setnNo(rs.getInt("n_no"));
+				n.setnWriter(rs.getString("n_writer"));
+				n.setnTitle(rs.getString("n_title"));
+				n.setnContent(rs.getString("n_content"));
+				n.setnOriginalFile(rs.getString("n_original_file"));
+				n.setnRenamedFile(rs.getString("n_renamed_file"));
+				n.setnDate(rs.getDate("n_date"));
+				n.setnReadcount(rs.getInt("n_readcount"));
+				n.setnStatus(rs.getString("n_status"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return n;
+	}
 	
 	
 	

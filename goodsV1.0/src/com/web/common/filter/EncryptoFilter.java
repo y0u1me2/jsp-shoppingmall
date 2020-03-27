@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 		servletNames = { 
 				"MemberEnrollEndServlet", 
 				"LoginServlet", 
+				"profileServlet",
 //				"MemberUpdateServlet"
 //				"PasswordUupdateEndServlet"
 		})
