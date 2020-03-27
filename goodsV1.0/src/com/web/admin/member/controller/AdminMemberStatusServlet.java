@@ -45,7 +45,7 @@ public class AdminMemberStatusServlet extends HttpServlet {
 		request.setAttribute("todayEnrollMember", todayEnrollMember);
 		request.setAttribute("totalMember", totalMember);
 		request.setAttribute("deleteMember", deleteMember);
-		request.getRequestDispatcher("/views/admin/memberStatus.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/member/memberStatus.jsp").forward(request, response);
 	}
 
 	/**
