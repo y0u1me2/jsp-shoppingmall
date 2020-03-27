@@ -47,6 +47,8 @@ public class ReviewDao {
 				r.setRv_Re_Name(rs.getString("RV_RENAME_NAME"));
 				r.setP_No(rs.getInt("P_NO"));
 				r.setM_No(rs.getInt("M_NO"));
+				r.setM_nickName(rs.getString("M_NICKNAME"));
+				r.setRv_Date(rs.getDate("RV_DATE"));
 				list.add(r);
 			}
 		}catch(SQLException e) {
