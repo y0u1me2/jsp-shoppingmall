@@ -296,6 +296,7 @@ to {
 			<%for(Review r : list) { %>
 			<div style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
 				<table>
+				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
 					<tr>
 						<td class="reviewProductImg" rowspan="3"><a href="#"> 
 						<img class="review-product"
@@ -314,13 +315,12 @@ to {
 						<%for(int i=0;i<5-(r.getRv_Star());i++) { %>
 							<span class="fa fa-star"></span>
 						<%} %>
-						</td>
 						
 						<td class="reviewDate"><%=r.getRv_Date() %></td>
 						<td class="reviewWriter"><%=r.getM_nickName() %></td>
 					</tr>
 					<tr>
-						<td class="reviewContent" colspan="3"><%=r.getRv_Content() %></td>
+						<td class="reviewContent" style="width:150px;" colspan="3"><%=r.getRv_Content() %></td>
 					</tr>
 				</table>
 				<div class="reviewImg">
@@ -351,27 +351,26 @@ to {
 					</ul>
 				</div>
 				<div class="reviewViewRight">
-					<div class="reviewViewWriter">작성자 닉네임</div>
+					<div class="reviewViewWriter" id="reviewViewWriter"></div>
 					<div class="reviewViewStar">
 						<div class="starOut">
-							<span name="star[0]" class="fa fa-star checked"></span>
+							<span name="star[0]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[1]" class="fa fa-star checked"></span>
+							<span name="star[1]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[2]" class="fa fa-star checked"></span>
+							<span name="star[2]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[3]" class="fa fa-star checked"></span>
+							<span name="star[3]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[4]" class="fa fa-star checked"></span>
+							<span name="star[4]" class="fa fa-star"></span>
 						</div>
 					</div>
-					<div class="reviewViewDate">2020-03-22</div>
-					<div class="reviewViewContent">이건 너도 사야해 나만 죽을 수는 없지 ㅋㅋㅋㅋㅋㅋㅋ
-						개좋은 물건임 ㅋㅋㅋㅋㅋㅋㅋ 너네도 당해봐라</div>
+					<div class="reviewViewDate" id="reviewViewDate"></div>
+					<div class="reviewViewContent" id="reviewViewContent"></div>
 				</div>
 			</div>
 		</div>
@@ -390,10 +389,29 @@ to {
 	}
 
 	$('.reviewImg').click(function() {
-		$('.reviewView-modal-back').toggle();
+		$('.reviewView-modal-back').show();
+		$.ajax({
+			url:'<%=request.getContextPath()%>/reviewView',
+			type:'post',
+			data:{rvNo:$('#RvNo').val()},
+			success:function(data) {
+				console.log(data.rv_No);
+				$('#reviewViewWriter').text(data.m_nickName);
+				$('#reviewViewDate').text(data.rv_Date);
+				$('#reviewViewContent').text(data.rv_Content);
+				console.log(data.rv_Star);
+				console.log($('div.starOut>span'));
+				var star=$('div.starOut>span');
+				console.log("star : "+star);
+				for(let i=0;i<data.rv_Star;i++) {
+					console.log($(star[name=star[i]]));
+					$('div.starOut>span').attr('name','star[i]').addClass('checked');
+				}
+			}
+		})
 	})
-	
-	$('.review-toggle')
+	/* 
+	$('.review-toggle') */
 </script>
 
 

@@ -19,4 +19,11 @@ public class ReviewService {
 		close(conn);
 		return list;		
 	}
+	
+	public Review reviewView(int reviewNo) {
+		Connection conn=getConnection();
+		Review review=rdao.reviewView(conn, reviewNo);
+		close(conn);
+		return review;
+	}
 }
