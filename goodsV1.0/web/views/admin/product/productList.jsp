@@ -253,14 +253,14 @@ input#color-btn:hover {
 
 							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
 								name="numPerPage" id="numPerPage">
-								<option value="15"
-									<%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩
+								<option value="5"
+									<%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩
 									보기</option>
 								<option value="10"
 									<%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩
 									보기</option>
-								<option value="5"
-									<%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩
+								<option value="15"
+									<%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩
 									보기</option>
 							</select>
 
@@ -279,7 +279,7 @@ input#color-btn:hover {
 						<td>이미지</td>
 						<td>상품명</td>
 						<td>상품가격</td>
-						<td>기능</td>
+						<td>수정</td>
 
 					</tr>
 

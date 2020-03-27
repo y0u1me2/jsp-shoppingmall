@@ -25,7 +25,7 @@ public class ProductListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 상품전체 조회하는 로직
+		//상품목록 조회하는 로직
 
 		int cPage; // 현재페이지
 
@@ -45,23 +45,25 @@ public class ProductListServlet extends HttpServlet {
 			numPerPage = 5;
 		}
 
-		// 게시판 데이터 가져오기
-		// 페이징처리하기
+		// 페이징처리해서 데이터 가져오기
 		List<Product> list = new AdminProductService().productList(cPage, numPerPage);
 
 		// 페이지바 만들기
 
-		// 게시판 총글개수 구해오기
+		//총 상품개수 구해오기
 		int totalProduct = new AdminProductService().productCount();
-
-		int totalPage = (int) Math.ceil((double) totalProduct / numPerPage);
-
-		int pageBarSize = 5; // 밑에 바는 5개씩만 보여준다
+		
 
 		// pageBar의 시작번호, 끝번호까지 출력해주는 변수
 		// 현재 페이지 : 1 ~ 5 -> 1
 		// 현재 페이지 : 6 ~ 10 -> 6
 		// 현재 페이지 : 11 ~ 15 -> 11
+		int totalPage = (int) Math.ceil((double) totalProduct / numPerPage);
+
+
+		int pageBarSize = 5; // 밑에 바는 5개씩만 보여준다
+
+		// pageBar의 시작번호, 끝번호까지 출력해주는 변수
 		int pageNo = ((cPage - 1) / pageBarSize) * pageBarSize + 1;
 		int pageEnd = pageNo + pageBarSize - 1;
 
@@ -70,7 +72,7 @@ public class ProductListServlet extends HttpServlet {
 		// [이전]버튼 만들기
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
-		} else {
+		} else {			       
 			pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + (pageNo - 1) + "&numPerPage="
 					+ numPerPage + "'><</a>&nbsp ";
 		}
@@ -86,6 +88,7 @@ public class ProductListServlet extends HttpServlet {
 			}
 			pageNo++;
 		}
+		
 
 		// [다음]
 		if (pageNo > totalPage) {

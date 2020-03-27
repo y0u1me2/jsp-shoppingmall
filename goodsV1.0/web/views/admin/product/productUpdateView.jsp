@@ -80,8 +80,8 @@ div.back {
 
 /* 전체 1:1상담 목록 텍스트 */
 #one {
-	font-weight: bolder;
-	font-size: 25px;
+		font-weight: bolder;
+	font-size: 30px;
 	position: relative;
 	top: 10px;
 }
