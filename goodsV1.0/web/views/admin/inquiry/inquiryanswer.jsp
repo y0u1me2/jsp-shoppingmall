@@ -5,15 +5,24 @@
     
     
     <style>
-	
-	*{    
-        margin: 0; 
-    }
-    .
-     body{
-        width: 1366px;
-        height: auto;
-    } 
+div.content-wrapper{
+	background-color:white;
+	position: relative;
+	left: 110px;
+}
+
+div.goodsback{
+	height:auto;
+}
+
+* {
+	margin: 0;
+}
+
+body {
+	width: 1366px;
+	height: auto;
+}
 
         .back {
             height: 100%;
@@ -22,7 +31,6 @@
             top:50px;
             bottom:50px;
             display: flex;
-            left:360px;
         }
    
         /*리스트 스타일*/
@@ -46,7 +54,7 @@
         border: 1px solid rgb(177, 174, 174);
         position: relative;
         top: 20px;
-        width: 80%;
+        width: 100%;
     }
 
     .goodsback{
@@ -95,8 +103,8 @@
 
     /* 전체 1:1상담 목록 텍스트 */
     #one{
-        font-weight: bolder;
-        font-size: 25px;
+       font-weight: bolder;
+		font-size: 30px;
         position: relative;
         top: 10px;
     }
@@ -104,7 +112,7 @@
     /* 버튼들 위치 */
     .btns{
         position: relative;
-        left: 350px;
+        left: 300px;
         top: 480px;
     }
 
@@ -142,12 +150,18 @@
         background:rgb(251, 251, 249);
         outline: none;
     } 
+    
+    div#answer-content{
+    	position:relative;
+    	left:100px;
+    }
       
     </style>
 
 <!-- ============================================================== -->
 
-    <section style="height:850px;">
+ <div class="content-wrapper">
+ 
         <div class="back">
    
         <div class="goodsback">
@@ -161,6 +175,7 @@
              
              	<input type="hidden" name="ino" value="<%=request.getParameter("ino")%>">
              	
+             	<div id="answer-content">
                 <table class="box">
                     <tr>
                         <th style="height:40px">제목</th>
@@ -187,15 +202,15 @@
                      <div class="btns">
                   <button id="btn1" type="submit">등록</button>
                   <button id=btn2>취소</button>
-                </div>
+                	</div>
                 </table>
-
+				</div>
                
             </form>
             </div>
         </div>
 
-    </section>
+    </div>
 
 <%@ include file="/views/admin/common/footer.jsp" %>
   

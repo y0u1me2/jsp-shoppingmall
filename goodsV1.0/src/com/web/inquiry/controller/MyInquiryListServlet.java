@@ -80,11 +80,11 @@ public class MyInquiryListServlet extends HttpServlet {
 
 		// [이전]버튼 만들기
 		if (pageNo == 1) {
-			pageBar += "<span>[이전]</span>&nbsp";
+			pageBar += "<span><</span>&nbsp";
 		} else {
 //	         pageBar+=""<a href=' " + request.getContextPath() + "/myInquiryList?cPage="+ (pageNo - 1) + " '>[이전]</a>&nbsp";
 			pageBar += "<a href='" + request.getContextPath() + "/myInquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
-					+ numPerPage + "'>[이전]</a>&nbsp ";
+					+ numPerPage + "'><</a>&nbsp ";
 		}
 
 		// 1 2 3 4 5
@@ -102,11 +102,11 @@ public class MyInquiryListServlet extends HttpServlet {
 
 		// [다음]
 		if (pageNo > totalPage) {
-			pageBar += "<span>[다음]</span>&nbsp";
+			pageBar += "<span>></span>&nbsp";
 		} else {
 //	         pageBar+="<a href='"+request.getContextPath()+"/myInquiryList?cPage="+pageNo+"'>[다음]</a>";
 			pageBar += "<a href='" + request.getContextPath() + "/myInquiryList?cPage=" + pageNo + "&numPerPage="
-					+ numPerPage + "'>[다음]</a>&nbsp ";
+					+ numPerPage + "'>></a>&nbsp ";
 		}
 
 		request.setAttribute("list", list);
