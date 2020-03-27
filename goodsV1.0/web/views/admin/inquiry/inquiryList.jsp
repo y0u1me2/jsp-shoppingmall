@@ -232,9 +232,9 @@ div#pageBar a {
 							<input type="hidden" name="cPage" value="<%=cPage%>">
 							 
 							<select name="numPerPage" id="numPerPage">
-								<option value="10" <%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩 보기</option>
-								<option value="20" <%=numPer==null || numPer.equals("20")?"selected":"" %>>20개씩 보기</option>
 								<option value="30" <%=numPer==null || numPer.equals("30")?"selected":"" %>>30개씩 보기</option>
+								<option value="20" <%=numPer==null || numPer.equals("20")?"selected":"" %>>20개씩 보기</option>
+								<option value="10" <%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩 보기</option>
 							</select>
 							
 						</form>

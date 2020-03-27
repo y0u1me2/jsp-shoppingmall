@@ -138,12 +138,12 @@ button#color-btn:hover {
 
 		<div class="goodsback">
 			<br> <br>
-			<h1 id="one">상품정보수정</h1>
+			<h1 id="one">상품색상수정</h1>
 			<hr id="gline">
 			<br> <br>
 
 			<div class="text">
-				<form action="<%=request.getContextPath()%>/productUpdateEnd" method="post"
+				<form action="<%=request.getContextPath()%>/productUpdateColorEnd" method="post"
 				enctype="multipart/form-data">
 						<input type="hidden" name="no" value="<%=p.getpNo()%>"/>
 					<table class="box">
@@ -191,13 +191,13 @@ button#color-btn:hover {
 						</tr>  
 						
 						<tr>
-							<td>섬네일 이미지</td>
+							<td>색상 이미지</td>
 							<td><input type="file" id="fbtn" name="upfile"></td>
 						</tr>
 						
 					</table>
 				<div id="btns">
-					<button id="update-btn" type="submit">상품정보수정</button>
+					<button id="update-btn" type="submit">상품색상수정</button>
 					&nbsp; &nbsp;
 				
 				</div>
