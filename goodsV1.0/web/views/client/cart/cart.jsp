@@ -2,6 +2,16 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="/views/client/common/header.jsp" %>
+<% 	
+	int num;
+	String str=(String)request.getAttribute("num");
+	if(str!=null){
+		num=(int)request.getAttribute("num"); 
+	}else{
+		num=1;
+	}
+	
+%>
 
 <style>
     *{
@@ -20,7 +30,10 @@
         /* height: 50%; */
         
     }
-
+	table{
+	border-collapse: collapse;
+    border-spacing: 0;
+    }
     
     /* 메뉴 바 01장바구니 02주문결제 03 주문완료*/
     .top{
@@ -228,7 +241,7 @@
        
    }
    .inputquantity2{
-      
+      	margin-left:35px;
         display: table;
         width: 72px;
         height: 34px;
@@ -308,7 +321,7 @@
 
  
  </style>
- <section style="width: 80%;">
+ <section style="width: 80%; padding-bottom:160px;">
         <div class="top">
                 <!--경계선-->
             <hr style="width: 1366px;">
@@ -336,16 +349,16 @@
                     <div class="inner">
                         <div class="left">
                             <!-- 선택,삭제메뉴-->
-                            <button type="button" class="btn-white-small" onclick="cartSelectAll()">전체 선택</button>
-                            <button type="button" class="btn-white-small" onclick="cartReleaseAll()">선택 해제</button>
+                            <button type="button" class="btn-white-small" onclick="cartSelectAll();">전체 선택</button>
+                            <button type="button" class="btn-white-small" onclick="cartReleaseAll();">선택 해제</button>
                             <button type="button" class="btn-white-small" onclick="">삭제</button>
                         </div>
                         <div class="right">
                             <!-- 결제예정금액 및 상품주문 버튼-->
                             <span>
-                                결제 예정금액(
+                                	결제 예정금액(
                                 <em style="color:red;">0</em>
-                                )
+                                	)
                             </span>
                             <span class="price">0원</span>
                             <button type="submit" class="btn-gray-big">선택상품 주문하기</button>
@@ -364,11 +377,11 @@
                             <!--유의 사항-->
                             <span class="notice">
                                 <span class="icon">
-                                    유의사항 <button type="button">?</button>
+                                    	유의사항 <button type="button">?</button>
                                     <span>
                                         90일동안 로그인을 하지 않으시면,
                                         <br>
-                                        장바구니에 저장하신 상품이 삭제됩니다.
+                                        	장바구니에 저장하신 상품이 삭제됩니다.
                                     </span>
                                 </span>
                             </span>
@@ -387,7 +400,8 @@
                                 <tr>
                                     <th>
                                         <div class="cartCheckbox">
-                                            <input type="checkbox" name="cartSelectReleaseAll" id="cartSelectReleaseAll" value="" onclick="cartSelectReleaseAll();">
+                                            <input type="checkbox" name="cartSelectReleaseAll" id="cartSelectReleaseAll"
+                                             value="" onclick="cartSelRelAll()">
                                         </div>
                                         
                                     </th>
@@ -408,7 +422,7 @@
                                     </td>
                                     <td>
                                         <div style="width: 260px; height:260px; padding: 0px 15px;">
-                                            <img src="<%=request.getContextPath()%>/images/텀블러.jpg"alt="텀블러" width="260px" height="260px">
+                                            <img src="<%=request.getContextPath()%>/images/product/thumbnail/tumbler.jpg"alt="텀블러" width="260px" height="260px">
                                         </div>
                                     </td>
                                     <td style="text-align: left; padding-left: 20px;">
@@ -423,13 +437,13 @@
                                     <td class="quantity">
                                         <div class="inputquantity">
                                             <div class="inputquantity2">
-                                                <button type="button" class="minus" 
-                                                style="display: table-cell; vertical-align: middle;" >-</button>
+                                                <button type="button" class="minus" id="minus"
+                                                style="display: table-cell;" onclick="minusQuantity();">-</button>
                                                 <!-- <div> -->
-                                                    <input type="text" name = "wCQ" value="1" maxlength="3">
+                                                    <input type="text" name = "pdQuantity" id="pdQuantity" value="<%=num %>" maxlength="3">
                                                 <!-- </div> -->
-                                                <button type="button" class="plus"
-                                                style="display: table-cell; vertical-align: middle;" >+</button>
+                                                <button type="button" class="plus" id="plus"
+                                                style="display: table-cell;" onclick="plus();" >+</button>
                                             </div>    
                                         </div>
                                     </td>
@@ -456,63 +470,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                 <tr>
-                                    <td style="text-align: center; vertical-align: top;">
-                                        <div class="cartCheckbox">
-                                            <input type="checkbox" name="cartSelect" value="" >
-                                        </div>
-                                        <!-- 전체클릭하면 위에 체크되기-->
-                                    </td>
-                                    <td>
-                                        <div style="width: 260px; height:260px; padding: 0px 15px;">
-                                            <img src="<%=request.getContextPath()%>/images/텀블러.jpg"alt="텀블러" width="260px" height="260px">
-                                        </div>
-                                    </td>
-                                    <td style="text-align: left; padding-left: 20px;">
-                                        <div>
-                                            <h3>사진 텀블러-고급형</h3>
-                                        </div>
-                                    </td>
-                                    <td class="price2">
-                                        <span class="original">31,900원</span>
-                                        <span class="sale">30,300원</span>
-                                    </td>
-                                    <td class="quantity">
-                                        <div class="inputquantity">
-                                            <div class="inputquantity2">
-                                                <button type="button" class="minus" 
-                                                style="display: table-cell; vertical-align: middle;" >-</button>
-                                                <!-- <div> -->
-                                                    <input type="text" name = "wCQ" value="1" maxlength="3">
-                                                <!-- </div> -->
-                                                <button type="button" class="plus"
-                                                style="display: table-cell; vertical-align: middle;" >+</button>
-                                            </div>    
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="total">
-                                            30,300원
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr class="shoppingutil">
-                                    <td style="padding:0; " >&nbsp;</td>
-                                    <td colspan="5" style="padding:0;">
-                                        <div style="padding:18px 0; height: 14px; border-top: 1px dashed  rgb(218, 218, 218);
-                                                    padding-bottom: 25px; border-bottom: 1px solid rgb(218, 218, 218);">
-                                            <span style="float: left; font-size: 12px;">
-                                                <button>편집하기</button>
-                                                <span style="padding:0 20px; color:  rgb(218, 218, 218);">|</span>
-                                                <button>복사하기</button>
-                                                <span style="padding:0 20px; color:  rgb(218, 218, 218);">|</span>
-                                                <button>삭제하기</button>
-                                            </span>
-
-                                            <span style="float: right; font-size: 12px; padding-top: 5px;">최종 편집일 2020.02.02</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                                 
                             </tbody>
                         </table>
 
@@ -539,24 +497,12 @@
         </div>
 	 <script>
 	    /* 체크박스 전체선택, 전체해제 */
-	   
-	    	
-		 /*    function cartSelectAll(){
-	    	console.log("나오냐");
-		          if($("#cartSelectAll").is(':checked') ){
-		            $("input[name=select[0]]").prop("checked", true);
-		          }else{
-		            $("input[name=select[0]]").prop("checked", false);
-		          }
-		    } */
 		  //체크박스 전체선택하기
 		      var check = false;
-		    var chk = document.getElementsByName("cartSelect");
+		      var chk = document.getElementsByName("cartSelect");
 		 	   //chk에 name이select[0]인것을 넣어줌
-		       function cartSelectReleaseAll(){
+		 	   function cartSelRelAll(){
 		    	   //카트트셀렉 클릭
-		      
-		   
 		         if (check == false) {
 		            check = true;
 		            for (var i = 0; i < chk.length; i++) {
@@ -568,20 +514,49 @@
 		               chk[i].checked = false; //모두 해제
 		            }
 		         }
-		      } ;
-	  	
+		      } 
+		     
 		      function cartSelectAll(){
 		    	  check = true;
 		            for (var i = 0; i < chk.length; i++) {
 		               chk[i].checked = true; //모두 체크
 		            }
-		      };
+		      }
 		      function cartReleaseAll(){
 		            check = false;
 		            for (var i = 0; i < chk.length; i++) {
 		               chk[i].checked = false; //모두 해제
 		            }
 		      }
+		      var num=1;
+		      //수량 버튼 +,- 하기
+		   
+		      
+		      $("#plus").click(function() {
+	                var $this = $(this);
+
+	                var target = $this.prev();
+	                var num = target.val();
+	                num++;
+
+	                target.val(num);
+	            });
+
+	            $("#minus").click(function() {
+	            	
+	                var $this = $(this);
+	                var target = $this.next();
+	                var num = target.val();
+	               
+					if(target.val()>1){
+						num--;
+						target.val(num);
+					}else{
+						target.val(1);
+					}
+	                
+	            });
+	 
     </script>
 	
 

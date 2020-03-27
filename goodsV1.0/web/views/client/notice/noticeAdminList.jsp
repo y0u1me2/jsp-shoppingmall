@@ -5,8 +5,8 @@
 
 <%
    List<Notice> list=(List)request.getAttribute("list");
-   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";
-   String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
+   String type=request.getParameter("searchType");
+   String keyword=request.getParameter("searchKeyword");
    int totalDate=(int)request.getAttribute("totalDate");
    int finderDate=(int)request.getAttribute("finderDate");
    int cPage=(int)request.getAttribute("cPage");
@@ -222,12 +222,9 @@
    }
 
     div#search_All{display:inline-block;}
-    div#search_m_Name{display:none;}
-    div#search_m_Email{display:none;}
-    div#search_m_Enroll{display:none;}
-    div#search_m_NickName{display:none;}
-    div#search_m_No{display:none;}
-    div#search_m_Phone{display:none;}
+    div#search_n_title{display:none;}
+    div#search_n_writer{display:none;}
+    div#search_n_no{display:none;}
     
     #numPerPage{
        padding:4px;
@@ -329,7 +326,11 @@
 	    display: inline-block;
 	    vertical-align: top;
 	}
-
+	/* 공지사항 관리 글귀 */
+	#one{
+		font-weight: bolder;
+   		font-size: 30px;
+	}
     </style>
 
 
@@ -366,12 +367,12 @@
                                 <!-- 개인정보 테이블 바디 -->
                                 <td colspan="3">
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
-                                     <select name="serach_Type" id="serach_Type" class="fSelect">
-                                        <option value="All">전체검색</option>
-                                        <option value="m_Name">제목</option>
-                                        <option value="m_Email">작성자</option>
-                                        <option value="m_Enroll">번호</option>
-                                       </select> 
+                                     <select name="search_Type" id="search_Type" class="fSelect">
+                                        <option value="All" <%=type!=null&&type.equals("All")?"selected":"" %>>전체검색</option>
+                                        <option value="n_title" <%=type!=null&&type.equals("All")?"selected":"" %>>제목</option>
+                                        <option value="n_writer" <%=type!=null&&type.equals("All")?"selected":"" %>>작성자</option>
+                                        <option value="n_no" <%=type!=null&&type.equals("All")?"selected":"" %>>번호</option>
+                                       </select>
                                     <!-- 개인정보 검색 -->
 
                                     <div id="search_All">
@@ -382,24 +383,24 @@
                                         </form>
                                     </div>
 
-                                      <div id="search_m_Name">
+                                      <div id="search_n_title">
                                          <form action="<%=request.getContextPath()%>/admin/noticeFinder">
-                                          <input type="hidden" name="searchType" value="m_Name"/>
-                                          <input type="text" name="searchKeyword" placeholder="검색할 제목 입력"/>
+                                          <input type="hidden" name="searchType" value="n_title"/>
+                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("n_title")?keyword:""%>" placeholder="검색할 제목 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
-                                     <div id="search_m_Email">
+                                     <div id="search_n_writer">
                                         <form action="<%=request.getContextPath()%>/admin/noticeFinder">
-                                          <input type="hidden" name="searchType" value="m_Email"/>
-                                          <input type="text" name="searchKeyword" placeholder="검색할  작성자 입력"/>
+                                          <input type="hidden" name="searchType" value="n_writer"/>
+                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("n_writer")?keyword:""%>" placeholder="검색할  작성자 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
-                                     <div id="search_m_Enroll">
+                                     <div id="search_n_no">
                                         <form action="<%=request.getContextPath()%>/admin/noticeFinder">
-                                          <input type="hidden" name="searchType" value="m_Enroll"/>
-                                          <input type="text" name="searchKeyword" placeholder="검색할 번호 입력"/>
+                                          <input type="hidden" name="searchType" value="n_no"/>
+                                          <input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("n_no")?keyword:""%>" placeholder="검색할 번호 입력"/>
                                           <button type="submit" class="btn_Search">검색</button>
                                        </form>
                                     </div>
@@ -408,7 +409,7 @@
                         </tbody>
                     </table>
                 </div>
-               
+         
             </div>
 
             <!-- 회원 목록 div -->
@@ -427,10 +428,11 @@
                 <!-- 회원목록 박스 헤더 -->
                 <div class="mListHeader">
                     <div class="gleft">
-                        <button type="button" class="btn_Wihte" >전체선택</button>
-                        <button type="button" class="btn_Wihte" >선택해제</button>
+                        <button type="button" class="btn_Wihte" id="allcheck" >전체선택</button>
+                        <button type="button" class="btn_Wihte" id="removecheck" >선택해제</button>
                         <button type="button" class="btn_Wihte" >삭제</button>
                         <button type="button" class="btn_Wihte" id="write">글쓰기</button>
+                        <button type="button" class="btn_Wihte" id="writeup">글수정</button>
                     </div>
                     
                     <div class="gright" id="numPerPage-container">
@@ -461,12 +463,12 @@
                         <col style="width:100px">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox"></th>
+                                <th scope="col"><input type="checkbox" class="mRowCheck"></th>
                                 <th scope="col">번호</th>
                                 <th scope="col">제목</th>
                                 <th scope="col">작성자</th>
                                 <th scope="col">작성일</th>
-                                <th scope="col">회원삭제</th>
+                                <th scope="col">글삭제</th>
                             </tr>
                         </thead>
                                          
@@ -499,6 +501,7 @@
                   <!--   <p class="empty">검색한 회원 결과가 없습니다.</p> -->
                 </div>
                 </form>
+
             <div id="pageBar">
                     <%=request.getAttribute("pageBar") %>
             </div>
@@ -507,9 +510,48 @@
     </div>
     </section>
    <script>
-   		$("#write").click(function(){
-   			location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
+   		//글쓰기
+   		$(function(){
+   			$("#write").click(function(){
+   				location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
+   			})
    		})
+   		//검색기능
+   		//검색기능 나오게하기
+   		$(function(){
+   			$("#search_Type").change(function(){
+   				let value=$("#search_Type").val();
+   				let all=$("#search_All");
+   				let writer=$("#search_n_writer");
+   				let no=$("#search_n_no");
+   				let title=$("#search_n_title");
+   				all.hide();
+   				writer.hide();
+   				no.hide();
+   				title.hide();
+   				console.log(value);
+   				$("#search_"+value).css("display","inline-block");
+   			})
+   		})
+   		
+   		
+   		//전체선택
+   		$(function(){
+   			$("#allcheck").click(function(){
+   				$(".mRowCheck").prop("checked",true);
+   			})
+   		})
+   		//전체해제
+   		$(function(){
+   			$("#removecheck").click(function(){
+   				$(".mRowCheck").prop("checked",false);
+   			})
+   		})
+   		
+   		//선택삭제
+   		
+   		//선택삭제
+   		
    </script>
 
 

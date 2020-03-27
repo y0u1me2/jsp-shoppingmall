@@ -1,6 +1,8 @@
+<%@page import="com.web.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/client/common/header.jsp" %>
+<% Notice n=(Notice)request.getAttribute("notice"); %>
 
 <style>
 	section.back{
@@ -99,33 +101,32 @@
 		<br><br>
 	</div>
 	<div class="back-div bottom">
-		<h2>제목</h2>
+		<h2><%=n.getnTitle() %></h2>
 		<ul class="info">
-			<li class="writer">작성자 admin</li>
-			<li class="readcount">조회수 10</li>
-			<li class="date">작성일 2020-03-21</li>
+			<li class="writer">작성자 <%=n.getnWriter() %></li>
+			<li class="readcount">조회수 <%=n.getnReadcount() %></li>
+			<li class="date">작성일 <%=n.getnDate() %></li>
 		</ul>
 	</div>
 	<div class="upfile">
 		<p>errornotzoo.jpg</p>
 	</div>
 	<div class="content">
-		<p class="context">아아아아아
-		아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아
-		아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아
-		아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아
-		아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아
-		아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아아
-		</p>
+		<p class="context"><%=n.getnContent() %></p>
 	</div>
 	<p class="not-btn">
 		<span class="button small">
 			<span class="typeA">
-				<button type="button" class="list" onclick="goList()">목록</button>
+				<button type="button"onclick="goList()">목록</button>
 			</span>
 		</span>
 	</p>
 	
 </section>
+<script>
+	function goList(){
+		location.replace("<%=request.getContextPath()%>/notice/noticeList");
+	}
+</script>
 
 <%@ include file="/views/client/common/footer.jsp" %>

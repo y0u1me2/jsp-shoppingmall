@@ -130,4 +130,48 @@ public class ProductDao {
 		return result;
 	}
 
+	public int getCustomNo(Connection conn, Custom c) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getCustomNo");
+		int cno = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getpNo());
+			pstmt.setString(2, c.getColor());
+			pstmt.setString(3, c.getImageFile());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cno = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return cno; //커스텀 번호거나 0
+	}
+
+	public int insertCustomImage(Connection conn, int cno, List<String> files) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertCustomImage");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(String file : files) {
+				pstmt.setInt(1, cno);
+				pstmt.setString(2, file);
+				if(pstmt.executeUpdate()>0) result++;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

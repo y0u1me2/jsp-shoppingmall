@@ -94,7 +94,11 @@
             <%for(Notice n: list) {%>
             <tr class="trst">
                 <td class="td1"><%=n.getnNo() %></td>
-                <td class="td2"><%=n.getnTitle() %></td>
+                <td class="td2">
+                	<a href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=n.getnNo()%>">
+                	<%=n.getnTitle() %>
+                	</a>
+                </td>
                 <td class="td3"><%=n.getnDate() %></td>
             </tr>
             <%} %>

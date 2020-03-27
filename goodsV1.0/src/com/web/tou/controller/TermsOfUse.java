@@ -30,7 +30,7 @@ public class TermsOfUse extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		request.getRequestDispatcher("/views/client/ServiceCenter/TermsOfUse,jsp").forward(request, response);
+		request.getRequestDispatcher("/views/client/servicecenter/TermsOfUse,jsp").forward(request, response);
 	}
 
 	/**

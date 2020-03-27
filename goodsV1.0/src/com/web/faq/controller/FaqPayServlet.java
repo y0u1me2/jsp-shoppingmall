@@ -38,7 +38,7 @@ public class FaqPayServlet extends HttpServlet {
 		System.out.println(list.toString());
 		request.setAttribute("faq", list);
            		
-		request.getRequestDispatcher("/views/client/ServiceCenter/Faqmember.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/client/servicecenter/Faqmember.jsp").forward(request, response);
 //		private FAQService fser=new FAQService();
 		
 		
