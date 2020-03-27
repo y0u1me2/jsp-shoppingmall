@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.web.admin.product.model.dao.AdminProductDao;
+import com.web.inquiry.model.vo.Inquiry;
 import com.web.member.model.vo.Member;
 import com.web.product.model.vo.Product;
 import com.web.product.model.vo.ProductImage;
@@ -59,5 +60,27 @@ public class AdminProductService {
 			
 			return result;
 	}
+
+//상품전체조회===================================
+	public List<Product> productList(int cPage, int numPerPage){
+		Connection conn = getConnection();
+		List<Product> list = dao.productList(conn,cPage,numPerPage);
+			
+		close(conn);
+					
+		return list;					
+	}
+
+//상품전체조회 페이지바==================================
+	public int productCount() {
+		Connection conn = getConnection();
+			
+		int result = dao.productCount(conn);
+		close(conn);
+			
+		return result;		
+	}	
+
+	
 	
 }

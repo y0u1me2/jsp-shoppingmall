@@ -97,9 +97,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath() %>/ProductListView" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>전체상품보기</p>
+                  <p>전체상품목록</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -108,12 +108,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>상품등록</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="<%=request.getContextPath() %>/productUpdateView" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>상품정보수정/삭제</p>
-                </a>
-              </li>
+            
             </ul>
           </li>
           
