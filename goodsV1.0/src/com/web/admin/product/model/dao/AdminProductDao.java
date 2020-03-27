@@ -200,6 +200,39 @@ public class AdminProductDao {
 
 	}
 
+//상품수정화면 출력===================================
+	public Product searchProduct(Connection conn,int no) {
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = prop.getProperty("searchProduct");
+			
+			Product p = null;
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				
+				pstmt.setInt(1, no);
+				rs=pstmt.executeQuery();
+						
+				if(rs.next()) {
+					p=new Product();
+					
+					p.setpNo(rs.getInt("p_no"));
+					p.setpName(rs.getString("p_name"));
+					p.setpPrice(rs.getInt("p_price"));
+					p.setpCategory(rs.getString("p_category"));
+					p.setpThumbnail(rs.getString("p_thumbnail"));
+					p.setpComment(rs.getString("p_comment"));
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}	
+			return p;
+		}	
 	
 
 }

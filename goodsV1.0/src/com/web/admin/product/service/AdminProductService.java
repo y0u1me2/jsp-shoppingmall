@@ -47,7 +47,7 @@ public class AdminProductService {
 			
 	}
 	
-//상품수정하기===================================
+//상품정보수정하기===================================
 	public int updateProduct(Product p) {
 		Connection conn = getConnection();
 			
@@ -81,6 +81,14 @@ public class AdminProductService {
 		return result;		
 	}	
 
-	
+//상품수정화면 출력=========================================
+	public Product searchProduct(int no) {
+		Connection conn = getConnection();
+		
+		Product p = dao.searchProduct(conn,no);
+		close(conn);
+		
+		return p;
+	}
 	
 }

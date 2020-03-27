@@ -23,8 +23,13 @@ public class ProductUpdateViewServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		//상품정보를 가져와서  수정 화면에 출력해주는 로직
+		Product p = new AdminProductService().searchProduct(no);
+		
+		request.setAttribute("product", p);
 		
 		request.getRequestDispatcher("/views/admin/product/productUpdateView.jsp")
 		.forward(request, response);

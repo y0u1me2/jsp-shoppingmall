@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="com.web.product.model.vo.Product" %>
+
+<%
+Product p = (Product)request.getAttribute("product");
+%>
 
 <%@ include file="/views/admin/common/header.jsp"%>
 <style>
@@ -140,27 +145,28 @@ button#color-btn:hover {
 			<div class="text">
 				<form action="<%=request.getContextPath()%>/productUpdateEnd" method="post"
 				enctype="multipart/form-data">
+						<input type="hidden" name="no" value="<%=p.getpNo()%>"/>
 					<table class="box">
 						<br>
 						<br>
 						<tr>
 							<td width="150px">상품명(필수)</td>
-							<td><input type="text" name="pName"></td>
+							<td><input type="text" name="pName" value="<%=p.getpName()%>"></td>
 						</tr>
 						<tr>
 							<td>판매가(필수)</td>
-							<td><input type="text" name="pPrice">원</td>
+							<td><input type="text" name="pPrice" value="<%=p.getpPrice()%>" >원</td>
 						</tr>
 						<tr>
 							<td>카테고리</td>
-							<td><input type="text" name="category"></td>
+							<td><input type="text" name="category" value="<%=p.getpCategory()%>"></td>
 						</tr>	
 						<tr>
 							<td>상품설명</td>
-							<td><input type="text" name="comment"></td>
+							<td><input type="text" name="comment" size="100" value="<%=p.getpComment()%>" ></td>
 						</tr>										
 						<tr>
-							<td>상품이미지수정</td>
+							<td>섬네일 이미지</td>
 							<td><input type="file" id="fbtn" name="upfile"></td>
 						</tr>
 						
