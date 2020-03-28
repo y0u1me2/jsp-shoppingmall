@@ -23,13 +23,12 @@ public class ProductCheckDeleteServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	String[] pCkDelete = request.getParameterValues("pCkArray[]");
+		//상품삭제하기
+		
+		String[] pCkDelete = request.getParameterValues("pCkArray[]");
 			
-		System.out.println(pCkDelete);
 		
 		int result = new AdminProductService().productCkDelete(pCkDelete);
-		
-		System.out.println("result값 : "+result);
 		
 		String msg="";
 		String loc="/admin/product/productList";

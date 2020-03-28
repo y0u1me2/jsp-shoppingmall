@@ -21,6 +21,8 @@ public class ProductEnrollViewServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//상품등록 페이지로 이동하기
+		
 		request.getRequestDispatcher("/views/admin/product/productEnroll.jsp")
 		.forward(request, response);
 	}

@@ -24,15 +24,14 @@ public class InquiryCheckDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		//문의글 삭제하기
 		
 		String[] iCkDelete = request.getParameterValues("iCkArray[]");
 		
 		System.out.println(iCkDelete);
 		
 		int result = new AdminInquiryService().inquiryCkDelete(iCkDelete);
-		
-		System.out.println("result값 : "+result);
-		
+				
 		String msg="";
 		String loc="/admin/inquiry/inquiryList";
 		

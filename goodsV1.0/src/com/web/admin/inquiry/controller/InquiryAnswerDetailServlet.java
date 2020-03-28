@@ -25,18 +25,17 @@ public class InquiryAnswerDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		//사용자가 1:1문의보낸 내용 상세페이지
-		// DB에서 정보를 가져온다
-
+		//사용자가 1:1문의보낸 내용 상세페이지로 이동하기
+		
+		//사용자가 문의한 글번호를 가져온다
 		int no = Integer.parseInt(request.getParameter("no"));
-		System.out.println(no);
 
 		Inquiry i = new AdminInquiryService().selectInquiry(no);
 
 		// i가 null이면 요청하신 내역이 없습니다. 메세지를 출력하고 문의 목록리스트 페이지로 전환
 		if (i == null) {
 		request.setAttribute("msg", "요청하신 내역이 없습니다.");
-		/* request.setAttribute("loc","/myInquiryList" ); */
+		request.setAttribute("loc", "/InquiryList");
 
 		request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 
