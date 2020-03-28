@@ -295,8 +295,8 @@ to {
 			<!-- 다시해야할듯........================div로 ======================= -->
 			<%for(Review r : list) { %>
 			<div style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
-				<table>
 				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
+				<table>
 					<tr>
 						<td class="reviewProductImg" rowspan="3"><a href="#"> 
 						<img class="review-product"
@@ -354,19 +354,19 @@ to {
 					<div class="reviewViewWriter" id="reviewViewWriter"></div>
 					<div class="reviewViewStar">
 						<div class="starOut">
-							<span name="star[0]" class="fa fa-star"></span>
+							<span id="starPoint" name="star[0]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[1]" class="fa fa-star"></span>
+							<span id="starPoint" name="star[1]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[2]" class="fa fa-star"></span>
+							<span id="starPoint" name="star[2]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[3]" class="fa fa-star"></span>
+							<span id="starPoint" name="star[3]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[4]" class="fa fa-star"></span>
+							<span id="starPoint" name="star[4]" class="fa fa-star"></span>
 						</div>
 					</div>
 					<div class="reviewViewDate" id="reviewViewDate"></div>
@@ -390,22 +390,20 @@ to {
 
 	$('.reviewImg').click(function() {
 		$('.reviewView-modal-back').show();
+		var star=$('div.starOut>span');
 		$.ajax({
 			url:'<%=request.getContextPath()%>/reviewView',
 			type:'post',
-			data:{rvNo:$('#RvNo').val()},
+			data:{rvNo:$(event.target).parent().siblings('input').val()},
 			success:function(data) {
-				console.log(data.rv_No);
 				$('#reviewViewWriter').text(data.m_nickName);
 				$('#reviewViewDate').text(data.rv_Date);
 				$('#reviewViewContent').text(data.rv_Content);
-				console.log(data.rv_Star);
-				console.log($('div.starOut>span'));
-				var star=$('div.starOut>span');
-				console.log("star : "+star);
+				for(let i=0;i<5;i++) {
+					$(star[i]).removeClass('checked');
+				}
 				for(let i=0;i<data.rv_Star;i++) {
-					console.log($(star[name=star[i]]));
-					$('div.starOut>span').attr('name','star[i]').addClass('checked');
+					$(star[i]).addClass('checked');
 				}
 			}
 		})
