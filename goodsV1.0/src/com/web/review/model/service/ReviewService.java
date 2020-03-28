@@ -26,4 +26,11 @@ public class ReviewService {
 		close(conn);
 		return review;
 	}
+	
+	public List<Review> searchMyReview(int myNo) {
+		Connection conn=getConnection();
+		List<Review> list=rdao.searchMyReview(conn, myNo);
+		close(conn);
+		return list;
+	}
 }

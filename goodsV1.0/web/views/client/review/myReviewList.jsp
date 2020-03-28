@@ -269,7 +269,7 @@ to {
 		<div class="review-top">
 			<div class="review-title">
 				<h1>
-					고객리뷰 ( <span id="number-of-object">52684</span> )
+					나의리뷰 ( <span id="number-of-object">52684</span> )
 				</h1>
 			</div>
 			<div class="review-selection">
