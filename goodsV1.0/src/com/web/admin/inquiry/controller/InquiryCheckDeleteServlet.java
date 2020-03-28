@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.admin.inquiry.model.service.AdminInquiryService;
+import com.web.admin.member.model.service.AdminMemberService;
 
 @WebServlet("/inquiryCheckDelete")
 public class InquiryCheckDeleteServlet extends HttpServlet {
@@ -24,26 +25,29 @@ public class InquiryCheckDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		
-		  //선택한 체크박스 문의글 삭제하기
-		 
-		 //체크박스의 체크된 값을 배열로 받는다. 
-		String [] row = request.getParameterValues("rowCheck");
-		  
-		  // System.out.println(row[0]); // System.out.println(row[1]); // //db에는 배열
-		  //자료형이 없으므로 String으로 바꿔줘야함 
-		String allChecks = String.join(",",row);
-		  
-		  System.out.println(Arrays.toString(row));
-		  
-		  int result = new AdminInquiryService().inquiryCheckDelete(row);
-		  
-		  if(result>0) { System.out.println("삭제완료"); }
-		 
-		 
+		String[] iCkDelete = request.getParameterValues("iCkArray[]");
+		
+		System.out.println(iCkDelete);
+		
+		int result = new AdminInquiryService().inquiryCkDelete(iCkDelete);
+		
+		System.out.println("result값 : "+result);
+		
+		String msg="";
+		String loc="/admin/inquiry/inquiryList";
 		
 		
+		if(result>0) {
+			msg="1:1 문의글이 삭제되었습니다.";			
+
+		}else {
+			msg="1:1 문의글 삭제가 실패하였습니다.";
+			
+		}
 		
-		
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(msg);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

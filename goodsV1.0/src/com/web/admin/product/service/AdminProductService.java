@@ -35,17 +35,29 @@ public class AdminProductService {
 		return result;
 	} 	
 	
-//메뉴 카테고리 추가하기=========================
-	public List<Product> productCategory(){
+//헤더 메뉴 추가하기=========================
+	public List<Product> productHeaderMenu(){
 		Connection conn = getConnection();
 		
-		List<Product> list = dao.productCategory(conn);
+		List<Product> list = dao.productHeaderMenu(conn);
 		
 		close(conn);
 		
 		return list;
 			
 	}
+	
+	public List<Product> productInfo(int no) {
+		Connection conn = getConnection();
+		
+		List<Product> listP = dao.productInfo(conn,no);
+		
+		close(conn);
+		
+		return listP;
+		
+	}
+	
 	
 //상품정보수정하기===================================
 	public int updateProduct(Product p) {
@@ -90,5 +102,17 @@ public class AdminProductService {
 		
 		return p;
 	}
-	
+
+//상품삭제=====================================================
+	public int productCkDelete(String [] pCkDelete) {
+		 Connection conn = getConnection();
+		  
+		  int result = dao. productCkDelete(conn, pCkDelete); 
+		  
+		  if(result>0) commit(conn);
+		  else rollback(conn); close(conn);
+		  
+		  return result; 
+		  
+		 }	
 }

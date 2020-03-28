@@ -7,6 +7,7 @@
 
 <%-- <%@ page import="com.web.common.listener.SessionCheckListener" %> --%>
 <%@ page import="java.util.List"%>
+<%@ page import="com.web.product.model.vo.Product" %>
 
 <%
 
@@ -21,6 +22,7 @@
 	
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
+	
 %>
 <script>
 		var loginResult='<%=loginResult%>';
@@ -135,7 +137,8 @@
 					<li><a href="https://www.kakaocorp.com/"><img id="love"
 							src="<%=request.getContextPath()%>/images/common/love.png" alt=""></a></li>
 				</ul>
-
+			
+			
 				<ul class="mainMenu2">
 					<li>
 						<ul class="subMenu">
@@ -164,8 +167,9 @@
 							<li id="nop"><a href="#">티셔츠</a></li>
 							<li id="nop"><a href="#">에코백</a></li>
 						</ul>
-					</li>
+					</li>		 	
 				</ul>
+				 				
 			</div>
 			<hr>
 		</div>
