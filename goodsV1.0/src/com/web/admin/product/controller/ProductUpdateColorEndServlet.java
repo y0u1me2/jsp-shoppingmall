@@ -1,38 +1,27 @@
 package com.web.admin.product.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.product.service.AdminProductService;
-import com.web.product.model.vo.Product;
 
-
-@WebServlet("/productUpdateView")
-public class ProductUpdateViewServlet extends HttpServlet {
+@WebServlet("/productUpdateColorEnd")
+public class ProductUpdateColorEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public ProductUpdateViewServlet() {
-        super();
        
+   
+    public ProductUpdateColorEndServlet() {
+        super();
+      
     }
 
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int no = Integer.parseInt(request.getParameter("no"));
-		
-		//상품정보를 가져와서  수정 화면에 출력해주는 로직
-		Product p = new AdminProductService().searchProduct(no);
-		
-		request.setAttribute("product", p);
-		
-		request.getRequestDispatcher("/views/admin/product/productUpdateView.jsp")
-		.forward(request, response);
+		//상품색상 수정 로직
 	}
 
 	

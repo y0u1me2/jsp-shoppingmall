@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="com.web.product.model.vo.Product" %>
+
+<%
+Product p = (Product)request.getAttribute("product");
+%>
 
 <%@ include file="/views/admin/common/header.jsp"%>
 <style>
@@ -75,8 +80,8 @@ div.back {
 
 /* 전체 1:1상담 목록 텍스트 */
 #one {
-	font-weight: bolder;
-	font-size: 25px;
+		font-weight: bolder;
+	font-size: 30px;
 	position: relative;
 	top: 10px;
 }
@@ -103,9 +108,9 @@ button#update-btn:hover {
 	outline: none;
 }
 
-button#delete-btn {
+button#color-btn {
 	height: 40px;
-	width: 100px;
+	width: 150px;
 	background: #313030;
 	border-radius: 7px;
 	margin-left: auto;
@@ -116,7 +121,7 @@ button#delete-btn {
 	position: relative;
 }
 
-button#delete-btn:hover {
+button#color-btn:hover {
 	background: black;
 	outline: none;
 }
@@ -140,76 +145,38 @@ button#delete-btn:hover {
 			<div class="text">
 				<form action="<%=request.getContextPath()%>/productUpdateEnd" method="post"
 				enctype="multipart/form-data">
+						<input type="hidden" name="no" value="<%=p.getpNo()%>"/>
 					<table class="box">
 						<br>
 						<br>
 						<tr>
 							<td width="150px">상품명(필수)</td>
-							<td><input type="text" name="pName"></td>
+							<td><input type="text" name="pName" value="<%=p.getpName()%>"></td>
 						</tr>
 						<tr>
 							<td>판매가(필수)</td>
-							<td><input type="text" name="pPrice">원</td>
+							<td><input type="text" name="pPrice" value="<%=p.getpPrice()%>" >원</td>
 						</tr>
 						<tr>
 							<td>카테고리</td>
-							<td><input type="text" name="category"></td>
+							<td><input type="text" name="category" value="<%=p.getpCategory()%>"></td>
 						</tr>	
 						<tr>
 							<td>상품설명</td>
-							<td><input type="text" name="comment"></td>
+							<td><input type="text" name="comment" size="100" value="<%=p.getpComment()%>" ></td>
 						</tr>										
 						<tr>
-							<td>상품이미지수정</td>
+							<td>섬네일 이미지</td>
 							<td><input type="file" id="fbtn" name="upfile"></td>
 						</tr>
 						
-						<!-- <tr>
-							<td>상품 색상 설정</td>
-							<td>
-								<div>
-									<input type="checkbox" name="option" id="option" checked>
-									<label for="option">화이트</label>
-									
-									<input type="checkbox" name="option" id="option2" >
-									<label for="option2">블랙</label>
-									
-									<input type="checkbox" name="option" id="option3" >
-									<label for="option3">핑크</label>
-									
-									<input type="checkbox" name="option" id="option4" >
-									<label for="option4">그린</label>
-									
-									<input type="checkbox" name="option" id="option5" >
-									<label for="option5">블루</label>
-									
-									<input type="checkbox" name="option" id="option6" >
-									<label for="option6">옐로우</label>
-									
-									<input type="checkbox" name="option" id="option7" >
-									<label for="option7">레드</label>
-									
-									<input type="checkbox" name="option" id="option8" >
-									<label for="option8">네이비</label>
-									
-									<input type="checkbox" name="option" id="option9" >
-									<label for="option9">퍼플</label>
-									
-									<input type="checkbox" name="option" id="option10" >
-									<label for="option10">연그레이</label>
-									
-									<input type="checkbox" name="option" id="option11" >
-									<label for="option11">진그레이</label>
-																										
-								</div>
-							</td>						
-						</tr>  -->
+						
 						
 					</table>
 				<div id="btns">
 					<button id="update-btn" type="submit">상품정보수정</button>
 					&nbsp; &nbsp;
-					<button id="delete-btn">상품삭제</button>
+				
 				</div>
 				</form>
 			</div>
