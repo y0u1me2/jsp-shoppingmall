@@ -1,19 +1,29 @@
 package com.web.review.model.vo;
 
+import java.util.Date;
+
 public class Review {
 	private int rv_No;
 	private int m_No;
+	private String m_nickName;
 	private int p_No;
 	private String rv_Title;
 	private String rv_Content;
 	private int rv_Star;
 	private String rv_Ori_Name;
 	private String rv_Re_Name;
+	private Date rv_Date;
 	public Review() {
 		super();
 	}
-	public Review(int rv_No, int m_No, int p_No, String rv_Title, String rv_Content, int rv_Star, String rv_Ori_Name,
-			String rv_Re_Name) {
+	public Date getRv_Date() {
+		return rv_Date;
+	}
+	public void setRv_Date(Date rv_Date) {
+		this.rv_Date = rv_Date;
+	}
+	public Review(int rv_No, int m_No, String m_nickName, int p_No, String rv_Title, String rv_Content, int rv_Star, String rv_Ori_Name,
+			String rv_Re_Name ) {
 		super();
 		this.rv_No = rv_No;
 		this.m_No = m_No;
@@ -23,6 +33,7 @@ public class Review {
 		this.rv_Star = rv_Star;
 		this.rv_Ori_Name = rv_Ori_Name;
 		this.rv_Re_Name = rv_Re_Name;
+		this.m_nickName = m_nickName;
 	}
 	public int getRv_No() {
 		return rv_No;
@@ -71,6 +82,12 @@ public class Review {
 	}
 	public void setRv_Re_Name(String rv_Re_Name) {
 		this.rv_Re_Name = rv_Re_Name;
+	}
+	public String getM_nickName() {
+		return m_nickName;
+	}
+	public void setM_nickName(String m_nickName) {
+		this.m_nickName = m_nickName;
 	}
 		
 }
