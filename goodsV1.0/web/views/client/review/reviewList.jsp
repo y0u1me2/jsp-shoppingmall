@@ -5,6 +5,7 @@
 <%@ page import="java.util.List,com.web.review.model.vo.Review" %>
 <% 
 	List<Review> list=(List)request.getAttribute("review");
+	int count=(int)request.getAttribute("count");
 %>
 
 <link rel="stylesheet"
@@ -269,7 +270,7 @@ to {
 		<div class="review-top">
 			<div class="review-title">
 				<h1>
-					고객리뷰 ( <span id="number-of-object">52684</span> )
+					고객리뷰 ( <span id="number-of-object"><%=count %></span> )
 				</h1>
 			</div>
 			<div class="review-selection">
@@ -378,10 +379,10 @@ to {
 </section>
 
 <script>
-	var check = $("input[type='checkbox']");
+	/* var check = $("input[type='checkbox']");
 	check.click(function() {
-		$("p").toggle();
-	});
+		
+	}); */
 
 	// 리뷰작성창 닫기
 	function closeReviewView() {
@@ -408,6 +409,8 @@ to {
 			}
 		})
 	})
+	
+	$('select.review-select').val();
 </script>
 
 

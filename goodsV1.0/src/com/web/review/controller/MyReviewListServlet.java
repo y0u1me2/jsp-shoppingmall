@@ -34,6 +34,8 @@ public class MyReviewListServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		int myNo=Integer.parseInt(request.getParameter("myNo"));
 		List<Review> list=new ReviewService().searchMyReview(myNo);
+		int count=new ReviewService().countMyReview(myNo);
+		request.setAttribute("count", count);
 		request.setAttribute("review", list);
 		
 		request.getRequestDispatcher("views/client/review/myReviewList.jsp").forward(request, response);

@@ -5,6 +5,7 @@
 <%@ page import="java.util.List,com.web.review.model.vo.Review" %>
 <% 
 	List<Review> list=(List)request.getAttribute("review");
+	int count=(int)request.getAttribute("count");
 %>
 
 <link rel="stylesheet"
@@ -19,7 +20,7 @@ div.review-container {
 
 /* 리뷰 상부 타이블/스위치 */
 div.review-top {
-	border-bottom: 3px solid rgba(0,0,0,0.5);
+	border-bottom: 2px solid rgba(0,0,0,0.5);
 }
 
 div.review-title {
@@ -30,6 +31,7 @@ div.review-title {
 	margin:30px 0;
 	border:none;
 	cursor:pointer;
+	background-color:transparent;
 }
 #reviewWrite {
 	margin-right:20px;
@@ -41,20 +43,39 @@ div.review-selection {
 	justify-content: flex-end;
 }
 
-div.review-dropdown {
-	margin-right: 20px;
-}
 
-select.review-select {
-	margin: 30px 0;
-	border: none;
-	appearance: none;
-}
+
 
 div.review-toggle {
 	display: inline-flex;
-	padding: 30px 5px;
+	padding: 10px 5px;
+	margin : 0 15px;
 }
+
+div.review-toggle>button {
+	background-color:transparent;
+	width:550px;
+	height:50px;
+	cursor:pointer;
+	border:none;
+	outline:none;
+}
+div.review-toggle>button.selected {
+	border-top:2px solid rgba(0,0,0,0.5);
+	border-left:2px solid rgba(0,0,0,0.5);
+	border-right:2px solid rgba(0,0,0,0.5);
+	border-bottom:none !important;
+	font-size:16px;
+	font-weight:bold;
+}
+div.review-toggle>button.unselected {
+	border-bottom:2px solid rgba(0,0,0,0.5) !important;
+	border-top:none !important;
+	border-left:none !important;
+	border-right:none !important;
+	font-size:13px;
+}
+
 
 
 /* 리뷰 중간부/내용 */
@@ -97,69 +118,8 @@ td.reviewProductImg {
 	color: orange;
 }
 
-/* 토글 스위치 스타일 */
-/* The switch - the box around the slider */
-.switch {
-	position: relative;
-	display: inline-block;
-	width: 50px;
-	height: 20px;
-	margin-left: 10px;
-	vertical-align: middle;
-}
 
-/* Hide default HTML checkbox */
-.switch input {
-	display: none;
-}
 
-/* The slider */
-.slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: .4s;
-	transition: .4s;
-}
-
-.slider:before {
-	position: absolute;
-	content: "";
-	height: 15px;
-	width: 15px;
-	left: 4px;
-	bottom: 4px;
-	background-color: white;
-	-webkit-transition: .4s;
-	transition: .4s;
-}
-
-input:checked+.slider {
-	background-color: #2196F3;
-}
-
-input:focus+.slider {
-	box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked+.slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-	border-radius: 34px;
-}
-
-.slider.round:before {
-	border-radius: 50%;
-}
 .reviewView-modal-back {
 	display: none;
 	z-index: 1;
@@ -277,35 +237,25 @@ to {
 		<div class="review-top">
 			<div class="review-title">
 				<h1>
-					나의리뷰 ( <span id="number-of-object">52684</span> )
+					나의리뷰 ( <span id="number-of-object"><%=count %></span> )
 				</h1>
 			</div>
 			<div class="review-selection">
+				
 				<div id="reviewWrite">
-					<button type="button" id="reviewWriteBtn">작성하기</button>
+					<button type="button" id="reviewWriteBtn">리뷰쓰기</button>
 				</div>
-				<div class="review-dropdown">
-					<select class="review-select" name="reviewSelect">
-						<option value="all">모든 상품</option>
-						<option value="1">케이스</option>
-						<option value="2">악세사리</option>
-						<option value="3">생활용품</option>
-						<option value="4">패션</option>
-					</select>
-				</div>
-				<div class="review-toggle">
-					<span style="margin: 0; font-size: 14px;">포토리뷰</span> 
-					<label class="switch"> 
-						<input type="checkbox"> 
-						<span class="slider round"></span>
-					</label>
-				</div>
+				
+			</div>
+			<div class="review-toggle">
+						<button class="selected" id="writeAbleReview" type="button">작성 가능한 리뷰</button>
+						<button class="unselected" id="writtenReview" type="button">작성한 리뷰</button>
 			</div>
 		</div>
 		<div class="review-middle">
 			<!-- 다시해야할듯........================div로 ======================= -->
 			<%for(Review r : list) { %>
-			<div style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
+			<div id="writtenReviewList" style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
 				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
 				<table>
 					<tr>
@@ -389,11 +339,11 @@ to {
 </section>
 
 <script>
-	var check = $("input[type='checkbox']");
-	check.click(function() {
-		$("p").toggle();
-	});
-
+if($('#writtenReview').attr("class")=="selected") {
+	$('#writtenReviewList').show();
+}else {
+	$('#writtenReviewList').hide();
+}
 	// 리뷰작성창 닫기
 	function closeReviewView() {
 		$('.reviewView-modal-back').css('display', 'none');
@@ -421,8 +371,23 @@ to {
 	})
 	/* 작성모달창 */
 	$('#reviewWriteBtn').click(function() {
-		
+		$('.reviewView-modal-back').css("display","block");
 	})
+	
+	$('div.review-toggle>button').click(function() {
+		$(this).addClass('selected');
+		$(this).removeClass('unselected');
+		$(this).siblings('button').addClass('unselected');
+		$(this).siblings('button').removeClass('selected');
+		if($(this).attr("id")=="writtenReview") {
+			$('#writtenReviewList').show();
+		}else {
+			$('#writtenReviewList').hide();
+		}
+	})
+	
+	
+	
 </script>
 
 
