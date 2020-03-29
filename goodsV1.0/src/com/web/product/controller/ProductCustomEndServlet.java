@@ -62,8 +62,8 @@ public class ProductCustomEndServlet extends HttpServlet {
 		
 		Custom c = new Custom();
 		c.setpNo(Integer.parseInt(mr.getParameter("pNo")));
+		c.setmNo(Integer.parseInt(mr.getParameter("mNo")));
 		c.setColor(mr.getParameter("color"));
-//		c.setmNo(mNo);
 		c.setImageFile(mr.getFilesystemName("complete"));
 		
 		
@@ -80,17 +80,9 @@ public class ProductCustomEndServlet extends HttpServlet {
 		System.out.println("커스텀에 사용한 원본 이미지 개수 : "+files.size());
 
 		
-		int result = new ProductService().insertCustom(c); //커스텀 제품 등록 완료
+		int result = new ProductService().insertCustom(c, files); //커스텀 제품 등록&커스텀에 사용한 이미지 등록 -> 실패시 0, 성공시 저장한 이미지 개수
 		if(result>0) {
-			System.out.println("데이터 입력 성공");
-			int cno = new ProductService().getCustomNo(c); //커스텀 번호 가져오기
-			//갤러리에 사용할 원본 이미지들 디비에 저장
-			int count = new ProductService().insertCustomImage(cno, files);
-			if(count>0) {
-				System.out.println("원본 이미지 등록 성공 개수: "+count);
-			}else {
-				System.out.println("원본 이미지 등록 실패");
-			}
+			System.out.println("데이터 입력 성공, 저장한 이미지 개수: "+result);
 		}else {
 			System.out.println("데이터 입력 실패");
 		}
