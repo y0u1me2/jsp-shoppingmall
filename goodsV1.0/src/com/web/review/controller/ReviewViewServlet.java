@@ -18,13 +18,13 @@ import com.web.review.model.vo.Review;
  * Servlet implementation class ReviewView
  */
 @WebServlet("/reviewView")
-public class ReviewView extends HttpServlet {
+public class ReviewViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewView() {
+    public ReviewViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +35,11 @@ public class ReviewView extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int reviewNo=Integer.parseInt(request.getParameter("rvNo"));
-		System.out.println(reviewNo);
 		Review review=new ReviewService().reviewView(reviewNo);
 		Gson gson=new Gson();
-//		JSONObject obj=new JSONObject();
-		String jsonReview="없다";
+		String jsonReview="";
 		try {
-//			obj.put("review", review);
 			jsonReview=gson.toJson(review);
-			System.out.println(jsonReview);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
