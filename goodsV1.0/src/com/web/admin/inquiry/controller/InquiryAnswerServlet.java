@@ -31,10 +31,31 @@ public class InquiryAnswerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//사용자가 보낸 1:1문의에 답변하기
+		
+		//파일 업로드를 위한 로직처리
+		//1.파일을 저장할 경로설정
+		String path = getServletContext().getRealPath("/upload/inquiryAnswer");
+		File folder = new File(path);
+
+		// 해당 디렉토리가 없을경우 디렉토리를 생성
+		if (!folder.exists()) {
+			try{
+			  folder.mkdir();
+		}catch(Exception e){
+			e.getStackTrace();
+		}  
+		}
+			      
 	
 		//1. multipart/formdata로 형석이 넘어왔는지 확인
 		if(!ServletFileUpload.isMultipartContent(request)) {
-		
+			
+			// 업로드 실패하면 폴더에 저장된 파일삭제
+			File f = new File(path);
+			if (f.exists()) {
+				f.delete();
+			}	
+			
 		//업로드처리 로직에서 multipart/formdata형식으로 넘어오지 않으면
 		//등록이 안되면 문의글 쓰는 페이지로 다시 이동
 		request.setAttribute("msg", "1:1문의등록에러!![form:enctype 관리자에게 문의]");
@@ -42,23 +63,10 @@ public class InquiryAnswerServlet extends HttpServlet {
 		request.getRequestDispatcher("/views/client/common/msg.jsp")
 		.forward(request, response);
 		}
-				
+		
+					
 		//답변 내용 DB에 저장하고 전송된 파일 was서버 폴더에 저장하는 로직
 				
-		//파일 업로드를 위한 로직처리
-		//1.파일을 저장할 경로설정
-		String path = getServletContext().getRealPath("/upload/inquiryAnswer");
-	      File folder = new File(path);
-
-	      // 해당 디렉토리가 없을경우 디렉토리를 생성
-	      if (!folder.exists()) {
-	         try{
-	            folder.mkdir();
-	          }catch(Exception e){
-	              e.getStackTrace();
-	           }  
-	       }
-	      
 		//2.업로드 파일에 대한 최대용량을 설정
 		int maxSize = 1024*1024*10; //10MB
 				

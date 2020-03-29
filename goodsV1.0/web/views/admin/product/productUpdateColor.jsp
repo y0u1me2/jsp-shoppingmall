@@ -3,9 +3,7 @@
 
 <%@ page import="com.web.product.model.vo.Product" %>
 
-<%
-Product p = (Product)request.getAttribute("product");
-%>
+
 
 <%@ include file="/views/admin/common/header.jsp"%>
 <style>
@@ -125,6 +123,20 @@ button#color-btn:hover {
 	background: black;
 	outline: none;
 }
+
+ td:first-of-type{
+   color: #80878d;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+    font-size: 15px;
+    background-color: #f5f4f4;
+   }
+   
+  label{
+  color: #80878d;
+  font-weight: normal;
+  }
 </style>
 </head>
 
@@ -141,11 +153,11 @@ button#color-btn:hover {
 			<h1 id="one">상품색상수정</h1>
 			<hr id="gline">
 			<br> <br>
-
+				
 			<div class="text">
-				<form action="<%=request.getContextPath()%>/productUpdateColorEnd" method="post"
-				enctype="multipart/form-data">
-						<input type="hidden" name="no" value="<%=p.getpNo()%>"/>
+				<form name='ajaxFile' id="frm" method="post" enctype="multipart/form-data" >
+						
+				<input type="hidden" name="no" value=""/>
 					<table class="box">
 						<br>
 																
@@ -192,21 +204,129 @@ button#color-btn:hover {
 						
 						<tr>
 							<td>색상 이미지</td>
-							<td><input type="file" id="fbtn" name="upfile"></td>
+							<td><input type="file" id="fbtn" name="upfile" multiple/></td>
 						</tr>
 						
 					</table>
 				<div id="btns">
-					<button id="update-btn" type="submit">상품색상수정</button>
-					&nbsp; &nbsp;
-				
+					<button type="button" id="update-btn">상품색상수정</button>				
 				</div>
 				</form>
+				
+				<div id="images"></div>
 			</div>
 
 		</div>
 	</div>
+	
+<script>
+
+//상품색상수정
+function pColorUpdate(){	
+	//name=option
+	var result = confirm('상품색상을 수정하시겠습니까?'); 
+	var count=0;
+	var pColors=$("#option");
+	
+	if(result) { 
+		for(let i=0; i<pColors.length; i++){
+			if(pColors[i].checked==true){
+				count++;
+			}
+		}
+			
+	if(count==0){
+		alert("수정할 색상을 선택해주세요.");
+	}else{
+		//배열 선언
+	    var pColorArray=[];
+
+	    $('input[name="option"]:checked').each(function(i){
+	        		iCkArray.push($(this).val());
+	   	});	
+	    //체크된 리스트 저장
+	    console.log(pColorArray);
+	       
+	    var objParams = {
+			"pColorArray" : pColorArray //선텍된 글을 저장
+	   }; 
+	      
+	   
+	    $.ajax({
+	        url         :   "<%=request.getContextPath()%>/productUpdateColorEnd",
+	       	dataType    :   "html",
+	        contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
+	        type        :   "post",
+	        data        :   objParams,
+	        success     :   function(retVal){
+			alert(retVal);
+			location.replace("<%=request.getContextPath()%>/productUpdateColor");
+		},
+			error : function(request, status, error) {
+			console.log("AJAX_ERROR");
+					}
+		});
+		}
+		} else {
+
+		}
+	}
+	
+//ajax 파일업로드 구현하기
+$(function(){
+	$("#update-btn").click(function(){
+		var form=$("#frm").serialize(); //이름,비밀번호(input)이 여러개일때 데이터만 보낼수있음
+		//데이터보낼때 FormData객체를 이용하여 데이터 전송가능
+		const fd = new FormData();
+	
+	//다중파일 업로드
+	$.each($("[name=upfile]")[0].files,function(i,item){
+		fd.append("goods"+i,item);
+	})
+		$.ajax({
+			url:"<%=request.getContextPath()%>/fileUp",
+			data:form,
+			type:"post",
+			processData:false,
+			contentType:false,
+			success:function(data){
+				alert("업로드 성공");
+				$("#images").html("");
+				$("[name=upfile]").val("");
+				
+			},error:function(re,e,m){
+				alert("업로드 실패");
+			}					
+		})
+		
+	})
+})
+
+//이미지 미리보기(file)
+$(function(){
+	$("[name=upfile]").change(function(){
+		
+		const reader = new FileReader();
+				
+	//다중 이미지 출력하기 multiple속성이 있을 때
+		$.each($(this)[0].files,function(i,item){
+			const reader = new FileReader();
+			
+			reader.onload=function(e){
+				var img=$("<img>").attr("src",e.target.result)
+				.css({width:"100px",height:"100px"});
+				$("#images").append(img);						
+			}
+			reader.readAsDataURL(item);
+		});
+	})
+})
+</script>	
+	
+	
+
 </div>
+
 
 
 <%@ include file="/views/admin/common/footer.jsp"%>

@@ -44,7 +44,7 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 	              e.getStackTrace();
 	           }  
 	       }
-	      
+	      			
 		// 2. multipart/formdata로 형석이 넘어왔는지 확인
 		if (!ServletFileUpload.isMultipartContent(request)) {
 
@@ -61,7 +61,7 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 
 		}
-
+				      
 		// 공지사항 내용 DB에 저장하고 전송된 파일 was서버 폴더에 저장하는 로직
 
 		// 2.업로드 파일에 대한 최대용량을 설정
@@ -81,10 +81,11 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		System.out.println(oriFileName);
 		System.out.println(renamedFileName);
 
-		int no = 99;
+		int no = 99;		
 
 		Inquiry i = new Inquiry(0, no, type, phone, title, content, null, oriFileName,renamedFileName,"Y",null);
-
+		
+		
 		// n을 DB에 저장하기
 		int result = new InquiryService().inquiryWrite(i);
 
