@@ -62,13 +62,13 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
-		
+		System.out.println(finderDate);
 		String pageBar="";
 		//이전페이지 만들기
 		if(pageNo==1) {
-			pageBar+="<span>◀ 이전 <span>";
+			pageBar+="<span><</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>◀ 이전 </a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'><</a>";
 		}																							//타입과 키워드가 유지되게하는 로직
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -81,9 +81,9 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		}
 		
 		if(pageNo>totalPage) {
-			pageBar+="<span> 다음 ▶</span>";
+			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'> 다음 ▶</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
 		}
 		
 		
