@@ -259,7 +259,7 @@
   <span class="close" id="close">&times;</span>
   <img class="modal-content" id="img01">
   <div id="caption"></div>
-  <button>따라 만들기</button>
+  <button onclick="location.replace('<%=request.getContextPath()%>/gallery/imageDownload')">따라 만들기</button>
 </div>
 
 

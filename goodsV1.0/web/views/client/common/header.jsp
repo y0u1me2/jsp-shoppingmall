@@ -131,7 +131,7 @@
 					<li><span><a href="<%=request.getContextPath()%>/product/list?category=악세사리"> 악세사리</a></span></li>
 					<li><span> <a href="<%=request.getContextPath()%>/product/list?category=생활용품"> 생활용품</a></span></li>
 					<li><span><a href="<%=request.getContextPath()%>/product/list?category=패션"> 패션</a></span></li>
-					<li><span><a href="">갤러리</a></span></li>
+					<li><span><a href="<%=request.getContextPath()%>/gallery/list">갤러리</a></span></li>
 					<li><span><a href="<%=request.getContextPath()%>/reviewList"> 리뷰</a></span></li>
 					<li id="middleBar-img"></li>
 					<li><a href="https://www.kakaocorp.com/"><img id="cart"

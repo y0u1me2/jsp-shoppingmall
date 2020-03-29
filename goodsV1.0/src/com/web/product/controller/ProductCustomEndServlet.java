@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.web.common.CompressionUtil;
 import com.web.common.CustomFileRename;
 import com.web.product.model.service.ProductService;
 import com.web.product.model.vo.Custom;
@@ -59,6 +60,12 @@ public class ProductCustomEndServlet extends HttpServlet {
 		//여기서 파일 저장함
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new CustomFileRename());
 		
+		//압축파일
+		CompressionUtil cu = new CompressionUtil();
+		cu.zip(new File(path));
+
+		
+		
 		
 		Custom c = new Custom();
 		c.setpNo(Integer.parseInt(mr.getParameter("pNo")));
@@ -79,6 +86,9 @@ public class ProductCustomEndServlet extends HttpServlet {
 		}
 		System.out.println("커스텀에 사용한 원본 이미지 개수 : "+files.size());
 
+		
+		
+		
 		
 		int result = new ProductService().insertCustom(c, files); //커스텀 제품 등록&커스텀에 사용한 이미지 등록 -> 실패시 0, 성공시 저장한 이미지 개수
 		if(result>0) {
