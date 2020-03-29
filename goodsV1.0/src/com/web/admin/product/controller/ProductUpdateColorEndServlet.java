@@ -1,4 +1,4 @@
-package com.web.admin.inquiry.controller;
+package com.web.admin.product.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,21 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/InquiryAnswerView")
-public class InquiryAnswerViewServlet extends HttpServlet {
+@WebServlet("/productUpdateColorEnd")
+public class ProductUpdateColorEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
- 
-    public InquiryAnswerViewServlet() {
+       
+   
+    public ProductUpdateColorEndServlet() {
         super();
+      
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//답변하기 버튼 누르면 1:1문의 답변페이지 이동
-			
-		request.getRequestDispatcher("/views/admin/inquiry/inquiryanswer.jsp")
-		.forward(request, response);
+		//상품색상 수정 로직
 	}
 
 	

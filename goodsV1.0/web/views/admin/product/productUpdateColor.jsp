@@ -1,20 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="com.web.product.model.vo.Product" %>
+
+<%
+Product p = (Product)request.getAttribute("product");
+%>
 
 <%@ include file="/views/admin/common/header.jsp"%>
-
 <style>
-div.content-wrapper{
-	background-color:white;
+div.content-wrapper {
+	background-color: white;
 	position: relative;
 	left: 100px;
 }
 
-div.goodsback{
-	height:auto;
+div.goodsback {
+	height: auto;
 	position: relative;
-	top:100px;
+	top: 100px;
 }
 
 * {
@@ -26,10 +30,8 @@ body {
 	height: auto;
 }
 
-
 /* 섹션안 공간  */
 div.back {
-	width: 100%;
 	position: relative;
 }
 
@@ -41,7 +43,7 @@ div.back {
 	width: 80%;
 }
 
-div.goodsback {
+.goodsback {
 	width: 100%;
 }
 
@@ -51,6 +53,7 @@ div.goodsback {
 	border-bottom: 1px solid #adadad;
 	border-collapse: collapse;
 	width: 80%;
+
 }
 
 /* 테이블 위치 */
@@ -60,16 +63,19 @@ div.goodsback {
 }
 
 /* 테이블 선 색상 */
-.box>tr,td {
+.box>tr, td {
 	border: 1px solid #e2e0e0;
-	padding:10px 30px 10px 10px;
+		padding:10px 30px 10px 5px;
 }
-
 
 /* 테이블 크기 */
 .box {
 	width: 80%;
-	height: 250px;
+	height: 200px;
+}
+
+#td1, #td2, #td3, #fbtn {
+	margin-left: 10px;
 }
 
 /* 전체 1:1상담 목록 텍스트 */
@@ -80,25 +86,44 @@ div.goodsback {
 	top: 10px;
 }
 
-input#submit-btn {
+#btns {
 	position: relative;
 	top: 30px;
-	left: 400px;
-	width:100px;
-	height:40px;
-        border: solid 1px rgb(147, 147, 194);
-        background: white;
-        border-radius: 5px;
-        font-size: 15px;
-        color: rgb(134, 134, 133);
-        margin-right: 5px;
-        position:relative;
-    }
+	left: 300px;
+}
 
-   input#submit-btn:hover{
-        background:rgb(251, 251, 249);
-        outline: none;
-    } 
+button#update-btn {
+	height: 40px;
+	width: 120px;
+	border: solid 1px rgb(147, 147, 194);
+	background: white;
+	border-radius: 10px;
+	font-size: 15px;
+	color: rgb(134, 134, 133);
+	margin-right: 5px;
+}
+
+button#update-btn:hover {
+	background: rgb(251, 251, 249);
+	outline: none;
+}
+
+button#color-btn {
+	height: 40px;
+	width: 150px;
+	background: #313030;
+	border-radius: 7px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 0;
+	font-size: 15px;
+	color: rgb(233, 233, 229);
+	position: relative;
+}
+
+button#color-btn:hover {
+	background: black;
+	outline: none;
 }
 </style>
 </head>
@@ -106,60 +131,28 @@ input#submit-btn {
 <!-- ============================================================== -->
 
 
- <div class="content-wrapper">
+<div class="content-wrapper">
 	<div class="back">
 
 
 
 		<div class="goodsback">
-			<br>
-			<br>
-			<h1 id="one">상품등록</h1>
+			<br> <br>
+			<h1 id="one">상품색상수정</h1>
 			<hr id="gline">
-			<br>
-			<br>
+			<br> <br>
 
 			<div class="text">
-				<form action="<%=request.getContextPath()%>/productEnrollEnd"
-				method="post" enctype="multipart/form-data">
+				<form action="<%=request.getContextPath()%>/productUpdateColorEnd" method="post"
+				enctype="multipart/form-data">
+						<input type="hidden" name="no" value="<%=p.getpNo()%>"/>
 					<table class="box">
 						<br>
-						<br>
-
-						<tr>
-							<td width="150px">상품명(필수)</td>
-							<td><input type="text" id="td1" name="pName"></td>
-						</tr>
-						
-						<tr>
-							<td>카테고리</td>
-							<td><select name="pCategory">
-									<option>-카테고리 선택-</option>
-									<option value="케이스">케이스</option>
-									<option value="악세사리">악세사리</option>
-									<option value="생활용품">생활용품</option>
-									<option value="패션">패션</option>
-							</select></td>
-						</tr>
-						
-						<tr>
-							<td>판매가(필수)</td>
-							<td><input type="text" id="td2" name="pPrice">원</td>
-						</tr>
-						<tr>
-							<td>상품 섬네일 이미지등록</td>
-							<td><input type="file" id="fbtn" name="pThumbnail"/></td>
-						</tr>
-						
-						<tr>
-							<td>상품 설명 등록</td>
-							<td><input type="text" name="pComment"/></td>
-						</tr>
-						
+																
 						<tr>
 							<td>상품 색상 설정</td>
 							<td>
-								<div id="td3">
+								<div>
 									<input type="checkbox" name="option" id="option" checked>
 									<label for="option">화이트</label>
 									
@@ -195,19 +188,26 @@ input#submit-btn {
 																										
 								</div>
 							</td>						
-						</tr> 
-					
+						</tr>  
+						
+						<tr>
+							<td>색상 이미지</td>
+							<td><input type="file" id="fbtn" name="upfile"></td>
+						</tr>
+						
 					</table>
-					<input type="submit" id="submit-btn" value="상품등록">
+				<div id="btns">
+					<button id="update-btn" type="submit">상품색상수정</button>
+					&nbsp; &nbsp;
+				
+				</div>
 				</form>
 			</div>
 
 		</div>
 	</div>
-	
-	
-	
-	
 </div>
 
+
 <%@ include file="/views/admin/common/footer.jsp"%>
+

@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="/views/client/common/header.jsp"%>
+<%@ page import="java.util.List,com.web.review.model.vo.Review" %>
+<% 
+	List<Review> list=(List)request.getAttribute("review");
+%>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -289,27 +293,34 @@ to {
 		</div>
 		<div class="review-middle">
 			<!-- 다시해야할듯........================div로 ======================= -->
-			<div
-				style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
+			<%for(Review r : list) { %>
+			<div style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
+				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
 				<table>
 					<tr>
-						<td class="reviewProductImg" rowspan="3"><a href="#"> <img
-								class="review-product"
+						<td class="reviewProductImg" rowspan="3"><a href="#"> 
+						<img class="review-product"
 								src="http://blogfiles.naver.net/MjAyMDAyMjhfMjk1/MDAxNTgyODg3OTYxNTAx.65if9cw_x-J4nP-t9AUFic4VeVhf_V0mi88ZZ5XODUgg.XvjMwjsTpXdosK9tlxsm7nTTWE0YTYJtbc9Qq0pkXnMg.JPEG.momo7891/Description.jpg">
 						</a></td>
-						<td class="reviewTitle" colspan="3"><a href="#"> 여기는
-								상품명인데 링크 </a></td>
+						<td class="reviewTitle" colspan="3">
+						<a href="#">
+							상품이구요
+						</a></td>
 					</tr>
 					<tr class="reviewTR">
-						<td class="reviewStar"><span class="fa fa-star"></span> <span
-							class="fa fa-star"></span> <span class="fa fa-star"></span> <span
-							class="fa fa-star"></span> <span class="fa fa-star"></span></td>
-						<td class="reviewDate">2020-03-22</td>
-						<td class="reviewWriter">고객 닉네임</td>
+						<td class="reviewStar">
+						<%for(int i=0;i<r.getRv_Star();i++) { %>
+							<span class="fa fa-star checked"></span>
+						<%} %>
+						<%for(int i=0;i<5-(r.getRv_Star());i++) { %>
+							<span class="fa fa-star"></span>
+						<%} %>
+						
+						<td class="reviewDate"><%=r.getRv_Date() %></td>
+						<td class="reviewWriter"><%=r.getM_nickName() %></td>
 					</tr>
 					<tr>
-						<td class="reviewContent" colspan="3">나만 살순없지 너도 사서 같이 개흑우
-							인즈엉?</td>
+						<td class="reviewContent" style="width:150px;" colspan="3"><%=r.getRv_Content() %></td>
 					</tr>
 				</table>
 				<div class="reviewImg">
@@ -317,100 +328,7 @@ to {
 						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
 				</div>
 			</div>
-
-
-			<div
-				style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
-				<table>
-					<tr>
-						<td class="reviewProductImg" rowspan="3"><a href="#"> <img
-								class="review-product"
-								src="http://blogfiles.naver.net/MjAyMDAyMjhfMjk1/MDAxNTgyODg3OTYxNTAx.65if9cw_x-J4nP-t9AUFic4VeVhf_V0mi88ZZ5XODUgg.XvjMwjsTpXdosK9tlxsm7nTTWE0YTYJtbc9Qq0pkXnMg.JPEG.momo7891/Description.jpg">
-						</a></td>
-						<td class="reviewTitle" colspan="3"><a href="#"> 여기는
-								상품명인데 링크 </a></td>
-					</tr>
-					<tr class="reviewTR">
-						<td class="reviewStar"><span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span> <span
-							class="fa fa-star checked"></span> <span
-							class="fa fa-star checked"></span> <span class="fa fa-star"></span>
-						</td>
-						<td class="reviewDate">2020-03-22</td>
-						<td class="reviewWriter">고객 닉네임</td>
-					</tr>
-					<tr>
-						<td class="reviewContent" colspan="3">나만 살순없지 너도 사서 같이 개흑우
-							인즈엉?</td>
-					</tr>
-				</table>
-				<div class="reviewImg">
-					<img
-						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
-				</div>
-			</div>
-
-			<div
-				style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
-				<table>
-					<tr>
-						<td class="reviewProductImg" rowspan="3"><a href="#"> <img
-								class="review-product"
-								src="http://blogfiles.naver.net/MjAyMDAyMjhfMjk1/MDAxNTgyODg3OTYxNTAx.65if9cw_x-J4nP-t9AUFic4VeVhf_V0mi88ZZ5XODUgg.XvjMwjsTpXdosK9tlxsm7nTTWE0YTYJtbc9Qq0pkXnMg.JPEG.momo7891/Description.jpg">
-						</a></td>
-						<td class="reviewTitle" colspan="3"><a href="#"> 여기는
-								상품명인데 링크 </a></td>
-					</tr>
-					<tr class="reviewTR">
-						<td class="reviewStar"><span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span> <span
-							class="fa fa-star checked"></span> <span
-							class="fa fa-star checked"></span> <span class="fa fa-star"></span>
-						</td>
-						<td class="reviewDate">2020-03-22</td>
-						<td class="reviewWriter">고객 닉네임</td>
-					</tr>
-					<tr>
-						<td class="reviewContent" colspan="3">나만 살순없지 너도 사서 같이 개흑우
-							인즈엉?</td>
-					</tr>
-				</table>
-				<div class="reviewImg">
-					<img
-						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
-				</div>
-			</div>
-
-			<div
-				style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
-				<table>
-					<tr>
-						<td class="reviewProductImg" rowspan="3"><a href="#"> <img
-								class="review-product"
-								src="http://blogfiles.naver.net/MjAyMDAyMjhfMjk1/MDAxNTgyODg3OTYxNTAx.65if9cw_x-J4nP-t9AUFic4VeVhf_V0mi88ZZ5XODUgg.XvjMwjsTpXdosK9tlxsm7nTTWE0YTYJtbc9Qq0pkXnMg.JPEG.momo7891/Description.jpg">
-						</a></td>
-						<td class="reviewTitle" colspan="3"><a href="#"> 여기는
-								상품명인데 링크 </a></td>
-					</tr>
-					<tr class="reviewTR">
-						<td class="reviewStar"><span class="fa fa-star checked"></span>
-							<span class="fa fa-star checked"></span> <span
-							class="fa fa-star checked"></span> <span
-							class="fa fa-star checked"></span> <span class="fa fa-star"></span>
-						</td>
-						<td class="reviewDate">2020-03-22</td>
-						<td class="reviewWriter">고객 닉네임</td>
-					</tr>
-					<tr>
-						<td class="reviewContent" colspan="3">나만 살순없지 너도 사서 같이 개흑우
-							인즈엉?</td>
-					</tr>
-				</table>
-				<div class="reviewImg">
-					<img
-						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
-				</div>
-			</div>
+			<%} %>
 			<!-- -============================================================================== -->
 		</div>
 	</div>
@@ -433,27 +351,26 @@ to {
 					</ul>
 				</div>
 				<div class="reviewViewRight">
-					<div class="reviewViewWriter">작성자 닉네임</div>
+					<div class="reviewViewWriter" id="reviewViewWriter"></div>
 					<div class="reviewViewStar">
 						<div class="starOut">
-							<span name="star[0]" class="fa fa-star checked"></span>
+							<span id="starPoint" name="star[0]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[1]" class="fa fa-star checked"></span>
+							<span id="starPoint" name="star[1]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[2]" class="fa fa-star checked"></span>
+							<span id="starPoint" name="star[2]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[3]" class="fa fa-star checked"></span>
+							<span id="starPoint" name="star[3]" class="fa fa-star"></span>
 						</div>
 						<div class="starOut">
-							<span name="star[4]" class="fa fa-star checked"></span>
+							<span id="starPoint" name="star[4]" class="fa fa-star"></span>
 						</div>
 					</div>
-					<div class="reviewViewDate">2020-03-22</div>
-					<div class="reviewViewContent">이건 너도 사야해 나만 죽을 수는 없지 ㅋㅋㅋㅋㅋㅋㅋ
-						개좋은 물건임 ㅋㅋㅋㅋㅋㅋㅋ 너네도 당해봐라</div>
+					<div class="reviewViewDate" id="reviewViewDate"></div>
+					<div class="reviewViewContent" id="reviewViewContent"></div>
 				</div>
 			</div>
 		</div>
@@ -472,10 +389,27 @@ to {
 	}
 
 	$('.reviewImg').click(function() {
-		$('.reviewView-modal-back').toggle();
+		$('.reviewView-modal-back').show();
+		var star=$('div.starOut>span');
+		$.ajax({
+			url:'<%=request.getContextPath()%>/reviewView',
+			type:'post',
+			data:{rvNo:$(event.target).parent().siblings('input').val()},
+			success:function(data) {
+				$('#reviewViewWriter').text(data.m_nickName);
+				$('#reviewViewDate').text(data.rv_Date);
+				$('#reviewViewContent').text(data.rv_Content);
+				for(let i=0;i<5;i++) {
+					$(star[i]).removeClass('checked');
+				}
+				for(let i=0;i<data.rv_Star;i++) {
+					$(star[i]).addClass('checked');
+				}
+			}
+		})
 	})
-	
-	$('.review-toggle')
+	/* 
+	$('.review-toggle') */
 </script>
 
 

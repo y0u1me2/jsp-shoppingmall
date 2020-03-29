@@ -1,4 +1,4 @@
-package com.web.admin.inquiry.controller;
+package com.web.admin.product.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.inquiry.model.service.AdminInquiryService;
-import com.web.inquiry.model.vo.Inquiry;
+import com.web.admin.product.service.AdminProductService;
+import com.web.product.model.vo.Product;
 
-@WebServlet("/InquiryList")
-public class InquiryListServlet extends HttpServlet {
+@WebServlet("/ProductListView")
+
+public class ProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public InquiryListServlet() {
+	public ProductListServlet() {
 		super();
 
 	}
@@ -24,31 +25,41 @@ public class InquiryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 전체1:1상담 목록 출력하기
-		
-		// DB에 저장된 문의내역을 페이징처리해서 가져온다
-		int cPage;
+		//상품전체 목록 조회하기
 
+		int cPage; // 현재페이지
+
+		// 현재페이지를 선택안했을 수도 있기 때문에 예외처리해준다
 		try {
 			cPage = Integer.parseInt(request.getParameter("cPage"));
 		} catch (NumberFormatException e) {
 			cPage = 1;
 		}
 
+		// 한페이지에 보여지고싶은 글 개수
 		int numPerPage;
 
 		try {
 			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
 		} catch (NumberFormatException e) {
-			numPerPage = 10;
+			numPerPage = 5;
 		}
 
-		List<Inquiry> list = new AdminInquiryService().searchInquiry(cPage, numPerPage);
+		// 페이징처리해서 데이터 가져오기
+		List<Product> list = new AdminProductService().productList(cPage, numPerPage);
 
 		// 페이지바 만들기
-		int totalInquiry = new AdminInquiryService().inquiryCount();
 
-		int totalPage = (int) Math.ceil((double) totalInquiry / numPerPage);
+		//총 상품개수 구해오기
+		int totalProduct = new AdminProductService().productCount();
+		
+
+		// pageBar의 시작번호, 끝번호까지 출력해주는 변수
+		// 현재 페이지 : 1 ~ 5 -> 1
+		// 현재 페이지 : 6 ~ 10 -> 6
+		// 현재 페이지 : 11 ~ 15 -> 11
+		int totalPage = (int) Math.ceil((double) totalProduct / numPerPage);
+
 
 		int pageBarSize = 5; // 밑에 바는 5개씩만 보여준다
 
@@ -62,7 +73,7 @@ public class InquiryListServlet extends HttpServlet {
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + (pageNo - 1) + "&numPerPage="
 					+ numPerPage + "'><</a>&nbsp ";
 		}
 
@@ -72,29 +83,28 @@ public class InquiryListServlet extends HttpServlet {
 			if (pageNo == cPage) {
 				pageBar += "<span class='cPage'>" + pageNo + "</span>&nbsp ";
 			} else {
-				pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
+				pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + pageNo + "&numPerPage="
 						+ numPerPage + "'>" + pageNo + "</a>&nbsp ";
 			}
 			pageNo++;
 		}
+		
 
 		// [>]
 		if (pageNo > totalPage) {
 			pageBar += "<span>></span>&nbsp";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + pageNo + "&numPerPage="
 					+ numPerPage + "'>></a>";
 		}
-
-		int todayInquiry = new AdminInquiryService().todayInquiry();
 
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
-		request.setAttribute("totalInquiry", totalInquiry);
-		request.setAttribute("todayInquiry", todayInquiry);
-		request.getRequestDispatcher("/views/admin/inquiry/inquiryList.jsp").forward(request, response);
-
+		request.getRequestDispatcher("/views/admin/product/productList.jsp").forward(request, response);
+		
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
