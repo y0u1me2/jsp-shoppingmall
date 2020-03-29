@@ -115,10 +115,12 @@
 		<div class="container2">
 
 			<!-- 로고 -->
-			<span class="logo"> <img
-				src="<%=request.getContextPath()%>/images/common/영문검정.png" width="300px"
-				height="150px" alt="goodgoods">
-			</span>
+			<a href="<%=request.getContextPath() %>/index.jsp">
+				<span class="logo"> <img
+					src="<%=request.getContextPath()%>/images/common/영문검정.png" width="300px"
+					height="150px" alt="goodgoods">
+				</span>
+			</a>
 
 
 			<div class="topMenu">

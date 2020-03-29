@@ -220,7 +220,9 @@
     		
     		<form action="<%=request.getContextPath() %>/product/custom" method="post" onsubmit="return invalid();">
     			<input type="hidden" name="pNo" value="<%=p.getpNo()%>">
+    			<input type="hidden" name="mNo" value="<%=loginMember!=null?loginMember.getM_No():""%>">
     			<input type="hidden" id="imgFile" name="imgFile" value="">
+    			
 				    		
     			<div id="radio-btn-container">
     			
