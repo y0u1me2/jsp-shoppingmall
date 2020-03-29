@@ -125,6 +125,15 @@ button#color-btn:hover {
 	background: black;
 	outline: none;
 }
+
+   td:first-of-type{
+   color: #80878d;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+    font-size: 15px;
+    background-color: #f5f4f4;
+   }
 </style>
 </head>
 
@@ -150,11 +159,11 @@ button#color-btn:hover {
 						<br>
 						<br>
 						<tr>
-							<td width="150px">상품명(필수)</td>
+							<td width="150px">상품명</br>(필수)</td>
 							<td><input type="text" name="pName" value="<%=p.getpName()%>"></td>
 						</tr>
 						<tr>
-							<td>판매가(필수)</td>
+							<td>판매가</br>(필수)</td>
 							<td><input type="text" name="pPrice" value="<%=p.getpPrice()%>" >원</td>
 						</tr>
 						<tr>
@@ -166,7 +175,7 @@ button#color-btn:hover {
 							<td><input type="text" name="comment" size="100" value="<%=p.getpComment()%>" ></td>
 						</tr>										
 						<tr>
-							<td>섬네일 이미지</td>
+							<td>섬네일</br>이미지</td>
 							<td><input type="file" id="fbtn" name="upfile"></td>
 						</tr>
 						
