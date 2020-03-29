@@ -26,6 +26,14 @@ div.review-title {
 	float: left;
 	padding: 20px 0;
 }
+#reviewWriteBtn {
+	margin:30px 0;
+	border:none;
+	cursor:pointer;
+}
+#reviewWrite {
+	margin-right:20px;
+}
 
 div.review-selection {
 	padding: 10px 0;
@@ -273,6 +281,9 @@ to {
 				</h1>
 			</div>
 			<div class="review-selection">
+				<div id="reviewWrite">
+					<button type="button" id="reviewWriteBtn">작성하기</button>
+				</div>
 				<div class="review-dropdown">
 					<select class="review-select" name="reviewSelect">
 						<option value="all">모든 상품</option>
@@ -407,6 +418,10 @@ to {
 				}
 			}
 		})
+	})
+	/* 작성모달창 */
+	$('#reviewWriteBtn').click(function() {
+		
 	})
 </script>
 
