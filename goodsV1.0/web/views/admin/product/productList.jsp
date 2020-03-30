@@ -229,6 +229,22 @@ input#color-btn:hover {
 	background: rgb(251, 251, 249);
 	outline: none;
 }
+
+button#excel-btn{
+  	 padding: 3px 10px;
+        font-size: 12px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        background-color: white;
+        border: 1px solid rgb(161, 161, 161);
+        position:relative;
+        left:800px;
+}
+
+button#excel-btn>a{
+text-decoration: none;
+color: rgb(0, 0, 0);
+}
 </style>
 
 <!-- ============================================================== -->
@@ -247,7 +263,8 @@ input#color-btn:hover {
 
 			<div class="list-container">
 
-
+			<button id="excel-btn"><a href="<%=request.getContextPath()%>/productExcelDownLoad">엑셀파일저장</a></button>
+		
 				<div class="mListHeader">
 					<div class="gleft">
 						<button type="button" class="btn_Wihte"

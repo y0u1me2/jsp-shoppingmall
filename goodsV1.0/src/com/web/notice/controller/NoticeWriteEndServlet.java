@@ -1,11 +1,20 @@
 package com.web.notice.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.web.notice.model.service.NoticeService;
+import com.web.notice.model.vo.Notice;
 
 /**
  * Servlet implementation class NoticeWriteEndServlet
@@ -27,11 +36,32 @@ public class NoticeWriteEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String title=request.getParameter("title");
-		String writer=request.getParameter("writer");
-		String content=request.getParameter("content");
 		
+		//파일이 multipart로 넘어왔는지 확인
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			request.setAttribute("msg", "공지사항등록에러!![form:enctype 관리자에게 문의]");
+			request.setAttribute("loc", "/notice/noticeWrite");
+			request.getRequestDispatcher("/views/notice/msg.jsp").forward(request,response);
+		}
 		
+		//경로
+		String path=getServletContext().getRealPath("/upload/notice");
+		int maxSize=1024*1024*10; //10MB;
+		MultipartRequest mr=new MultipartRequest(request, path, maxSize, "UTF-8",new DefaultFileRenamePolicy());
+		String title=mr.getParameter("title");
+		String writer=mr.getParameter("writer");
+		String content=mr.getParameter("content");
+		Enumeration f=mr.getFileNames();
+		String oriFileName="";
+		String reNameFile="";
+		while(f.hasMoreElements()) {
+			String name=(String)f.nextElement();
+			reNameFile+=mr.getFilesystemName(name)+" ";
+			oriFileName+=mr.getOriginalFileName(name)+" ";
+		}
+		Notice n=new Notice(0,writer,title,content,oriFileName,reNameFile,null,0,null);
+		int result=new NoticeService().insertNotice(n);
+
 	}
 
 	/**

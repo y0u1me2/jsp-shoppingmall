@@ -361,10 +361,10 @@
                             <!-- 결제예정금액 및 상품주문 버튼-->
                             <span>
                                 	결제 예정금액(
-                                <em style="color:red;">0</em>
+                                <em style="color:red;" class="cartSelCount"></em>
                                 	)
                             </span>
-                            <span class="format-Price" style=" color: red; font-size: 23px;">30900</span>
+                            <span id ="payAllPrice" class="format-Price payAllPrice" style=" color: red; font-size: 23px;"></span>
                             <span style=" color: red; font-size: 23px;">원</span>
                             <button type="submit" class="btn-gray-big">선택상품 주문하기</button>
                         </div>
@@ -376,7 +376,12 @@
                             <!--장바구니 상단 멘트-->
                         <span style="display:inline-block; width: 100%; height: 35px;">
                             <span class="title">PC 상품 &nbsp
-                                <span>(<em style="color: red;">0</em> / 1)</span>
+                                <span>(
+                                	<em style="color: red;" class="cartSelCount">0</em>
+                                 	/ 
+                                 	<span class="cartAllCount">1</span>
+                                 	)
+                                 </span>
                                 <span class="txt">PC에서 제작한 상품으로 주문 및 편집이 가능합니다.</span>
                             </span>
                             <!--유의 사항-->
@@ -421,7 +426,7 @@
                                 <tr>
                                     <td style="text-align: center; vertical-align: top;">
                                         <div class="cartCheckbox">
-                                            <input type="checkbox" name="cartSelect" value="" >
+                                            <input type="checkbox" name="cartSelect" class="cartSelect" >
                                         </div>
                                         <!-- 전체클릭하면 위에 체크되기-->
                                     </td>
@@ -437,7 +442,7 @@
                                     </td>
                                     <td class="price2">
                                         <div class="oriPri"><span class="format-Price" >31900</span>원</div>
-                                        <div class="salePri"><span class="format-Price " >30300</span>원</div>
+                                        <div class="salePri"><span class="format-Price sale" >30300</span>원</div>
                                     </td>
                                     <td class="quantity">
                                         <div class="inputquantity">
@@ -445,7 +450,7 @@
                                                 <button type="button" class="minus" 
                                                 style="display: table-cell;">-</button>
                                                 <!-- <div> -->
-                                                <input type="text" class="pdQuantity" name = "pdQuantity" value="0" maxlength="3">
+                                                <input type="text" class="pdQuantity" name = "pdQuantity" value="1" maxlength="3">
                                                 <!-- </div> -->
                                                 <button type="button" class="plus"
                                                 style="display: table-cell;" >+</button>
@@ -453,7 +458,119 @@
                                         </div>
                                     </td>
                                     <td style="color: #e5362c; font-size: 19px; font-weight: bold;">			 
-                                        <span class="format-Price">                
+                                        <span class="format-Price payPrice">                
+                                        </span>원
+                                    </td>
+                                </tr>
+                                <tr class="shoppingutil">
+                                   
+                                    <td colspan="6" style="padding:0;">
+                                        <div style="padding:18px 0; height: 14px; border-top: 1px dashed  rgb(218, 218, 218);
+                                                    padding-bottom: 25px;">
+                                            <span style="float: left; font-size: 12px;">
+                                                <button>편집하기</button>
+                                                <span style="padding:0 20px; color:  rgb(218, 218, 218);">|</span>
+                                                <button>복사하기</button>
+                                                <span style="padding:0 20px; color:  rgb(218, 218, 218);">|</span>
+                                                <button>삭제하기</button>
+                                            </span>
+
+                                            <span style="float: right; font-size: 12px; padding-top: 5px;">최종 편집일 2020.02.02</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td style="text-align: center; vertical-align: top;">
+                                        <div class="cartCheckbox">
+                                            <input type="checkbox" name="cartSelect" class="cartSelect" >
+                                        </div>
+                                        <!-- 전체클릭하면 위에 체크되기-->
+                                    </td>
+                                    <td>
+                                        <div style="width: 260px; height:260px; padding: 0px 15px;margin-left: 60px;">
+                                            <img src="<%=request.getContextPath()%>/images/product/thumbnail/tumbler.jpg"alt="텀블러" width="260px" height="260px">
+                                        </div>
+                                    </td>
+                                    <td style="text-align: left; padding-left: 20px;">
+                                        <div>
+                                            <h3>사진 텀블러-고급형</h3>
+                                        </div>
+                                    </td>
+                                    <td class="price2">
+                                        <div class="oriPri"><span class="format-Price" >41900</span>원</div>
+                                        <div class="salePri"><span class="format-Price sale" >40300</span>원</div>
+                                    </td>
+                                    <td class="quantity">
+                                        <div class="inputquantity">
+                                            <div class="inputquantity2">
+                                                <button type="button" class="minus" 
+                                                style="display: table-cell;">-</button>
+                                                <!-- <div> -->
+                                                <input type="text" class="pdQuantity" name = "pdQuantity" value="1" maxlength="3">
+                                                <!-- </div> -->
+                                                <button type="button" class="plus"
+                                                style="display: table-cell;" >+</button>
+                                            </div>    
+                                        </div>
+                                    </td>
+                                    <td style="color: #e5362c; font-size: 19px; font-weight: bold;">			 
+                                        <span class="format-Price payPrice">                
+                                        </span>원
+                                    </td>
+                                </tr>
+                                <tr class="shoppingutil">
+                                   
+                                    <td colspan="6" style="padding:0;">
+                                        <div style="padding:18px 0; height: 14px; border-top: 1px dashed  rgb(218, 218, 218);
+                                                    padding-bottom: 25px;">
+                                            <span style="float: left; font-size: 12px;">
+                                                <button>편집하기</button>
+                                                <span style="padding:0 20px; color:  rgb(218, 218, 218);">|</span>
+                                                <button>복사하기</button>
+                                                <span style="padding:0 20px; color:  rgb(218, 218, 218);">|</span>
+                                                <button>삭제하기</button>
+                                            </span>
+
+                                            <span style="float: right; font-size: 12px; padding-top: 5px;">최종 편집일 2020.02.02</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td style="text-align: center; vertical-align: top;">
+                                        <div class="cartCheckbox">
+                                            <input type="checkbox" name="cartSelect" class="cartSelect" >
+                                        </div>
+                                        <!-- 전체클릭하면 위에 체크되기-->
+                                    </td>
+                                    <td>
+                                        <div style="width: 260px; height:260px; padding: 0px 15px;margin-left: 60px;">
+                                            <img src="<%=request.getContextPath()%>/images/product/thumbnail/tumbler.jpg"alt="텀블러" width="260px" height="260px">
+                                        </div>
+                                    </td>
+                                    <td style="text-align: left; padding-left: 20px;">
+                                        <div>
+                                            <h3>사진 텀블러-고급형</h3>
+                                        </div>
+                                    </td>
+                                    <td class="price2">
+                                        <div class="oriPri"><span class="format-Price" >21900</span>원</div>
+                                        <div class="salePri"><span class="format-Price sale" >25550</span>원</div>
+                                    </td>
+                                    <td class="quantity">
+                                        <div class="inputquantity">
+                                            <div class="inputquantity2">
+                                                <button type="button" class="minus" 
+                                                style="display: table-cell;">-</button>
+                                                <!-- <div> -->
+                                                <input type="text" class="pdQuantity" name = "pdQuantity" value="1" maxlength="3">
+                                                <!-- </div> -->
+                                                <button type="button" class="plus"
+                                                style="display: table-cell;" >+</button>
+                                            </div>    
+                                        </div>
+                                    </td>
+                                    <td style="color: #e5362c; font-size: 19px; font-weight: bold;">			 
+                                        <span class="format-Price payPrice">                
                                         </span>원
                                     </td>
                                 </tr>
@@ -504,44 +621,141 @@
 		  //체크박스 전체선택하기
 		      var check = false;
 		      var chk = document.getElementsByName("cartSelect");
+		      var payAllPrice=0;
+		      var checkAll = $("input:checkbox[name=cartSelect]").length;
+		      var cartChecked = 0;
 		 	   //chk에 name이select[0]인것을 넣어줌
+		 	   
 		 	   function cartSelRelAll(){
 		    	   //카트트셀렉 클릭
 		         if (check == false) {
 		            check = true;
 		            for (var i = 0; i < chk.length; i++) {
-		               chk[i].checked = true; //모두 체크
+		            	
+		            		 chk[i].checked = true; //모두 체크
+		            	
+		              
 		            }
+		            for(var i=0;i<chk.length;i++){
+	           			if(chk[i].checked==true){
+	           				if(cartChecked<chk.length){
+	           					cartChecked++;	
+	           				}
+	           			}
+	           		}
+		            $('.cartSelCount').text(cartChecked);
 		         } else {
 		            check = false;
 		            for (var i = 0; i < chk.length; i++) {
 		               chk[i].checked = false; //모두 해제
 		            }
+		            
+		            for(var i=0;i<chk.length;i++){
+	           			if(chk[i].checked==false){
+	           				if(cartChecked>0){
+	           					cartChecked--;	
+	           				}	           				           				
+	           			}
+	           		}
+		            $('.cartSelCount').text(cartChecked);
 		         }
 		      } 
-		     
-		      function cartSelectAll(){
+		     	//전체선택 버튼 체크박스 체크
+		      function cartSelectAll(){		
 		    	  check = true;
 		            for (var i = 0; i < chk.length; i++) {
 		               chk[i].checked = true; //모두 체크
 		            }
+		            
+		            for(var i=0;i<chk.length;i++){
+	           			if(chk[i].checked==true){
+	           				if(cartChecked<chk.length){
+	           					cartChecked++;	
+	           				}
+	           			}
+	           		}
+		            $('.cartSelCount').text(cartChecked);
 		      }
+		     	//선택해제 버튼 체크박스 해제
 		      function cartReleaseAll(){
 		            check = false;
 		            for (var i = 0; i < chk.length; i++) {
 		               chk[i].checked = false; //모두 해제
 		            }
+		            for(var i=0;i<chk.length;i++){
+	           			if(chk[i].checked==false){
+	           				if(cartChecked>0){
+	           					cartChecked--;	
+	           				}	           				           				
+	           			}
+	           		}
+		            $('.cartSelCount').text(cartChecked);
+		            
 		      }
+		     	//체크박스 개수
+		     $(function(){
+		     	   // 전체 체크박스 개수 구하기
+			         
+		           $('.cartAllCount').text(checkAll);
+		           // 선텍 체크박스 개수 구하기
+		         
+		           $('.cartSelect').click(function(){
+		        	   var AllPayResult;
+		        	   var payPrice = $(this).parent().parent().next().next().next().next().next().children().text();
+		        	
+		           		if(this.checked==true){
+		           			cartChecked++;
+			           		payPrice = payPrice.replace(/,/g, "");
+
+			           		payAllPrice += parseInt(payPrice);
+			           		console.log(payAllPrice);
+			           		AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			           		
+		           		}else{		           			
+		           			cartChecked--;
+		           			console.log(payAllPrice);
+		           			payPrice = payPrice.replace(/,/g, "");
+			           		payAllPrice -= parseInt(payPrice);
+
+			           		AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	           			
+		           		}
+		           		//장바구니리스트 상품 개수
+		           		$('.cartSelCount').text(cartChecked);
+		           		//submit할 총가격 text
+		           		$("#payAllPrice").text(AllPayResult);
+		           		
+		           });
+		           //최초 로드 시 제품들 가격.
+		           var quan = $('.pdQuantity');
+		           //console.log(quan.val());
+		           var productPrice = $('.sale');
+		           for(let i=0;i<productPrice.length;i++){
+					   var amount = new Array();
+					   var productAmount = new Array();
+			           amount[i]=quan.val()*parseInt(productPrice.eq(i).text());
+
+			           var productAmount=quan.parent().parent().parent().next().children();
+
+			           productAmount.eq(i).text(amount[i]);
+
+
 		  
+		           }
+		           
+		           
+		     })
+		     	
+		  		//수량 input에 blur이벤트 수량 입력하면 최종금액나옴
 		      $(".pdQuantity").blur(function () {
 		    	    var quan = $(this).val();
-		    	    var amount= $(this).parent().parent().parent().prev().children().children().eq(1).text();
-               		amount = amount.replace(/,/g, "");
-               		var tAmount=quan*parseInt(amount);
-					var result = tAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		    	    var productPrice= $(this).parent().parent().parent().prev().children().children().eq(1).text();
+		    	    productPrice = productPrice.replace(/,/g, "");
+               		var amount=quan*parseInt(productPrice);
+					var result = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	               
 	                var total= $(this).parent().parent().parent().next().children();
-	                total.text(result);
+	                total.text(amount);
 
 		    	    
 		      })
@@ -565,10 +779,39 @@
 	                var total= $(this).parent().parent().parent().next().children();
 
 	                total.text(result);
+	                var test123 = $(this).parent().parent().parent().prev().prev().prev().prev().children().children();
+	                console.log(test123.prop("checked"));
+	                var AllPayResult;
+			        var payPrice = total.text(result).text();
+			        console.log(payPrice);
+	                if(test123.prop("checked")==true){			   
+					       payPrice = payPrice.replace(/,/g, "");
+					       payAllPrice += parseInt(payPrice);
+					       AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+					           		
+				    }else{		
+				    	if(cartChecked>0){
+				    		cartChecked--;
+					           //console.log(payAllPrice);
+					           payPrice = payPrice.replace(/,/g, "");
+						       payAllPrice -= parseInt(payPrice);
 
+						       AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				    	}
+				           
+			           			
+				     }
+				           	//장바구니리스트 상품 개수
+				           	$('.cartSelCount').text(cartChecked);
+				           	//submit할 총가격 text
+				           	$("#payAllPrice").text(AllPayResult);
+				           		
+				        
+	                
+	                
             
 	            });
-	
+				//-버튼 클릭하면 수량 금액 변동
 	            $(".minus").click(function() {
 	                var $this = $(this);
 	                var target = $this.next();
@@ -590,10 +833,18 @@
 		                var total= $(this).parent().parent().parent().next().children();
 
 		                total.text(result);
+		                
+		                
+		                var AllPayResult;
+
+		                payAllPrice -=	tAmount;
+		                AllPayResult = tAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						$("#payAllPrice").text(AllPayResult);
+		                
+		                
 	            });
-	            
-	            $(function(){
-	            	
+	            //페이지 로딩시 바로 펑션 시작쓰
+	            $(function(){         	
 	            	//숫자 타입에서 쓸 수 있도록 format() 함수 추가
 		            Number.prototype.format = function(){
 		                if(this==0) return 0;
@@ -613,7 +864,8 @@
 		                $(this).text(
 		                    $(this).text().format()
 		                );
-		            });            	
+		            });     
+  
 	            })
 	            
 	            

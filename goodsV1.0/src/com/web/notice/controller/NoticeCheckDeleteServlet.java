@@ -1,7 +1,6 @@
-package com.web.review.controller;
+package com.web.notice.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.review.model.service.ReviewService;
-import com.web.review.model.vo.Review;
+import com.web.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class ReviewListServlet
+ * Servlet implementation class NoticeCheckDeleteServlet
  */
-@WebServlet("/reviewList")
-public class ReviewListServlet extends HttpServlet {
+@WebServlet("/admin/allDelete")
+public class NoticeCheckDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewListServlet() {
+    public NoticeCheckDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +30,22 @@ public class ReviewListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		List<Review> list=new ReviewService().searchReview();
-		int count=new ReviewService().countReview();
+		String[] check=request.getParameterValues("mRowCheck");
 		
-		request.setAttribute("review", list);
-		request.setAttribute("count", count);
+		int count=new NoticeService().checkDelete(check);
+		String msg=" ";
 		
-		request.getRequestDispatcher("views/client/review/reviewList.jsp").forward(request, response);
+		if(count>0) {
+			msg="삭제 성공";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", "/admin/noticeList");
+			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
+		}else {
+			msg="삭제 실패";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", "/admin/noticeList");
+			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
+		}
 	}
 
 	/**

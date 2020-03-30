@@ -59,7 +59,7 @@ public class InquiryDao {
 	}
 
 //1:1문의한 내역보기=======================================
-	public List<Inquiry> searchInquiry(Connection conn, int cPage, int numPerPage) {
+	public List<Inquiry> searchInquiry(Connection conn, int cPage, int numPerPage,int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = prop.getProperty("searchPageInquiry");
@@ -68,9 +68,10 @@ public class InquiryDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, (cPage - 1) * numPerPage + 1);
-			pstmt.setInt(2, cPage * numPerPage);
+			
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, (cPage - 1) * numPerPage + 1);
+			pstmt.setInt(3, cPage * numPerPage);
 
 			rs = pstmt.executeQuery();
 
@@ -101,7 +102,7 @@ public class InquiryDao {
 	}
 
 //1:1 문의한 내역 페이지바=======================================
-	public int inquiryCount(Connection conn) {
+	public int inquiryCount(Connection conn,int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int result = 0;
@@ -109,6 +110,7 @@ public class InquiryDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -184,7 +186,6 @@ public class InquiryDao {
 				ia = new InquiryAnswer();
 				
 				ia.setIa_No(rs.getInt("ia_no"));
-				ia.setM_No(rs.getInt("m_no"));
 				ia.setAdmin_Id(rs.getString("admin_id"));
 				ia.setIa_Title(rs.getString("ia_title"));
 				ia.setIa_Content(rs.getString("ia_content"));

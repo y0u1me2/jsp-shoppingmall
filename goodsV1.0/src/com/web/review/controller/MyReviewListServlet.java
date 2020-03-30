@@ -15,14 +15,14 @@ import com.web.review.model.vo.Review;
 /**
  * Servlet implementation class ReviewListServlet
  */
-@WebServlet("/reviewList")
-public class ReviewListServlet extends HttpServlet {
+@WebServlet("/myReviewList")
+public class MyReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewListServlet() {
+    public MyReviewListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +32,13 @@ public class ReviewListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		List<Review> list=new ReviewService().searchReview();
-		int count=new ReviewService().countReview();
-		
-		request.setAttribute("review", list);
+		int myNo=Integer.parseInt(request.getParameter("myNo"));
+		List<Review> list=new ReviewService().searchMyReview(myNo);
+		int count=new ReviewService().countMyReview(myNo);
 		request.setAttribute("count", count);
+		request.setAttribute("review", list);
 		
-		request.getRequestDispatcher("views/client/review/reviewList.jsp").forward(request, response);
+		request.getRequestDispatcher("views/client/review/myReviewList.jsp").forward(request, response);
 	}
 
 	/**
