@@ -102,7 +102,7 @@
 						</button></li>
 						<li>
 							<button type="button">
-								<a href="<%=request.getContextPath()%>/myReviewList?myNo=<%=loginMember.getM_No()%>">나의 리뷰</a>
+								<a href="<%=request.getContextPath()%>/myReviewList">나의 리뷰</a>
 							</button>
 						</li>
 						<li>

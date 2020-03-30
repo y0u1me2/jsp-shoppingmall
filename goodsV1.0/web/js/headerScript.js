@@ -157,9 +157,7 @@
 //    if(!=null) {
     	//console.log(loginMember);
     	if(loginResult=='Y') {
-    		console.log("실행");
     		var nameBar = document.getElementById("memberName");
-    		console.log(nameBar);
     		nameBar.addEventListener("mouseenter", function () {
     			document.getElementById("infomation").style.display = "block";
     			nameBar.parentElement.setAttribute("class", "dropdown-scope active");
