@@ -184,7 +184,28 @@
     width: 100%;
   }
 }
-        
+
+#pageBar {
+	width: 80%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #eee;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+}
         
         
     </style>
@@ -225,7 +246,7 @@
         
 
 
-        <div id="boardContainer">
+        <div id="galleryContainer">
             <!--한페이지에 보여지는 게시물 개수(기본 6개 2*3) -->
             <!--나중에 jstl c:forEach 구문이나 자바스크립트 for문으로 수정 필요-->
             <div class="board">
@@ -271,24 +292,10 @@
 
 
 
-
-        <!--페이징 영역 나중에 c:forEach 구문으로 수정해야 함-->
-        <div id="paging">
-            <a href="#">[처음]</a>
-            <a href="#">[이전]</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">7</a>
-            <a href="#">8</a>
-            <a href="#">9</a>
-            <a href="#">10</a>
-            <a href="#">[다음]</a>
-            <a href="#">[끝]</a>
-        </div>
+		<div id="pageBar">
+			<%=request.getAttribute("pageBar")%>
+		</div>
+       
 
 	
 

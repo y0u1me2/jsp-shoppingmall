@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.gallery.model.service.GalleryService;
+
 /**
  * Servlet implementation class CustomImageDownload
  */
@@ -35,8 +37,13 @@ public class ImageDownloadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		//프론트에서 갤러리번호를 전달받고, 디비에서 해당 갤러리 번호를 가지고 압축파일명 가져옴, 해당 압축파일을 다운로드함
+		int gNo = Integer.parseInt(request.getParameter("gNo"));
+		
 		String path = getServletContext().getRealPath("/upload/custom/");
-		String file = "custom.zip";
+		String file = new GalleryService().getZipFilename(gNo);
+		
+		
 		
 		File downFile = new File(path+file);
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(downFile)); //속도 향상을 위해 보조스트림 사용
