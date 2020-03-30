@@ -56,7 +56,7 @@
 			<h1 id="one">공지사항 글쓰기</h1>
 			<hr id="gline">
 			<br><br>
-	<form id="frm" name="ajaxFile" action="<%=request.getContextPath() %>/notice/noticeWriteEnd" method="post" enctype="multipart/form-data">
+	<form id="frm" name="ajaxFile" action="<%=request.getContextPath() %>/admin/noticeWriteEnd" method="post" enctype="multipart/form-data">
         <table id="write-tbl">
         <colgroup>
         	<col style="width:15%"/>
@@ -110,7 +110,7 @@
 	
 			//<input type="file" nam="bs">
 			$.ajax({
-				url:"<%=request.getContextPath()%>/notice/noticeWriteEnd",
+				url:"<%=request.getContextPath()%>/admin/noticeWriteEnd",
 				data:fd,
 				type:"post",
 				processData:false,
@@ -124,7 +124,7 @@
 				}
 			})
 		})
-		})
+	})
 	
 </script>
 
