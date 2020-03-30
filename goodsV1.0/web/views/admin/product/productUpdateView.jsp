@@ -1,9 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ page import="com.web.product.model.vo.Product" %>
+
+<%
+Product p = (Product)request.getAttribute("product");
+%>
 
 <%@ include file="/views/admin/common/header.jsp"%>
 <style>
+div.content-wrapper {
+	background-color: white;
+	position: relative;
+	left: 100px;
+}
+
+div.goodsback {
+	height: auto;
+	position: relative;
+	top: 100px;
+}
+
 * {
 	margin: 0;
 }
@@ -15,15 +32,8 @@ body {
 
 /* 섹션안 공간  */
 div.back {
-	width: 80%;
 	position: relative;
-	top: 50px;
-	bottom: 50px;
-	display: flex;
-	left: 360px;
-	height: 850px;
 }
-
 
 /* 밑에 라인 */
 #gline {
@@ -43,6 +53,7 @@ div.back {
 	border-bottom: 1px solid #adadad;
 	border-collapse: collapse;
 	width: 80%;
+
 }
 
 /* 테이블 위치 */
@@ -54,6 +65,7 @@ div.back {
 /* 테이블 선 색상 */
 .box>tr, td {
 	border: 1px solid #e2e0e0;
+		padding:10px 30px 10px 5px;
 }
 
 /* 테이블 크기 */
@@ -68,8 +80,8 @@ div.back {
 
 /* 전체 1:1상담 목록 텍스트 */
 #one {
-	font-weight: bolder;
-	font-size: 25px;
+		font-weight: bolder;
+	font-size: 30px;
 	position: relative;
 	top: 10px;
 }
@@ -77,70 +89,110 @@ div.back {
 #btns {
 	position: relative;
 	top: 30px;
-	left: 350px;
+	left: 300px;
 }
+
+button#update-btn {
+	height: 40px;
+	width: 120px;
+	border: solid 1px rgb(147, 147, 194);
+	background: white;
+	border-radius: 10px;
+	font-size: 15px;
+	color: rgb(134, 134, 133);
+	margin-right: 5px;
+}
+
+button#update-btn:hover {
+	background: rgb(251, 251, 249);
+	outline: none;
+}
+
+button#color-btn {
+	height: 40px;
+	width: 150px;
+	background: #313030;
+	border-radius: 7px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 0;
+	font-size: 15px;
+	color: rgb(233, 233, 229);
+	position: relative;
+}
+
+button#color-btn:hover {
+	background: black;
+	outline: none;
+}
+
+   td:first-of-type{
+   color: #80878d;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+    font-size: 15px;
+    background-color: #f5f4f4;
+   }
 </style>
 </head>
 
 <!-- ============================================================== -->
 
 
-<section>
+<div class="content-wrapper">
 	<div class="back">
 
-		
+
 
 		<div class="goodsback">
-			<br>
-			<br>
+			<br> <br>
 			<h1 id="one">상품정보수정</h1>
 			<hr id="gline">
-			<br>
-			<br>
+			<br> <br>
 
 			<div class="text">
-				<form>
+				<form action="<%=request.getContextPath()%>/productUpdateEnd" method="post"
+				enctype="multipart/form-data">
+						<input type="hidden" name="no" value="<%=p.getpNo()%>"/>
 					<table class="box">
 						<br>
 						<br>
 						<tr>
-							<td width="150px">상품명(필수)</td>
-							<td><input type="text" id="td1"></td>
+							<td width="150px">상품명</br>(필수)</td>
+							<td><input type="text" name="pName" value="<%=p.getpName()%>"></td>
 						</tr>
 						<tr>
-							<td>판매가(필수)</td>
-							<td><input type="text" id="td2">원</td>
+							<td>판매가</br>(필수)</td>
+							<td><input type="text" name="pPrice" value="<%=p.getpPrice()%>" >원</td>
 						</tr>
 						<tr>
-							<td>상품이미지수정</td>
-							<td><input type="file" id="fbtn"
-								onchange="javascriptdocument.getElementById('file_route').value=this.value">
-							</td>
-						</tr>
+							<td>카테고리</td>
+							<td><input type="text" name="category" value="<%=p.getpCategory()%>"></td>
+						</tr>	
 						<tr>
-							<td>상품옵션설정</td>
-							<td>
-								<div id="td3">
-									<input type="radio">사용함 <input type="radio">사용안함
-									<p style="font-size: 8px">
-										-상품옵션이란, 상품의 사이즈, 색상 등 선택값을 뜻합니다.<br /> -등록하는 상품에 설정할 옵션이 있을
-										경우 사용함을 선택해주세요.
-									</p>
-								</div>
-							</td>
+							<td>상품설명</td>
+							<td><input type="text" name="comment" size="100" value="<%=p.getpComment()%>" ></td>
+						</tr>										
+						<tr>
+							<td>섬네일</br>이미지</td>
+							<td><input type="file" id="fbtn" name="upfile"></td>
 						</tr>
+						
+						
+						
 					</table>
-				</form>
 				<div id="btns">
-					<button>상품정보수정</button>
+					<button id="update-btn" type="submit">상품정보수정</button>
 					&nbsp; &nbsp;
-					<button>상품삭제</button>
+				
 				</div>
+				</form>
 			</div>
 
 		</div>
 	</div>
-</section>
+</div>
 
 
 <%@ include file="/views/admin/common/footer.jsp"%>

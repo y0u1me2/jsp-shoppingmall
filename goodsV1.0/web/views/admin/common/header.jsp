@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
+
 
     <!DOCTYPE html>
 <!--
@@ -20,6 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -70,17 +72,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+              <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/admin/memberStatus" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>전체회원조회</p>
+                  <p>회원방문/가입 현황</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/admin/memberList" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>회원정보 수정/삭제</p>
+                  <p>전체회원 관리/조회</p>
                 </a>
               </li>
             </ul>
@@ -96,9 +98,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath() %>/ProductListView" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>전체상품보기</p>
+                  <p>전체상품목록</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -107,12 +109,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>상품등록</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="<%=request.getContextPath() %>/productUpdateView" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>상품정보수정/삭제</p>
-                </a>
-              </li>
+            
             </ul>
           </li>
           
@@ -159,6 +156,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
           </li>
           
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-clipboard"></i>
+              <p>
+         		공지사항
+                <i class="right fas fa-angle-right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/admin/noticeList" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>공지사항 목록/삭제</p>
+                </a>
+              </li> 
+            </ul>
+         
+          </li>
          
         
           

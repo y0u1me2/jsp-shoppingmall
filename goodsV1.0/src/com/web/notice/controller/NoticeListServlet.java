@@ -26,7 +26,7 @@ public class NoticeListServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -73,7 +73,7 @@ public class NoticeListServlet extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
-		request.getRequestDispatcher("/views/notice/noticeList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/client/notice/noticeList.jsp").forward(request, response);
 		
 		
 	}

@@ -37,6 +37,7 @@
 	background: transparent
 		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
 		no-repeat left 6px;
+	text-decoration:none;
 }
 
 
@@ -159,14 +160,36 @@ select {
 
 #pageBar {
 	position: relative;
-	left: 380px;
+	left:100px;
 	top: 20px;
 }
 
 div#pageBar a {
-
+	text-decoration:none;
 	color: rgb(95, 93, 93);
 }
+
+/* 페이지바 */
+    #pageBar{
+      width:80%;
+      margin: 40px 0 40px 0;
+      text-align:center;
+   }
+   #pageBar>a,#pageBar>span{
+      width: 40px;
+       height: 40px;
+       text-align: center;
+       line-height: 40px;
+       border: 1px solid #eee;
+       color: #999;
+       background-color: #fff;
+       margin: 0 2px;
+       position: relative;
+       font-size: 13px;
+       font-family: "YoonGothicPro760";
+       display: inline-block;
+       vertical-align: top;
+   }
 
 /* 전화문의 운영시간 */
 #call {
@@ -179,6 +202,8 @@ div#pageBar a {
 	position: relative;
 	top: 50px;
 }
+
+
 </style>
 
 <section class="back">
@@ -258,13 +283,13 @@ div#pageBar a {
 			
 			<tr>			
 				<%if(i.getAnswer_status().equals("Y")) { %>
-				<td><a
+				<td><a style="text-decoration:none;"
 					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>"><button id="inquiry-btn">답변완료
 				</a></button>
 				</td>
 				
 				<%}else{ %>
-				<td><a
+				<td><a style="text-decoration:none;"
 					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>"><button  id="inquiry-btn">확인중
 				</a></button></td>
 				<%} %>

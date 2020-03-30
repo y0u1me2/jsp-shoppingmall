@@ -31,6 +31,7 @@ ul.lnb_list a {
 	background: transparent
 		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
 		no-repeat left 6px;
+	text-decoration:none;
 }
 
 ul {
@@ -79,6 +80,7 @@ table.box {
 table.box>tr, th, td {
 	border-top: 1px solid #e2e0e0;
 	border-bottom: 1px solid #e2e0e0;
+	padding:7px;
 }
 
 /* 1:1문의하기 텍스트 */
@@ -190,8 +192,7 @@ p#call {
 			</div>
 			<br>
 
-			<form action="<%=request.getContextPath()%>/MyInquiryWriteEnd"
-				method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data">
 
 				<table class="box">
 					<tr>
@@ -221,25 +222,61 @@ p#call {
                             </textarea></td>
 					</tr>
 
-					<%--  <input type="hidden" value="<%=m.getM_No() %>" />  --%>
 					<tr>
 						<th>이미지 첨부 <lable id="flabel"> 파일
-							<td><input type="file" name="upfile" /></td>
+							<td><input type="file" name="upfile" multiple/></td>
 							</lable>
 						</th>
 					</tr>
 					<tr>
-						<td colspan=2 id="tdBtn"><input id="btn2" type="submit"
-							value="등록하기"></td>
+						<td colspan=2 id="tdBtn">
+						<input id="btn2" type="button"value="등록하기">
+						</td>
 				</table>
 			</form>
-
+	<div id="images"></div>
 
 
 			<div id="callArea">
 				<p id="call">전화문의 1577-3822 | 운영시간 평일 9:00~18:00</p>
 			</div>
 	</div>
+
+	<script>
+	//ajax 파일업로드 구현하기
+	$(function(){
+		$("#btn2").click(function(){
+			var form=$("#frm").serialize(); //이름,비밀번호(input)이 여러개일때 데이터만 보낼수있음
+			//데이터보낼때 FormData객체를 이용하여 데이터 전송가능
+			const fd = new FormData();
+					 
+		//다중파일 업로드
+		$.each($("[name=upfile]")[0].files,function(i,item){
+			fd.append("goods"+i,item);
+		})
+			$.ajax({
+				url:"<%=request.getContextPath()%>/MyInquiryWriteEnd",
+				data:form,
+				type:"post",
+				processData:false,
+				contentType:false,
+				success:function(data){
+					alert("업로드 성공");
+					$("#images").html("");
+					$("[name=upfile]").val("");
+					
+				},error:function(re,e,m){
+					alert("업로드 실패");
+				}					
+			})
+			
+		})
+	})
+
+	
+	
+	
+	</script>
 
 </section>
 <br>

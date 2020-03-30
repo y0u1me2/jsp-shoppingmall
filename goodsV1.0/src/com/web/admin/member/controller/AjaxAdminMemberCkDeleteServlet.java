@@ -1,4 +1,4 @@
-package com.web.admin.controller;
+package com.web.admin.member.controller;
 
 import java.io.IOException;
 
@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.model.service.AdminService;
+import com.web.admin.member.model.service.AdminMemberService;
 
 /**
  * Servlet implementation class MemberCkDeleteServlet
  */
 @WebServlet("/admin/memberCkDelete")
-public class AjaxMemberCkDeleteServlet extends HttpServlet {
+public class AjaxAdminMemberCkDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxMemberCkDeleteServlet() {
+    public AjaxAdminMemberCkDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,10 +33,10 @@ public class AjaxMemberCkDeleteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String[] memCkDelete = request.getParameterValues("memCkArray[]");
 		
-		int result=new AdminService().memberCkDelete(memCkDelete);
+		int result=new AdminMemberService().memberCkDelete(memCkDelete);
 		System.out.println("result값 : "+result);
 		String msg="";//사용자자에게 띄울 메세지 내용
-		String loc="/admin/memberList";//메세지 띄운 후 이동할 페이지
+		String loc="/admin/member/memberList";//메세지 띄운 후 이동할 페이지
 		if(result>0) {
 			msg="회원삭제 완료";
 

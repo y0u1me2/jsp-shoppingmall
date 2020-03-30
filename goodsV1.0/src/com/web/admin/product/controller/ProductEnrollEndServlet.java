@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
-import com.web.admin.product.service.ProductService;
+import com.web.admin.product.service.AdminProductService;
 import com.web.common.MyFileRenamePolicy;
 import com.web.product.model.vo.Product;
+import com.web.product.model.vo.ProductImage;
 
 
 @WebServlet("/productEnrollEnd")
@@ -58,11 +59,20 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		int price = Integer.parseInt(mr.getParameter("pPrice"));
 		String oriFileName = mr.getOriginalFileName("pThumbnail");
 		String comment = mr.getParameter("pComment");
-		//String option = mr.getParameter("option");
-				   
-		Product p = new Product(0,category,name,price,oriFileName,comment);
+		
+		//데이터가 복수일경우에는 배열로 받아온다(checkbox)
+		String [] color =mr.getParameterValues("option");
+		
+		System.out.println(color);
+		
+		//db에는 배열 자료형이 없으므로 String으로 바꿔줘야한다.
+		String colors = String.join(",",color);
+			   
+		Product p = new Product(0,category,name,price,oriFileName,comment,null);
+		
+		ProductImage pi = new ProductImage(0,0,colors,null);
 			
-		int result = new ProductService().productEnroll(p);
+		int result = new AdminProductService().productEnroll(p,pi);
 
 
 		if (result > 0) {

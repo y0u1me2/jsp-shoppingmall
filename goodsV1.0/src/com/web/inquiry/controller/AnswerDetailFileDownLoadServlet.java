@@ -26,6 +26,8 @@ public class AnswerDetailFileDownLoadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		//내가 문의한 파일 다운
+		
 		// 파일이 저장되어있는 실제 경로 가져오기
 		// 인코딩처리(한글로 된 파일은 글자가 깨짐)
 		// 저장파일을 load해줌 inputstream

@@ -38,16 +38,31 @@ public class ProductService {
 		return list;
 	}
 
-	public int insertCustom(Custom c) {
+	//커스텀 상품 등록+커스텀에 사용한 원본이미지 등록
+	public int insertCustom(Custom c, List<String> files) {
 		Connection conn = getConnection();
-		int result = dao.insertCustom(conn, c);
-		
-		if(result>0) commit(conn);
-		else rollback(conn);
+		int count = 0;
+		if(dao.insertCustom(conn, c)>0) {//custom 제품 등록 성공
+			int cno = dao.getCustomNo(conn, c);//방금 등록한 커스텀 제품 번호 조회
+			for(String file : files) {//커스텀에 사용한 이미지 파일을 하나씩 디비에 저장
+				int result = dao.insertCustomImage(conn, cno, file);
+				if(result==0) {//이미지 파일 등록 실패 시 롤백
+					rollback(conn);
+					return 0;
+				}else count++;
+			}
+		}else {//custom 제품 등록 실패
+			rollback(conn);
+			return 0;
+		}
+		commit(conn);
 		close(conn);
 		
-		return result;
+		return count;//총 등록한 이미지 개수 리턴
 	}
+
+
+	
 	
 	
 }

@@ -9,19 +9,32 @@
 
 <style>
 
-section.back {
-	width: 80%;
+div.content-wrapper{
+	background-color:white;
 	position: relative;
-	left: 360px;
-	display: flex;
-	height:850px;
+	left: 100px;
+}
+
+div.goodsback{
+	width:80%;
+	height:auto;
+	position: relative;
 	top:100px;
+}
+
+* {
+	margin: 0;
+}
+
+body {
+	width: 1366px;
+	height: auto;
 }
 
 /* 1:1문의 텍스트 */
 h1#title {
-	/* font-weight: bolder; */
-	font-size: 25px;
+	font-weight: bolder;
+	font-size: 30px;
 	position: relative;
 	top: 10px;
 	;
@@ -29,9 +42,10 @@ h1#title {
 
 /*제목 밑에 라인 */
 hr#line1 {
-	border: 1px solid rgb(78, 77, 77);
+	border: 1px solid rgb(177, 174, 174);
 	position: relative;
 	top: 20px;
+	width: 100%;
 }
 
 h1#title2 {
@@ -96,7 +110,7 @@ table#tbl-detail td {
 
 
 
-<section class="back">
+ <div class="content-wrapper">
 
 		<br><br>
 		<div class="goodsback">
@@ -125,7 +139,7 @@ table#tbl-detail td {
 					<th>첨부파일</th>
 					<td>
 						<%if(ia.getIa_Original_Filename()!=null){ %> 
-						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=ia.getIa_Original_Filename()%>">
+						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=ia.getIa_Renamed_Filename()%>">
 							<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
 								<span><%=ia.getIa_Original_Filename()%></span> 
 						</a>
@@ -143,17 +157,9 @@ table#tbl-detail td {
 			</table>
 			</div>
 		</div>
-		
-	<%-- <script>
 	
-		//수정하기 버튼을 누르면 답변수정페이지로 이동한다.
-		 function fn_answer(){
-			location.replace("<%=request.getContextPath()%>/InquiryAnswerUpdateView?ino=<%=ia.getIa_No()%>");		
-		} 
 		
-	</script>	 --%>
-		
-</section>
+</div>
 
 
 

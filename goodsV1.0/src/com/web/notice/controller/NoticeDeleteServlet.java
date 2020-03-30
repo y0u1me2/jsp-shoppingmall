@@ -1,7 +1,6 @@
-package com.web.admin.controller;
+package com.web.notice.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.model.service.AdminService;
-import com.web.member.model.vo.Member;
+import com.web.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class MemberStatusServlet
+ * Servlet implementation class NoticeDeleteServlet
  */
-@WebServlet("/admin/memberStatus")
-public class MemberStatusServlet extends HttpServlet {
+@WebServlet("/admin/noticeDelete")
+public class NoticeDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberStatusServlet() {
+    public NoticeDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +30,23 @@ public class MemberStatusServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		int no=Integer.parseInt(request.getParameter("no"));
 		
-		List<Member> list = new AdminService().memberNew();
+		int count=new NoticeService().oneDelete(no);
 		
+		String msg=" ";
 		
-		int totalMember=new AdminService().memberCount(); //토탈회원
-		int deleteMember=new AdminService().memberDeleteCount();//탈퇴회원
-		int todayEnrollMember=new AdminService().memberTodayEnrollCount();//오늘가입회원
-		
-		
-		request.setAttribute("list", list);
-		request.setAttribute("todayEnrollMember", todayEnrollMember);
-		request.setAttribute("totalMember", totalMember);
-		request.setAttribute("deleteMember", deleteMember);
-		request.getRequestDispatcher("/views/admin/memberStatus.jsp").forward(request, response);
+		if(count>0) {
+			msg="삭제 성공";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", "/admin/noticeList");
+			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
+		}else {
+			msg="삭제 실패";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", "/admin/noticeList");
+			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
+		}
 	}
 
 	/**

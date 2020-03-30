@@ -24,7 +24,8 @@ public class InquiryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 전체1:1상담 목록 출력
+		// 전체1:1상담 목록 출력하기
+		
 		// DB에 저장된 문의내역을 페이징처리해서 가져온다
 		int cPage;
 
@@ -57,12 +58,12 @@ public class InquiryListServlet extends HttpServlet {
 
 		String pageBar = "";
 
-		// [이전]버튼 만들기
+		// [<]버튼 만들기
 		if (pageNo == 1) {
-			pageBar += "<span>[이전]</span>";
+			pageBar += "<span><</span>";
 		} else {			       
 			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
-					+ numPerPage + "'>[이전]</a>&nbsp ";
+					+ numPerPage + "'><</a>&nbsp ";
 		}
 
 		// 1 2 3 4 5
@@ -77,12 +78,12 @@ public class InquiryListServlet extends HttpServlet {
 			pageNo++;
 		}
 
-		// [다음]
+		// [>]
 		if (pageNo > totalPage) {
-			pageBar += "<span>[다음]</span>&nbsp";
+			pageBar += "<span>></span>&nbsp";
 		} else {
 			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
-					+ numPerPage + "'>[다음]</a>";
+					+ numPerPage + "'>></a>";
 		}
 
 		int todayInquiry = new AdminInquiryService().todayInquiry();

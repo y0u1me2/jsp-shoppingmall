@@ -36,27 +36,13 @@ public class MemberEnrollEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 필터에서 엔코딩 가능
-//		request.setCharacterEncoding("UTF-8");
-//		response.setCharacterEncoding("UTF-8");
-
 		// client가 보낸 데이터를 받아오기!
 		String email = request.getParameter("email");
-//		System.out.println("암호화 이메일 : "+AESEncrypt.encrypt(email));
-//		email=AESEncrypt.encrypt(email);
 		String password = request.getParameter("password");
 		String userName = request.getParameter("userName");
 		String nickName = request.getParameter("nickName");
-		//String sha256 = SHA256.getSHA256(email);
-
-		//System.out.println("변수에 넣음 : " + sha256);
 
 		Member m = new Member(email, password, userName, nickName);
-		//System.out.println(m.getM_EmailHash());
-		System.out.println(m.getM_EmailCheck());
-		System.out.println(m.getM_Email());
-		System.out.println(m.getM_Name());
-		System.out.println(m.getM_NickName());
 		int result = new MemberService().enrollMember(m);
 		
 		request.setAttribute("email", email);

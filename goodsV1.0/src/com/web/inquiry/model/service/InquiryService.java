@@ -13,8 +13,6 @@ import com.web.inquiry.model.dao.InquiryDao;
 import com.web.inquiry.model.vo.Inquiry;
 
 
-
-
 public class InquiryService {
 	
 	private InquiryDao dao = new InquiryDao();
@@ -26,9 +24,11 @@ public class InquiryService {
 		Connection conn = getConnection();
 		int result = dao.inquiryWrite(conn,i);
 		
-		if(result>0) commit(conn);
+		if(result>0) {
+			commit(conn);
+		}
 		else rollback(conn);
-		
+				
 		close(conn);
 		
 		return result;

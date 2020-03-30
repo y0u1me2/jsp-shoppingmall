@@ -118,9 +118,53 @@ public class ProductDao {
 		String sql = prop.getProperty("insertCustom");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, c.getpNo());
-			pstmt.setString(2, c.getColor());
-			pstmt.setString(3, c.getImageFile());
+			pstmt.setInt(1, c.getmNo());
+			pstmt.setInt(2, c.getpNo());
+			pstmt.setString(3, c.getColor());
+			pstmt.setString(4, c.getImageFile());
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int getCustomNo(Connection conn, Custom c) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getCustomNo");
+		int cno = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, c.getmNo());
+			pstmt.setInt(2, c.getpNo());
+			pstmt.setString(3, c.getColor());
+			pstmt.setString(4, c.getImageFile());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cno = rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return cno; //커스텀 번호 반환, 에러시 0 반환
+	}
+
+	public int insertCustomImage(Connection conn, int cno, String file) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertCustomImage");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cno);
+			pstmt.setString(2, file);
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

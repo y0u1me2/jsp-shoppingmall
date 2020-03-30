@@ -1,4 +1,4 @@
-package com.web.admin.controller;
+package com.web.admin.member.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.model.service.AdminService;
+import com.web.admin.member.model.service.AdminMemberService;
 import com.web.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberListServlet
  */
 @WebServlet("/admin/memberList")
-public class MemberListServlet extends HttpServlet {
+public class AdminMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListServlet() {
+    public AdminMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,9 +48,9 @@ public class MemberListServlet extends HttpServlet {
 			numPerPage=10;
 		}
 		//설정한 만큼의 회원정보 가져오기
-		List<Member> list = new AdminService().searchMember(cPage,numPerPage);
-		int totalMember=new AdminService().memberCount(); //전체데이터
-		int finderMember=new AdminService().memberCount(); //전체데이터
+		List<Member> list = new AdminMemberService().searchMember(cPage,numPerPage);
+		int totalMember=new AdminMemberService().memberCount(); //전체데이터
+		int finderMember=new AdminMemberService().memberCount(); //전체데이터
 		int totalPage=(int)Math.ceil((double)totalMember/numPerPage);
 		int pageBarSize=5;
 		//pageBar의 시작번호, 끝번호까지 출력해주는 변수
@@ -63,10 +63,10 @@ public class MemberListServlet extends HttpServlet {
 		String pageBar="";
 		
 		if(pageNo==1) {
-			pageBar+="<span>◀ 이전 </span>";
+			pageBar+="<span><</span>";
 		}else {
 //			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)+"'>[이전]</a>";
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'>◀ 이전 </a> ";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'><</a> ";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -82,9 +82,9 @@ public class MemberListServlet extends HttpServlet {
 
 		//다음
 		if(pageNo>totalPage) {
-			pageBar+="<span> 다음 ▶</span>";
+			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+pageNo+"&numPerPage="+numPerPage+"'> 다음 ▶</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList?cPage="+pageNo+"&numPerPage="+numPerPage+"'>></a>";
 		}
 		
 		request.setAttribute("finderMember", finderMember);
@@ -93,7 +93,7 @@ public class MemberListServlet extends HttpServlet {
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/admin/memberList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/member/memberList.jsp").forward(request, response);
 	}
 
 	/**

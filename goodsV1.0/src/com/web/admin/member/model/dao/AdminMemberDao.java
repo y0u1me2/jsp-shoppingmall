@@ -1,4 +1,4 @@
-package com.web.admin.model.dao;
+package com.web.admin.member.model.dao;
 
 
 import static com.web.common.JDBCTemplate.close;
@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.Properties;
 
 import com.web.member.model.vo.Member;
-public class AdminDao {
+public class AdminMemberDao {
 	
 	Properties prop=new Properties();
 	
-	public AdminDao() {
+	public AdminMemberDao() {
 		try {
-			String path=AdminDao.class.getResource("/sql/admin/admin-query.properties").getPath();
+			String path=AdminMemberDao.class.getResource("/sql/admin/admin-query.properties").getPath();
 			prop.load(new FileReader(path));
 		}catch(IOException e) {
 			e.printStackTrace();
