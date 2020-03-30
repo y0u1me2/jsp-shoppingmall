@@ -36,6 +36,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- 구글 회원가입 -->
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="434214577564-es7em89nej7dmjke6sa184ttis3ndb70.apps.googleusercontent.com">
+<script src="<%=request.getContextPath()%>/js/googleSignIn.js" async defer></script>
+<!-- 구글 회원가입 -->
 <title>굿굿즈</title>
 
 <!-- css폴더에있는 css파일 불러오기 -->
@@ -216,10 +221,12 @@
 							<img src="<%=request.getContextPath()%>/images/common/face.png"
 								alt="facebook">
 						</div>
-						<div class="img">
+						<div class="img g-signin2" data-onsuccess="onSignIn" data-theme="dark">
+						<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
 							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
+						<a href="#" onclick="signOut();">Sign out</a>
 						<div class="img">
 							<img src="<%=request.getContextPath()%>/images/common/naver.png"
 								alt="naver">
@@ -261,6 +268,7 @@
 		<div class="modal-back" id="enroll" >
 			<!-- 회원가입 팝업-->
 			<div class="modal-enroll animate">
+			
 				<form id="enroll-form"
 					action="<%=request.getContextPath()%>/memberEnrollEnd"
 					method="post" onsubmit="return enrollSubmit();">
@@ -470,5 +478,26 @@
 			</div>	
 		</div>
 		<%} }%>
-		
+		<script>
+		function onSignIn(googleUser) {
+	        // Useful data for your client-side scripts:
+	        var profile = googleUser.getBasicProfile();
+	        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+	        console.log('Full Name: ' + profile.getName());
+	        console.log('Given Name: ' + profile.getGivenName());
+	        console.log('Family Name: ' + profile.getFamilyName());
+	        console.log("Image URL: " + profile.getImageUrl());
+	        console.log("Email: " + profile.getEmail());
+
+	        // The ID token you need to pass to your backend:
+	        var id_token = googleUser.getAuthResponse().id_token;
+	        console.log("ID Token: " + id_token);
+	      }
+		function signOut() {
+		    var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		      console.log('User signed out.');
+		    });
+		  }
+		</script>
 	</header>
