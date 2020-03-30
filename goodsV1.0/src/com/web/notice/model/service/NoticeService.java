@@ -65,4 +65,16 @@ public class NoticeService {
 		close(conn);
 		return count;
 	}
+	
+	public int insertNotice(Notice n) {
+		Connection conn=getConnection();
+		int result=dao.insertNotice(conn,n);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	
 }
