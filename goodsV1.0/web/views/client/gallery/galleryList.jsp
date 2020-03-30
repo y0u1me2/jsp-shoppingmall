@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="java.util.List, com.web.gallery.model.vo.Gallery"%>
 
 <%@ include file="/views/client/common/header.jsp" %>
+<%
+	List<Gallery> list = (List)request.getAttribute("list");
 
+%>
 <style>
 	section{
 		text-align: center;
@@ -60,20 +65,20 @@
 
        
 
-        #boardContainer {
+        #galleryContainer {
             /* border: 1px solid red; */
             width: 100%;
             display: flex;
             flex-wrap: wrap;
             row-gap: 100px;
-            justify-content: space-between;
+            
         }
 
         .board {
             margin-top: 20px;
             margin-bottom: 20px;
-            width: 30%;
-            height: 350px;
+            width: 450px;
+            height: 450px;
             /* border: 1px solid black; */
             text-align: center;
         }
@@ -186,7 +191,7 @@
 }
 
 #pageBar {
-	width: 80%;
+	width: 100%;
 	margin: 40px 0 40px 0;
 	text-align: center;
 }
@@ -247,31 +252,14 @@
 
 
         <div id="galleryContainer">
-            <!--한페이지에 보여지는 게시물 개수(기본 6개 2*3) -->
-            <!--나중에 jstl c:forEach 구문이나 자바스크립트 for문으로 수정 필요-->
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/product/airpods_white.png" id="myImg" alt="누구누구 님의 디자인">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/2.jpg">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/3.jpg">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/4.jpg">
-            </div>
-            <!-- <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div> -->
+            <%for(Gallery g : list){ %>
+	            <div class="board">
+	                <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
+	                <input type="hidden" value="<%=g.getLikeCnt()%>">
+	                <input type="hidden" value="<%=g.getViewCnt()%>">
+	                
+	            </div>
+            <%} %>
         </div>
 
 
@@ -311,13 +299,13 @@ var img = document.getElementById("myImg");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
 
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
-  $('body').css("overflow", "hidden");
-  
-}
+$(".myImg").click(function(){
+	modal.style.display = "block";
+	modalImg.src = this.src;
+	captionText.innerHTML = this.alt;
+	$('body').css("overflow", "hidden");
+	
+});
 
 // Get the <span> element that closes the modal
 var span = document.getElementById("close");

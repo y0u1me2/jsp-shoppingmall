@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.gallery.model.service.GalleryService;
-import com.web.inquiry.model.vo.Inquiry;
+import com.web.gallery.model.vo.Gallery;
 
 /**
  * Servlet implementation class GalleryListServlet
@@ -50,15 +50,15 @@ public class GalleryListServlet extends HttpServlet {
 		try {
 			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
 		} catch (NumberFormatException e) {
-			numPerPage = 10;
+			numPerPage = 6;
 		}
 
-//		List<Inquiry> list = new GalleryService().getGalleryList(cPage, numPerPage);
+		List<Gallery> list = new GalleryService().getGalleryList(cPage, numPerPage);
 
 		// 페이지바 만들기
-		int totalInquiry = new AdminInquiryService().inquiryCount();
+		int totalNum = new GalleryService().totalDataCount();
 
-		int totalPage = (int) Math.ceil((double) totalInquiry / numPerPage);
+		int totalPage = (int) Math.ceil((double) totalNum / numPerPage);
 
 		int pageBarSize = 5; // 밑에 바는 5개씩만 보여준다
 
@@ -72,34 +72,33 @@ public class GalleryListServlet extends HttpServlet {
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
-					+ numPerPage + "'><</a>&nbsp ";
+			pageBar += "<a href='" + request.getContextPath() + "/gallery/list?cPage=" + (pageNo - 1) + "&numPerPage="
+					+ numPerPage + "'><</a>";
 		}
 
 		// 1 2 3 4 5
 		// 5보다 크거나 10페이지보다 크지 않을때
 		while (!(pageNo > pageEnd || pageNo > totalPage)) {
 			if (pageNo == cPage) {
-				pageBar += "<span class='cPage'>" + pageNo + "</span>&nbsp ";
+				pageBar += "<span class='cPage'>" + pageNo + "</span>";
 			} else {
-				pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
-						+ numPerPage + "'>" + pageNo + "</a>&nbsp ";
+				pageBar += "<a href='" + request.getContextPath() + "/gallery/list?cPage=" + pageNo + "&numPerPage="
+						+ numPerPage + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}
 
 		// [>]
 		if (pageNo > totalPage) {
-			pageBar += "<span>></span>&nbsp";
+			pageBar += "<span>></span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/gallery/list?cPage=" + pageNo + "&numPerPage="
 					+ numPerPage + "'>></a>";
 		}
 
 
-//		request.setAttribute("list", list);
+		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
-		request.setAttribute("cPage", cPage);
 		
 		request.getRequestDispatcher("/views/client/gallery/galleryList.jsp").forward(request, response);
 		

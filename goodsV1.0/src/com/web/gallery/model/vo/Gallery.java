@@ -9,12 +9,13 @@ public class Gallery {
 	private int likeCnt;
 	private int viewCnt;
 	private String status;
+	private String filename;
 	
 	public Gallery() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Gallery(int gNo, int cNo, Date enrollDate, int likeCnt, int viewCnt, String status) {
+	public Gallery(int gNo, int cNo, Date enrollDate, int likeCnt, int viewCnt, String status, String filename) {
 		super();
 		this.gNo = gNo;
 		this.cNo = cNo;
@@ -22,6 +23,7 @@ public class Gallery {
 		this.likeCnt = likeCnt;
 		this.viewCnt = viewCnt;
 		this.status = status;
+		this.filename = filename;
 	}
 
 	public int getgNo() {
@@ -72,11 +74,21 @@ public class Gallery {
 		this.status = status;
 	}
 
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
 	@Override
 	public String toString() {
 		return "Gallery [gNo=" + gNo + ", cNo=" + cNo + ", enrollDate=" + enrollDate + ", likeCnt=" + likeCnt
-				+ ", viewCnt=" + viewCnt + ", status=" + status + "]";
+				+ ", viewCnt=" + viewCnt + ", status=" + status + ", filename=" + filename + "]";
 	}
+
+	
 	
 	
 }
