@@ -38,7 +38,7 @@ public class AnswerDetailServlet extends HttpServlet {
 			// ia가 값이 있으면 상세페이지로 전환
 		} else {
 			request.setAttribute("ia", ia);
-			request.getRequestDispatcher("/views/client/inquiry/completedAnswerDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/client/mypage/inquiry/completedAnswerDetail.jsp").forward(request, response);
 		}
 	}
 

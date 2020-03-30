@@ -214,25 +214,25 @@ div#pageBar a {
 		<h2 style='line-height: 300%'>&nbsp&nbsp마이페이지</h2>
 
 		<ul class="lnb_list">
-			<li><a href="">주문/배송 조회</a></li>
-			</br>
-			<li><a href="찜목록조회.html">찜 목록 조회</a></li>
-			</br>
+			<li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li>
+			<br>
+			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
+			<br>
 			<li><a href=>반품/환불</a></li>
-			</br>
+			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/MyInquiryView"
-				style="color: rgb(23, 7, 248); font-weight: bold;">문의내역</a></li>
+			<li><a href="<%=request.getContextPath()%>/myInquiryList"
+			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
-			</br>
+			<br>
 			<li><a href="">포인트관리</a></li>
-			</br>
+			<br>
 			<li><a href="회원정보1.html">회원정보수정</a></li>
-			</br>
+			<br>
 			<li><a href="회원탈퇴.html">회원탈퇴</a></li>
-			</br>
+			<br>
 		</ul>
 	</div>
 	<!-- aside2 목록과붙어있는공간띄우기-->

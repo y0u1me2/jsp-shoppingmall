@@ -5,7 +5,38 @@
 
     <style>
   
-        
+ /* aside메뉴 */
+div.aside {
+	width: 20%;
+	height: 100%;
+	line-height: 130%;
+}
+
+/* aside와 content공간띄우기 */
+div.aside2 {
+	width: 8%;
+	height: 100%;
+	line-height: 130%;
+}
+
+/*리스트 스타일 */
+ul.lnb_list a {
+	padding-top: 3px;
+	padding-left: 13px;
+	line-height: 25px;
+	font-size: 16px;
+	color: #000;
+	background: transparent
+		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
+		no-repeat left 6px;
+	text-decoration:none;
+}
+
+ul {
+	list-style: none;
+}
+
+/* ======================================================================== */       
     /* 섹션 스타일 */
     .back{
         width: 80%;
@@ -137,8 +168,39 @@
 
     </style>
 
-  <div>
+
       <section class="back">
+      
+      <div class="aside">
+		<h5 style='line-height: 400%'>&nbsp&nbsp HOME // MyPage</h5>
+		<h2 style='line-height: 300%'>&nbsp&nbsp마이페이지</h2>
+
+		<ul class="lnb_list">
+			<li><a href="<%=request.getContextPath()%>/orderDelivery"
+			style="color: rgb(23, 7, 248); font-weight: bold;">주문/배송 조회</a></li>
+			<br>
+			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
+			<br>
+			<li><a href=>반품/환불</a></li>
+			<br>
+			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
+			<br />
+			<li><a href="<%=request.getContextPath()%>/myInquiryList">1:1문의내역</a></li>
+			<br>
+			<li><a href="">쿠폰관리</a></li>
+			<br>
+			<li><a href="">포인트관리</a></li>
+			<br>
+			<li><a href="회원정보1.html">회원정보수정</a></li>
+			<br>
+			<li><a href="회원탈퇴.html">회원탈퇴</a></li>
+			<br>
+		</ul>
+	</div>
+	
+	<!-- aside2 목록과붙어있는공간띄우기-->
+	<div class="aside2"></div>
+      
     
         <div class="backDiv">
             <br><br>

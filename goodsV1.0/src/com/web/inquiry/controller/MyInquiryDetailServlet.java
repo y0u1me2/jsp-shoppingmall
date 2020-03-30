@@ -42,7 +42,7 @@ public class MyInquiryDetailServlet extends HttpServlet {
 			.forward(request, response);
 		}else {
 			request.setAttribute("i", i);
-			request.getRequestDispatcher("/views/client/inquiry/myInquiryDetail.jsp")
+			request.getRequestDispatcher("/views/client/mypage/inquiry/myInquiryDetail.jsp")
 			.forward(request, response);
 		}
 	}
