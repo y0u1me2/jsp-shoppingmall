@@ -222,7 +222,7 @@ div#pageBar a {
 			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/myInquiryList"
+				<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>"
 			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
@@ -255,7 +255,8 @@ div#pageBar a {
 				<!-- 조회기간 선택하면 데이터 출력 개수가 옵션 값으로 변경되게 만들기 -->
 				<form name="numPerPageFrm" id="numPerPageFrm"
 				action="<%=request.getContextPath()%>/myInquiryList">
-				
+								
+				<input type="hidden" name="mNo" value="<%=loginMember.getM_No()%>">
 				<input type="hidden" name="cPage" value="<%=cPage%>">
 				
 				<select style="font-size: 16px;" name="numPerPage" id="numPerPage">
@@ -284,13 +285,13 @@ div#pageBar a {
 			<tr>			
 				<%if(i.getAnswer_status().equals("Y")) { %>
 				<td><a style="text-decoration:none;"
-					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>"><button id="inquiry-btn">답변완료
+					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>&mNo=<%=loginMember.getM_No()%>"><button id="inquiry-btn">답변완료
 				</a></button>
 				</td>
 				
 				<%}else{ %>
 				<td><a style="text-decoration:none;"
-					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>"><button  id="inquiry-btn">확인중
+					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>&mNo=<%=loginMember.getM_No()%>"><button  id="inquiry-btn">확인중
 				</a></button></td>
 				<%} %>
 				

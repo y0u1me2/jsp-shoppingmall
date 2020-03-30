@@ -24,16 +24,12 @@ public class MyInquiryDeleteServlet extends HttpServlet {
 
 		// 1:1문의 삭제하기
 		// 사용자 에게 지울 대상을 전달받아 DB에 있는 문의를 지우는 로직
-		// 로그인한 아이디 히든으로 가져오기
-		
-		//String id = request.getParameter("userId_ck");
-		
-		//HttpSession session = request.getSession();
-		//System.out.println(session.getAttribute("loginedMember"));
 		
 		// 글번호 가져오기
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
+		
+		int mNo = Integer.parseInt(request.getParameter("mNo"));
 		
 		int result = new InquiryService().deleteInquiry(no);
 
@@ -42,7 +38,7 @@ public class MyInquiryDeleteServlet extends HttpServlet {
 
 		if (result > 0) {
 			msg = "문의하신 글이 삭제되었습니다.";
-			loc = "/myInquiryList"; // 삭제 완료되면 문의목록페이지로 이동
+			loc = "/myInquiryList?mNo="+mNo; // 삭제 완료되면 문의목록페이지로 이동
 
 		} else {
 			msg = "실패하였습니다. 다시 시도 바랍니다.";

@@ -163,7 +163,7 @@ p#call {
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite"
 			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/myInquiryList">1:1문의내역</a></li>
+			<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>
@@ -194,8 +194,8 @@ p#call {
 
 			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/MyInquiryWriteEnd">
 
+				<input type="hidden" name="mNo" value="<%=loginMember.getM_No()%>"/> 
 				<table class="box">
-				<input type="hidden" name="mNo" value="<%=loginMember.getM_No()%>"/>
 					<tr>
 						<th id="th1">문의유형</th>
 						<td><select name="inquiryType">

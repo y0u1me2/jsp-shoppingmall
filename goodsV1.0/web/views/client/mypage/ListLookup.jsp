@@ -83,7 +83,7 @@
 			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/myInquiryList">1:1문의내역</a></li>
+			<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>

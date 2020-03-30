@@ -209,7 +209,8 @@ a img{
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center">			
-					<input type="button" id="delete-btn" value="삭제하기" onclick="delete_confirm();">				
+					<input type="button" id="delete-btn" value="삭제하기" onclick="delete_confirm();">	
+			
 					</td>
 				</tr>
 			</table>
@@ -226,10 +227,10 @@ a img{
  
         if (confirm('정말 삭제하시겠습니까?')) {
              // 확인 click 글삭제
-        	location.replace("<%=request.getContextPath()%>/myInquiryDelete?no=<%=i.getI_No()%>");
+        	location.replace("<%=request.getContextPath()%>/myInquiryDelete?no=<%=i.getI_No()%>&mNo=<%=loginMember.getM_No()%>");
         } else {
             // 취소 click 글삭제 안하고 다시 리스트 페이지로 이동
-        	location.replace("<%=request.getContextPath()%>/myInquiryList");
+        	location.replace("<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No()%>");
 		}
     }
 
