@@ -27,6 +27,13 @@ public class ReviewService {
 		return count;
 	}
 	
+	public int countReviewCategory(int p_No) {
+		Connection conn=getConnection();
+		int count=rdao.countReviewCategory(conn, p_No);
+		close(conn);
+		return count;
+	}
+	
 	public Review reviewView(int reviewNo) {
 		Connection conn=getConnection();
 		Review review=rdao.reviewView(conn, reviewNo);
@@ -46,5 +53,12 @@ public class ReviewService {
 		int count=rdao.countMyReview(conn, myNo);
 		close(conn);
 		return count;
+	}
+	
+	public List<Review> searchReviewCategory(int p_No) {
+		Connection conn=getConnection();
+		List<Review> list=rdao.searchReviewCategory(conn, p_No);
+		close(conn);
+		return list;
 	}
 }

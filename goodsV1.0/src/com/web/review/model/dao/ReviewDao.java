@@ -78,6 +78,25 @@ public class ReviewDao {
 		return count;
 	}
 	
+	public int countReviewCategory(Connection conn, int p_No) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		String sql=prop.getProperty("countReviewCategory");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, p_No);
+			rs=pstmt.executeQuery();
+			if(rs.next()) count=rs.getInt("count(*)");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
+	
 	public Review reviewView(Connection conn, int reviewNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -160,6 +179,37 @@ public class ReviewDao {
 		return count;
 	}
 	
+	public List<Review> searchReviewCategory(Connection conn, int p_No) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("searchReviewCategory");
+		List<Review> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, p_No);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				Review r=new Review();
+				r.setRv_No(rs.getInt("RV_NO"));
+				r.setRv_Title(rs.getString("RV_TITLE"));
+				r.setRv_Content(rs.getString("RV_CONTENT"));
+				r.setRv_Star(rs.getInt("RV_STAR"));
+				r.setRv_Ori_Name(rs.getString("RV_ORIGINAL_NAME"));
+				r.setRv_Re_Name(rs.getString("RV_RENAME_NAME"));
+				r.setP_No(rs.getInt("P_NO"));
+				r.setM_No(rs.getInt("M_NO"));
+				r.setM_nickName(rs.getString("M_NICKNAME"));
+				r.setRv_Date(rs.getDate("RV_DATE"));
+				list.add(r);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 
 	
 //	public int countNotice(Connection conn) {
