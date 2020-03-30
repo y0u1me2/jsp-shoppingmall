@@ -18,16 +18,16 @@ import com.web.review.model.service.ReviewService;
 import com.web.review.model.vo.Review;
 
 /**
- * Servlet implementation class ReviewCategoryServlet
+ * Servlet implementation class MyReviewLoadServlet
  */
-@WebServlet("/reviewCategory")
-public class ReviewCategoryServlet extends HttpServlet {
+@WebServlet("/myReviewLoad")
+public class MyReviewLoadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewCategoryServlet() {
+    public MyReviewLoadServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,23 +38,11 @@ public class ReviewCategoryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		JSONObject jsonObj=new JSONObject();
-		List<Review> list;
 		String reviewList="";
 		String starpoint="";
-		int count=0;
-		if(request.getParameter("p_Category")==null) {
-			list=new ReviewService().searchReview();
-			count=new ReviewService().countReview();
-		}else {
-			String p_Category=request.getParameter("p_Category");
-			if(p_Category.equals("전체")) {
-				list=new ReviewService().searchReview();
-				count=new ReviewService().countReview();
-			}else {
-				list=new ReviewService().searchReviewCategory(p_Category);
-				count=new ReviewService().countReviewCategory(p_Category);
-			}
-		}
+		int myNo=Integer.parseInt(request.getParameter("myNo"));
+		List<Review> list=new ReviewService().searchMyReview(myNo);
+		int count=new ReviewService().countMyReview(myNo);
 		//html 작성부분
 		for(Review r:list) {
 			starpoint="";
@@ -65,7 +53,7 @@ public class ReviewCategoryServlet extends HttpServlet {
 				starpoint+="<span class='fa fa-star'></span>";
 			}
 			Product p=new ProductService().getProduct(r.getP_No());
-			reviewList+="<div style='border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;'>"
+			reviewList+="<div class='writtenReviewList' style='border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;'>"
 					+ "<input id='RvNo' type='hidden' value='"+r.getRv_No()+"'>"
 							+ "<table>"
 								+ "<tr>"
@@ -92,11 +80,6 @@ public class ReviewCategoryServlet extends HttpServlet {
 		jsonObj.put("count", count);
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(jsonObj,response.getWriter());
-		
-//		response.setContentType("text/html");
-//		response.setCharacterEncoding("utf-8");
-//		response.getWriter().write(reviewList);
-		//request.getRequestDispatcher("views/client/review/reviewList.jsp").forward(request, response);
 	}
 
 	/**
