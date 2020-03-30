@@ -9,6 +9,7 @@
 	/* 원하는  조회기간 별로 출력하기 */
 	int cPage = (int) request.getAttribute("cPage");
 	String numPer = request.getParameter("numPerPage");
+
 %>
 
 <style>
@@ -221,7 +222,7 @@ div#pageBar a {
 
 			<div class="list-container">
 
-
+			
 				<div class="mListHeader">
 					<div class="gleft">
 						<button type="button" class="btn_Wihte"

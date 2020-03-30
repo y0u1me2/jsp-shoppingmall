@@ -115,4 +115,18 @@ public class AdminProductService {
 		  return result; 
 		  
 		 }	
+	
+//상품리스트 엑셀 다운로드=======================================
+	public List<Product> excelDownLoad(){
+		Connection conn = getConnection();
+		
+		List<Product> list = dao.excelDownLoad(conn);
+		
+		close(conn);
+		
+		return list;
+			
+	}
+	
+	
 }
