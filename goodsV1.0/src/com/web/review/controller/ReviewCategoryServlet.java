@@ -40,17 +40,17 @@ public class ReviewCategoryServlet extends HttpServlet {
 		String reviewList="";
 		String starpoint="";
 		int count=0;
-		if(request.getParameter("p_No")==null) {
+		if(request.getParameter("p_Category")==null) {
 			list=new ReviewService().searchReview();
 			count=new ReviewService().countReview();
 		}else {
-			int p_No=Integer.parseInt(request.getParameter("p_No"));
-			if(p_No==0) {
+			String p_Category=request.getParameter("p_Category");
+			if(p_Category.equals("전체")) {
 				list=new ReviewService().searchReview();
-				count=new ReviewService().countReview();	
+				count=new ReviewService().countReview();
 			}else {
-				list=new ReviewService().searchReviewCategory(p_No);
-				count=new ReviewService().countReviewCategory(p_No);
+				list=new ReviewService().searchReviewCategory(p_Category);
+				count=new ReviewService().countReviewCategory(p_Category);
 			}
 		}
 		//html 작성부분

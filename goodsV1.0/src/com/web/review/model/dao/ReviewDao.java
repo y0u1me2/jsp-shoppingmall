@@ -78,14 +78,14 @@ public class ReviewDao {
 		return count;
 	}
 	
-	public int countReviewCategory(Connection conn, int p_No) {
+	public int countReviewCategory(Connection conn, String p_Category) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		int count=0;
 		String sql=prop.getProperty("countReviewCategory");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, p_No);
+			pstmt.setString(1, p_Category);
 			rs=pstmt.executeQuery();
 			if(rs.next()) count=rs.getInt("count(*)");
 		}catch(SQLException e) {
@@ -179,14 +179,14 @@ public class ReviewDao {
 		return count;
 	}
 	
-	public List<Review> searchReviewCategory(Connection conn, int p_No) {
+	public List<Review> searchReviewCategory(Connection conn, String p_Category) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("searchReviewCategory");
 		List<Review> list=new ArrayList();
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, p_No);
+			pstmt.setString(1, p_Category);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Review r=new Review();

@@ -276,11 +276,11 @@ to {
 			<div class="review-selection">
 				<div class="review-dropdown">
 					<select class="review-select" name="reviewSelect">
-						<option value="0">모든 상품</option>
-						<option value="1">케이스</option>
-						<option value="2">악세사리</option>
-						<option value="3">생활용품</option>
-						<option value="4">패션</option>
+						<option value="전체">모든 상품</option>
+						<option value="케이스">케이스</option>
+						<option value="악세사리">악세사리</option>
+						<option value="생활용품">생활용품</option>
+						<option value="패션">패션</option>
 					</select>
 				</div>
 				<div class="review-toggle">
@@ -389,19 +389,17 @@ to {
 		$('.reviewView-modal-back').css('display', 'none');
 	}
 
-	
-	//console.log($('.review-select').val());
-	if($('.review-select').val()==0) {
+	if($('.review-select').val()=='전체') {
 		$.ajax({
 			url:'<%=request.getContextPath()%>/reviewCategory',
 			type:'post',
 			dataType:"json",
-			data:{p_No:$('.review-select').val()},
+			data:{p_Category:$('.review-select').val()},
 			success:function(data) {
 				var reviewList=data.reviewList;
 				$('#review-middle').html(data.reviewList);
+				$('#number-of-object').html(data.count);
 				$('div.reviewImg').click(function() {
-					console.log("뭐야 왜그러는거야?");
 					$('.reviewView-modal-back').show();
 					var star=$('div.starOut>span');
 					$.ajax({
@@ -430,12 +428,12 @@ to {
 			url:'<%=request.getContextPath()%>/reviewCategory',
 			type:'post',
 			dataType:"json",
-			data:{p_No:$('.review-select').val()},
+			data:{p_Category:$('.review-select').val()},
 			success:function(data) {
 				var reviewList=data.reviewList;
 				$('#review-middle').html(data.reviewList);
+				$('#number-of-object').html(data.count);
 				$('div.reviewImg').click(function() {
-					console.log("뭐야 왜그러는거야?");
 					$('.reviewView-modal-back').show();
 					var star=$('div.starOut>span');
 					$.ajax({
