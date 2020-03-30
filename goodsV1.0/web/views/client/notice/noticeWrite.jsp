@@ -56,7 +56,7 @@
 			<h1 id="one">공지사항 글쓰기</h1>
 			<hr id="gline">
 			<br><br>
-	<form action="<%=request.getContextPath() %>/notice/noticeWriteEnd" method="post" enctype="multipart/form-data">
+	<form id="frm" name="ajaxFile" action="<%=request.getContextPath() %>/notice/noticeWriteEnd" method="post" enctype="multipart/form-data">
         <table id="write-tbl">
         <colgroup>
         	<col style="width:15%"/>
@@ -69,11 +69,11 @@
         </tr>
         <tr>
             <th>작성자</th>
-            <td><input type="hidden" name="writer" required>admin</td>
+            <td><input type="hidden" name="writer" value="admin" required>admin</td>
         </tr>
         <tr id="fileup">
             <th>첨부파일</th>
-            <td><input type="file" name="upfile"></td>
+            <td><input type="file" name="upfile" multiple></td>
         </tr>
         <tr>
             <th>내 용</th>
@@ -81,7 +81,7 @@
         </tr>
         <tr>
             <th colspan="2" id="subm">
-               	<input type="submit" value="작성완료"/>
+              	<button type="button" id="btn">작성완료</button>
             </th>
         </tr>
     </table>
@@ -90,6 +90,42 @@
 	</div>
 </section>
 <script>
+
+	$(function(){
+		//ajax 파일업로드 구현하기
+		$("#btn").click(function(){
+			var form=$("#frm").serialize();
+			//데이터보낼때... FormData객체를 이용하여 데이터 전송가능
+			const fd=new FormData();
+			//원하는 내용을 추가할 수 있음
+			//append함수를 이용해서 데이터를 추가 키=value형식
+			//fd.append("bs",$("[name=ajaxFileTest]")[0].files[0]);
+			//다중파일 업로드
+			$.each($("[name=upfile]")[0].files,function(i,item){
+				fd.append("file"+i,item);
+			});
+			fd.append("title",$("[name=title]").val());
+			fd.append("writer",$("[name=writer]").val());
+			fd.append("content",$("[name=content]").val());
+	
+			//<input type="file" nam="bs">
+			$.ajax({
+				url:"<%=request.getContextPath()%>/notice/noticeWriteEnd",
+				data:fd,
+				type:"post",
+				processData:false,
+				contentType:false,
+				success:function(data){
+				 	alert("작성 완료");
+				 	location.replace("<%=request.getContextPath()%>/admin/noticeList");
+				},
+				error:function(r,e,m){
+					alert("작성 실패");
+				}
+			})
+		})
+		})
+	
 </script>
 
 

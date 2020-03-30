@@ -316,7 +316,7 @@
 	    height: 40px;
 	    text-align: center;
 	    line-height: 40px;
-	    border: 1px solid #eee;
+	    border: 1px solid #d5d5d5;
 	    color: #999;
 	    background-color: #fff;
 	    margin: 0 2px;
@@ -452,7 +452,7 @@
            </div>
                 </div>
                 <!-- 회원목록 박스 바디 -->
-                <form action="<%=request.getContextPath()%>/admin/allDelete" id="ckvalue">
+                <form id="ckvalue">
                 <div class="mlist"> 
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
@@ -559,10 +559,23 @@
    				location.replace("<%=request.getContextPath()%>/admin/noticeDelete?no="+value);
    			}
    		}
-   		//선택한 항목삭제
+   		//선택한 항목삭제 및 수정하기
    		$(function(){
    			$("#checkDelete").click(function(){
+   				$("#ckvalue").attr("action","<%=request.getContextPath()%>/admin/allDelete")
    				$("#ckvalue").submit();
+   			})
+   		})
+   		$(function(){
+   			$("#writeup").click(function(){
+   				$("#ckvalue").attr("action","<%=request.getContextPath()%>/admin/noticeUpdate")
+   				if($("[name=mRowCheck]:checked").length==1){
+   				$("#ckvalue").submit();
+   				}else if($("[name=mRowCheck]:checked").length==0){
+   					alert("수정할 글을 선택하시오!");
+   				}else{
+   					alert("한개만 선택하시오");
+   				}
    			})
    		})
    		</script>
