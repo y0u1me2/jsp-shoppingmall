@@ -71,7 +71,8 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		// MultipartRequest(HttpServletRequest, 저장경로, 파일저장최대크기, 문자열인코딩값파일 rename정책)
 
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new MyFileRenamePolicy());
-
+		
+		int no = Integer.parseInt(mr.getParameter("mNo"));
 		String type = mr.getParameter("inquiryType");
 		String phone = mr.getParameter("phone");
 		String title = mr.getParameter("title");
@@ -80,8 +81,6 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		String renamedFileName = mr.getFilesystemName("upfile");
 		System.out.println(oriFileName);
 		System.out.println(renamedFileName);
-
-		int no = 99;		
 
 		Inquiry i = new Inquiry(0, no, type, phone, title, content, null, oriFileName,renamedFileName,"Y",null);
 		

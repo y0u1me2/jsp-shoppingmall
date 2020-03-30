@@ -113,7 +113,7 @@ input#submit-btn {
   color: #80878d;
   font-weight: normal;
   }
-
+	
 </style>
 </head>
 
@@ -168,9 +168,10 @@ input#submit-btn {
 						<tr>
 							<td>상품 색상 등록</td>
 							<td>
-							<input type="file" id="fbtn" name="pThumbnail"/>							
+							<input type="text" id="colorInput" size="15" placeholder="색상을 입력하세요"/>						
+							<input type="file" id="fbtn" name="pThumbnail" size="4"/>						
 							</td>
-								
+					
 						</tr> 
 					
 					</table>
@@ -182,56 +183,6 @@ input#submit-btn {
 	</div>
 	
 	<script>
-	//상품색상수정
-	function pColorUpdate(){	
-		//name=option
-		var result = confirm('상품색상을 수정하시겠습니까?'); 
-		var count=0;
-		var pColors=$("#option");
-		
-		if(result) { 
-			for(let i=0; i<pColors.length; i++){
-				if(pColors[i].checked==true){
-					count++;
-				}
-			}
-				
-		if(count==0){
-			alert("수정할 색상을 선택해주세요.");
-		}else{
-			//배열 선언
-		    var pColorArray=[];
-
-		    $('input[name="option"]:checked').each(function(i){
-		        		iCkArray.push($(this).val());
-		   	});	
-		    //체크된 리스트 저장
-		    console.log(pColorArray);
-		       
-		    var objParams = {
-				"pColorArray" : pColorArray //선텍된 글을 저장
-		   }; 
-		      
-		   
-		    $.ajax({
-		        url         :   "<%=request.getContextPath()%>/productUpdateColorEnd",
-		       	dataType    :   "html",
-		        contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
-		        type        :   "post",
-		        data        :   objParams,
-		        success     :   function(retVal){
-				alert(retVal);
-				location.replace("<%=request.getContextPath()%>/productUpdateColor");
-			},
-				error : function(request, status, error) {
-				console.log("AJAX_ERROR");
-						}
-			});
-			}
-			} else {
-
-			}
-		}
 		
 	//ajax 파일업로드 구현하기
 	$(function(){

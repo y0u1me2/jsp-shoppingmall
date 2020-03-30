@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.web.inquiry.model.service.InquiryService;
 import com.web.inquiry.model.vo.Inquiry;
@@ -24,7 +25,18 @@ public class MyInquiryListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
+		
+		//주소창에 서블릿 매핑값 적었을때 접속을 차단하는 방법
+		// * 로그인을 하지 않았을때 
+		HttpSession session = request.getSession(false);
+		if(session!=null && session.getAttribute("loginedMember")==null) {
+			request.setAttribute("msg", "잘못된 접근입니다. 메인화면으로 이동합니다.");
+			request.setAttribute("loc", "/");
+			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request,response);
+		}
+		else { //로그인한 아이디가 있으면 
+				
 		// 1:1문의사항 페이징처리
 
 		int cPage;
@@ -114,6 +126,7 @@ public class MyInquiryListServlet extends HttpServlet {
 		request.setAttribute("cPage", cPage);
 		request.getRequestDispatcher("/views/client/mypage/inquiry/myInquiry.jsp").forward(request, response);
 
+	}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

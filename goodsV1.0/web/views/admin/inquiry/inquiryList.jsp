@@ -4,7 +4,7 @@
 <%@ page import="java.util.List,com.web.inquiry.model.vo.Inquiry"%>
 
 <%
-	List<Inquiry> list = (List) request.getAttribute("list");
+	List<Inquiry> list = (List)request.getAttribute("list");
 
 	/* 원하는  조회기간 별로 출력하기 */
 	int cPage = (int) request.getAttribute("cPage");

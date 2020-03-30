@@ -192,9 +192,10 @@ p#call {
 			</div>
 			<br>
 
-			<form method="post" enctype="multipart/form-data">
+			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/MyInquiryWriteEnd">
 
 				<table class="box">
+				<input type="hidden" name="mNo" value="<%=loginMember.getM_No()%>"/>
 					<tr>
 						<th id="th1">문의유형</th>
 						<td><select name="inquiryType">
@@ -230,7 +231,7 @@ p#call {
 					</tr>
 					<tr>
 						<td colspan=2 id="tdBtn">
-						<input id="btn2" type="button"value="등록하기">
+						<input id="btn2" type="submit" value="등록하기" >
 						</td>
 				</table>
 			</form>
@@ -244,14 +245,14 @@ p#call {
 
 	<script>
 	//ajax 파일업로드 구현하기
-	$(function(){
+	/* $(function(){
 		$("#btn2").click(function(){
 			var form=$("#frm").serialize(); //이름,비밀번호(input)이 여러개일때 데이터만 보낼수있음
 			//데이터보낼때 FormData객체를 이용하여 데이터 전송가능
-			const fd = new FormData();
+			const fd = new FormData(); */
 					 
 		//다중파일 업로드
-		$.each($("[name=upfile]")[0].files,function(i,item){
+		<%-- $.each($("[name=upfile]")[0].files,function(i,item){
 			fd.append("goods"+i,item);
 		})
 			$.ajax({
@@ -271,10 +272,8 @@ p#call {
 			})
 			
 		})
-	})
+	}) --%>
 
-	
-	
 	
 	</script>
 
