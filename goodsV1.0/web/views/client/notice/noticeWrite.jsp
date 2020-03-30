@@ -69,7 +69,7 @@
         </tr>
         <tr>
             <th>작성자</th>
-            <td><input type="hidden" name="writer" required> </td>
+            <td><input type="hidden" name="writer" required>admin</td>
         </tr>
         <tr id="fileup">
             <th>첨부파일</th>

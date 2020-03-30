@@ -5,8 +5,8 @@
 
 <%
    List<Notice> list=(List)request.getAttribute("list");
-   String type=request.getParameter("searchType");
-   String keyword=request.getParameter("searchKeyword");
+   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
+   String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
    int totalDate=(int)request.getAttribute("totalDate");
    int finderDate=(int)request.getAttribute("finderDate");
    int cPage=(int)request.getAttribute("cPage");
@@ -430,7 +430,7 @@
                     <div class="gleft">
                         <button type="button" class="btn_Wihte" id="allcheck" >전체선택</button>
                         <button type="button" class="btn_Wihte" id="removecheck" >선택해제</button>
-                        <button type="button" class="btn_Wihte" >삭제</button>
+                        <button type="button" class="btn_Wihte" id="checkDelete">삭제</button>
                         <button type="button" class="btn_Wihte" id="write">글쓰기</button>
                         <button type="button" class="btn_Wihte" id="writeup">글수정</button>
                     </div>
@@ -447,12 +447,12 @@
                        </select>
                        
                  <!-- select선택을하면 데이터 출력갯수가 옵션값으로 변경 -->
-              </form>
+              		</form>
 
            </div>
                 </div>
                 <!-- 회원목록 박스 바디 -->
-                <form>
+                <form action="<%=request.getContextPath()%>/admin/allDelete" id="ckvalue">
                 <div class="mlist"> 
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
@@ -485,7 +485,10 @@
                                  <td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="<%=m.getnNo()%>"></td>
                                  
                                  <td><%=m.getnNo()%></td>
-                                 <td><%=m.getnTitle()%></td>
+                                 <td><a href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=m.getnNo()%>">
+                					<%=m.getnTitle() %>
+                				</a>
+                				</td>
                                  <td><%=m.getnWriter()%></td>
                                  <td><%=m.getnDate()%></td>
                                  <td>
@@ -548,11 +551,21 @@
    			})
    		})
    		
-   		//선택삭제
-   		
-   		//선택삭제
-   		
-   </script>
+   		//한개삭제
+   		function memberDelete(){
+   			var result=confirm('글을 삭제하시겠습니까?');
+   			var value=$(event.target).val();
+   			if(result){
+   				location.replace("<%=request.getContextPath()%>/admin/noticeDelete?no="+value);
+   			}
+   		}
+   		//선택한 항목삭제
+   		$(function(){
+   			$("#checkDelete").click(function(){
+   				$("#ckvalue").submit();
+   			})
+   		})
+   		</script>
 
 
 
