@@ -7,6 +7,8 @@ import com.web.notice.model.dao.NoticeDao;
 import com.web.notice.model.vo.Notice;
 import static com.web.common.JDBCTemplate.getConnection;
 import static com.web.common.JDBCTemplate.close;
+import static com.web.common.JDBCTemplate.rollback;
+import static com.web.common.JDBCTemplate.commit;
 
 public class NoticeService {
 	private NoticeDao dao=new NoticeDao();
@@ -45,4 +47,34 @@ public class NoticeService {
 		close(conn);
 		return list;
 	}
+	
+	public int oneDelete(int no) {
+		Connection conn=getConnection();
+		int count=dao.oneDelete(conn,no);
+		if(count>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return count;
+	}
+	
+	public int checkDelete(String [] check) {
+		Connection conn=getConnection();
+		int count=dao.checkDelete(conn,check);
+		if(count>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return count;
+	}
+	
+	public int insertNotice(Notice n) {
+		Connection conn=getConnection();
+		int result=dao.insertNotice(conn,n);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
+	
 }

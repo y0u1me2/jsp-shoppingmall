@@ -68,7 +68,7 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		//db에는 배열 자료형이 없으므로 String으로 바꿔줘야한다.
 		String colors = String.join(",",color);
 			   
-		Product p = new Product(0,category,name,price,oriFileName,comment);
+		Product p = new Product(0,category,name,price,oriFileName,comment,null);
 		
 		ProductImage pi = new ProductImage(0,0,colors,null);
 			

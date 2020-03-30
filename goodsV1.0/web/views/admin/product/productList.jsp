@@ -68,6 +68,17 @@ div.box>th, tr, td {
 	padding: 7px;
 }
 
+tr:first-of-type{
+color: #80878d;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+   font-size: 15px;
+    background-color: #f5f4f4;
+    padding: 9px 10px 7px;
+}
+
+
 /* 테이블 스타일 */
 table.box {
 	width: 80%;
@@ -240,10 +251,10 @@ input#color-btn:hover {
 				<div class="mListHeader">
 					<div class="gleft">
 						<button type="button" class="btn_Wihte"
-							onclick=" mAllClickSelect()">전체선택</button>
+							onclick=" pAllClickSelect()">전체선택</button>
 						<button type="button" class="btn_Wihte"
-							onclick=" mAllClickRelease()">선택해제</button>
-						<button type="button" class="btn_Wihte" onclick=" mCkDelete()">삭제</button>
+							onclick=" pAllClickRelease()">선택해제</button>
+						<button type="button" class="btn_Wihte" onclick=" pCkDelete()">삭제</button>
 					</div>
 
 					<div class="gright" id="numPerPage-container">
@@ -273,7 +284,7 @@ input#color-btn:hover {
 				<table class="box">
 					<tr style="background-color: rgb(245, 245, 245); height: 40px;">
 						<td><input type="checkbox" name="allCheck"
-							onclick="allChk();"></td>
+							onclick="pallChk();"></td>
 						<td>번호</td>
 						<td>카테고리</td>
 						<td>이미지</td>
@@ -292,12 +303,13 @@ input#color-btn:hover {
 					<%
 							} else {
 						%>
-
-					<%
+					
+						<%
 							for (Product p : list) {
+								if (p.getpStatus().equals("Y")) {				
 						%>
 					<tr>
-						<td><input type="checkbox" name="rowCheck"
+						<td><input type="checkbox" class="prowCheck" name="pRowCheck" 
 							value="<%=p.getpNo()%>"></td>
 
 						<td><%=p.getpNo()%></td>
@@ -321,6 +333,7 @@ input#color-btn:hover {
 						</form>
 					</tr>
 					<%
+								}
 							}
 							}
 						%>
@@ -336,37 +349,86 @@ input#color-btn:hover {
 	</div>
 
 	<script>
-		//체크박스 전체선택하기
-		var check = false;
+	 //체크박스 전체선택하기
+    var check = false;
+    var chk = document.getElementsByName("pRowCheck");
+    
+    function pallChk(){
+     
+       if (check == false) {
+          check = true;
+          for (var i = 0; i < chk.length; i++) {
+             chk[i].checked = true; //모두 체크
+          }
+       } else {
+          check = false;
+          for (var i = 0; i < chk.length; i++) {
+             chk[i].checked = false; //모두 해제
+          }
+       }
+    };
+    
+    function pAllClickSelect(){
+    	 check = true;
+         for (var i = 0; i < chk.length; i++) {
+            chk[i].checked = true; //모두 체크
+         }
+    };
+    function pAllClickRelease(){
+    	  check = false;
+          for (var i = 0; i < chk.length; i++) {
+             chk[i].checked = false; //모두 해제
+          }
+    }
 
-		function allChk(){
+ //글삭제
+    function pCkDelete(){	
+   	//rowCheck
+   	var result = confirm('상품을 삭제 하시겠습니까?'); 
+   	var count=0;
+   	var pRowCheck=$(".prowCheck");
+   	
+		if(result) { 
+ 			for(let i=0; i<pRowCheck.length; i++){
+ 				if(pRowCheck[i].checked==true){
+ 					count++;
+ 				}
+ 			}
+ 			
+ 			if(count==0){
+ 				alert("삭제할 상품을 선택해주세요.");
+ 			}else{
+ 				//배열 선언
+ 	        	var pCkArray=[];
 
-			var chk = document.getElementsByName("rowCheck");
-
-			if (check == false) {
-
-				check = true;
-
-				for (var i = 0; i < chk.length; i++) {
-
-					chk[i].checked = true; //모두 체크
-
-				}
-
-			} else {
-
-				check = false;
-
-				for (var i = 0; i < chk.length; i++) {
-
-					chk[i].checked = false; //모두 해제
-
-				}
-
-			}
-	
-
-		}
+ 	        	$('input[name="pRowCheck"]:checked').each(function(i){
+ 	        		pCkArray.push($(this).val());
+ 	        	});	
+ 	        	//체크된 리스트 저장
+ 	        	console.log(pCkArray);
+ 	        	 var objParams = {
+ 						"pCkArray" : pCkArray //선텍된 글을 저장
+ 	        	}; 
+ 	      
+ 	        	  $.ajax({
+ 	                  url         :   "<%=request.getContextPath()%>/productCheckDelete",
+ 	                  dataType    :   "html",
+ 	                  contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
+ 	                  type        :   "post",
+ 	                  data        :   objParams,
+ 	                  success     :   function(retVal){
+				 	     alert(retVal);
+				 	     location.replace("<%=request.getContextPath()%>/ProductListView");
+ 	                  },
+ 	                  error       :   function(request, status, error){
+ 	                      			  console.log("AJAX_ERROR");
+ 	                  }
+ 	              });
+ 			}
+		}else {
+			
+		}	
+   }         
 		
 		//사용자가 조회기간 지정하기		
 	   $("#numPerPage").change(()=>{

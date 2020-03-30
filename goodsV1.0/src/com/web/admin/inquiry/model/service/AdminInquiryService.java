@@ -25,7 +25,16 @@ public class AdminInquiryService {
 					
 		return list;					
 	}
-
+	
+	
+	public List<Inquiry> excelInquiry(int cPage, int numPerPage){
+		Connection conn = getConnection();
+		List<Inquiry> list = dao.searchInquiry(conn,cPage,numPerPage);
+			
+		close(conn);
+					
+		return list;					
+	}
 //문의한 내역 페이지바==================================
 	public int inquiryCount() {
 		Connection conn = getConnection();
@@ -86,17 +95,21 @@ public class AdminInquiryService {
 	
 //체크된 글 삭제하기===================================
 	
-	 public int inquiryCheckDelete(String[] row) { 
+	 public int inquiryCkDelete(String[] iCkDelete) { 
 		 Connection conn = getConnection();
 	  
-	  int result = dao.inquiryCheckDelete(conn,row); if(result>0) commit(conn);
+	  int result = dao.inquiryCkDelete(conn, iCkDelete); 
+	  
+	  if(result>0) commit(conn);
 	  else rollback(conn); close(conn);
 	  
 	  return result; 
 	  
-	 }
+	 }	
+
+	  
 	 
-//답변 수정페이지 화면====================================
+//답변 수정페이지 출력====================================
 	 public InquiryAnswer inquiryView(int no) {
 		 Connection conn = getConnection();
 		 

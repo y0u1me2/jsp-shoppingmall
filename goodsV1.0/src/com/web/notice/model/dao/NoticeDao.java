@@ -1,16 +1,17 @@
 package com.web.notice.model.dao;
 
+import static com.web.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import static com.web.common.JDBCTemplate.close;
 
 import com.web.notice.model.vo.Notice;
 
@@ -37,7 +38,7 @@ public class NoticeDao {
 			pstmt.setInt(1, (cPage-1)*numPerPage+1);
 			pstmt.setInt(2, cPage*numPerPage);
 			rs=pstmt.executeQuery();
-			while(rs.next()) {
+			while(rs.next()){
 				Notice n=new Notice();
 				n.setnNo(rs.getInt("n_no"));
 				n.setnWriter(rs.getString("n_writer"));
@@ -48,7 +49,7 @@ public class NoticeDao {
 				n.setnDate(rs.getDate("n_date"));
 				n.setnReadcount(rs.getInt("n_readcount"));
 				n.setnStatus(rs.getString("n_status"));
-				list.add(n);				
+				list.add(n);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -61,17 +62,14 @@ public class NoticeDao {
 	
 	public List<Notice> searchNoticePage(Connection conn,int cPage,
 			int numPerPage,String type,String keyword){
-		PreparedStatement pstmt=null;
+		Statement stmt=null;
 		ResultSet rs=null;
-		String sql=prop.getProperty("searchNotice");
+		String sql="SELECT * FROM (SELECT ROWNUM AS RNUM,A.* FROM(SELECT * FROM NOTICE WHERE "+type+" like '%"+keyword
+				+"%' AND N_STATUS='Y' order by N_DATE DESC)A) WHERE RNUM BETWEEN "+((cPage-1)*numPerPage+1)+" and "+(cPage*numPerPage);
 		List<Notice> list=new ArrayList();
 		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, type);
-			pstmt.setString(2, keyword);
-			pstmt.setInt(3, (cPage-1)*numPerPage+1);
-			pstmt.setInt(4, cPage*numPerPage);
-			rs=pstmt.executeQuery();
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
 			while(rs.next()) {
 				Notice n=new Notice();
 				n.setnNo(rs.getInt("n_no"));
@@ -89,7 +87,7 @@ public class NoticeDao {
 			e.printStackTrace();
 		}finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return list;
 	}
@@ -113,21 +111,19 @@ public class NoticeDao {
 	}
 	
 	public int countNotice(Connection conn,String type,String keyword) {
-		PreparedStatement pstmt=null;
+		Statement stmt=null;
 		ResultSet rs=null;
 		int count=0;
-		String sql=prop.getProperty("countNotice2");
+		String sql="SELECT COUNT(*) FROM NOTICE WHERE "+type+" LIKE '%"+keyword+"%' AND N_STATUS='Y'";
 		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, type);
-			pstmt.setString(2, keyword);
-			rs=pstmt.executeQuery();
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
 			if(rs.next()) count=rs.getInt("count(*)");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return count;
 	}
@@ -162,10 +158,59 @@ public class NoticeDao {
 		return n;
 	}
 	
+	public int oneDelete(Connection conn,int no) {
+		PreparedStatement pstmt=null;
+		int count=0;
+		String sql=prop.getProperty("oneDelete");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			count=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return count;
+	}
 	
+	public int checkDelete(Connection conn,String[] check) {
+		Statement stmt=null;
+		int count=0;
+		String sql=" ";
+		try {
+			stmt=conn.createStatement();
+			for(String s : check) {
+				sql="UPDATE NOTICE SET N_STATUS='N' WHERE N_NO="+s;
+				count+=stmt.executeUpdate(sql);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		return count;
+	}
 	
-	
-	
+	public int insertNotice(Connection conn,Notice n) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertNotice");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, n.getnWriter());
+			pstmt.setString(2, n.getnTitle());
+			pstmt.setString(3, n.getnContent());
+			pstmt.setString(4, n.getnOriginalFile());
+			pstmt.setString(5, n.getnRenamedFile());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

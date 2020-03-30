@@ -25,7 +25,7 @@ public class ProductListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//상품목록 조회하는 로직
+		//상품전체 목록 조회하기
 
 		int cPage; // 현재페이지
 
@@ -69,7 +69,7 @@ public class ProductListServlet extends HttpServlet {
 
 		String pageBar = "";
 
-		// [이전]버튼 만들기
+		// [<]버튼 만들기
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
@@ -90,7 +90,7 @@ public class ProductListServlet extends HttpServlet {
 		}
 		
 
-		// [다음]
+		// [>]
 		if (pageNo > totalPage) {
 			pageBar += "<span>></span>&nbsp";
 		} else {

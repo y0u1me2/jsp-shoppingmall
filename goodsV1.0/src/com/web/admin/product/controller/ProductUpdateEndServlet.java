@@ -72,7 +72,7 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		
 		
 		System.out.println(no);
-		Product p = new Product(no,name,category,price,thumbnail,comment);
+		Product p = new Product(no,name,category,price,thumbnail,comment,null);
 		
 		int result = new AdminProductService().updateProduct(p);
 		

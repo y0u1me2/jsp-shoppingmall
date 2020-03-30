@@ -24,7 +24,8 @@ public class InquiryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 전체1:1상담 목록 출력
+		// 전체1:1상담 목록 출력하기
+		
 		// DB에 저장된 문의내역을 페이징처리해서 가져온다
 		int cPage;
 
@@ -57,7 +58,7 @@ public class InquiryListServlet extends HttpServlet {
 
 		String pageBar = "";
 
-		// [이전]버튼 만들기
+		// [<]버튼 만들기
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
@@ -77,7 +78,7 @@ public class InquiryListServlet extends HttpServlet {
 			pageNo++;
 		}
 
-		// [다음]
+		// [>]
 		if (pageNo > totalPage) {
 			pageBar += "<span>></span>&nbsp";
 		} else {

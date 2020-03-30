@@ -1,24 +1,30 @@
-package com.web.product.controller;
+package com.web.review.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.web.review.model.service.ReviewService;
+import com.web.review.model.vo.Review;
 
 /**
- * Servlet implementation class ProductCustomServlet
+ * Servlet implementation class ReviewView
  */
-@WebServlet("/product/custom")
-public class ProductCustomServlet extends HttpServlet {
+@WebServlet("/reviewView")
+public class ReviewViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductCustomServlet() {
+    public ReviewViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +34,18 @@ public class ProductCustomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginedMember")==null) {
-			//로그인이 필요한 서비스입니다.
-			System.out.println("로그인이 필요한 서비스입니다.");
-		}else {
-			request.getRequestDispatcher("/views/client/product/productCustom.jsp").forward(request, response);
+		int reviewNo=Integer.parseInt(request.getParameter("rvNo"));
+		Review review=new ReviewService().reviewView(reviewNo);
+		Gson gson=new Gson();
+		String jsonReview="";
+		try {
+			jsonReview=gson.toJson(review);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(jsonReview);
 	}
 
 	/**

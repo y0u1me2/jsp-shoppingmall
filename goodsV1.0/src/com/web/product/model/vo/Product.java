@@ -7,14 +7,14 @@ public class Product {
 	private int pPrice;
 	private String pThumbnail;
 	private String pComment;
+	private String pStatus;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public Product(int pNo, String pCategory, String pName, int pPrice, String pThumbnail, String pComment) {
+	public Product(int pNo, String pCategory, String pName, int pPrice, String pThumbnail, String pComment,
+			String pStatus) {
 		super();
 		this.pNo = pNo;
 		this.pCategory = pCategory;
@@ -22,65 +22,73 @@ public class Product {
 		this.pPrice = pPrice;
 		this.pThumbnail = pThumbnail;
 		this.pComment = pComment;
+		this.pStatus = pStatus;
 	}
 
-
-
-
-	public int getpNo() {
+	public final int getpNo() {
 		return pNo;
 	}
 
-	public void setpNo(int pNo) {
+	public final void setpNo(int pNo) {
 		this.pNo = pNo;
 	}
 
-	public String getpCategory() {
+	public final String getpCategory() {
 		return pCategory;
 	}
 
-	public void setpCategory(String pCategory) {
+	public final void setpCategory(String pCategory) {
 		this.pCategory = pCategory;
 	}
 
-	public String getpName() {
+	public final String getpName() {
 		return pName;
 	}
 
-	public void setpName(String pName) {
+	public final void setpName(String pName) {
 		this.pName = pName;
 	}
 
-	public int getpPrice() {
+	public final int getpPrice() {
 		return pPrice;
 	}
 
-	public void setpPrice(int pPrice) {
+	public final void setpPrice(int pPrice) {
 		this.pPrice = pPrice;
 	}
 
-	public String getpThumbnail() {
+	public final String getpThumbnail() {
 		return pThumbnail;
 	}
 
-	public void setpThumbnail(String pThumbnail) {
+	public final void setpThumbnail(String pThumbnail) {
 		this.pThumbnail = pThumbnail;
 	}
 
-	public String getpComment() {
+	public final String getpComment() {
 		return pComment;
 	}
 
-	public void setpComment(String pComment) {
+	public final void setpComment(String pComment) {
 		this.pComment = pComment;
+	}
+
+	public final String getpStatus() {
+		return pStatus;
+	}
+
+	public final void setpStatus(String pStatus) {
+		this.pStatus = pStatus;
 	}
 
 	@Override
 	public String toString() {
 		return "Product [pNo=" + pNo + ", pCategory=" + pCategory + ", pName=" + pName + ", pPrice=" + pPrice
-				+ ", pThumbnail=" + pThumbnail + ", pComment=" + pComment + "]";
+				+ ", pThumbnail=" + pThumbnail + ", pComment=" + pComment + ", pStatus=" + pStatus + "]";
 	}
 
+	
+	
 	
 	
 	

@@ -1,24 +1,26 @@
-package com.web.product.controller;
+package com.web.notice.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.web.notice.model.service.NoticeService;
 
 /**
- * Servlet implementation class ProductCustomServlet
+ * Servlet implementation class NoticeCheckDeleteServlet
  */
-@WebServlet("/product/custom")
-public class ProductCustomServlet extends HttpServlet {
+@WebServlet("/admin/allDelete")
+public class NoticeCheckDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductCustomServlet() {
+    public NoticeCheckDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +30,22 @@ public class ProductCustomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginedMember")==null) {
-			//로그인이 필요한 서비스입니다.
-			System.out.println("로그인이 필요한 서비스입니다.");
+		String[] check=request.getParameterValues("mRowCheck");
+		
+		int count=new NoticeService().checkDelete(check);
+		String msg=" ";
+		
+		if(count>0) {
+			msg="삭제 성공";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", "/admin/noticeList");
+			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
 		}else {
-			request.getRequestDispatcher("/views/client/product/productCustom.jsp").forward(request, response);
+			msg="삭제 실패";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", "/admin/noticeList");
+			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
 		}
-		
-		
-		
-		
-		
 	}
 
 	/**

@@ -9,14 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.admin.product.service.AdminProductService;
-import com.web.product.model.vo.Product;
 
-
-@WebServlet("/productUpdateView")
-public class ProductUpdateViewServlet extends HttpServlet {
+@WebServlet("/productCheckDelete")
+public class ProductCheckDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public ProductUpdateViewServlet() {
+       
+  
+    public ProductCheckDeleteServlet() {
         super();
        
     }
@@ -24,23 +23,34 @@ public class ProductUpdateViewServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//상품정보 수정하기
+		//상품삭제하기
 		
-		//상품번호를 가져온다
-		int no = Integer.parseInt(request.getParameter("no"));
+		String[] pCkDelete = request.getParameterValues("pCkArray[]");
+			
 		
-		//상품정보를 가져와서  수정 화면에 출력해주는 로직
-		Product p = new AdminProductService().searchProduct(no);
+		int result = new AdminProductService().productCkDelete(pCkDelete);
 		
-		request.setAttribute("product", p);
+		String msg="";
+		String loc="/admin/product/productList";
 		
-		request.getRequestDispatcher("/views/admin/product/productUpdateView.jsp")
-		.forward(request, response);
+		
+		if(result>0) {
+			msg="상품이 삭제되었습니다.";			
+
+		}else {
+			msg="상품 삭제가 실패하였습니다.";
+			
+		}
+		
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(msg);
+		
 	}
+	
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

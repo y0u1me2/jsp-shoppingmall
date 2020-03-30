@@ -99,7 +99,21 @@ input#submit-btn {
         background:rgb(251, 251, 249);
         outline: none;
     } 
-}
+    
+   td:first-of-type{
+   color: #80878d;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+    font-size: 15px;
+    background-color: #f5f4f4;
+   }
+   
+   label{
+  color: #80878d;
+  font-weight: normal;
+  }
+
 </style>
 </head>
 
@@ -145,56 +159,18 @@ input#submit-btn {
 						<tr>
 							<td>판매가(필수)</td>
 							<td><input type="text" id="td2" name="pPrice">원</td>
-						</tr>
-						<tr>
-							<td>상품 섬네일 이미지등록</td>
-							<td><input type="file" id="fbtn" name="pThumbnail"/></td>
-						</tr>
-						
+						</tr>					
 						<tr>
 							<td>상품 설명 등록</td>
 							<td><input type="text" name="pComment"/></td>
 						</tr>
 						
 						<tr>
-							<td>상품 색상 설정</td>
+							<td>상품 색상 등록</td>
 							<td>
-								<div id="td3">
-									<input type="checkbox" name="option" id="option" checked>
-									<label for="option">화이트</label>
-									
-									<input type="checkbox" name="option" id="option2" >
-									<label for="option2">블랙</label>
-									
-									<input type="checkbox" name="option" id="option3" >
-									<label for="option3">핑크</label>
-									
-									<input type="checkbox" name="option" id="option4" >
-									<label for="option4">그린</label>
-									
-									<input type="checkbox" name="option" id="option5" >
-									<label for="option5">블루</label>
-									
-									<input type="checkbox" name="option" id="option6" >
-									<label for="option6">옐로우</label>
-									
-									<input type="checkbox" name="option" id="option7" >
-									<label for="option7">레드</label>
-									
-									<input type="checkbox" name="option" id="option8" >
-									<label for="option8">네이비</label>
-									
-									<input type="checkbox" name="option" id="option9" >
-									<label for="option9">퍼플</label>
-									
-									<input type="checkbox" name="option" id="option10" >
-									<label for="option10">연그레이</label>
-									
-									<input type="checkbox" name="option" id="option11" >
-									<label for="option11">진그레이</label>
-																										
-								</div>
-							</td>						
+							<input type="file" id="fbtn" name="pThumbnail"/>							
+							</td>
+								
 						</tr> 
 					
 					</table>
@@ -205,7 +181,89 @@ input#submit-btn {
 		</div>
 	</div>
 	
+	<script>
+	//상품색상수정
+	function pColorUpdate(){	
+		//name=option
+		var result = confirm('상품색상을 수정하시겠습니까?'); 
+		var count=0;
+		var pColors=$("#option");
+		
+		if(result) { 
+			for(let i=0; i<pColors.length; i++){
+				if(pColors[i].checked==true){
+					count++;
+				}
+			}
+				
+		if(count==0){
+			alert("수정할 색상을 선택해주세요.");
+		}else{
+			//배열 선언
+		    var pColorArray=[];
+
+		    $('input[name="option"]:checked').each(function(i){
+		        		iCkArray.push($(this).val());
+		   	});	
+		    //체크된 리스트 저장
+		    console.log(pColorArray);
+		       
+		    var objParams = {
+				"pColorArray" : pColorArray //선텍된 글을 저장
+		   }; 
+		      
+		   
+		    $.ajax({
+		        url         :   "<%=request.getContextPath()%>/productUpdateColorEnd",
+		       	dataType    :   "html",
+		        contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
+		        type        :   "post",
+		        data        :   objParams,
+		        success     :   function(retVal){
+				alert(retVal);
+				location.replace("<%=request.getContextPath()%>/productUpdateColor");
+			},
+				error : function(request, status, error) {
+				console.log("AJAX_ERROR");
+						}
+			});
+			}
+			} else {
+
+			}
+		}
+		
+	//ajax 파일업로드 구현하기
+	$(function(){
+		$("#update-btn").click(function(){
+			var form=$("#frm").serialize(); //이름,비밀번호(input)이 여러개일때 데이터만 보낼수있음
+			//데이터보낼때 FormData객체를 이용하여 데이터 전송가능
+			const fd = new FormData();
+		
+		//다중파일 업로드
+		$.each($("[name=upfile]")[0].files,function(i,item){
+			fd.append("goods"+i,item);
+		})
+			$.ajax({
+				url:"<%=request.getContextPath()%>/fileUp",
+				data:form,
+				type:"post",
+				processData:false,
+				contentType:false,
+				success:function(data){
+					alert("업로드 성공");
+					$("#images").html("");
+					$("[name=upfile]").val("");
+					
+				},error:function(re,e,m){
+					alert("업로드 실패");
+				}					
+			})
+			
+		})
+	})
 	
+	</script>
 	
 	
 </div>

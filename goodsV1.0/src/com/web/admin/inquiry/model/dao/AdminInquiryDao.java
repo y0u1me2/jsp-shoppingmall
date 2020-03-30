@@ -74,6 +74,46 @@ public class AdminInquiryDao {
 		return list;
 	}
 
+	public List<Inquiry> excelInquiry(Connection conn, int cPage, int numPerPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("searchPageInquiry");
+
+		List<Inquiry> list = new ArrayList();
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, (cPage - 1) * numPerPage + 1);
+			pstmt.setInt(2, cPage * numPerPage);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Inquiry i = new Inquiry();
+
+				i.setI_No(rs.getInt("i_no"));
+				i.setM_No(rs.getInt("m_no"));
+				i.setI_Type(rs.getString("i_type"));
+				i.setI_Phone(rs.getString("i_phone"));
+				i.setI_Title(rs.getString("i_title"));
+				i.setI_Content(rs.getString("i_content"));
+				i.setI_Date(rs.getDate("i_date"));
+				i.setI_Original_Filename(rs.getString("i_original_filename"));
+				i.setStatus(rs.getString("status"));
+				i.setAnswer_status(rs.getString("answer_status"));
+
+				list.add(i);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
 //문의 목록페이지바=======================================
 	public int inquiryCount(Connection conn) {
 		PreparedStatement pstmt = null;
@@ -215,23 +255,30 @@ public class AdminInquiryDao {
 	}
 
 //체크된 글 삭제하기====================================
-	
-	  public int inquiryCheckDelete(Connection conn, String[] row) {
-	  PreparedStatement pstmt = null; int result = 0; String sql =
-	  prop.getProperty("inquiryCheckDelete");
-	  
-	  try { pstmt = conn.prepareStatement(sql);
-	 
-		  for (int i = 0; i < row.length; i++) {
-			  pstmt.setInt(1,Integer.parseInt(row[i]));
-		  }
-			  if (pstmt.executeUpdate() > 0) {
-				  result++; 
-			  }
-	  
-	  }catch (SQLException e) { e.printStackTrace(); } finally { close(pstmt); }
-	 return result; }
-	 
+
+	public int inquiryCkDelete(Connection conn, String[] iCkDelete) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("inquiryCkDelete");
+
+		for (int i = 0; i<iCkDelete.length; i++) {
+			System.out.println(iCkDelete[i]);
+		}
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for (int i = 0; i < iCkDelete.length; i++) {
+				pstmt.setString(1, iCkDelete[i]);
+				result = pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 //답변완료한 페이지===============================================
 	public InquiryAnswer selectInquiryAnswer(Connection conn, int no) {
@@ -270,8 +317,7 @@ public class AdminInquiryDao {
 
 		return ia; // null이거나 주소값이 있거나
 	}
-	
-	
+
 //답변 수정페이지==================================================
 	public InquiryAnswer inquiryView(Connection conn, int no) {
 		PreparedStatement pstmt = null;
@@ -308,6 +354,5 @@ public class AdminInquiryDao {
 
 		return ia; // null이거나 주소값이 있거나
 	}
-
 
 }

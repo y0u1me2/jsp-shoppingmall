@@ -1,7 +1,6 @@
 package com.web.admin.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,9 +27,23 @@ public class ProductHeaderMenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//헤더 메뉴 상품 가져오기
-		List<Product> list =  new AdminProductService().productCategory();
 		
 		
+		List<Product> list =  new AdminProductService().productHeaderMenu();
+		
+		request.setAttribute("List", list);
+		
+		request.getRequestDispatcher("/views/client/common/header.jsp")
+		.forward(request, response);
+		
+		int no = Integer.parseInt(request.getParameter("no"));
+		System.out.println(no);
+		
+		List<Product> listP  =  new AdminProductService().productInfo(no);
+		
+		request.setAttribute("ListP", listP);
+		request.getRequestDispatcher("/views/client/product/productView.jsp")
+		.forward(request, response);
 		
 	}
 	
