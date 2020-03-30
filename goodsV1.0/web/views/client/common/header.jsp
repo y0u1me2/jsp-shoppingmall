@@ -57,10 +57,12 @@
 			<div class="container">
 				<ul class="right-top">
 					<li>
-						<button type="button"><a href="<%=request.getContextPath() %>/notice/noticeList">공지사항</a></button>
+						<button type="button"><a href="<%=request.getContextPath() %>/notice/noticeList"
+						style="text-decoration:none;">공지사항</a></button>
 					</li>
 					<li>
-						<button type="button"><a href="<%=request.getContextPath() %>/schome">고객센터</a></button>
+						<button type="button"><a href="<%=request.getContextPath() %>/schome"
+						style="text-decoration:none;">고객센터</a></button>
 					</li>
 					<li>
 						<button type="button">주문/배송</button>
@@ -94,10 +96,13 @@
 				</div>
 				<div id="infomation">
 					<ul>
-						<li><button type="button">마이페이지</button></li>
+						<li>
+						<button type="button">
+						<a href="<%=request.getContextPath()%>/orderDelivery">마이페이지</a>
+						</button></li>
 						<li>
 							<button type="button">
-								<a href="<%=request.getContextPath()%>/myReviewList?myNo=<%=loginMember.getM_No()%>">나의 리뷰</a>
+								<a href="<%=request.getContextPath()%>/myReviewList">나의 리뷰</a>
 							</button>
 						</li>
 						<li>
@@ -135,7 +140,7 @@
 					<li><span><a href="<%=request.getContextPath()%>/product/list?category=악세사리"> 악세사리</a></span></li>
 					<li><span> <a href="<%=request.getContextPath()%>/product/list?category=생활용품"> 생활용품</a></span></li>
 					<li><span><a href="<%=request.getContextPath()%>/product/list?category=패션"> 패션</a></span></li>
-					<li><span><a href="">갤러리</a></span></li>
+					<li><span><a href="<%=request.getContextPath()%>/gallery/list">갤러리</a></span></li>
 					<li><span><a href="<%=request.getContextPath()%>/reviewList"> 리뷰</a></span></li>
 					<li id="middleBar-img"></li>
 					<li><a href="https://www.kakaocorp.com/"><img id="cart"

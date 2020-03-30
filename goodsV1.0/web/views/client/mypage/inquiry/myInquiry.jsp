@@ -214,25 +214,25 @@ div#pageBar a {
 		<h2 style='line-height: 300%'>&nbsp&nbsp마이페이지</h2>
 
 		<ul class="lnb_list">
-			<li><a href="">주문/배송 조회</a></li>
-			</br>
-			<li><a href="찜목록조회.html">찜 목록 조회</a></li>
-			</br>
+			<li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li>
+			<br>
+			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
+			<br>
 			<li><a href=>반품/환불</a></li>
-			</br>
+			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/MyInquiryView"
-				style="color: rgb(23, 7, 248); font-weight: bold;">문의내역</a></li>
+				<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>"
+			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
-			</br>
+			<br>
 			<li><a href="">포인트관리</a></li>
-			</br>
+			<br>
 			<li><a href="회원정보1.html">회원정보수정</a></li>
-			</br>
+			<br>
 			<li><a href="회원탈퇴.html">회원탈퇴</a></li>
-			</br>
+			<br>
 		</ul>
 	</div>
 	<!-- aside2 목록과붙어있는공간띄우기-->
@@ -255,7 +255,8 @@ div#pageBar a {
 				<!-- 조회기간 선택하면 데이터 출력 개수가 옵션 값으로 변경되게 만들기 -->
 				<form name="numPerPageFrm" id="numPerPageFrm"
 				action="<%=request.getContextPath()%>/myInquiryList">
-				
+								
+				<input type="hidden" name="mNo" value="<%=loginMember.getM_No()%>">
 				<input type="hidden" name="cPage" value="<%=cPage%>">
 				
 				<select style="font-size: 16px;" name="numPerPage" id="numPerPage">
@@ -284,13 +285,13 @@ div#pageBar a {
 			<tr>			
 				<%if(i.getAnswer_status().equals("Y")) { %>
 				<td><a style="text-decoration:none;"
-					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>"><button id="inquiry-btn">답변완료
+					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>&mNo=<%=loginMember.getM_No()%>"><button id="inquiry-btn">답변완료
 				</a></button>
 				</td>
 				
 				<%}else{ %>
 				<td><a style="text-decoration:none;"
-					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>"><button  id="inquiry-btn">확인중
+					href="<%=request.getContextPath()%>/answerDetail?no=<%=i.getI_No()%>&mNo=<%=loginMember.getM_No()%>"><button  id="inquiry-btn">확인중
 				</a></button></td>
 				<%} %>
 				

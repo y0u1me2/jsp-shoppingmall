@@ -154,16 +154,16 @@ p#call {
 		<h2 style='line-height: 300%'>&nbsp&nbsp마이페이지</h2>
 
 		<ul class="lnb_list">
-			<li><a href="">주문/배송 조회</a></li>
+			<li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li>
 			<br>
-			<li><a href="찜목록조회.html">찜 목록 조회</a></li>
+			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
 			<br>
 			<li><a href=>반품/환불</a></li>
 			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite"
-				style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의</a></li>
+			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/myInquiryList">1:1문의내역</a></li>
+			<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>
@@ -192,8 +192,9 @@ p#call {
 			</div>
 			<br>
 
-			<form method="post" enctype="multipart/form-data">
+			<form method="post" id="frm" enctype="multipart/form-data">
 
+				<input type="hidden" name="mNo" value="<%=loginMember.getM_No()%>"/> 
 				<table class="box">
 					<tr>
 						<th id="th1">문의유형</th>
@@ -225,12 +226,13 @@ p#call {
 					<tr>
 						<th>이미지 첨부 <lable id="flabel"> 파일
 							<td><input type="file" name="upfile" multiple/></td>
+							
 							</lable>
 						</th>
 					</tr>
 					<tr>
 						<td colspan=2 id="tdBtn">
-						<input id="btn2" type="button"value="등록하기">
+						<input id="btn2" type="button" value="등록하기" >
 						</td>
 				</table>
 			</form>
@@ -244,38 +246,39 @@ p#call {
 
 	<script>
 	//ajax 파일업로드 구현하기
-	$(function(){
-		$("#btn2").click(function(){
-			var form=$("#frm").serialize(); //이름,비밀번호(input)이 여러개일때 데이터만 보낼수있음
-			//데이터보낼때 FormData객체를 이용하여 데이터 전송가능
-			const fd = new FormData();
-					 
+	 $(function(){
+		$("#btn2").click(function(){			 
+			const fd=new FormData();
+			
 		//다중파일 업로드
-		$.each($("[name=upfile]")[0].files,function(i,item){
-			fd.append("goods"+i,item);
-		})
+		 $.each($("[name=upfile]")[0].files,function(i,item){
+			fd.append("goods"+i,item);			
+		});
+		
+		 	fd.append("inquiryType",$("[name=inquiryType]").val());
+			fd.append("phone",$("[name=phone]").val());
+			fd.append("title",$("[name=title]").val());
+			fd.append("content",$("[name=content]").val());
+			
 			$.ajax({
-				url:"<%=request.getContextPath()%>/MyInquiryWriteEnd",
-				data:form,
+				url:"<%=request.getContextPath()%>/MyInquiryWriteEnd?mNo=<%=loginMember.getM_No()%>",
+				data:fd,
 				type:"post",
 				processData:false,
 				contentType:false,
 				success:function(data){
-					alert("업로드 성공");
-					$("#images").html("");
+					alert("1:1문의가 등록되었습니다. 빠른 시일 내에 답변 드리겠습니다.");
 					$("[name=upfile]").val("");
+					location.replace("<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No()%>");
 					
 				},error:function(re,e,m){
-					alert("업로드 실패");
+					alert("1:1문의가 실패하였습니다.");
 				}					
 			})
 			
 		})
-	})
-
-	
-	
-	
+	}) 
+		
 	</script>
 
 </section>

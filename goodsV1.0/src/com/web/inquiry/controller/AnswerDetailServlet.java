@@ -26,19 +26,20 @@ public class AnswerDetailServlet extends HttpServlet {
 		
 		//문의글번호를 가져온다
 		int no = Integer.parseInt(request.getParameter("no"));
-	
+		int mNo = Integer.parseInt(request.getParameter("mNo"));
+		
 		InquiryAnswer ia = new InquiryService().selectInquiryAnswer(no);
 	
 		// ia가 null이면 요청하신 내역이 없습니다. 메세지를 출력하고 문의내역리스트 페이지로 전환
 		if (ia == null) {
 			request.setAttribute("msg", "확인중 입니다. 빠른 시일 내에 답변 드리겠습니다.");
-			request.setAttribute("loc", "/myInquiryList");
+			request.setAttribute("loc", "/myInquiryList?mNo="+mNo);
 			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 
 			// ia가 값이 있으면 상세페이지로 전환
 		} else {
 			request.setAttribute("ia", ia);
-			request.getRequestDispatcher("/views/client/inquiry/completedAnswerDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/client/mypage/inquiry/completedAnswerDetail.jsp").forward(request, response);
 		}
 	}
 
