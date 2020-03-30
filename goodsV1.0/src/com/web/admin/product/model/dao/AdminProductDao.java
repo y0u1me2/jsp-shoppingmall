@@ -299,4 +299,41 @@ public class AdminProductDao {
 		}
 		return result;
 	}	
+	
+//상품목록 엑셀다운로드===========================================
+	public List<Product> excelDownLoad(Connection conn){
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<Product> list = new ArrayList();
+			String sql = prop.getProperty("excelDownLoad");
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+		
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					Product p = new Product();
+					p.setpNo(rs.getInt("p_no"));
+					p.setpName(rs.getString("p_name"));
+					p.setpPrice(rs.getInt("p_price"));
+					p.setpCategory(rs.getString("p_category"));
+					p.setpThumbnail(rs.getString("p_thumbnail"));
+					p.setpComment(rs.getString("p_comment"));
+					p.setpStatus(rs.getString("p_status"));
+					list.add(p);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return list;
+
+		}	
+	
+	
+	
+	
 }

@@ -271,6 +271,7 @@ function pColorUpdate(){
 
 		}
 	}
+
 	
 //ajax 파일업로드 구현하기
 $(function(){

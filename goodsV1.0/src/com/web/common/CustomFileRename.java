@@ -19,9 +19,14 @@ public class CustomFileRename implements FileRenamePolicy {
 			//중복값을 최소화하기 위해 밀리세컨초를 가져오고 거기에 랜덤값까지
 			long currentTime=System.currentTimeMillis();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-			
+			System.out.println(oldFile.getName());
 			String fileName = oldFile.getName()+"_"+sdf.format(new Date(currentTime))+".png";
-			newFile = new File(oldFile.getParent(),fileName); //원본파일의 부모(폴더를 의미)
+			
+			if(oldFile.getName().equals("original")) {
+				newFile = new File(oldFile.getParent()+"/temp", fileName); //원본파일의 부모(폴더를 의미)
+			}else {
+				newFile = new File(oldFile.getParent(),fileName); //원본파일의 부모(폴더를 의미)
+			}
 			
 		}while(!createNewFile(newFile));
 				

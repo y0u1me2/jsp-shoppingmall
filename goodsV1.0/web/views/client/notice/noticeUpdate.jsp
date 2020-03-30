@@ -1,6 +1,8 @@
+<%@page import="com.web.notice.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/admin/common/header.jsp"%>
+<%Notice n=(Notice)request.getAttribute("notice"); %>
 <style>
 
     *{    
@@ -65,19 +67,25 @@
         
         <tr>
             <th>제 목</th>
-            <td><input type="text" name="title" size="50" required></td>
+            <td><input type="text" name="title" size="50" value="<%=n.getnTitle() %>" required></td>
         </tr>
         <tr>
             <th>작성자</th>
-            <td><input type="hidden" name="writer" required> </td>
+            <td><input type="hidden" name="writer" readonly required><%=n.getnWriter() %> </td>
         </tr>
         <tr id="fileup">
             <th>첨부파일</th>
-            <td><input type="file" name="upfile"></td>
+            <td>
+            <input type="file" name="upfile">
+            <%if(n.getnOriginalFile()!=null) {%>
+	            		<span id="fname"><%=n.getnRenamedFile() %></span>
+	            		<input type="hidden" name="oriFile" value="<%=n.getnRenamedFile()%>">
+	            	<%}%>
+            </td>
         </tr>
         <tr>
             <th>내 용</th>
-            <td><textarea cols="100" rows="10" name="content" style="resize:none;"></textarea></td>
+            <td><textarea cols="100" rows="10" name="content" style="resize:none;"><%=n.getnContent() %></textarea></td>
         </tr>
         <tr>
             <th colspan="2" id="subm">

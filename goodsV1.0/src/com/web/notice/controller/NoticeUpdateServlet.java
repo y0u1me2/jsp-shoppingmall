@@ -1,24 +1,27 @@
-package com.web.product.controller;
+package com.web.notice.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.web.notice.model.service.NoticeService;
+import com.web.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class ProductCustomServlet
+ * Servlet implementation class NoticeUpdateServlet
  */
-@WebServlet("/product/custom")
-public class ProductCustomServlet extends HttpServlet {
+@WebServlet("/admin/noticeUpdate")
+public class NoticeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductCustomServlet() {
+    public NoticeUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,21 +31,12 @@ public class ProductCustomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		int no=Integer.parseInt(request.getParameter("mRowCheck"));
 		
-		//로그인 필요한 서비스
-//		HttpSession session = request.getSession();
-//		if(session.getAttribute("loginedMember")==null) {
-//			//로그인이 필요한 서비스입니다.
-//			System.out.println("로그인이 필요한 서비스입니다.");
-//		}else {
-//			request.getRequestDispatcher("/views/client/product/productCustom.jsp").forward(request, response);
-//		}
+		Notice n=new NoticeService().oneNotice(no);
 		
-		request.getRequestDispatcher("/views/client/product/productCustom.jsp").forward(request, response);
-		
-		
-		
-		
+		request.setAttribute("notice", n);
+		request.getRequestDispatcher("/views/client/notice/noticeUpdate.jsp").forward(request, response);
 	}
 
 	/**

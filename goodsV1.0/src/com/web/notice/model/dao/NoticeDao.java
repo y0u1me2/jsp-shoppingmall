@@ -38,7 +38,7 @@ public class NoticeDao {
 			pstmt.setInt(1, (cPage-1)*numPerPage+1);
 			pstmt.setInt(2, cPage*numPerPage);
 			rs=pstmt.executeQuery();
-			while(rs.next()) {
+			while(rs.next()){
 				Notice n=new Notice();
 				n.setnNo(rs.getInt("n_no"));
 				n.setnWriter(rs.getString("n_writer"));
@@ -49,7 +49,7 @@ public class NoticeDao {
 				n.setnDate(rs.getDate("n_date"));
 				n.setnReadcount(rs.getInt("n_readcount"));
 				n.setnStatus(rs.getString("n_status"));
-				list.add(n);				
+				list.add(n);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -192,7 +192,25 @@ public class NoticeDao {
 		return count;
 	}
 	
-	
+	public int insertNotice(Connection conn,Notice n) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertNotice");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, n.getnWriter());
+			pstmt.setString(2, n.getnTitle());
+			pstmt.setString(3, n.getnContent());
+			pstmt.setString(4, n.getnOriginalFile());
+			pstmt.setString(5, n.getnRenamedFile());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

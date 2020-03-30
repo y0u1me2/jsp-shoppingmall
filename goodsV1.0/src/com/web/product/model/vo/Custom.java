@@ -8,20 +8,22 @@ public class Custom {
 	private int pNo;
 	private String color;
 	private Date enrollDate;
-	private String imageFile;
+	private String completeFile;
+	private String originalFile;
 	
 	public Custom() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Custom(int cNo, int mNo, int pNo, String color, Date enrollDate, String imageFile) {
+	public Custom(int cNo, int mNo, int pNo, String color, Date enrollDate, String completeFile, String originalFile) {
 		super();
 		this.cNo = cNo;
 		this.mNo = mNo;
 		this.pNo = pNo;
 		this.color = color;
 		this.enrollDate = enrollDate;
-		this.imageFile = imageFile;
+		this.completeFile = completeFile;
+		this.originalFile = originalFile;
 	}
 
 	public int getcNo() {
@@ -64,19 +66,29 @@ public class Custom {
 		this.enrollDate = enrollDate;
 	}
 
-	public String getImageFile() {
-		return imageFile;
+	public String getCompleteFile() {
+		return completeFile;
 	}
 
-	public void setImageFile(String imageFile) {
-		this.imageFile = imageFile;
+	public void setCompleteFile(String completeFile) {
+		this.completeFile = completeFile;
+	}
+
+	public String getOriginalFile() {
+		return originalFile;
+	}
+
+	public void setOriginalFile(String originalFile) {
+		this.originalFile = originalFile;
 	}
 
 	@Override
 	public String toString() {
 		return "Custom [cNo=" + cNo + ", mNo=" + mNo + ", pNo=" + pNo + ", color=" + color + ", enrollDate="
-				+ enrollDate + ", imageFile=" + imageFile + "]";
+				+ enrollDate + ", completeFile=" + completeFile + ", originalFile=" + originalFile + "]";
 	}
+	
+	
 	
 	
 }

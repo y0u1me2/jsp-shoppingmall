@@ -71,7 +71,8 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		// MultipartRequest(HttpServletRequest, 저장경로, 파일저장최대크기, 문자열인코딩값파일 rename정책)
 
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new MyFileRenamePolicy());
-
+		
+		int no = Integer.parseInt(mr.getParameter("mNo"));
 		String type = mr.getParameter("inquiryType");
 		String phone = mr.getParameter("phone");
 		String title = mr.getParameter("title");
@@ -80,8 +81,6 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		String renamedFileName = mr.getFilesystemName("upfile");
 		System.out.println(oriFileName);
 		System.out.println(renamedFileName);
-
-		int no = 99;		
 
 		Inquiry i = new Inquiry(0, no, type, phone, title, content, null, oriFileName,renamedFileName,"Y",null);
 		
@@ -92,7 +91,7 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		if (result > 0) {
 			// 저장성공 : 문의 저장성공메세지출력, 나의 문의내역 페이지로 이동
 			request.setAttribute("msg", "1:1문의가 등록되었습니다. 빠른 시일 내에 답변 드리겠습니다.");
-			request.setAttribute("loc", "/myInquiryList");
+			request.setAttribute("loc", "/myInquiryList?mNo="+no);
 
 		} else {
 			// 저장실패 : 문의 저장 실패 메세지 출력, 1:1문의 작성페이지로 이동
