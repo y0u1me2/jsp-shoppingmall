@@ -2,7 +2,9 @@ package com.web.notice.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,7 +53,6 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 			//파일 업로드 객체 생성
 			MultipartRequest mr=new MultipartRequest(request, path, maxSize, "UTF-8",new DefaultFileRenamePolicy());
 			int no=Integer.parseInt(mr.getParameter("no"));
-			System.out.println(no);
 			String title=mr.getParameter("title");
 			String writer=mr.getParameter("writer");
 			String content=mr.getParameter("content");
@@ -68,15 +69,18 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 			//클라이언트가 파일을 수정했는지에따라 분기문 처리
 			File fl=mr.getFile("file0");//클라이언트가 넘긴 파일이 있는지 없는지 확인가능
 			System.out.println(mr.getFile("file0"));
-			String[] arr=null;
+			List<String> list=new ArrayList();
 			if(mr.getParameter("oriFile")!=null) {
 				int num=mr.getParameter("oriFile").lastIndexOf(",");
 				String orifile=mr.getParameter("oriFile").substring(0,num);
-				arr=orifile.split(",");
+				String[] arr=orifile.split(",");
+				for(String st : arr) {
+					list.add(st);
+				}
 			}
 			String ori=mr.getParameter("oriFile");
 			if(fl!=null && fl.length()>0) {
-				for(String s : arr) {
+				for(String s : list) {
 					System.out.println(s);
 					File deleteFile=new File(path+s);
 					deleteFile.delete();
