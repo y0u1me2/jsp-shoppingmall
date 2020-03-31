@@ -121,7 +121,8 @@ public class ProductDao {
 			pstmt.setInt(1, c.getmNo());
 			pstmt.setInt(2, c.getpNo());
 			pstmt.setString(3, c.getColor());
-			pstmt.setString(4, c.getImageFile());
+			pstmt.setString(4, c.getCompleteFile());
+			pstmt.setString(5, c.getOriginalFile());
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -143,7 +144,7 @@ public class ProductDao {
 			pstmt.setInt(1, c.getmNo());
 			pstmt.setInt(2, c.getpNo());
 			pstmt.setString(3, c.getColor());
-			pstmt.setString(4, c.getImageFile());
+			pstmt.setString(4, c.getCompleteFile());
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				cno = rs.getInt(1);
@@ -157,21 +158,21 @@ public class ProductDao {
 		return cno; //커스텀 번호 반환, 에러시 0 반환
 	}
 
-	public int insertCustomImage(Connection conn, int cno, String file) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String sql = prop.getProperty("insertCustomImage");
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cno);
-			pstmt.setString(2, file);
-			result = pstmt.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
+//	public int insertCustomImage(Connection conn, int cno, String file) {
+//		PreparedStatement pstmt = null;
+//		int result = 0;
+//		String sql = prop.getProperty("insertCustomImage");
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, cno);
+//			pstmt.setString(2, file);
+//			result = pstmt.executeUpdate();
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(pstmt);
+//		}
+//		return result;
+//	}
 
 }

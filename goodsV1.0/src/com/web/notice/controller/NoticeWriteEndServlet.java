@@ -19,7 +19,7 @@ import com.web.notice.model.vo.Notice;
 /**
  * Servlet implementation class NoticeWriteEndServlet
  */
-@WebServlet("/notice/noticeWriteEnd")
+@WebServlet("/admin/noticeWriteEnd")
 public class NoticeWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -56,8 +56,8 @@ public class NoticeWriteEndServlet extends HttpServlet {
 		String reNameFile="";
 		while(f.hasMoreElements()) {
 			String name=(String)f.nextElement();
-			reNameFile+=mr.getFilesystemName(name)+" ";
-			oriFileName+=mr.getOriginalFileName(name)+" ";
+			reNameFile+=mr.getFilesystemName(name)+",";
+			oriFileName+=mr.getOriginalFileName(name)+",";
 		}
 		Notice n=new Notice(0,writer,title,content,oriFileName,reNameFile,null,0,null);
 		int result=new NoticeService().insertNotice(n);

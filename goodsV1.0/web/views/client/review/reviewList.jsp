@@ -3,10 +3,10 @@
 
 <%@ include file="/views/client/common/header.jsp"%>
 <%@ page import="java.util.List,com.web.review.model.vo.Review" %>
-<% 
-	List<Review> list=(List)request.getAttribute("review");
+<%-- <% 
+	List<Review> reviewAllList=(List)request.getAttribute("reviewAllList");
 	int count=(int)request.getAttribute("count");
-%>
+%> --%>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -270,17 +270,17 @@ to {
 		<div class="review-top">
 			<div class="review-title">
 				<h1>
-					고객리뷰 ( <span id="number-of-object"><%=count %></span> )
+					고객리뷰 ( <span id="number-of-object"></span> )
 				</h1>
 			</div>
 			<div class="review-selection">
 				<div class="review-dropdown">
 					<select class="review-select" name="reviewSelect">
-						<option value="all">모든 상품</option>
-						<option value="1">케이스</option>
-						<option value="2">악세사리</option>
-						<option value="3">생활용품</option>
-						<option value="4">패션</option>
+						<option value="전체">모든 상품</option>
+						<option value="케이스">케이스</option>
+						<option value="악세사리">악세사리</option>
+						<option value="생활용품">생활용품</option>
+						<option value="패션">패션</option>
 					</select>
 				</div>
 				<div class="review-toggle">
@@ -292,9 +292,9 @@ to {
 				</div>
 			</div>
 		</div>
-		<div class="review-middle">
+		<div class="review-middle" id="review-middle">
 			<!-- 다시해야할듯........================div로 ======================= -->
-			<%for(Review r : list) { %>
+			<%-- <%for(Review r : list) { %>
 			<div style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
 				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
 				<table>
@@ -329,7 +329,7 @@ to {
 						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
 				</div>
 			</div>
-			<%} %>
+			<%} %> --%>
 			<!-- -============================================================================== -->
 		</div>
 	</div>
@@ -389,28 +389,73 @@ to {
 		$('.reviewView-modal-back').css('display', 'none');
 	}
 
-	$('.reviewImg').click(function() {
-		$('.reviewView-modal-back').show();
-		var star=$('div.starOut>span');
+	if($('.review-select').val()=='전체') {
 		$.ajax({
-			url:'<%=request.getContextPath()%>/reviewView',
+			url:'<%=request.getContextPath()%>/reviewCategory',
 			type:'post',
-			data:{rvNo:$(event.target).parent().siblings('input').val()},
+			dataType:"json",
+			data:{p_Category:$('.review-select').val()},
 			success:function(data) {
-				$('#reviewViewWriter').text(data.m_nickName);
-				$('#reviewViewDate').text(data.rv_Date);
-				$('#reviewViewContent').text(data.rv_Content);
-				for(let i=0;i<5;i++) {
-					$(star[i]).removeClass('checked');
-				}
-				for(let i=0;i<data.rv_Star;i++) {
-					$(star[i]).addClass('checked');
-				}
+				var reviewList=data.reviewList;
+				$('#review-middle').html(data.reviewList);
+				$('#number-of-object').html(data.count);
+				$('div.reviewImg').click(function() {
+					$('.reviewView-modal-back').show();
+					var star=$('div.starOut>span');
+					$.ajax({
+						url:'<%=request.getContextPath()%>/reviewView',
+						type:'post',
+						data:{rvNo:$(event.target).parent().siblings('input').val()},
+						success:function(data) {
+							$('#reviewViewWriter').text(data.m_nickName);
+							$('#reviewViewDate').text(data.rv_Date);
+							$('#reviewViewContent').text(data.rv_Content);
+							for(let i=0;i<5;i++) {
+								$(star[i]).removeClass('checked');
+							}
+							for(let i=0;i<data.rv_Star;i++) {
+								$(star[i]).addClass('checked');
+							}
+						}
+					})
+				})
+			}
+		})
+	} 
+	
+	$('select.review-select').change(function(){
+		$.ajax({
+			url:'<%=request.getContextPath()%>/reviewCategory',
+			type:'post',
+			dataType:"json",
+			data:{p_Category:$('.review-select').val()},
+			success:function(data) {
+				var reviewList=data.reviewList;
+				$('#review-middle').html(data.reviewList);
+				$('#number-of-object').html(data.count);
+				$('div.reviewImg').click(function() {
+					$('.reviewView-modal-back').show();
+					var star=$('div.starOut>span');
+					$.ajax({
+						url:'<%=request.getContextPath()%>/reviewView',
+						type:'post',
+						data:{rvNo:$(event.target).parent().siblings('input').val()},
+						success:function(data) {
+							$('#reviewViewWriter').text(data.m_nickName);
+							$('#reviewViewDate').text(data.rv_Date);
+							$('#reviewViewContent').text(data.rv_Content);
+							for(let i=0;i<5;i++) {
+								$(star[i]).removeClass('checked');
+							}
+							for(let i=0;i<data.rv_Star;i++) {
+								$(star[i]).addClass('checked');
+							}
+						}
+					})
+				})
 			}
 		})
 	})
-	
-	$('select.review-select').val();
 </script>
 
 

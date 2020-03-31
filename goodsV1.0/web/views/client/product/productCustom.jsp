@@ -31,6 +31,7 @@
     <script type="text/javascript" src="<%=request.getContextPath() %>/api/toast/js/theme/white-theme.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/api/toast/js/theme/black-theme.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="<%=request.getContextPath() %>/js/jszip.min.js"></script>
 </head>
 
 <body>

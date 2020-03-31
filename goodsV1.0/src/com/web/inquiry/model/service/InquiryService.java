@@ -35,9 +35,9 @@ public class InquiryService {
 	}
 
 //내가 문의한 내역보기=================================
-	public List<Inquiry> searchInquiry(int cPage, int numPerPage){
+	public List<Inquiry> searchInquiry(int cPage, int numPerPage,int no){
 		Connection conn = getConnection();
-		List<Inquiry> list = dao.searchInquiry(conn,cPage,numPerPage);
+		List<Inquiry> list = dao.searchInquiry(conn,cPage,numPerPage,no);
 		
 		close(conn);
 				
@@ -45,10 +45,10 @@ public class InquiryService {
 	}
 
 //문의한 내역 페이지바==================================
-	public int inquiryCount() {
+	public int inquiryCount(int no) {
 		Connection conn = getConnection();
 		
-		int result = dao.inquiryCount(conn);
+		int result = dao.inquiryCount(conn,no);
 		close(conn);
 		
 		return result;		

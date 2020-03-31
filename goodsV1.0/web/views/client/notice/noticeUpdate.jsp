@@ -58,7 +58,8 @@
 			<h1 id="one">공지사항 수정</h1>
 			<hr id="gline">
 			<br><br>
-	<form action="<%=request.getContextPath() %>/notice/noticeWriteEnd" method="post" enctype="multipart/form-data">
+	<form action="<%=request.getContextPath() %>/admin/noticeUpdateEnd" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="no" value="<%=n.getnNo()%>" />
         <table id="write-tbl">
         <colgroup>
         	<col style="width:15%"/>
@@ -76,10 +77,11 @@
         <tr id="fileup">
             <th>첨부파일</th>
             <td>
-            <input type="file" name="upfile">
+            <input type="file" name="upfile" multiple>
             <%if(n.getnOriginalFile()!=null) {%>
-	            		<span id="fname"><%=n.getnRenamedFile() %></span>
-	            		<input type="hidden" name="oriFile" value="<%=n.getnRenamedFile()%>">
+	            		<span id="fname"><%=n.getnOriginalFile() %></span>
+	            		<input type="hidden" name="oriFile" value="<%=n.getnOriginalFile() %>">
+	            		<input type="hidden" name="reFile" value="<%=n.getnRenamedFile() %>">
 	            	<%}%>
             </td>
         </tr>
@@ -89,7 +91,7 @@
         </tr>
         <tr>
             <th colspan="2" id="subm">
-               	<input type="submit" value="수정완료"/>
+               		<button type="button" id="btn">수정완료</button>
             </th>
         </tr>
     </table>
@@ -98,6 +100,56 @@
 	</div>
 </section>
 <script>
+
+$(function(){
+	//ajax 파일업로드 구현하기
+	$("#btn").click(function(){
+		var form=$("#frm").serialize();
+		//데이터보낼때... FormData객체를 이용하여 데이터 전송가능
+		const fd=new FormData();
+		//원하는 내용을 추가할 수 있음
+		//append함수를 이용해서 데이터를 추가 키=value형식
+		//fd.append("bs",$("[name=ajaxFileTest]")[0].files[0]);
+		//다중파일 업로드
+		$.each($("[name=upfile]")[0].files,function(i,item){
+			fd.append("file"+i,item);
+		});
+		fd.append("no",$("[name=no]").val());
+		fd.append("title",$("[name=title]").val());
+		fd.append("writer",$("[name=writer]").val());
+		fd.append("content",$("[name=content]").val());
+		fd.append("upfile",$("[name=upfile]").val());
+		<%if(n.getnOriginalFile()!=null) {%>
+			fd.append("oriFile",$("[name=oriFile]").val());
+			fd.append("reFile",$("[name=reFile]").val());
+		<% } %>
+		//<input type="file" nam="bs">
+		$.ajax({
+			url:"<%=request.getContextPath()%>/admin/noticeUpdateEnd",
+			data:fd,
+			type:"post",
+			processData:false,
+			contentType:false,
+			success:function(data){
+			 	alert("수정 완료");
+			 	location.replace("<%=request.getContextPath()%>/admin/noticeList");
+			},
+			error:function(r,e,m){
+				alert("수정 실패");
+			}
+		})
+	})
+	})
+	$(function(){
+	    		$("input[name='upfile']").change(function(){
+	    			if($(this).val()==""){
+	    				$("#fname").show();
+	    			}else{
+	    				$("#fname").hide();
+	    			}
+	    		});
+	    	});
+
 </script>
 
 

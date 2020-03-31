@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="java.util.List, com.web.gallery.model.vo.Gallery"%>
 
 <%@ include file="/views/client/common/header.jsp" %>
+<%
+	List<Gallery> list = (List)request.getAttribute("list");
 
+%>
 <style>
 	section{
 		text-align: center;
@@ -60,20 +65,20 @@
 
        
 
-        #boardContainer {
+        #galleryContainer {
             /* border: 1px solid red; */
             width: 100%;
             display: flex;
             flex-wrap: wrap;
             row-gap: 100px;
-            justify-content: space-between;
+            
         }
 
         .board {
             margin-top: 20px;
             margin-bottom: 20px;
-            width: 30%;
-            height: 350px;
+            width: 450px;
+            height: 450px;
             /* border: 1px solid black; */
             text-align: center;
         }
@@ -184,7 +189,28 @@
     width: 100%;
   }
 }
-        
+
+#pageBar {
+	width: 100%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #eee;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+}
         
         
     </style>
@@ -225,32 +251,15 @@
         
 
 
-        <div id="boardContainer">
-            <!--한페이지에 보여지는 게시물 개수(기본 6개 2*3) -->
-            <!--나중에 jstl c:forEach 구문이나 자바스크립트 for문으로 수정 필요-->
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/product/airpods_white.png" id="myImg" alt="누구누구 님의 디자인">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/2.jpg">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/3.jpg">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/4.jpg">
-            </div>
-            <!-- <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div> -->
+        <div id="galleryContainer">
+            <%for(Gallery g : list){ %>
+	            <div class="board">
+	                <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
+	                <input type="hidden" value="<%=g.getLikeCnt()%>">
+	                <input type="hidden" value="<%=g.getViewCnt()%>">
+	                
+	            </div>
+            <%} %>
         </div>
 
 
@@ -259,7 +268,7 @@
   <span class="close" id="close">&times;</span>
   <img class="modal-content" id="img01">
   <div id="caption"></div>
-  <button>따라 만들기</button>
+  <button onclick="location.replace('<%=request.getContextPath()%>/gallery/imageDownload')">따라 만들기</button>
 </div>
 
 
@@ -271,24 +280,10 @@
 
 
 
-
-        <!--페이징 영역 나중에 c:forEach 구문으로 수정해야 함-->
-        <div id="paging">
-            <a href="#">[처음]</a>
-            <a href="#">[이전]</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">7</a>
-            <a href="#">8</a>
-            <a href="#">9</a>
-            <a href="#">10</a>
-            <a href="#">[다음]</a>
-            <a href="#">[끝]</a>
-        </div>
+		<div id="pageBar">
+			<%=request.getAttribute("pageBar")%>
+		</div>
+       
 
 	
 
@@ -304,13 +299,13 @@ var img = document.getElementById("myImg");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
 
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
-  $('body').css("overflow", "hidden");
-  
-}
+$(".myImg").click(function(){
+	modal.style.display = "block";
+	modalImg.src = this.src;
+	captionText.innerHTML = this.alt;
+	$('body').css("overflow", "hidden");
+	
+});
 
 // Get the <span> element that closes the modal
 var span = document.getElementById("close");
