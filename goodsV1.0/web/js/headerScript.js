@@ -104,8 +104,6 @@
             } else {
                 $(this).removeClass('empty error');
                 $(this).siblings('span').remove();
-
-
             }
         });
     }
@@ -133,16 +131,63 @@
                 login = true;
             }
         }
-        return login;
+        if(login) {//로그인 창이 빈칸이 아닐때
+//        	console.log("읭?");
+//        	console.log("이멜"+$(inputLogin[0]).val());
+//        	console.log("비번"+$(inputLogin[1]).val());
+        	$.ajax({
+            	url:'/goods/loginAble',
+            	type:'post',
+            	data: {email:$(inputLogin[0]).val(),password:$(inputLogin[1]).val()},
+            	success:function(login){	  
+            		if(login.isUseAble) {
+            			console.log("성공시 : "+resp.isUseAble);
+            			$('#email').removeClass('error');//이메일 확인창에 error 클래스 지우고
+            			$('#email').after($('<span>').html('사용가능한 이메일주소 입니다.').addClass('correct'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시하
+            		}else {
+            			console.log("실패시 : "+resp.isUseAble);
+            			$('#email').addClass('error');  //input에 error 클래스 추가하고
+            			$('#email').after($('<span>').html('사용중인 이메일 주소가 있습니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+            		}
+            	}
+            })
+        	/*action="<%=request.getContextPath()%>/login"
+				method="post" onsubmit="return loginSubmit();"*/
+        	return false;
+        }else {
+        	console.log("에러");
+        	return false;
+        }
     }
+    //구글 로그인 
+    function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        //console.log('Family Name: ' + profile.getFamilyName());
+        //console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        //var id_token = googleUser.getAuthResponse().id_token;
+        //console.log("ID Token: " + id_token);
+        closeLogin();
+    }
+    //구글 로그아웃
+	function signOut() {
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	      console.log('User signed out.');
+	    });
+	}
 
 
     //로그인 구분버튼(카카오, 페이스북, 구글, 네이버)
     var loginImg = $('#loginCenterImg>.img>img');
     for (let i = 0; i < loginImg.length; i++) {
         $(loginImg[i]).hover(function () {
-            // console.log('===============')
-            // console.log($(this).parent());
             $(this).fadeTo(300, 1);
             $(this).css('cursor', 'pointer');
         }, function () {
@@ -150,23 +195,17 @@
         })
     }
     
-    /*<%if(loginMember!=null) {%>*/
-//    var m_name='<%=memberName%>';
-//    console.log(m_name);
-//    console.log('<%=memberName%>');
-//    if(!=null) {
-    	//console.log(loginMember);
-    	if(loginResult=='Y') {
-    		var nameBar = document.getElementById("memberName");
-    		nameBar.addEventListener("mouseenter", function () {
-    			document.getElementById("infomation").style.display = "block";
-    			nameBar.parentElement.setAttribute("class", "dropdown-scope active");
-    		})
-    		nameBar.addEventListener("mouseleave", function () {
-    			document.getElementById("infomation").style.display = "none";
-    			nameBar.parentElement.setAttribute("class", "dropdown-scope");
-    		})    		
-    	}
+    if(loginResult=='Y') {
+    	var nameBar = document.getElementById("memberName");
+    	nameBar.addEventListener("mouseenter", function () {
+    		document.getElementById("infomation").style.display = "block";
+    		nameBar.parentElement.setAttribute("class", "dropdown-scope active");
+    	})
+    	nameBar.addEventListener("mouseleave", function () {
+    		document.getElementById("infomation").style.display = "none";
+    		nameBar.parentElement.setAttribute("class", "dropdown-scope");
+    	})    		
+    }
     
     
 

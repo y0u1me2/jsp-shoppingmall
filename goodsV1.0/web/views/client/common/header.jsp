@@ -198,8 +198,9 @@
 		<!-- 로그인 팝업 -->
 		<div class="modal-back" id="login">
 			<div class="modal-login animate">
-				<form id="login-form" action="<%=request.getContextPath()%>/login"
-					method="post" onsubmit="return loginSubmit();">
+				<form id="login-form" onsubmit="return loginSubmit();">
+				<%-- action="<%=request.getContextPath()%>/login"
+					method="post" onsubmit="return loginSubmit();" --%>
 					<div class="top-login">
 						<span> <img class="login-logo"
 							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
@@ -233,7 +234,7 @@
 						</div>
 					</div>
 					<div class="bottom-login">
-						<button type="submit" class="big-gray-btn">로그인</button>
+						<button type="submit" class="big-gray-btn" onclick="loginSubmit();">로그인</button>
 						<div class="find-info">
 							<button type="button" onclick="openEnroll(); closeLogin()">회원가입</button>
 							<span class="line">|</span>
@@ -478,26 +479,5 @@
 			</div>	
 		</div>
 		<%} }%>
-		<script>
-		function onSignIn(googleUser) {
-	        // Useful data for your client-side scripts:
-	        var profile = googleUser.getBasicProfile();
-	        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-	        console.log('Full Name: ' + profile.getName());
-	        console.log('Given Name: ' + profile.getGivenName());
-	        console.log('Family Name: ' + profile.getFamilyName());
-	        console.log("Image URL: " + profile.getImageUrl());
-	        console.log("Email: " + profile.getEmail());
-
-	        // The ID token you need to pass to your backend:
-	        var id_token = googleUser.getAuthResponse().id_token;
-	        console.log("ID Token: " + id_token);
-	      }
-		function signOut() {
-		    var auth2 = gapi.auth2.getAuthInstance();
-		    auth2.signOut().then(function () {
-		      console.log('User signed out.');
-		    });
-		  }
-		</script>
+		
 	</header>
