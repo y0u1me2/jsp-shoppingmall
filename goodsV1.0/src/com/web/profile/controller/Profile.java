@@ -43,7 +43,7 @@ public class Profile extends HttpServlet {
 		}else {
 			//비밀번호가 일치하지 않기 때문에 다시 입력받아야 함
 			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.');</script>");
+			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.');history.back();</script>");
 		}
 	}
 

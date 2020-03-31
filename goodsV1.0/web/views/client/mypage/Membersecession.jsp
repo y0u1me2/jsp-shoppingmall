@@ -133,8 +133,8 @@
             </label>
             <div style="margin-top: 50px !important;"></div>
             <div style="text-align: center;font-size: 12px; color: #979898;">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 확인합니다.
-            <form action="<%=request.getContextPath() %>/mmbrswthdr" method="post" style="padding: 10px 0px 10px;">
-            <input type="hidden" name="em" value="<%=loginMember.getM_Email()%>"> 
+            <form action="<%=request.getContextPath() %>/mmbrswthdr" onsubmit="return delChk();" method="post" style="padding: 10px 0px 10px;">
+            	<input type="hidden" name="em" value="<%=loginMember.getM_Email()%>"> 
                 <input type="password" style="width: 180px;height: 40px;"placeholder=" 패스워드입력" name="password">   
                 <button type="submit" style="width: 100px;height: 40px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">
                 		확인
@@ -144,7 +144,25 @@
         </div>
 
     </section>
-
+	
+	<script>
+	function delChk(){
+		
+		const agree = $('#agree');
+		if(agree.is(":checked") == true){
+			if(confirm('정말 탈퇴하시겠습니까?')){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			alert("체크 박스에 동의해주세요");
+			return false;
+		}
+		
+	};
+	
+	</script>
 
 
 <%@ include file="/views/client/common/footer.jsp" %>
