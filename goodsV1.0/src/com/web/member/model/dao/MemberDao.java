@@ -57,6 +57,7 @@ public class MemberDao {
 		return m;
 	}
 	
+	
 	public Member searchEmail(Connection conn, String userName) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -122,6 +123,28 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	public int googleEnrollMember(Connection conn, Member m) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("googleEnrollMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, m.getM_Email());
+			pstmt.setString(2, m.getM_Password());
+			pstmt.setString(3, m.getM_NickName());
+			pstmt.setString(4, m.getM_Name());
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	
 	public int setMemberEmailChecked(Connection conn, String email) {
 		PreparedStatement pstmt=null;

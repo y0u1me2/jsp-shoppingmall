@@ -112,7 +112,7 @@
 						</li>
 						<li>
 							<button type="button">
-								<a href="<%=request.getContextPath()%>/logout.do">로그아웃</a>
+								<a onclick="signOut();" href="<%=request.getContextPath()%>/logout.do">로그아웃</a>
 							</button>
 						</li>
 					</ul>

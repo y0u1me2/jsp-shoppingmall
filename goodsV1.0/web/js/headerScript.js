@@ -245,6 +245,15 @@ function onSignIn(googleUser) {
     //console.log('Family Name: ' + profile.getFamilyName());
     //console.log("Image URL: " + profile.getImageUrl());
     console.log("Email: " + profile.getEmail());
+    $.ajax({
+		url:'/goods/googleLogin',
+		type: 'post',
+		async:false,
+        data: { email: profile.getEmail(), name: profile.getName(), nickName:profile.getGivenName(), password:profile.getId() },
+        success: function (login) {
+        	console.log("성공");        	
+        }		
+	})
 
     // The ID token you need to pass to your backend:
     //var id_token = googleUser.getAuthResponse().id_token;
