@@ -129,7 +129,7 @@
                     <td class="line">
                         이메일</td>
                     <td class="line">
-                    
+                    <%=loginMember.getM_Email() %>
                     </td>
                 </tr> 
                 <tr>
@@ -138,6 +138,7 @@
                         <form action="PwModify.jsp">
                             <button
                                 style="width: 150px; height: 30px; border-radius: 5px;background: rgb(235, 229, 229);color: rgb(51, 51, 51);">
+                         <a href=""></a>       
                                 비밀번호 수정</button>
                         </form>
                     </td>
@@ -154,7 +155,9 @@
                 </colgroup>
                 <tr>
                     <td class="line">이름</td>
-                    <td class="line"></td>
+                    <td class="line">
+                    	<%=loginMember.getM_Name() %>
+                    </td>
                 </tr>
                
          
@@ -163,10 +166,7 @@
                     <td class="line">       
                         닉네임</td>
                     <td class="line">
-      					닉네임변경? 
-                        <button
-                            style="width: 150px; height: 30px; border-radius: 5px;background: rgb(235, 229, 229);color: rgb(51, 51, 51);">닉네임 변경
-                            </button>
+      					<%=loginMember.getM_NickName()%> 
                     </td>
                 </tr>
      
@@ -193,22 +193,6 @@
     
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js">
     </script>
-    <script type="text/javascript"> 
-        //이메일 입력방식 선택
-        $('#selectEmail').change(function () {
-            $("#selectEmail option:selected").each(function () {
-                if ($(this).val() == "1") { //직접입력일 경우
-                    $("#str_email02").val(''); //값 초기화
-                    $("#str_email02").attr("disabled", false);//활성화
-                } else { //직접입력이 아닐경우
-                    $("#str_email02").val($(this).text()); //선택값 입력
-                    $("#str_email02").attr("disabled", true); //비활성화
-                }
-            });
-        });
-
-    </script>
-
 
 
 <%@ include file="/views/client/common/footer.jsp" %>

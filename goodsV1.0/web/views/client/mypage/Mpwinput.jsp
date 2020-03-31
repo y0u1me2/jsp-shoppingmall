@@ -106,9 +106,10 @@
                <div style="font-size: 12px;padding-bottom: 30px; color: #979898;">회원님의 정보를 안전하게 보호하기 위해<br>
                     비밀번호를 다시 한번 확인합니다.
                 </div>
-                <form action="MemberModify.jsp" method="post">
-                <input type="hidden" name="editMember">
-                <input type="password" style="width: 280px;height: 40px;"placeholder=" 패스워드입력" name="pw-word">   
+                <form action="<%=request.getContextPath() %>/profile" method="post">
+                 <input type="hidden" name="editMember" value="<%=loginMember.getM_Email()%>"> 
+                <!-- <input type="hidden" name="editMember" value="apdlwl1582@naver.com"> -->
+                <input type="password" style="width: 280px;height: 40px;"placeholder=" 패스워드입력" name="password">   
                 <button style="width: 100px;height: 40px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">확인</button>
             </form>
             </div>

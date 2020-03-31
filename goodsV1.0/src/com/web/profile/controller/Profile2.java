@@ -29,7 +29,7 @@ public class Profile2 extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/views/client/mypage/Mpwinput.jsp").forward(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
