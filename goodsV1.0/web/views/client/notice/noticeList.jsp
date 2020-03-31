@@ -42,7 +42,7 @@
 		border-bottom:1px solid #eee;
 		font-size:13px;
 	}
-	.td1,.td3{
+	.td1{
 		text-align:center;
 	}
 	.td2{
@@ -80,13 +80,16 @@
 		<table id="tbl-notice">
 		<colgroup>
 			<col width="15%">
-			<col width="70%">
+			<col width="60%">
+			<col width="5%">
 			<col width="15%">
+			
 		</colgroup>
 			<thead>
             <tr id="trstyle">
                 <th>번호</th>
                 <th>제목</th>
+                <th>조회수</th>
                 <th>작성일</th>
             </tr>
             </thead>
@@ -99,7 +102,8 @@
                 	<%=n.getnTitle() %>
                 	</a>
                 </td>
-                <td class="td3"><%=n.getnDate() %></td>
+                <td class="td1"><%=n.getnReadcount() %></td>
+                <td class="td1"><%=n.getnDate() %></td>
             </tr>
             <%} %>
             </tbody>
