@@ -378,9 +378,11 @@ dd {
 						<!-- 결제예정금액 및 상품주문 버튼-->
 						<span> 결제 예정금액( <em style="color: red;"
 							class="cartSelCount" id="cartSelCount">0</em> )
-						</span> <span id="payAllPrice" class="format-Price payAllPrice"
-							style="color: red; font-size: 23px;"></span> <span
-							style="color: red; font-size: 23px;">원</span>
+						</span>
+						<span id="payAllPrice" class="format-Price payAllPrice"
+							style="color: red; font-size: 23px;" name="payAllPrice">
+						</span> 
+						<span style="color: red; font-size: 23px;">원</span>
 						<button type="button" class="btn-gray-big" id="cartOrderBtn">선택상품
 							주문하기</button>
 					</div>
@@ -473,7 +475,7 @@ dd {
 									</div>
 								</td>
 								<td style="color: #e5362c; font-size: 19px; font-weight: bold;">
-									<span class="format-Price payPrice"> </span>원
+									<span class="format-Price payPrice" name="payPrice"> </span>원
 								</td>
 							</tr>
 							<tr class="shoppingutil">
@@ -526,7 +528,7 @@ dd {
 											<button type="button" class="minus"
 												style="display: table-cell;">-</button>
 											<!-- <div> -->
-											<input type="text" class="pdQuantity" name="pdQuantity"
+											<input type="text" class="pdQuantity" name="pdQuantity" 
 												value="1" maxlength="3">
 											<!-- </div> -->
 											<button type="button" class="plus"
