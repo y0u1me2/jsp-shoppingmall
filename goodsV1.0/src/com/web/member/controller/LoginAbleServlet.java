@@ -35,16 +35,26 @@ public class LoginAbleServlet extends HttpServlet {
 		String passwordCheck=(String)request.getParameter("password");
 		boolean isUseAble=new MemberService().duplicationEmail(emailCheck);
 		//isUseAble이 true면 이메일이 DB에 없는것 / false면 이메일이 DB에 있는것
-		System.out.println(isUseAble);
 		JSONObject obj = new JSONObject();
-		//값 전달함
-		
+		//이메일이 있을때 비밀번호 일치검사
+		String dbPassword="";
+		boolean checkPassword=false;//비밀번호 맞으면 true, 틀리면 false;
 		try{
-	          obj.put("isUseAble", isUseAble);
+			//가입해야하는 이메일
+				dbPassword=new MemberService().passwordCheck(emailCheck);
+				if(passwordCheck.equals(dbPassword)) {
+					checkPassword=true;
+					obj.put("isUseAble", isUseAble);
+					obj.put("checkPassword", checkPassword);
+				}else {
+					checkPassword=false;
+					obj.put("isUseAble", isUseAble);
+					obj.put("checkPassword", checkPassword);
+				}
+			
 	    }catch (Exception e) {    
 	    	e.printStackTrace();
 	    }
-
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().write(obj.toString());

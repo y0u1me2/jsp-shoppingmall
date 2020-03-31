@@ -161,4 +161,26 @@ public class MemberDao {
 		}
 		return flag;
 	}
+	
+	public String passwordCheck(Connection conn, String emailCheck) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String passwordCheck="";
+		String sql=prop.getProperty("passwordCheck");
+		boolean flag=true;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, emailCheck);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {//조회한거 있을때 false
+				passwordCheck=rs.getString("M_PASSWORD");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return passwordCheck;
+	}
 }

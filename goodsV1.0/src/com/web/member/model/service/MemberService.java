@@ -37,6 +37,13 @@ public class MemberService {
 		return flag;		
 	}
 	
+	public String passwordCheck(String emailCheck) {
+		Connection conn=getConnection();
+		String passwordCheck=dao.passwordCheck(conn, emailCheck);
+		close(conn);
+		return passwordCheck;
+	}
+	
 	public int setMemberEmailChecked(String email) {
 		Connection conn=getConnection();
 		int result=dao.setMemberEmailChecked(conn, email);

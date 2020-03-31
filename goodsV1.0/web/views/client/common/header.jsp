@@ -198,7 +198,7 @@
 		<!-- 로그인 팝업 -->
 		<div class="modal-back" id="login">
 			<div class="modal-login animate">
-				<form id="login-form" onsubmit="return loginSubmit();">
+				<form id="login-form" onsubmit="return loginSubmit()" method="post">
 				<%-- action="<%=request.getContextPath()%>/login"
 					method="post" onsubmit="return loginSubmit();" --%>
 					<div class="top-login">
