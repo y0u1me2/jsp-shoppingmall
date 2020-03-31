@@ -19,13 +19,16 @@ public class AdminProductService {
 	private AdminProductDao dao = new AdminProductDao();
 	
 //상품 등록====================================
-	public int productEnroll(Product p,ProductImage pi){
+	public int productEnroll(Product p,List<ProductImage> imgList){
 		Connection conn = getConnection();
 		
 		int result = dao.productEnroll(conn,p);
 		
-		if(result>0) {
-			dao.productColor(conn,pi);
+		if(result>0) { //상품등록 성공하면
+			int pNo = dao.selectSeqNum(conn,p); //방금 등록한 상품번호 조회
+			System.out.println("방금 등록한 상품번호 : "+pNo);
+			
+			dao.productColor(conn,imgList,pNo);
 			commit(conn);
 		}
 		else rollback(conn);
@@ -33,7 +36,21 @@ public class AdminProductService {
 		close(conn);
 		
 		return result;
-	} 	
+	}	
+//		if(dao.insertCustom(conn, c)>0) {//custom 제품 등록 성공
+//			int cno = dao.getCustomNo(conn, c);//방금 등록한 커스텀 제품 번호 조회
+//			for(String file : files) {//커스텀에 사용한 이미지 파일을 하나씩 디비에 저장
+//				int result = dao.insertCustomImage(conn, cno, file);
+//				if(result==0) {//이미지 파일 등록 실패 시 롤백
+//					rollback(conn);
+//					return 0;
+//				}else count++;
+//			}
+//		}else {//custom 제품 등록 실패
+//			rollback(conn);
+//			return 0;
+//		}
+		
 	
 //헤더 메뉴 추가하기=========================
 	public List<Product> productHeaderMenu(){

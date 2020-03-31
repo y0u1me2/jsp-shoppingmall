@@ -6,7 +6,7 @@
 <%
 	List<Product> list = (List) request.getAttribute("list");
 
-	/* 원하는  조회기간 별로 출력하기 */
+	/* 원하는  개수만큼 보기 */
 	int cPage = (int)request.getAttribute("cPage");
 	String numPer = request.getParameter("numPerPage");
 %>
@@ -14,9 +14,6 @@
 <%@ include file="/views/admin/common/header.jsp"%>
 
 <style>
-div.content-wrapper {
-	background-color: white;
-}
 
 * {
 	margin: 0;
@@ -27,20 +24,21 @@ body {
 	height: auto;
 }
 
-/* 섹션안 공간  */
-div.back {
+/* section */
+div.content-wrapper {
+	background-color: white;
+}
+
+/* 전체상품목록 div */
+div.goodsback {
+	width: 100%;
 	position: relative;
 	left: 110px;
 	top: 50px;
 	height: 1100px;
 }
 
-/* content 공간 */
-div.goodsback {
-	width: 100%;
-}
-
-/* 전체 1:1상담 목록 텍스트 */
+/* 전체상품목록 텍스트 */
 h1#title {
 	font-weight: bolder;
 	font-size: 30px;
@@ -48,86 +46,17 @@ h1#title {
 	top: 10px;
 }
 
-/* 제목밑에 선 */
+/* 전체상품목록 밑에 라인 */
 hr#gline {
 	border: 1px solid rgb(177, 174, 174);
 	position: relative;
 	top: 20px;
 	width: 80%;
 }
-/* content 위치 */
+/* 버튼들 div */
 div.list-container {
 	position: relative;
-	top: 10px;
-}
-
-/* 테이블 선 색상 */
-div.box>th, tr, td {
-	border: 1px solid #e2e0e0;
-	border-right: 1px solid #e2e0e0;
-	padding: 7px;
-}
-
-tr:first-of-type{
-color: #80878d;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: normal;
-   font-size: 15px;
-    background-color: #f5f4f4;
-    padding: 9px 10px 7px;
-}
-
-
-/* 테이블 스타일 */
-table.box {
-	width: 80%;
-	text-align: center;
-	border: 1px solid #e2e0e0;
-	border-collapse: collapse;
-}
-
-/* 문의내용이 존재하지 않습니다. */
-td#conbox {
-	text-align: center;
-	height: 300px;
-	font-size: 15px;
-	position: relative;
-	width: 100%;
-}
-
-/* 페이지바 위치 */
-div#pageBar {
-	position: relative;
-	top: 20px;
-}
-
-/* 페이지바 a태그  */
-div#pageBar a {
-	text-decoration: none;
-	color: rgb(95, 93, 93);
-}
-
-/* 답변상태 버튼 */
-#inquiry-btn {
-	position: relative;
-	height: 30px;
-	width: 80px;
-	border: solid 1px rgb(190, 190, 196);
-	background: white;
-	border-radius: 3px;
-	font-size: 15px;
-	color: rgb(134, 134, 133);
-	margin-right: 5px;
-}
-
-#inquiry-btn:hover {
-	background: rgb(251, 251, 249);
-	outline: none;
-}
-
-/* 리스트상자  */
-.mListHeader {
+	top: 150px;
 	padding: 7px 15px;
 	padding-bottom: 10px;
 	border: 1px solid #bcbfc4;
@@ -142,20 +71,56 @@ div#pageBar a {
 	top: 23px;
 }
 
-/* 삭제 버튼위치 */
-.gleft {
+/* 테이블 스타일 */
+table.box {
+	postition:relative;
+	bottom:100px;
+	width: 80%;
+	text-align: center;
+	border: 1px solid #e2e0e0;
+	border-collapse: collapse;
+}
+
+/* 테이블 선 색상 */
+div.box>th, tr, td {
+	border: 1px solid #e2e0e0;
+	border-right: 1px solid #e2e0e0;
+	padding: 7px;
+}
+
+/* 첫번째 tr 스타일  */
+tr:first-of-type{
+color: #80878d;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: normal;
+   font-size: 15px;
+    background-color: #f5f4f4;
+    padding: 9px 10px 7px;
+}
+
+/* 문의내용이 존재하지 않습니다. */
+td#conbox {
+	text-align: center;
+	height: 300px;
+	font-size: 15px;
+	position: relative;
+	width: 100%;
+}
+
+div.box-container{
+	position: relative;
+	top:50px;
+}
+
+/* 3개 버튼 위치 */
+div.three-btn {
 	position: relative;
 	right: 330px;
-	top: 2px;
+	bottom:26px;
 }
 
-#numPerPage {
-	position: relative;
-	left: 370px;
-	top: -25px;
-}
-
-/* 삭제  버튼 스타일 */
+/* 3개버튼 스타일  */
 .btn_Wihte {
 	padding: 3px 10px;
 	font-size: 12px;
@@ -165,36 +130,14 @@ div#pageBar a {
 	border: 1px solid rgb(161, 161, 161);
 }
 
-/* 검색결과 스타일 */
-.total {
-	font-size: 15px;
-	font-family: "Nanum Gothic";
-	color: rgb(49, 49, 49);
-	margin: 2px 8px 0px 0px;
-}
-
-#pageBar {
-	width: 80%;
-	margin: 40px 0 40px 0;
-	text-align: center;
-}
-
-#pageBar>a, #pageBar>span {
-	width: 40px;
-	height: 40px;
-	text-align: center;
-	line-height: 40px;
-	border: 1px solid #eee;
-	color: #999;
-	background-color: #fff;
-	margin: 0 2px;
+/* 원하는 개수만큼 보기 */
+div.numPerPage-container{
 	position: relative;
-	font-size: 13px;
-	font-family: "YoonGothicPro760";
-	display: inline-block;
-	vertical-align: top;
+	left: 370px;
+	bottom: 55px;
 }
 
+/* 정보수정 버튼 */
 input#update-btn {
 	height: 30px;
 	width: 80px;
@@ -214,6 +157,7 @@ input#update-btn:hover {
 	outline: none;
 }
 
+/* 색상수정 버튼 */
 input#color-btn {
 	height: 30px;
 	width: 80px;
@@ -230,6 +174,7 @@ input#color-btn:hover {
 	outline: none;
 }
 
+/* 엑셀파일저장 버튼 */
 button#excel-btn{
   	 padding: 3px 10px;
         font-size: 12px;
@@ -238,12 +183,39 @@ button#excel-btn{
         background-color: white;
         border: 1px solid rgb(161, 161, 161);
         position:relative;
-        left:800px;
+        left:400px;
+        bottom:50px;
 }
 
 button#excel-btn>a{
 text-decoration: none;
 color: rgb(0, 0, 0);
+}
+
+/* 페이지바 */
+#pageBar {
+	width: 80%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+	position: relative;
+	top: 20px;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #eee;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none;
 }
 </style>
 
@@ -251,7 +223,6 @@ color: rgb(0, 0, 0);
 
 
 <div class="content-wrapper">
-	<div class="back">
 
 		<div class="goodsback">
 			<br> <br>
@@ -261,12 +232,12 @@ color: rgb(0, 0, 0);
 
 			<br> <br>
 
+	<div class="box-container">
 			<div class="list-container">
 
 			<button id="excel-btn"><a href="<%=request.getContextPath()%>/productExcelDownLoad">엑셀파일저장</a></button>
 		
-				<div class="mListHeader">
-					<div class="gleft">
+					<div class="three-btn">
 						<button type="button" class="btn_Wihte"
 							onclick=" pAllClickSelect()">전체선택</button>
 						<button type="button" class="btn_Wihte"
@@ -274,7 +245,7 @@ color: rgb(0, 0, 0);
 						<button type="button" class="btn_Wihte" onclick=" pCkDelete()">삭제</button>
 					</div>
 
-					<div class="gright" id="numPerPage-container">
+					<div class="numPerPage-container">
 
 						<form name="numPerPageFrm" id="numPerPageFrm"
 							action="<%=request.getContextPath()%>/ProductListView">
@@ -297,7 +268,7 @@ color: rgb(0, 0, 0);
 					</div>
 				</div>
 				</br>
-
+	
 				<table class="box">
 					<tr style="background-color: rgb(245, 245, 245); height: 40px;">
 						<td><input type="checkbox" name="allCheck"
@@ -359,10 +330,7 @@ color: rgb(0, 0, 0);
 				<div id="pageBar">
 					<%=request.getAttribute("pageBar")%>
 				</div>
-
-
-			</div>
-		</div>
+				</div>
 	</div>
 
 	<script>

@@ -41,7 +41,7 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 
 		// 파일 업로드를 위한 로직처리
 		// 1.파일을 저장할 경로설정
-		String path = getServletContext().getRealPath("/upload/inquiry/");
+		String path = getServletContext().getRealPath("/upload/inquiry/zip/");
 		File folder = new File(path);
 
 		// 해당 디렉토리가 없을경우 디렉토리를 생성
@@ -79,12 +79,14 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		CompressionUtil cu = new CompressionUtil();
 		cu.zip(new File(path), false);
 		
+		System.out.println(path);
+		
 		long currentTime = System.currentTimeMillis();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		String newName = "GoodGoods_" + sdf.format(new Date(currentTime)) + ".zip";
 		
-		String oldPath = path+".zip";
-		String newPath = path+newName;
+		String oldPath = path+".zip"; //경로.zip
+		String newPath = path+newName; //xx
 		File oldZip = new File(oldPath); //temp.zip
 		File newZip = new File(newPath); //original_시간.zip
 		boolean check = oldZip.renameTo(newZip); //압축파일 이름 변경
