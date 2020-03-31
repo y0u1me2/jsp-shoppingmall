@@ -1,6 +1,8 @@
-package com.web.notice.controller;
+package com.web.gallery.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,20 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.notice.model.service.NoticeService;
-import com.web.notice.model.vo.Notice;
+import org.json.simple.JSONArray;
+
+import com.web.product.model.service.ProductService;
+import com.web.product.model.vo.Product;
 
 /**
- * Servlet implementation class NoticeUpdateServlet
+ * Servlet implementation class AjaxProductListServlet
  */
-@WebServlet("/admin/noticeUpdate")
-public class NoticeUpdateServlet extends HttpServlet {
+@WebServlet("/getProductList")
+public class AjaxProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateServlet() {
+    public AjaxProductListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +35,18 @@ public class NoticeUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int no=Integer.parseInt(request.getParameter("mRowCheck"));
 		
-		Notice n=new NoticeService().oneNotice(no);
+		String category = request.getParameter("category");
+		List<Product> list = new ProductService().selectByCategory(category);
+		List<String> list2 = new ArrayList<String>();
 		
-		request.setAttribute("notice", n);
-		request.setAttribute("no", no);
-		request.getRequestDispatcher("/views/client/notice/noticeUpdate.jsp").forward(request, response);
+		JSONArray jsonArr = new JSONArray();
+		for(Product p : list) {
+			jsonArr.add(p.getpName());
+		}
+		
+		response.setContentType("application/json; charset=UTF-8");
+		response.getWriter().print(jsonArr); //객체배열 보내기
 	}
 
 	/**
