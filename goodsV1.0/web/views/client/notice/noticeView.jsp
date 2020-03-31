@@ -2,7 +2,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/client/common/header.jsp" %>
-<% Notice n=(Notice)request.getAttribute("notice"); %>
+<% 
+	Notice n=(Notice)request.getAttribute("notice"); 
+	int num=n.getnOriginalFile().lastIndexOf(",");
+	String orifile=n.getnOriginalFile().substring(0,num);
+	String[] arr=orifile.split(",");
+%>
 
 <style>
 	section.back{
@@ -109,7 +114,18 @@
 		</ul>
 	</div>
 	<div class="upfile">
-		<p>errornotzoo.jpg</p>
+		<%if(n.getnOriginalFile()!=null){ %>
+        <%for(String s : arr){ %>
+        <p>
+        <a href="<%=request.getContextPath()%>/notice/noticeFileDownload?fileName=<%=s%>">
+        <img src="<%=request.getContextPath()%>/images/notice/file.png" width="15px" height="15px">
+        <%=s %>
+        </a>
+        </p>
+         <%} %>
+        <%}else{ %>
+			<p>첨부파일이 없습니다.</p>
+         <%} %>
 	</div>
 	<div class="content">
 		<p class="context"><%=n.getnContent() %></p>
