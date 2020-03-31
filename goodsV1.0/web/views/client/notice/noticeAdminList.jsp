@@ -458,6 +458,7 @@
                         <col style="width:30px;">
                         <col style="width:90px;">
                         <col style="width:auto;">
+                        <col style="width:50px">
                         <col style="width:100px;">
                         <col style="width:100px;">
                         <col style="width:100px">
@@ -466,6 +467,7 @@
                                 <th scope="col"><input type="checkbox" class="mRowCheck"></th>
                                 <th scope="col">번호</th>
                                 <th scope="col">제목</th>
+                                <th scope="col">첨부파일</th>
                                 <th scope="col">작성자</th>
                                 <th scope="col">작성일</th>
                                 <th scope="col">글삭제</th>
@@ -488,6 +490,13 @@
                                  <td><a href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=m.getnNo()%>">
                 					<%=m.getnTitle() %>
                 				</a>
+                				</td>
+                				<td><%if(m.getnOriginalFile()!=null){ %>
+                					<img src="<%=request.getContextPath()%>/images/notice/file.png" width="15px" height="15px">
+                					<%}else{ %>
+                						X
+                					<%} %>
+                					
                 				</td>
                                  <td><%=m.getnWriter()%></td>
                                  <td><%=m.getnDate()%></td>
@@ -516,7 +525,7 @@
    		//글쓰기
    		$(function(){
    			$("#write").click(function(){
-   				location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
+   				location.replace("<%=request.getContextPath()%>/admin/noticeWrite");
    			})
    		})
    		//검색기능

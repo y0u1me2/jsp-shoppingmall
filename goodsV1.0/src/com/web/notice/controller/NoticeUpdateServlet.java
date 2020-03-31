@@ -36,6 +36,7 @@ public class NoticeUpdateServlet extends HttpServlet {
 		Notice n=new NoticeService().oneNotice(no);
 		
 		request.setAttribute("notice", n);
+		request.setAttribute("no", no);
 		request.getRequestDispatcher("/views/client/notice/noticeUpdate.jsp").forward(request, response);
 	}
 
