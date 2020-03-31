@@ -361,7 +361,7 @@
                             <!-- 결제예정금액 및 상품주문 버튼-->
                             <span>
                                 	결제 예정금액(
-                                <em style="color:red;" class="cartSelCount"></em>
+                                <em style="color:red;" class="cartSelCount">0</em>
                                 	)
                             </span>
                             <span id ="payAllPrice" class="format-Price payAllPrice" style=" color: red; font-size: 23px;"></span>
@@ -426,7 +426,7 @@
                                 <tr>
                                     <td style="text-align: center; vertical-align: top;">
                                         <div class="cartCheckbox">
-                                            <input type="checkbox" name="cartSelect" class="cartSelect" >
+                                            <input type="checkbox" name="cartSelect" class="cartSelect" id="cartSelect">
                                         </div>
                                         <!-- 전체클릭하면 위에 체크되기-->
                                     </td>
@@ -621,12 +621,13 @@
 		  //체크박스 전체선택하기
 		      var check = false;
 		      var chk = document.getElementsByName("cartSelect");
-		      var payAllPrice=0;
+		      //var payAllPrice=0;
 		      var checkAll = $("input:checkbox[name=cartSelect]").length;
 		      var cartChecked = 0;
 		 	   //chk에 name이select[0]인것을 넣어줌
 		 	   
 		 	   function cartSelRelAll(){
+		 		  var AllPayResult;
 		    	   //카트트셀렉 클릭
 		         if (check == false) {
 		            check = true;
@@ -638,11 +639,13 @@
 		            }
 		            for(var i=0;i<chk.length;i++){
 	           			if(chk[i].checked==true){
+	           				 totalPlus();
 	           				if(cartChecked<chk.length){
 	           					cartChecked++;	
 	           				}
 	           			}
 	           		}
+		            $("#payAllPrice").text(AllPayResult);
 		            $('.cartSelCount').text(cartChecked);
 		         } else {
 		            check = false;
@@ -652,19 +655,30 @@
 		            
 		            for(var i=0;i<chk.length;i++){
 	           			if(chk[i].checked==false){
+	           				totalAllMinus();
 	           				if(cartChecked>0){
 	           					cartChecked--;	
 	           				}	           				           				
 	           			}
 	           		}
+		            $("#payAllPrice").text(AllPayResult);
 		            $('.cartSelCount').text(cartChecked);
 		         }
 		      } 
 		     	//전체선택 버튼 체크박스 체크
 		      function cartSelectAll(){		
+		    	  var AllPayResult;
+		    	  var cartSelAll=$("#cartSelectReleaseAll");
+		    	  cartSelAll.prop("checked",true);
 		    	  check = true;
 		            for (var i = 0; i < chk.length; i++) {
+
 		               chk[i].checked = true; //모두 체크
+
+					   if(chk[i].checked){
+						   totalPlus();
+					   }
+		               
 		            }
 		            
 		            for(var i=0;i<chk.length;i++){
@@ -675,205 +689,254 @@
 	           			}
 	           		}
 		            $('.cartSelCount').text(cartChecked);
-		      }
-		     	//선택해제 버튼 체크박스 해제
-		      function cartReleaseAll(){
-		            check = false;
-		            for (var i = 0; i < chk.length; i++) {
-		               chk[i].checked = false; //모두 해제
-		            }
-		            for(var i=0;i<chk.length;i++){
-	           			if(chk[i].checked==false){
-	           				if(cartChecked>0){
-	           					cartChecked--;	
-	           				}	           				           				
-	           			}
-	           		}
-		            $('.cartSelCount').text(cartChecked);
-		            
-		      }
-		     	//체크박스 개수
-		     $(function(){
-		     	   // 전체 체크박스 개수 구하기
-			         
-		           $('.cartAllCount').text(checkAll);
-		           // 선텍 체크박스 개수 구하기
-		         
-		           $('.cartSelect').click(function(){
-		        	   var AllPayResult;
-		        	   var payPrice = $(this).parent().parent().next().next().next().next().next().children().text();
-		        	
-		           		if(this.checked==true){
-		           			cartChecked++;
-			           		payPrice = payPrice.replace(/,/g, "");
 
-			           		payAllPrice += parseInt(payPrice);
-			           		console.log(payAllPrice);
-			           		AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			           		
-		           		}else{		           			
-		           			cartChecked--;
-		           			console.log(payAllPrice);
-		           			payPrice = payPrice.replace(/,/g, "");
-			           		payAllPrice -= parseInt(payPrice);
+					$("#payAllPrice").text(AllPayResult);
+			}
+			//선택해제 버튼 체크박스 해제
+			function cartReleaseAll() {
+				 var AllPayResult;
+				 var cartRelAll=$("#cartSelectReleaseAll");
+		    	  cartRelAll.prop("checked",false);
+				check = false;
+				for (var i = 0; i < chk.length; i++) {
+					chk[i].checked = false; //모두 해제
+				}
+				for (var i = 0; i < chk.length; i++) {
+					if (chk[i].checked == false) {
 
-			           		AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	           			
-		           		}
-		           		//장바구니리스트 상품 개수
-		           		$('.cartSelCount').text(cartChecked);
-		           		//submit할 총가격 text
-		           		$("#payAllPrice").text(AllPayResult);
-		           		
-		           });
-		           //최초 로드 시 제품들 가격.
-		           var quan = $('.pdQuantity');
-		           //console.log(quan.val());
-		           var productPrice = $('.sale');
-		           for(let i=0;i<productPrice.length;i++){
-					   var amount = new Array();
-					   var productAmount = new Array();
-			           amount[i]=quan.val()*parseInt(productPrice.eq(i).text());
-
-			           var productAmount=quan.parent().parent().parent().next().children();
-
-			           productAmount.eq(i).text(amount[i]);
-
-
-		  
-		           }
-		           
-		           
-		     })
-		     	
-		  		//수량 input에 blur이벤트 수량 입력하면 최종금액나옴
-		      $(".pdQuantity").blur(function () {
-		    	    var quan = $(this).val();
-		    	    var productPrice= $(this).parent().parent().parent().prev().children().children().eq(1).text();
-		    	    productPrice = productPrice.replace(/,/g, "");
-               		var amount=quan*parseInt(productPrice);
-					var result = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	               
-	                var total= $(this).parent().parent().parent().next().children();
-	                total.text(amount);
-
-		    	    
-		      })
-		   
-		      //수량 버튼 +,- 하기
-		      $(".plus").click(function() {
-	                var $this = $(this);
-	                var target = $this.prev();
-	                var num = target.val();
-	                num++;
-	                target.val(num);
-	                
-	                var quantity=target.val(num);
-	                // 1. "," 있는 스트링을 변환
-	                var amount= $(this).parent().parent().parent().prev().children().children().eq(1).text();
-	               		amount = amount.replace(/,/g, "");
-	                var tAmount=quantity.val()*parseInt(amount);
-
-	                var result = tAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	                
-	                var total= $(this).parent().parent().parent().next().children();
-
-	                total.text(result);
-	                var test123 = $(this).parent().parent().parent().prev().prev().prev().prev().children().children();
-	                console.log(test123.prop("checked"));
-	                var AllPayResult;
-			        var payPrice = total.text(result).text();
-			        console.log(payPrice);
-	                if(test123.prop("checked")==true){			   
-					       payPrice = payPrice.replace(/,/g, "");
-					       payAllPrice += parseInt(payPrice);
-					       AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-					           		
-				    }else{		
-				    	if(cartChecked>0){
-				    		cartChecked--;
-					           //console.log(payAllPrice);
-					           payPrice = payPrice.replace(/,/g, "");
-						       payAllPrice -= parseInt(payPrice);
-
-						       AllPayResult= payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				    	}
-				           
-			           			
-				     }
-				           	//장바구니리스트 상품 개수
-				           	$('.cartSelCount').text(cartChecked);
-				           	//submit할 총가격 text
-				           	$("#payAllPrice").text(AllPayResult);
-				           		
-				        
-	                
-	                
-            
-	            });
-				//-버튼 클릭하면 수량 금액 변동
-	            $(".minus").click(function() {
-	                var $this = $(this);
-	                var target = $this.next();
-	                var num = target.val();
-					if(target.val()>1){
-						num--;
-						target.val(num);
-					}else{
-						target.val(1);
+						totalAllMinus();
+						if (cartChecked > 0) {
+							cartChecked--;
+						}
 					}
-					  var quantity=target.val(num);
-		                // 1. "," 있는 스트링을 변환
-		                var amount= $(this).parent().parent().parent().prev().children().children().eq(1).text();
-		               		amount = amount.replace(/,/g, "");
-		                var tAmount=quantity.val()*parseInt(amount);
+				}
+				$('.cartSelCount').text(cartChecked);
+				$("#payAllPrice").text(AllPayResult);
 
-		                var result = tAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		                
-		                var total= $(this).parent().parent().parent().next().children();
+			}
+			//총개 계산함수
+			function totalPlus() {
+				const selectCheck = $("input.cartSelect");
+				let sum = 0;
+				console.log(sum);
+				$.each(selectCheck, function(i, item) {
+					if (item.checked == true) {
+						let price = $(item).parents("tr").find("span.payPrice")
+								.text();
+						price = price.replace(/,/g, "");
+						sum += parseInt(price);
+					}
+				})
+				$("#payAllPrice").text(
+						sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+			}
+			//총개 계산함수
+			function totalAllMinus() {
+				console.log("들어옴?");
+				const selectCheck = $("input.cartSelect");
+				let payAllPrice = $("#payAllPrice").text();
+				payAllPrice = 0;
+				console.log(payAllPrice);
+				/* $.each(selectCheck, function(i, item) {
+					if (item.checked == false) {
+						let price = $(item).parents("tr").find("span.payPrice")
+								.text();
+						price = price.replace(/,/g, "");
+						payAllPrice -= parseInt(price);
+					}
+				}) */
+				$("#payAllPrice").text(
+						payAllPrice);
+			}
+			//총개 계산함수 빼기
+			function totalMinus() {
 
-		                total.text(result);
-		                
-		                
-		                var AllPayResult;
+				const selectCheck = $("input.cartSelect");
+				let payAllPrice = $("#payAllPrice").text();
+				payAllPrice = payAllPrice.replace(/,/g, "");
 
-		                payAllPrice -=	tAmount;
-		                AllPayResult = tAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						$("#payAllPrice").text(AllPayResult);
-		                
-		                
-	            });
-	            //페이지 로딩시 바로 펑션 시작쓰
-	            $(function(){         	
-	            	//숫자 타입에서 쓸 수 있도록 format() 함수 추가
-		            Number.prototype.format = function(){
-		                if(this==0) return 0;
-		                var reg = /(^[+-]?\d+)(\d{3})/;
-		                var n = (this + '');	            
-		                while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
-		                return n;
-		            };
-		            
-		            // 문자열 타입에서 쓸 수 있도록 format() 함수 추가
-		            String.prototype.format = function(){
-		                var num = parseFloat(this);
-		                if( isNaN(num) ) return "0";
-		                return num.format();
-		            };
-		            $('.format-Price').text(function() {
-		                $(this).text(
-		                    $(this).text().format()
-		                );
-		            });     
-  
-	            })
-	            
-	            
-	            
-	            
-	            
-	 
-    </script>
+				let target = $(event.target).parents("tr").find(
+						"input.cartSelect");
+
+				if (target.prop("checked") == true) {
+					let price = $(target).parents("tr").find("span.sale")
+							.text();
+					price = price.replace(/,/g, "");
+					payAllPrice -= parseInt(price);
+				}
+
+				$("#payAllPrice").text(
+						payAllPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+								","));
+			}
+
+			//체크박스 개수
+			$(function() {
+				// 전체 체크박스 개수 구하기
+
+				$('.cartAllCount').text(checkAll);
+				// 선텍 체크박스 개수 구하기
+
+				$('.cartSelect').click(
+						function() {
+							var AllPayResult;
+							var payPrice = $(this).parent().parent().next()
+									.next().next().next().next().children()
+									.text();
+							var amount = 0;
+
+							if (event.target.checked == true) {
+								cartChecked++;
+								totalPlus();
+
+							} else {
+
+								cartChecked--;
+								let payAllPrice = $("#payAllPrice").text();
+								payAllPrice = payAllPrice.replace(/,/g, "");
+								payPrice = payPrice.replace(/,/g, "");
+								payAllPrice -= payPrice;
+
+								AllPayResult = payAllPrice.toString().replace(
+										/\B(?=(\d{3})+(?!\d))/g, ",");
+							}
+							//장바구니스트 상품 개수
+							$('.cartSelCount').text(cartChecked);
+							//submit할 총가격 text
+							$("#payAllPrice").text(AllPayResult);
+
+						});
+				//최초 로드 시 제품들 가격.
+				var quan = $('.pdQuantity');
+				//console.log(quan.val());
+				var productPrice = $('.sale');
+				for (let i = 0; i < productPrice.length; i++) {
+					var amount = new Array();
+					var productAmount = new Array();
+					amount[i] = quan.val()
+							* parseInt(productPrice.eq(i).text());
+
+					var productAmount = quan.parent().parent().parent().next()
+							.children();
+
+					productAmount.eq(i).text(amount[i]);
+
+				}
+
+			})
+		
+			//수량 input에 blur이벤트 수량 입력하면 최종금액나옴
+			$(".pdQuantity").blur(
+					function() {
+						var quan = $(this).val();
+						var productPrice = $(this).parent().parent().parent()
+								.prev().children().children().eq(1).text();
+						productPrice = productPrice.replace(/,/g, "");
+						var amount = quan * parseInt(productPrice);
+						var result = amount.toString().replace(
+								/\B(?=(\d{3})+(?!\d))/g, ",");
+
+						var total = $(this).parent().parent().parent().next()
+								.children();
+						total.text(result);
+						totalPlus();
+
+					})
+
+			//수량 버튼 +,- 하기
+			$(".plus").click(
+					function() {
+						var $this = $(this);
+						var target = $this.prev();
+						var num = target.val();
+						num++;
+						target.val(num);
+
+						var quantity = target.val(num);
+						// 1. "," 있는 스트링을 변환
+						var amount = $(this).parent().parent().parent().prev()
+								.children().children().eq(1).text();
+
+						amount = amount.replace(/,/g, "");
+						var tAmount = quantity.val() * parseInt(amount);
+
+						var result = tAmount.toString().replace(
+								/\B(?=(\d{3})+(?!\d))/g, ",");
+
+						var total = $(this).parent().parent().parent().next()
+								.children();
+
+						total.text(result);
+
+						//console.log($(event.target).parents("tr").find("input.cartSelect"));
+						//check확인 후 총계값 계산하기
+						var checkBox = $(event.target).parents("tr").find(
+								"input.cartSelect")[0];
+						if (checkBox.checked == true) {
+							totalPlus();
+						}
+
+					});
+			//-버튼 클릭하면 수량 금액 변동
+			$(".minus").click(
+					function() {
+						var $this = $(this);
+						var target = $this.next();
+						var num = target.val();
+						var checkBox = $(event.target).parents("tr").find(
+								"input.cartSelect")[0];
+						if (target.val() > 1) {
+							num--;
+							target.val(num);
+							if (checkBox.checked == true) {
+								totalMinus();
+							}
+						} else {
+							target.val(1);
+
+						}
+						var quantity = target.val(num);
+						// 1. "," 있는 스트링을 변환
+						var amount = $(this).parent().parent().parent().prev()
+								.children().children().eq(1).text();
+						amount = amount.replace(/,/g, "");
+						var tAmount = quantity.val() * parseInt(amount);
+
+						var result = tAmount.toString().replace(
+								/\B(?=(\d{3})+(?!\d))/g, ",");
+
+						var total = $(this).parent().parent().parent().next()
+								.children();
+
+						total.text(result);
+
+					});
+			//페이지 로딩시 바로 펑션 시작쓰
+			$(function() {
+				//숫자 타입에서 쓸 수 있도록 format() 함수 추가
+				Number.prototype.format = function() {
+					if (this == 0)
+						return 0;
+					var reg = /(^[+-]?\d+)(\d{3})/;
+					var n = (this + '');
+					while (reg.test(n))
+						n = n.replace(reg, '$1' + ',' + '$2');
+					return n;
+				};
+
+				// 문자열 타입에서 쓸 수 있도록 format() 함수 추가
+				String.prototype.format = function() {
+					var num = parseFloat(this);
+					if (isNaN(num))
+						return "0";
+					return num.format();
+				};
+				$('.format-Price').text(function() {
+					$(this).text($(this).text().format());
+				});
+
+			})
+		</script>
 	
 
     </section>
