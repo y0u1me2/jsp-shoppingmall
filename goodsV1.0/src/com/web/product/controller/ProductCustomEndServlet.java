@@ -113,22 +113,27 @@ public class ProductCustomEndServlet extends HttpServlet {
 			
 			
 			//쿠키
-//			boolean isExist = false;
-//			Cookie[] cookies = request.getCookies(); //null이거나 쿠키배열
-//			
-//			if(cookies!=null) {
-//				for(int i=0; i<cookies.length; i++) {
-//					if(cookies[i].getName().equals("cart")) {
-//						Cookie cookie = new Cookie("cart", cookies[i].getValue()+","+c.getcNo());
-//						isExist = true;
-//					}
-//				}
-//			}
-//			
-//			if(!isExist) {//쿠키가 없을 경우 쿠키 생성
-//				Cookie cookie = new Cookie("cart", ""+c.getcNo());
-//			}
+			boolean isExist = false;
+			Cookie[] cookies = request.getCookies(); //null이거나 쿠키배열
+			Cookie cookie = null;
+			if(cookies!=null) {
+				for(int i=0; i<cookies.length; i++) {
+					if(cookies[i].getName().equals("cart")) {
+						cookie = new Cookie("cart", cookies[i].getValue()+","+c.getcNo());
+						isExist = true;
+					}
+				}
+			}
 			
+			if(!isExist) {//쿠키가 없을 경우 쿠키 생성
+				cookie = new Cookie("cart", ""+c.getcNo());
+			}
+			
+			cookie.setMaxAge(60*60*24*90);//쿠키 유지 기간(90일)
+		    response.addCookie(cookie);
+		    request.getRequestDispatcher("/views/client/cart.jsp").forward(request, response);
+		    
+		    
 		}else {
 			System.out.println("데이터 입력 실패");
 		}

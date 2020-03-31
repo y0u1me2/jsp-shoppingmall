@@ -228,27 +228,61 @@
 
         <!-- 게시물 검색창 -->
         <div id="searchBox">
-        	<form action="" method="post">
-        		<select style="vertical-align: middle;">
-                    <option>전체</option>
-                    <option>케이스</option>
-                    <option>악세사리</option>
-                    <option>생활용품</option>
-                    <option>패션</option>
-                </select>
-                
+        	<form action="" method="post" onsubmit="return false">
         		<select style="vertical-align: middle;">
                     <option>정렬</option>
                     <option>인기순</option>
                     <option>조회순</option>
                     <option>최신순</option>
                 </select>
+        		
+        		<select id="select1" style="vertical-align: middle;">
+                    <option>카테고리</option>
+                    <option>케이스</option>
+                    <option>악세사리</option>
+                    <option>생활용품</option>
+                    <option>패션</option>
+                </select>
+                
+                <select id="select2" style="vertical-align: middle; display: none;">
+                    
+                </select>
+                
+        		
         		<input type="submit" value="검색">
         	</form>   
             
         </div>
 
-        
+        <script>
+        $(function(){
+        	const select2 = $('#select2');
+        	$("#select1").change(function() {
+        		if($(this).val()=='카테고리'){
+        			select2.hide();
+        			select2.empty();
+        		}else{
+        			$.ajax({
+        				url:"<%=request.getContextPath()%>/getProductList",
+        				type:'post',
+        				data: {'category' : $(this).val()},
+        				dataType:"json",
+        				success:function(data){
+        					console.log(data);
+        					select2.empty();
+        					select2.append($('<option>').text('전체'));
+        					data.forEach(function(element){
+        						select2.append($('<option>').text(element));
+        					});
+        					select2.show();
+        					
+        				}
+        			})
+        		}
+        	});
+
+        })
+        </script>
 
 
         <div id="galleryContainer">
