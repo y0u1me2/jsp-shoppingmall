@@ -92,7 +92,7 @@
                 <li><a href="">쿠폰관리</a></li><br />
                 <li><a href="">포인트관리</a></li><br />
                 <li><a href="<%=request.getContextPath()%>/profile2">회원정보수정</a></li><br />
-                <li><a href="회원탈퇴.jsp"style="color: rgb(23, 7, 248); font-weight: bold;">회원탈퇴</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/mmbrswthdr2"style="color: rgb(23, 7, 248); font-weight: bold;">회원탈퇴</a></li><br />
             </ul>
         </div>
         <!-- aside2 목록과붙어있는공간띄우기-->
@@ -133,9 +133,12 @@
             </label>
             <div style="margin-top: 50px !important;"></div>
             <div style="text-align: center;font-size: 12px; color: #979898;">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 확인합니다.
-            <form action="#" style="padding: 10px 0px 10px;">
-                <input type="password" style="width: 180px;height: 40px;"placeholder=" 패스워드입력">   
-                <button style="width: 100px;height: 40px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">확인</button>
+            <form action="<%=request.getContextPath() %>/mmbrswthdr" method="post" style="padding: 10px 0px 10px;">
+            <input type="hidden" name="em" value="<%=loginMember.getM_Email()%>"> 
+                <input type="password" style="width: 180px;height: 40px;"placeholder=" 패스워드입력" name="password">   
+                <button type="submit" style="width: 100px;height: 40px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">
+                		확인
+                </button>
             </form>
         </div>
         </div>

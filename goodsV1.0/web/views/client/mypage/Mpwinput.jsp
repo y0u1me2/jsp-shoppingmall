@@ -83,7 +83,7 @@
                 <li><a href="">쿠폰관리</a></li><br />
                 <li><a href="">포인트관리</a></li><br />
                 <li><a href="<%=request.getContextPath()%>/profile2" style="color: rgb(23, 7, 248); font-weight: bold;">회원정보수정</a></li><br />
-                <li><a href="Membersecession.jsp">회원탈퇴</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/mmbrswthdr2">회원탈퇴</a></li><br />
             </ul>
         </div>
         <!-- aside2 목록과붙어있는공간띄우기-->

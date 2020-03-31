@@ -96,7 +96,7 @@
                 <li><a href="">쿠폰관리</a></li><br />
                 <li><a href="">포인트관리</a></li><br />
                 <li><a href="<%=request.getContextPath()%>/profile2" style="color: rgb(23, 7, 248); font-weight: bold;">회원정보수정</a></li><br />
-                <li><a href="Membersecession.jsp">회원탈퇴</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/mmbrswthdr2">회원탈퇴</a></li><br />
             </ul>
         </div>
         <!-- aside2 목록과붙어있는공간띄우기-->
@@ -135,11 +135,11 @@
                 <tr>
                     <td class="line">비밀번호</td>
                     <td class="line">
-                        <form action="PwModify.jsp">
+                        <form action="<%=request.getContextPath()%>/pwmodify">            
                             <button
-                                style="width: 150px; height: 30px; border-radius: 5px;background: rgb(235, 229, 229);color: rgb(51, 51, 51);">
-                         <a href=""></a>       
-                                비밀번호 수정</button>
+                                style="width: 150px; height: 30px; border-radius: 5px;background: rgb(235, 229, 229);color: rgb(51, 51, 51);">       
+                              	  비밀번호 수정
+                               </button>
                         </form>
                     </td>
                 </tr>
@@ -178,11 +178,12 @@
                 </tr>
             </table>
             <div style="text-align: center; padding: 5px 0px 5px;">
+                <a href="<%=request.getContextPath()%>/orderDelivery">
                 <button
-                    style="width: 140px;height: 50px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">확인</button>
-                <button
-                    style="width: 140px;height: 50px; border-radius: 5px;color: #313030;background: rgb(255, 254, 254);">초기화</button>
-
+                    style="width: 140px;height: 50px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">
+                    	확인
+                    </button>
+                    </a>
             </div>
 
 
