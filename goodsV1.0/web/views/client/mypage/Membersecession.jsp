@@ -84,15 +84,15 @@
             <h2 style='line-height:300%'>&nbsp&nbsp마이페이지</h2>
 
             <ul class="lnb_list">
-                <li><a href="OrderInquiry.jsp">주문/배송 조회</a></li><br />
-                <li><a href="ListLookup.jsp">찜 목록 조회</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li><br />
                 <li><a href="">반품/환불</a></li><br />
-                <li><a href="Consultation.jsp">1:1상담</a></li><br />
-                <li><a href="CounselingHistory.jsp">상담내역</a></li><br>               
+                <li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1상담</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>">상담내역</a></li><br>               
                 <li><a href="">쿠폰관리</a></li><br />
                 <li><a href="">포인트관리</a></li><br />
                 <li><a href="<%=request.getContextPath()%>/profile2">회원정보수정</a></li><br />
-                <li><a href="회원탈퇴.jsp"style="color: rgb(23, 7, 248); font-weight: bold;">회원탈퇴</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/mmbrswthdr2"style="color: rgb(23, 7, 248); font-weight: bold;">회원탈퇴</a></li><br />
             </ul>
         </div>
         <!-- aside2 목록과붙어있는공간띄우기-->
@@ -133,15 +133,36 @@
             </label>
             <div style="margin-top: 50px !important;"></div>
             <div style="text-align: center;font-size: 12px; color: #979898;">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 확인합니다.
-            <form action="#" style="padding: 10px 0px 10px;">
-                <input type="password" style="width: 180px;height: 40px;"placeholder=" 패스워드입력">   
-                <button style="width: 100px;height: 40px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">확인</button>
+            <form action="<%=request.getContextPath() %>/mmbrswthdr" onsubmit="return delChk();" method="post" style="padding: 10px 0px 10px;">
+            	<input type="hidden" name="em" value="<%=loginMember.getM_Email()%>"> 
+                <input type="password" style="width: 180px;height: 40px;"placeholder=" 패스워드입력" name="password">   
+                <button type="submit" style="width: 100px;height: 40px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">
+                		확인
+                </button>
             </form>
         </div>
         </div>
 
     </section>
-
+	
+	<script>
+	function delChk(){
+		
+		const agree = $('#agree');
+		if(agree.is(":checked") == true){
+			if(confirm('정말 탈퇴하시겠습니까?')){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			alert("체크 박스에 동의해주세요");
+			return false;
+		}
+		
+	};
+	
+	</script>
 
 
 <%@ include file="/views/client/common/footer.jsp" %>

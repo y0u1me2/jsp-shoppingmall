@@ -30,19 +30,20 @@ public class Profile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("editMember");
+		System.out.println(email);
 		String pw = request.getParameter("password");//사용자가 입력하는 비밀번호값
 		System.out.println("암호화된 비밀번호:"+pw);//암호화됐는지 확인위해 출력테스트 
 		
-		int result = new ProfileService().pwCheck(email, pw);
+		int result = new ProfileService().pwCheck(email,pw);
 		System.out.println(result);
 		
 		if(result == 1) {
-			request.getRequestDispatcher("/views/client/mypage/Mpwinput.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/client/mypage/MemberModify.jsp").forward(request, response);
+			System.out.println(result);
 		}else {
 			//비밀번호가 일치하지 않기 때문에 다시 입력받아야 함
 			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.');</script>");
-			
+			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.');history.back();</script>");
 		}
 	}
 

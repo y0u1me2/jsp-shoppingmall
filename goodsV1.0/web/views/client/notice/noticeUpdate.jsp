@@ -2,7 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/admin/common/header.jsp"%>
-<%Notice n=(Notice)request.getAttribute("notice"); %>
+<%Notice n=(Notice)request.getAttribute("notice");
+	int no=(int)request.getAttribute("no");
+%>
 <style>
 
     *{    
@@ -58,8 +60,8 @@
 			<h1 id="one">공지사항 수정</h1>
 			<hr id="gline">
 			<br><br>
-	<form action="<%=request.getContextPath() %>/admin/noticeUpdateEnd" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="no" value="<%=n.getnNo()%>" />
+	
+        <input type="hidden" name="no" value=<%=no%> />
         <table id="write-tbl">
         <colgroup>
         	<col style="width:15%"/>
@@ -77,12 +79,14 @@
         <tr id="fileup">
             <th>첨부파일</th>
             <td>
+            <form action="<%=request.getContextPath() %>/admin/noticeUpdateEnd" id="frm" method="post" enctype="multipart/form-data">
             <input type="file" name="upfile" multiple>
             <%if(n.getnOriginalFile()!=null) {%>
 	            		<span id="fname"><%=n.getnOriginalFile() %></span>
 	            		<input type="hidden" name="oriFile" value="<%=n.getnOriginalFile() %>">
 	            		<input type="hidden" name="reFile" value="<%=n.getnRenamedFile() %>">
 	            	<%}%>
+	        </form>
             </td>
         </tr>
         <tr>
@@ -91,17 +95,17 @@
         </tr>
         <tr>
             <th colspan="2" id="subm">
-               		<button type="button" id="btn">수정완료</button>
+               	<button type="button" id="btn">수정완료</button>
             </th>
         </tr>
     </table>
-    </form>
+
 		</div>
 	</div>
 </section>
 <script>
 
-$(function(){
+	$(function(){
 	//ajax 파일업로드 구현하기
 	$("#btn").click(function(){
 		var form=$("#frm").serialize();
@@ -131,7 +135,7 @@ $(function(){
 			processData:false,
 			contentType:false,
 			success:function(data){
-			 	alert("수정 완료");
+				alert("수정 성공");
 			 	location.replace("<%=request.getContextPath()%>/admin/noticeList");
 			},
 			error:function(r,e,m){

@@ -1,27 +1,23 @@
-package com.web.notice.controller;
+package com.web.membersecession.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.notice.model.service.NoticeService;
-import com.web.notice.model.vo.Notice;
-
 /**
- * Servlet implementation class NoticeUpdateServlet
+ * Servlet implementation class MemberWthdr2
  */
-@WebServlet("/admin/noticeUpdate")
-public class NoticeUpdateServlet extends HttpServlet {
+@WebServlet("/mmbrswthdr2")
+public class MemberWthdr2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeUpdateServlet() {
+    public MemberWthdr2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +27,7 @@ public class NoticeUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int no=Integer.parseInt(request.getParameter("mRowCheck"));
-		
-		Notice n=new NoticeService().oneNotice(no);
-		
-		request.setAttribute("notice", n);
-		request.setAttribute("no", no);
-		request.getRequestDispatcher("/views/client/notice/noticeUpdate.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/client/mypage/Membersecession.jsp").forward(request, response);
 	}
 
 	/**

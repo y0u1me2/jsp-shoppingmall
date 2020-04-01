@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 				"MemberEnrollEndServlet", 
 				"LoginServlet", 
 				"profileServlet",
+				"mmbrswthdrServlet"
 //				"MemberUpdateServlet"
 //				"PasswordUupdateEndServlet"
 		})

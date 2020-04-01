@@ -2,7 +2,9 @@ package com.web.notice.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,17 +61,26 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 			String reNameFile="";
 			while(f.hasMoreElements()) {
 				String name=(String)f.nextElement();
-				reNameFile+=mr.getFilesystemName(name)+" ";
-				oriFileName+=mr.getOriginalFileName(name)+" ";
+				reNameFile+=mr.getFilesystemName(name)+",";
+				oriFileName+=mr.getOriginalFileName(name)+",";
 			}
+			System.out.println(title+" "+writer+" "+" "+content+" "+oriFileName+" "+reNameFile);
 			Notice n=new Notice(no,writer,title,content,oriFileName,reNameFile,null,0,null);
 			//클라이언트가 파일을 수정했는지에따라 분기문 처리
-			File fl=mr.getFile("upfile");//클라이언트가 넘긴 파일이 있는지 없는지 확인가능
-			System.out.println(mr.getParameter("upfile"));
-			String orifile=mr.getParameter("oriFile");
-			String[] arr=orifile.split(",");
-			if(fl!=null&&fl.exists()) {
-				for(String s : arr) {
+			File fl=mr.getFile("file0");//클라이언트가 넘긴 파일이 있는지 없는지 확인가능
+			System.out.println(mr.getFile("file0"));
+			List<String> list=new ArrayList();
+			if(mr.getParameter("oriFile")!=null) {
+				int num=mr.getParameter("oriFile").lastIndexOf(",");
+				String orifile=mr.getParameter("oriFile").substring(0,num);
+				String[] arr=orifile.split(",");
+				for(String st : arr) {
+					list.add(st);
+				}
+			}
+			String ori=mr.getParameter("oriFile");
+			if(fl!=null && fl.length()>0) {
+				for(String s : list) {
 					System.out.println(s);
 					File deleteFile=new File(path+s);
 					deleteFile.delete();
@@ -80,7 +91,24 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 				n.setnRenamedFile(mr.getParameter("reFile"));
 			}
 			
-//			int result=new NoticeService().updateNotice(n);
+			
+			int result=new NoticeService().updateNotice(n);
+			
+			String msg="";
+			String loc="";
+			if(result>0) {
+				//성공
+				msg="공지사항 저장성공";
+				loc="/admin/noticeList";
+			}else {
+				//실패
+				msg="공지사항 저장실패";
+				loc="/admin/noticeWrite";
+			}
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher("/views/client/notice/msg.jsp")
+			.forward(request, response);
 			
 			
 	}

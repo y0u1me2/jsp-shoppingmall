@@ -5,7 +5,7 @@
 
 <%
    List<Notice> list=(List)request.getAttribute("list");
-   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
+   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"All";;
    String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
    int totalDate=(int)request.getAttribute("totalDate");
    int finderDate=(int)request.getAttribute("finderDate");
@@ -237,6 +237,8 @@
     }
    /* 회원목록 리스트상자 헤더 */
    .mListHeader{
+   		clear:both;
+   		content:"";
         padding: 7px 15px;
         padding-bottom:10px;
         border: 1px solid #bcbfc4;
@@ -248,6 +250,14 @@
         margin-bottom: -1px;
         width: 80%;
    }
+   .numPer{
+   		padding: 7px 15px;
+   		width: 80%;
+   		float:right;	
+   }
+   #numPerPageFem{
+   	margin-botton:10px;
+   }
    /* 회원목록 버튼 div스타일 */
    .gleft{
          margin-top:2.5px;
@@ -256,10 +266,17 @@
         display: inline-block;
    }
    .gright{
-         padding-top:3px;
-         padding-bottom:2px;
-         text-align: right;
          font-size:12px;
+         width: 430px;
+   	 	padding-right: 220px;
+    	padding-top: 50px;
+    	  text-align: right;
+   }
+   .write{
+   		 padding-top:3px;
+         padding-bottom:2px;
+         font-size:12px;
+         text-align:rigth;    
    }
     /* 회원목록 헤더 버튼 스타일 */
     .btn_Wihte{
@@ -331,6 +348,9 @@
 		font-weight: bolder;
    		font-size: 30px;
 	}
+	.item{
+		float:left;
+	}
     </style>
 
 
@@ -368,10 +388,10 @@
                                 <td colspan="3">
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
                                      <select name="search_Type" id="search_Type" class="fSelect">
-                                        <option value="All" <%=type!=null&&type.equals("All")?"selected":"" %>>전체검색</option>
-                                        <option value="n_title" <%=type!=null&&type.equals("All")?"selected":"" %>>제목</option>
-                                        <option value="n_writer" <%=type!=null&&type.equals("All")?"selected":"" %>>작성자</option>
-                                        <option value="n_no" <%=type!=null&&type.equals("All")?"selected":"" %>>번호</option>
+                                        <option value="All" <%=type==null||type.equals("All")?"selected":"" %>>전체검색</option>
+                                        <option value="n_title" <%=type!=null&&type.equals("n_title")?"selected":"" %>>제목</option>
+                                        <option value="n_writer" <%=type!=null&&type.equals("n_writer")?"selected":"" %>>작성자</option>
+                                        <option value="n_no" <%=type!=null&&type.equals("n_no")?"selected":"" %>>번호</option>
                                        </select>
                                     <!-- 개인정보 검색 -->
 
@@ -414,42 +434,48 @@
 
             <!-- 회원 목록 div -->
             <div style="margin-bottom: 150px;">
-                <div class="mListTitle">
-                <!-- 회원목록 타이틀 -->
-                    <h4 style="font-size: 17px;">게시판 목록</h4>
-                </div>
-                <!-- 총 회원수 및 검색 결과 -->
-                <div class="mState">
-                    <p class="total">
-                        [총 게시판목록 <strong><%=totalDate%></strong>명] 검색결과 
-                        <strong><%=finderDate%></strong>건
-                    </p>
-                </div>
+                <div class="float">
+	                <div class="item">
+		                <div class="mListTitle">
+		                <!-- 회원목록 타이틀 -->
+		                    <h4 style="font-size: 17px;">게시판 목록</h4>
+		                </div>
+		                <!-- 총 회원수 및 검색 결과 -->
+		                <div class="mState" style="display:inline-block">
+		                    <p class="total">
+		                        [총 게시판목록 <strong><%=totalDate%></strong>명] 검색결과 
+		                        <strong><%=finderDate%></strong>건
+		                    </p>
+		                </div>
+	                </div>
+	                <div class="gright numPer" id="numPerPage-container" >
+	                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==null||type.equals("All")?"noticeList":"noticeFinder"%>">   
+	                       <input type="hidden" name="cPage" value="<%=cPage%>">
+	                       <input type="hidden" name="searchType" value="<%=type%>">
+	                       <input type="hidden" name="searchKeyword" value="<%=keyword%>">                                          
+	                       <select name="numPerPage" id="numPerPage">
+	                          <option value="10" <%=numPer==10?"selected":"" %>>10개씩 보기</option>
+	                          <option value="20" <%=numPer==20?"selected":"" %>>20개씩 보기</option>
+	                          <option value="30" <%=numPer==30?"selected":"" %>>30개씩 보기</option>
+	                       </select>
+	                       
+	                 <!-- select선택을하면 데이터 출력갯수가 옵션값으로 변경 -->
+	              		</form>
+	           		</div>
+           		</div>
+                
                 <!-- 회원목록 박스 헤더 -->
                 <div class="mListHeader">
                     <div class="gleft">
                         <button type="button" class="btn_Wihte" id="allcheck" >전체선택</button>
                         <button type="button" class="btn_Wihte" id="removecheck" >선택해제</button>
                         <button type="button" class="btn_Wihte" id="checkDelete">삭제</button>
-                        <button type="button" class="btn_Wihte" id="write">글쓰기</button>
+                    </div>
+                    <div class="write" style="text-align:right">
+                    	<button type="button" class="btn_Wihte" id="write">글쓰기</button>
                         <button type="button" class="btn_Wihte" id="writeup">글수정</button>
                     </div>
                     
-                    <div class="gright" id="numPerPage-container">
-                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==null||type.equals("All")?"noticeList":"noticeFinder"%>">   
-                       <input type="hidden" name="cPage" value="<%=cPage%>">
-                       <input type="hidden" name="searchType" value="<%=type%>">
-                       <input type="hidden" name="searchKeyword" value="<%=keyword%>">                                          
-                       <select name="numPerPage" id="numPerPage">
-                          <option value="10">10개씩 보기</option>
-                          <option value="20">20개씩 보기</option>
-                          <option value="30">30개씩 보기</option>
-                       </select>
-                       
-                 <!-- select선택을하면 데이터 출력갯수가 옵션값으로 변경 -->
-              		</form>
-
-           </div>
                 </div>
                 <!-- 회원목록 박스 바디 -->
                 <form id="ckvalue">
@@ -458,6 +484,7 @@
                         <col style="width:30px;">
                         <col style="width:90px;">
                         <col style="width:auto;">
+                        <col style="width:50px">
                         <col style="width:100px;">
                         <col style="width:100px;">
                         <col style="width:100px">
@@ -466,6 +493,7 @@
                                 <th scope="col"><input type="checkbox" class="mRowCheck"></th>
                                 <th scope="col">번호</th>
                                 <th scope="col">제목</th>
+                                <th scope="col">첨부파일</th>
                                 <th scope="col">작성자</th>
                                 <th scope="col">작성일</th>
                                 <th scope="col">글삭제</th>
@@ -475,7 +503,7 @@
                         <tbody>
                         <%if (list.isEmpty()) {%>
                              <tr>
-                              <td id="conbox" colspan='6'>
+                              <td id="conbox" colspan='7'>
                                  <p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
                               </td>
                            </tr>
@@ -488,6 +516,13 @@
                                  <td><a href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=m.getnNo()%>">
                 					<%=m.getnTitle() %>
                 				</a>
+                				</td>
+                				<td><%if(m.getnOriginalFile()!=null){ %>
+                					<img src="<%=request.getContextPath()%>/images/notice/file.png" width="15px" height="15px">
+                					<%}else{ %>
+                						X
+                					<%} %>
+                					
                 				</td>
                                  <td><%=m.getnWriter()%></td>
                                  <td><%=m.getnDate()%></td>
@@ -516,7 +551,7 @@
    		//글쓰기
    		$(function(){
    			$("#write").click(function(){
-   				location.replace("<%=request.getContextPath()%>/notice/noticeWrite");
+   				location.replace("<%=request.getContextPath()%>/admin/noticeWrite");
    			})
    		})
    		//검색기능
@@ -576,6 +611,12 @@
    				}else{
    					alert("한개만 선택하시오");
    				}
+   			})
+   		})
+   	 	
+   		$(function(){
+   			$("#numPerPage").change(function(){
+   				$("#numPerPageFrm").submit();
    			})
    		})
    		</script>
