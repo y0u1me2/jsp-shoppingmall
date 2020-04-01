@@ -305,7 +305,7 @@ color: rgb(0, 0, 0);
 						<td><%=p.getpCategory()%></td>
 
 						<td><img
-							src="<%=request.getContextPath()%>/images/product/thumbnail/<%=p.getpThumbnail() %>"
+							src="<%=request.getContextPath()%>/images/product/<%=p.getpThumbnail() %>"
 							width="40px" alt="이미지 없음"></td>
 
 						<td><%=p.getpName()%></td>
