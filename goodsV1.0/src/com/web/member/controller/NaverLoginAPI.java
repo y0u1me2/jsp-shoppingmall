@@ -1,4 +1,4 @@
-package com.web.profile.controller;
+package com.web.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Profile2
+ * Servlet implementation class NaverLoginAPI
  */
-@WebServlet("/profile2")
-public class Profile2 extends HttpServlet {
+@WebServlet("/naverLoginAPI")
+public class NaverLoginAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Profile2() {
+    public NaverLoginAPI() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +27,13 @@ public class Profile2 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/client/mypage/Mpwinput.jsp").forward(request, response);
+		String token=request.getParameter("access_token");
+		String state=request.getParameter("state");
+		System.out.println("토큰 : "+token);
+		System.out.println("스테이트 : "+state);
+		
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

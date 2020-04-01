@@ -18,13 +18,20 @@ public class Member {
 	
 	public Member() {		
 	}
-
+	//회원가입용 생성자
 	public Member(String m_Email, String m_Password, String m_Name, String m_NickName) {
 		super();
 		this.m_Email = m_Email;
 		this.m_NickName = m_NickName;
 		this.m_Name = m_Name;
 		this.m_Password = m_Password;
+	}
+	//구글용 생성자
+	public Member(String m_Email, String m_Name, String m_NickName) {
+		super();
+		this.m_Email = m_Email;
+		this.m_NickName = m_NickName;
+		this.m_Name = m_Name;
 	}
 	
 	public Member(String m_Email, String m_Password, String m_Name, String m_NickName, String m_EmailCheck) {

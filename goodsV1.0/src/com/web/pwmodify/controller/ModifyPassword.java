@@ -1,4 +1,4 @@
-package com.web.profile.controller;
+package com.web.pwmodify.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Profile2
+ * Servlet implementation class MODIFY_PASSWORD
  */
-@WebServlet("/profile2")
-public class Profile2 extends HttpServlet {
+@WebServlet("/pwmodify")
+public class ModifyPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Profile2() {
+    public ModifyPassword() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,9 +27,9 @@ public class Profile2 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/client/mypage/Mpwinput.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/client/mypage/PwModify.jsp").forward(request, response);
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
