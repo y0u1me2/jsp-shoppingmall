@@ -527,7 +527,7 @@
                                  <td><%=m.getnWriter()%></td>
                                  <td><%=m.getnDate()%></td>
                                  <td>
-                                    <button type="button" class="btn_Wihte" onclick="memberDelete();" value="<%=m.getnNo()%>">삭제</button>
+                                    <button type="button" class="btn_Wihte" onclick="noticeDelete();" value="<%=m.getnNo()%>">삭제</button>
                                  </td>
                               </tr>                      
                            <%} %>
@@ -587,7 +587,7 @@
    		})
    		
    		//한개삭제
-   		function memberDelete(){
+   		function noticeDelete(){
    			var result=confirm('글을 삭제하시겠습니까?');
    			var value=$(event.target).val();
    			if(result){
