@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="/views/client/common/header.jsp"%>
+<%@ page import="com.web.cart.model.vo.*,java.util.List" %>
 <%
-	
+	List<Cart> cart= (List)request.getAttribute("cart");
 %>
 
 <style>
@@ -432,32 +433,34 @@ dd {
 							</tr>
 						</thead>
 						<tbody>
+						<%for(Cart c : cart) {%>
 							<tr>
 								<td style="text-align: center; vertical-align: top;">
 									<div class="cartCheckbox">
 										<input type="checkbox" name="cartSelect" class="cartSelect"
 											id="cartSelect">
+										<input type="hidden" name="cartNo" value="<%=c.getcCno()%>">
 									</div> <!-- 전체클릭하면 위에 체크되기-->
 								</td>
 								<td>
 									<div
-										style="width: 260px; height: 260px; padding: 0px 15px; margin-left: 60px;">
+										style="width: 260px; height: 260px; padding: 0px 15px; margin-left: 85px;">
 										<img
-											src="<%=request.getContextPath()%>/images/product/thumbnail/tumbler.jpg"
+											src="<%=request.getContextPath()%>/upload/custom/<%=c.getcImage()%>"
 											alt="텀블러" width="260px" height="260px">
 									</div>
 								</td>
 								<td style="text-align: left; padding-left: 20px;">
 									<div>
-										<h3>사진 텀블러-고급형</h3>
+										<h3><%=c.getcName()%></h3>
 									</div>
 								</td>
 								<td class="price2">
 									<div class="oriPri">
-										<span class="format-Price">31900</span>원
+										<span class="format-Price"><%=c.getcPrice()*1.1%></span>원
 									</div>
 									<div class="salePri">
-										<span class="format-Price sale">30300</span>원
+										<span class="format-Price sale"><%=c.getcPrice()%></span>원
 									</div>
 								</td>
 								<td class="quantity">
@@ -491,135 +494,11 @@ dd {
 											<button>삭제하기</button>
 										</span> <span
 											style="float: right; font-size: 12px; padding-top: 5px;">최종
-											편집일 2020.02.02</span>
+											편집일 <%=c.getcDate() %></span>
 									</div>
 								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center; vertical-align: top;">
-									<div class="cartCheckbox">
-										<input type="checkbox" name="cartSelect" class="cartSelect">
-									</div> <!-- 전체클릭하면 위에 체크되기-->
-								</td>
-								<td>
-									<div
-										style="width: 260px; height: 260px; padding: 0px 15px; margin-left: 60px;">
-										<img
-											src="<%=request.getContextPath()%>/images/product/thumbnail/tumbler.jpg"
-											alt="텀블러" width="260px" height="260px">
-									</div>
-								</td>
-								<td style="text-align: left; padding-left: 20px;">
-									<div>
-										<h3>사진 텀블러-고급형</h3>
-									</div>
-								</td>
-								<td class="price2">
-									<div class="oriPri">
-										<span class="format-Price">41900</span>원
-									</div>
-									<div class="salePri">
-										<span class="format-Price sale">40300</span>원
-									</div>
-								</td>
-								<td class="quantity">
-									<div class="inputquantity">
-										<div class="inputquantity2">
-											<button type="button" class="minus"
-												style="display: table-cell;">-</button>
-											<!-- <div> -->
-											<input type="text" class="pdQuantity" name="pdQuantity" 
-												value="1" maxlength="3">
-											<!-- </div> -->
-											<button type="button" class="plus"
-												style="display: table-cell;">+</button>
-										</div>
-									</div>
-								</td>
-								<td style="color: #e5362c; font-size: 19px; font-weight: bold;">
-									<span class="format-Price payPrice"> </span>원
-								</td>
-							</tr>
-							<tr class="shoppingutil">
-
-								<td colspan="6" style="padding: 0;">
-									<div
-										style="padding: 18px 0; height: 14px; border-top: 1px dashed rgb(218, 218, 218); padding-bottom: 25px;">
-										<span style="float: left; font-size: 12px;">
-											<button>편집하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>복사하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>삭제하기</button>
-										</span> <span
-											style="float: right; font-size: 12px; padding-top: 5px;">최종
-											편집일 2020.02.02</span>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center; vertical-align: top;">
-									<div class="cartCheckbox">
-										<input type="checkbox" name="cartSelect" class="cartSelect">
-									</div> <!-- 전체클릭하면 위에 체크되기-->
-								</td>
-								<td>
-									<div
-										style="width: 260px; height: 260px; padding: 0px 15px; margin-left: 60px;">
-										<img
-											src="<%=request.getContextPath()%>/images/product/thumbnail/tumbler.jpg"
-											alt="텀블러" width="260px" height="260px">
-									</div>
-								</td>
-								<td style="text-align: left; padding-left: 20px;">
-									<div>
-										<h3>사진 텀블러-고급형</h3>
-									</div>
-								</td>
-								<td class="price2">
-									<div class="oriPri">
-										<span class="format-Price">21900</span>원
-									</div>
-									<div class="salePri">
-										<span class="format-Price sale">25550</span>원
-									</div>
-								</td>
-								<td class="quantity">
-									<div class="inputquantity">
-										<div class="inputquantity2">
-											<button type="button" class="minus"
-												style="display: table-cell;">-</button>
-											<!-- <div> -->
-											<input type="text" class="pdQuantity" name="pdQuantity"
-												value="1" maxlength="3">
-											<!-- </div> -->
-											<button type="button" class="plus"
-												style="display: table-cell;">+</button>
-										</div>
-									</div>
-								</td>
-								<td style="color: #e5362c; font-size: 19px; font-weight: bold;">
-									<span class="format-Price payPrice"> </span>원
-								</td>
-							</tr>
-							<tr class="shoppingutil">
-
-								<td colspan="6" style="padding: 0;">
-									<div
-										style="padding: 18px 0; height: 14px; border-top: 1px dashed rgb(218, 218, 218); padding-bottom: 25px;">
-										<span style="float: left; font-size: 12px;">
-											<button>편집하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>복사하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>삭제하기</button>
-										</span> <span
-											style="float: right; font-size: 12px; padding-top: 5px;">최종
-											편집일 2020.02.02</span>
-									</div>
-								</td>
-							</tr>
-
+							</tr>	
+							<% } %>						
 						</tbody>
 					</table>
 

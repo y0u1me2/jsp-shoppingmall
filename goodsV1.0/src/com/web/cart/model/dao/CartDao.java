@@ -46,6 +46,7 @@ public class CartDao {
 				        c.setcName(rs.getString("p_name"));
 				        c.setcPrice(rs.getInt("p_price"));
 				        c.setcDate(rs.getDate("c_enroll_date"));
+				        c.setcCno(rs.getInt("c_no"));
 			            list.add(c);//빼먹으면 데이터 안나옴.
 			            break;
 					}

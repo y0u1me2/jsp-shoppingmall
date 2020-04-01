@@ -47,23 +47,16 @@ public class CartServlet extends HttpServlet {
 			for(int i=0; i<cookies.length; i++) {
 				if(cookies[i].getName().equals("cart")) {
 					cart = cookies[i].getValue().split("\\|");
-//					for(int j=0;j<test.length;j++) {
-//					
-//						num=test[i];
-//						System.out.println(num[i]);
-//					}
 
 				}
 			}
 		}
-		for(int i=0;i<cart.length;i++) {
-			System.out.println(cart[i]);
-		}
+		
 		List<Cart> c = new CartService().searchCart(cart); 
 		
-	
 		
 		
+		request.setAttribute("cart", c);
 		request.getRequestDispatcher("/views/client/cart/cart.jsp").forward(request, response);
 	}
 
