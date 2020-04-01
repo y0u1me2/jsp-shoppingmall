@@ -1,4 +1,4 @@
-package com.web.member.controller;
+package com.web.admin.order.controller;
 
 import java.io.IOException;
 
@@ -8,21 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.web.member.model.service.MemberService;
+import com.web.admin.order.model.service.AdminOrderListService;
 
 /**
- * Servlet implementation class CheckEmailDuplicateServlet
+ * Servlet implementation class AdminOrderListDeleteServlet
  */
-@WebServlet("/checkEmailDuplicate")
-public class CheckEmailDuplicateServlet extends HttpServlet {
+@WebServlet("/admin/orderListDelete")
+public class AdminOrderListDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckEmailDuplicateServlet() {
+    public AdminOrderListDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +30,21 @@ public class CheckEmailDuplicateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String emailCheck=(String) request.getParameter("email");//중복검사할 이메일 변수에 저장
-		int data=0;
-		boolean isUseAble=new MemberService().duplicationEmail(emailCheck);
-		//isUseAble이 true면 사용가능 / false면 불가능
-		JSONObject obj = new JSONObject();
-		//값 전달함
+		int no=Integer.parseInt(request.getParameter("no"));
+		//String type=request.getParameter("type")!=null?request.getParameter("type"):"";
+		//String keyword=request.getParameter("keyword")!=null?request.getParameter("keyword"):"";
+		int result=new AdminOrderListService().deleteOrderList(no);
 		
-		try{
-	        obj.put("isUseAble", isUseAble);
-	    }catch (Exception e) {    
-	    	e.printStackTrace();
-	    }
-
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().write(obj.toString());
-		
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="주문을 취소하였습니다";
+			loc="/admin/orderList";
+		}else {
+			msg="주문취소를 실패하였습니다";
+			loc="/admin/orderList";
+		}
+		request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
 	}
 
 	/**
@@ -56,7 +52,6 @@ public class CheckEmailDuplicateServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 		doGet(request, response);
 	}
 

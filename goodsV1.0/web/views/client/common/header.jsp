@@ -8,6 +8,8 @@
 <%-- <%@ page import="com.web.common.listener.SessionCheckListener" %> --%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.web.product.model.vo.Product" %>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 
 <%
 
@@ -23,9 +25,11 @@
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
 	
+
 %>
 <script>
 		var loginResult='<%=loginResult%>';
+		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
 		console.log(loginResult);
 </script>
 
@@ -36,6 +40,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- 구글 로그인 -->
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="434214577564-es7em89nej7dmjke6sa184ttis3ndb70.apps.googleusercontent.com">
+<link rel="shortcut icon" href="#">
+<script src="<%=request.getContextPath()%>/js/googleSignIn.js" async defer></script>
+<!-- 네이버 로그인 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <title>굿굿즈</title>
 
 <!-- css폴더에있는 css파일 불러오기 -->
@@ -107,7 +119,7 @@
 						</li>
 						<li>
 							<button type="button">
-								<a href="<%=request.getContextPath()%>/logout.do">로그아웃</a>
+								<a onclick="signOut();" href="<%=request.getContextPath()%>/logout.do">로그아웃</a>
 							</button>
 						</li>
 					</ul>
@@ -116,12 +128,12 @@
 		</li>
 		</ul>
 		</div>
-		</div>
+
 
 		<%
 			}
 		%>
-
+		</div>
 		<!-- 메뉴바 -->
 		<div class="container2">
 
@@ -193,8 +205,7 @@
 		<!-- 로그인 팝업 -->
 		<div class="modal-back" id="login">
 			<div class="modal-login animate">
-				<form id="login-form" action="<%=request.getContextPath()%>/login"
-					method="post" onsubmit="return loginSubmit();">
+				<form id="login-form" onsubmit="return loginSubmit()" method="post">
 					<div class="top-login">
 						<span> <img class="login-logo"
 							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
@@ -207,31 +218,40 @@
 								maxlength="15">
 						</div>
 					</div>
-					<div id="loginCenterImg">
+					<%-- <div id="loginCenterImg">
 						<div class="img">
 							<img src="<%=request.getContextPath()%>/images/common/kakao.png"
 								alt="kakao">
-						</div>
+						</div> --%>
+						
+						<div id="loginCenterImg">
+						 <a id="kakao-login-btn">
+						 <img src="<%=request.getContextPath()%>/images/common/kakao.png"
+								alt="kakao"></a>
+  						<a href="http://developers.kakao.com/logout"></a></div>
+
 						<div class="img">
 							<img src="<%=request.getContextPath()%>/images/common/face.png"
-								alt="facebook">
+								alt="facebook">												
 						</div>
-						<div class="img">
+						
+						<div class="img g-signin2" data-onsuccess="onSignIn" data-theme="dark">
 							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
-						<div class="img">
+				
+						<div class="img" id="naver_id_login">
+						<!-- <div id="naverIdLogin"></div> -->
 							<img src="<%=request.getContextPath()%>/images/common/naver.png"
 								alt="naver">
 						</div>
 					</div>
 					<div class="bottom-login">
-						<button type="submit" class="big-gray-btn">로그인</button>
+						<button type="submit" class="big-gray-btn" onclick="loginSubmit();">로그인</button>
 						<div class="find-info">
 							<button type="button" onclick="openEnroll(); closeLogin()">회원가입</button>
 							<span class="line">|</span>
-							<button type="button" onclick="openFindPw(); closeLogin();">비밀번호
-								찾기</button>
+							<button type="button" onclick="openFindPw(); closeLogin();">비밀번호 찾기</button>
 						</div>
 					</div>
 				</form>
@@ -247,10 +267,10 @@
 			<!-- 이용약관 팝업-->
 			<div class="modal-findPw animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/findPw.html" id="htmlPw"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/findPw.html" id="htmlPw"></object>
 				</div>
 				<div class="close-btn">
-					<span onclick="closefindPw();" class="close" title="Close Modal">&times;</span>
+					<span onclick="closeFindPw();" class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>
@@ -261,6 +281,7 @@
 		<div class="modal-back" id="enroll" >
 			<!-- 회원가입 팝업-->
 			<div class="modal-enroll animate">
+			
 				<form id="enroll-form"
 					action="<%=request.getContextPath()%>/memberEnrollEnd"
 					method="post" onsubmit="return enrollSubmit();">
@@ -303,12 +324,6 @@
 									<td class="inputEnroll"><input type="text" name="nickName"
 										value="" placeholder="닉네임 입력" maxlength="15"></td>
 								</tr>
-								<!-- <tr>
-                                        <th>이름 <em><sup>*</sup></em></th>
-                                        <td class="inputEnroll">
-                                            <input type="text" value="" placeholder="이름 입력" maxlength="15">
-                                        </td>
-                                    </tr> -->
 							</tbody>
 						</table>
 						<!-- 이용약관 -->
@@ -360,7 +375,7 @@
 			<!-- 이용약관 팝업-->
 			<div class="modal-usePolicy animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/usePolicy.html" id="htmlPolicy"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeUsePolicy();" class="close" title="Close Modal">&times;</span>
@@ -374,7 +389,7 @@
 			<!-- 개인정보 수집 팝업-->
 			<div class="modal-personalInfo animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/personalInfo.html" id="htmlpInfo"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/personalInfo.html" id="htmlpInfo"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closePersonalInfo();" class="close"
@@ -471,4 +486,27 @@
 		</div>
 		<%} }%>
 		
+
+<script type='text/javascript'>
+  //<![CDATA[
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('YOUR APP KEY');
+    // // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createTalkLinkButton({
+      container: '#kakao-link-btn',
+      label: '카카오링크 샘플에 오신 것을 환영합니다.',
+      image: {
+        src: 'http://dn.api1.kage.kakao.co.kr/14/dn/btqaWmFftyx/tBbQPH764Maw2R6IBhXd6K/o.jpg',
+        width: '50px',
+        height: '50px'
+      },
+      webButton: {
+        text: '카카오 디벨로퍼스',
+        url: 'https://dev.kakao.com/docs/js' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      }
+    });
+  //]]>
+</script>
+
+
 	</header>
