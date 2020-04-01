@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.web.admin.product.service.AdminProductService;
 import com.web.common.AdminProductFileRename;
 import com.web.common.CustomFileRename;
@@ -74,12 +75,8 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		// 3.cosjar에서 지원하는 MultipartRequest객체를 생성
 		// MultipartRequest(HttpServletRequest, 저장경로, 파일저장최대크기, 문자열인코딩값파일 rename정책)
 
-		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new AdminProductFileRename());
-			
-		long currentTime=System.currentTimeMillis();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		String newName = "original_"+sdf.format(new Date(currentTime))+".zip";
-		
+		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+				
 		String name = mr.getParameter("pName");
 		String category = mr.getParameter("pCategory");
 		int price = Integer.parseInt(mr.getParameter("pPrice"));
@@ -98,8 +95,7 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		for(String n : color) {
 			imgList.add(new ProductImage(0,0,n,mr.getOriginalFileName(n)));
 		}
-		System.out.println(imgList);
-
+		
 		int result = new AdminProductService().productEnroll(p, imgList);
 
 		

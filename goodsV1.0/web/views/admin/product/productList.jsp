@@ -252,14 +252,14 @@ color: rgb(0, 0, 0);
 
 							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
 								name="numPerPage" id="numPerPage">
-								<option value="15"
-									<%=numPer==null || numPer.equals("5")?"selected":"" %>>15개씩
+								<option value="5"
+									<%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩
 									보기</option>
 								<option value="10"
 									<%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩
 									보기</option>
-								<option value="5"
-									<%=numPer==null || numPer.equals("15")?"selected":"" %>>5개씩
+								<option value="15"
+									<%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩
 									보기</option>
 							</select>
 
@@ -312,11 +312,11 @@ color: rgb(0, 0, 0);
 
 						<td><%=p.getpPrice()%></td>
 
-						<td><a href="<%=request.getContextPath()%>/productUpdateView?no=<%=p.getpNo()%>">
+						<td><a href="<%=request.getContextPath()%>/productUpdateView?pNo=<%=p.getpNo()%>">
 						<input type="button" id="update-btn" value="정보수정" />
 						</a> 
 						<a href="<%=request.getContextPath()%>/productUpdateColor?no=<%=p.getpNo()%>">
-						<input type="button" id="color-btn"  value="색상수정" /></a></td>
+						<input type="button" id="color-btn"  value="색상삭제" /></a></td>
 
 						</form>
 					</tr>

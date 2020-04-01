@@ -176,7 +176,7 @@ button.pColor-minus {
 		
 				<tr>
 					<td>상품 색상 등록</td>
-					<td>색상추가하기&nbsp&nbsp&nbsp&nbsp&nbsp*&nbsp색상을입력 후 파일을 추가해주세요<input id="pColor-add" type='button' value="+" /></td>
+					<td>*색상 선택 및 색상이미지를 업로드 해주세요<input id="pColor-add" type='button' value="+" /></td>
 					<!-- <td><input type="text" id="colorInput" name="colorInput"
 						size="15" placeholder="색상을 입력하세요" /> <input type="file"
 						id="pThumbnail" class="pThumbnail" name="" size="4" multiple /></td> -->
@@ -193,13 +193,21 @@ button.pColor-minus {
 	<script>
 	
 	//색상 입력받는 div 추가하기
+	
+	/* '<input type="text" id="colorInput" name="colorInput" size="15" placeholder="색상을 입력하세요"/>' */
 	let colorCount=0;
 	$(function(){
 	$("#pColor-add").click(function(){
 		colorCount++;
 		var div = '<tr>'+
-					'<td colspan="2" style="background:white;">'+
-					'<input type="text" id="colorInput" name="colorInput" size="15" placeholder="색상을 입력하세요"/>'+
+			 		'<td>상품 색상 등록</td>'+ 
+					'<td><select id="colorInput" name="colorInput"><option>색상을 선택해 주세요</option>'+
+					'<option value="화이트">화이트</option><option value="블랙">블랙</option>'+
+					'<option value="핑크">핑크</option><option value="그린">그린</option>'+
+					'<option value="블루">블루</option><option value="옐로우">옐로우</option>'+
+					'<option value="레드">레드</option><option value="네이비">네이비</option>'+
+					'<option value="퍼플">퍼플</option><option value="그레이">그레이</option>'+
+					'<option value="연그레이">연그레이</option></select>&nbsp&nbsp&nbsp'+
 					'<input type="file" id="pThumbnail" class="pThumbnail" name="colorFile'+colorCount+'" size="4" multiple/>'+
 					'<button class="pColor-minus">-</button></td></tr>';
 				   
