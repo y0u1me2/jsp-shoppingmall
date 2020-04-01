@@ -40,9 +40,7 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		// 파일 업로드를 위한 로직처리
 		// 1.파일을 저장할 경로설정
 		String path = getServletContext().getRealPath("/upload/product/");
-		/*
-		 * String path = getServletContext().getRealPath("/images/product/thumbnail/");
-		 */
+		
 		File folder = new File(path);
 		System.out.println("경로 : " + path);
 
@@ -79,10 +77,6 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		// MultipartRequest(HttpServletRequest, 저장경로, 파일저장최대크기, 문자열인코딩값파일 rename정책)
 
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new AdminProductFileRename());
-
-		long currentTime = System.currentTimeMillis();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		String newName = "original_" + sdf.format(new Date(currentTime)) + ".zip";
 
 		int pNo = Integer.parseInt(mr.getParameter("pNo"));
 		String name = mr.getParameter("pName");
