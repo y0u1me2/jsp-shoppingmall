@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.web.inquiry.model.vo.Inquiry;
 import com.web.member.model.vo.Member;
+import com.web.product.model.vo.Custom;
 import com.web.product.model.vo.Product;
 import com.web.product.model.vo.ProductImage;
 
@@ -58,22 +59,52 @@ public class AdminProductDao {
 
 		return result;
 	}
-	
-	
-	
+
+//상품번호 시퀀스 가져오기============================================
+	public int selectSeqNum(Connection conn,Product p) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("selectSeqNum");
+		int pNo = 0;
+		
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, p.getpName());
+				pstmt.setInt(2, p.getpPrice());
+				pstmt.setString(3, p.getpCategory());
+				pstmt.setString(4, p.getpThumbnail());
+				pstmt.setString(5, p.getpComment());
+		
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					pNo=rs.getInt(1);
+				
+				}	
+										
+		}catch(SQLException e){
+		e.printStackTrace();
+		}finally{
+		close(pstmt);
+		}return pNo;  // 상품번호 반환
+
+	}
+
 //상품 색상 등록================================================
-	public int productColor(Connection conn, ProductImage pi) {
+	public int productColor(Connection conn, ProductImage pi,int pNo) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("productColor");
 		int result = 0;
-
+			
 		try {
 			pstmt = conn.prepareStatement(sql);
+							
+				pstmt.setInt(1,pNo);
+				pstmt.setString(2, pi.getColor().toString());
+				pstmt.setString(3, pi.getFileName().toString());			
+				result = pstmt.executeUpdate();
 
-			pstmt.setString(1, pi.getColor());
-
-			result = pstmt.executeUpdate();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -83,6 +114,59 @@ public class AdminProductDao {
 		return result;
 	}
 
+//상품정보수정============================================
+	public int updateProduct(Connection conn, Product p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateProduct");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, p.getpName());
+			pstmt.setInt(2, p.getpPrice());
+			pstmt.setString(3, p.getpCategory());
+			pstmt.setString(4, p.getpThumbnail());
+			pstmt.setString(5, p.getpComment());
+			pstmt.setInt(6, p.getpNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
+//상품색상추가================================================
+	public int updateColor(Connection conn, ProductImage pi, int pNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String sql = prop.getProperty("updateColor");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,pNo);
+			pstmt.setString(2, pi.getColor().toString());
+			pstmt.setString(3, pi.getFileName().toString());		
+			
+			result = pstmt.executeUpdate();
+							
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+		
 //헤더메뉴 추가=====================================
 	public List<Product> productHeaderMenu(Connection conn) {
 		PreparedStatement pstmt = null;
@@ -113,7 +197,7 @@ public class AdminProductDao {
 		return list;
 
 	}
-	
+
 	public List<Product> productInfo(Connection conn,int no){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -145,35 +229,7 @@ public class AdminProductDao {
 		return listP;
 
 	}
-	
 
-//상품정보수정============================================
-	public int updateProduct(Connection conn, Product p) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int result = 0;
-
-		String sql = prop.getProperty("updateProduct");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, p.getpName());
-			pstmt.setInt(2, p.getpPrice());
-			pstmt.setString(3, p.getpCategory());
-			pstmt.setString(4, p.getpThumbnail());
-			pstmt.setString(5, p.getpComment());
-			pstmt.setInt(6, p.getpNo());
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
 
 //상품전체조회=======================================	
 	public List<Product> productList(Connection conn, int cPage, int numPerPage) {
@@ -273,8 +329,8 @@ public class AdminProductDao {
 				close(pstmt);
 			}	
 			return p;
-		}	
-	
+		}
+
 //상품삭제=============================================
 	public int productCkDelete(Connection conn, String[] pCkDelete) {
 		PreparedStatement pstmt = null;
@@ -298,8 +354,8 @@ public class AdminProductDao {
 			close(pstmt);
 		}
 		return result;
-	}	
-	
+	}
+
 //상품목록 엑셀다운로드===========================================
 	public List<Product> excelDownLoad(Connection conn){
 			PreparedStatement pstmt = null;
@@ -331,9 +387,6 @@ public class AdminProductDao {
 			}
 			return list;
 
-		}	
-	
-	
-	
-	
+		}
+
 }

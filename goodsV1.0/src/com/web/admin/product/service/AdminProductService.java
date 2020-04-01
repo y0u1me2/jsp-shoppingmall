@@ -19,13 +19,21 @@ public class AdminProductService {
 	private AdminProductDao dao = new AdminProductDao();
 	
 //상품 등록====================================
-	public int productEnroll(Product p,ProductImage pi){
+	public int productEnroll(Product p,List<ProductImage> imgList){
 		Connection conn = getConnection();
 		
 		int result = dao.productEnroll(conn,p);
 		
-		if(result>0) {
-			dao.productColor(conn,pi);
+		check:
+		if(result>0) { //상품등록 성공하면
+			int pNo = dao.selectSeqNum(conn,p); //방금 등록한 상품번호 조회
+			for(ProductImage pi : imgList) {
+				result=dao.productColor(conn,pi,pNo);
+				if(result==0) {
+					rollback(conn);
+					break check;
+				}
+			}
 			commit(conn);
 		}
 		else rollback(conn);
@@ -33,7 +41,7 @@ public class AdminProductService {
 		close(conn);
 		
 		return result;
-	} 	
+	}	
 	
 //헤더 메뉴 추가하기=========================
 	public List<Product> productHeaderMenu(){
@@ -58,21 +66,30 @@ public class AdminProductService {
 		
 	}
 	
-	
 //상품정보수정하기===================================
-	public int updateProduct(Product p) {
+	public int updateProduct(Product p,List<ProductImage> imgList,int pNo) {
 		Connection conn = getConnection();
 			
-		int result = dao. updateProduct(conn,p);
-			
-			if(result>0) commit(conn);
+		int result = dao.updateProduct(conn,p);//상품수정
+			check:
+			if(result>0) {//상품수정 성공하면
+				for(ProductImage pi : imgList) {
+					result=dao.updateColor(conn,pi,pNo);//이미지 수정
+					if(result==0) {//수정실패하면 롤백
+						rollback(conn);
+						break check;
+					} 
+				}
+				commit(conn);
+			}	 
 			else rollback(conn);
 			
 			close(conn);
 			
 			return result;
+		
 	}
-
+	
 //상품전체조회===================================
 	public List<Product> productList(int cPage, int numPerPage){
 		Connection conn = getConnection();

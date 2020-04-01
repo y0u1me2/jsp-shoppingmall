@@ -23,7 +23,6 @@ response.setHeader("Content-Description", "JSP Generated Data");
 						<td><input type="checkbox" name="allCheck"></td>
 						<td>번호</td>
 						<td>카테고리</td>
-						<td>이미지</td>
 						<td>상품명</td>
 						<td>상품가격</td>
 
@@ -50,10 +49,6 @@ response.setHeader("Content-Description", "JSP Generated Data");
 						<td><%=p.getpNo()%></td>
 
 						<td><%=p.getpCategory()%></td>
-
-						<td><img
-							src="<%=request.getContextPath()%>/images/product/thumbnail/<%=p.getpThumbnail() %>"
-							width="40px" alt="이미지 없음"></td>
 
 						<td><%=p.getpName()%></td>
 
