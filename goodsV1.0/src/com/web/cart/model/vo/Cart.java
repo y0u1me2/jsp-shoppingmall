@@ -1,41 +1,51 @@
 package com.web.cart.model.vo;
 
+import java.util.Date;
+
 public class Cart {
 	
-	private String pImage;
-	private String pName;
-	private int pPrice;
+	private String cImage;
+	private String cName;
+	private int cPrice;
+	private Date cDate;
 	public Cart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Cart(String pImage, String pName, int pPrice) {
+	public Cart(String cImage, String cName, int cPrice, Date cDate) {
 		super();
-		this.pImage = pImage;
-		this.pName = pName;
-		this.pPrice = pPrice;
+		this.cImage = cImage;
+		this.cName = cName;
+		this.cPrice = cPrice;
+		this.cDate = cDate;
 	}
-	public String getpImage() {
-		return pImage;
+	public String getcImage() {
+		return cImage;
 	}
-	public void setpImage(String pImage) {
-		this.pImage = pImage;
+	public void setcImage(String cImage) {
+		this.cImage = cImage;
 	}
-	public String getpName() {
-		return pName;
+	public String getcName() {
+		return cName;
 	}
-	public void setpName(String pName) {
-		this.pName = pName;
+	public void setcName(String cName) {
+		this.cName = cName;
 	}
-	public int getpPrice() {
-		return pPrice;
+	public int getcPrice() {
+		return cPrice;
 	}
-	public void setpPrice(int pPrice) {
-		this.pPrice = pPrice;
+	public void setcPrice(int cPrice) {
+		this.cPrice = cPrice;
+	}
+	public Date getcDate() {
+		return cDate;
+	}
+	public void setcDate(Date cDate) {
+		this.cDate = cDate;
 	}
 	@Override
 	public String toString() {
-		return "Cart [pImage=" + pImage + ", pName=" + pName + ", pPrice=" + pPrice + "]";
+		return "Cart [cImage=" + cImage + ", cName=" + cName + ", cPrice=" + cPrice + ", cDate=" + cDate + "]";
 	}
 	
 	
