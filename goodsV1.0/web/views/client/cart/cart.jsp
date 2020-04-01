@@ -363,7 +363,7 @@ dd {
 	</div>
 
 	<div class="middle">
-		<form>
+	<!-- 	<form > -->
 			<!-- 선택,삭제 메뉴 및 금액,주문 -->
 			<div class="top2">
 				<div class="inner">
@@ -393,7 +393,7 @@ dd {
 			<div class="bottom2">
 				<div class="cart-product-wrap">
 					<!--장바구니 상단 멘트-->
-					<span style="display: inline-block; width: 100%; height: 35px;">
+					<span style="display: inline-block; width: 100%; height: 35px; padding-top:30px;">
 						<span class="title">PC 상품 &nbsp <span>( <em
 								style="color: red;" class="cartSelCount">0</em> / <span
 								class="cartAllCount">1</span> )
@@ -432,14 +432,16 @@ dd {
 								<th>주문금액</th>
 							</tr>
 						</thead>
+					
 						<tbody>
+						 
 						<%for(Cart c : cart) {%>
+							<form action="<%=request.getContextPath()%>/payment" method="post">
 							<tr>
 								<td style="text-align: center; vertical-align: top;">
 									<div class="cartCheckbox">
 										<input type="checkbox" name="cartSelect" class="cartSelect"
-											id="cartSelect">
-										<input type="hidden" name="cartNo" value="<%=c.getcCno()%>">
+											 value="<%=c.getcCno()%>">										
 									</div> <!-- 전체클릭하면 위에 체크되기-->
 								</td>
 								<td>
@@ -470,7 +472,8 @@ dd {
 												style="display: table-cell;">-</button>
 											<!-- <div> -->
 											<input type="text" class="pdQuantity" name="pdQuantity"
-												value="1" maxlength="3">
+												value="1" maxlength="3">				
+											<!-- <input type="hidden" name="pQuantityF" class="pQuantityF" value="">	 -->									
 											<!-- </div> -->
 											<button type="button" class="plus"
 												style="display: table-cell;">+</button>
@@ -478,7 +481,7 @@ dd {
 									</div>
 								</td>
 								<td style="color: #e5362c; font-size: 19px; font-weight: bold;">
-									<span class="format-Price payPrice" name="payPrice"> </span>원
+									<span class="format-Price payPrice" name="payPrice"></span>원
 								</td>
 							</tr>
 							<tr class="shoppingutil">
@@ -498,16 +501,19 @@ dd {
 									</div>
 								</td>
 							</tr>	
-							<% } %>						
+							<% } %>		
+							</form>	
 						</tbody>
+						
 					</table>
-
+				
 
 				</div>
 			</div>
-
-
-		</form>
+		
+		
+		<form id="cartF" action="<%=request.getContextPath()%>/payment" method="post">
+		</form> 
 	</div>
 	<div class="bottom">
 		<dl>
@@ -527,6 +533,7 @@ dd {
 		var chk = document.getElementsByName("cartSelect");
 		//var payAllPrice=0;
 		var checkAll = $("input:checkbox[name=cartSelect]").length;
+		var pQuantityF =$("input[name=pQuantityF]").val();
 		var cartChecked = 0;
 		//chk에 name이select[0]인것을 넣어줌
 		$(function() {
@@ -534,11 +541,52 @@ dd {
 			;
 			if (num > 0) {
 				$("#cartOrderBtn").css("background-color", "black");
+				
 			} else {
 				$("#cartOrderBtn")
 						.css("background-color", "rgb(117, 117, 117)");
 			}
+			// 로드 시 체크된게 있으면 선택 해제
+			for (var i = 0; i < chk.length; i++) {
+				chk[i].checked = false; //모두 해제
+			}
+			
+			
 		})
+		$.each($('.pdQuantity'),function(i,item){
+			//최초 로드시 수량 1개로 초기화
+			let quan=$(item);
+			$(quan).attr("pdQuantity",'1');
+		})
+		$("#cartOrderBtn").click(function(){
+			let num = parseInt($("#cartSelCount").text());
+			if(num>0){
+				form=$("#cartF");
+				$(form).children().remove();
+				$.each($(".cartSelect"),function(i,item){
+					if(item.checked==true){
+						const v=$(item).parents("tr").find("input.pdQuantity").val();
+						const inputCk = $("<input>").attr({
+							type:"hidden",name:"cartSelectF",value:$(item).val()
+						});
+						const input=$("<input>").attr({
+								type:"hidden",name:"pQuantityF",value:v
+						});
+						form.append(inputCk);
+						form.append(input);
+					}
+				});
+				
+				var result = confirm('선택하신 상품을 결제하시겠습니까?'); 
+				if(result) {
+					$("#cartF").submit();
+				}
+			}else{
+				alert("선택사항을 확인해주세요.");
+			}
+			
+		});
+		
 		function cartSelRelAll() {
 
 			var AllPayResult;
@@ -604,16 +652,19 @@ dd {
 			var cartSelAll = $("#cartSelectReleaseAll");
 			cartSelAll.prop("checked", true);
 			check = true;
+			//모두 체크하기
 			for (var i = 0; i < chk.length; i++) {
-
+			
 				chk[i].checked = true; //모두 체크
 
 				if (chk[i].checked) {
 					totalPlus();
+					
 				}
 
 			}
 
+			//체크된 숫자 확인
 			for (var i = 0; i < chk.length; i++) {
 				if (chk[i].checked == true) {
 					if (cartChecked < chk.length) {
@@ -711,6 +762,7 @@ dd {
 
 		//체크박스 개수
 		$(function() {
+			
 			// 전체 체크박스 개수 구하기
 
 			$('.cartAllCount').text(checkAll);
@@ -759,6 +811,8 @@ dd {
 
 							});
 			//최초 로드 시 제품들 가격.
+			
+			
 			var quan = $('.pdQuantity');
 
 			var productPrice = $('.sale');
@@ -766,7 +820,7 @@ dd {
 				var amount = new Array();
 				var productAmount = new Array();
 				amount[i] = quan.val() * parseInt(productPrice.eq(i).text());
-
+	
 				var productAmount = quan.parent().parent().parent().next()
 						.children();
 
@@ -801,8 +855,8 @@ dd {
 					var target = $this.prev();
 					var num = target.val();
 					num++;
-					target.val(num);
-
+					;
+					console.log(target.val(num))
 					var quantity = target.val(num);
 					// 1. "," 있는 스트링을 변환
 					var amount = $(this).parent().parent().parent().prev()
@@ -886,6 +940,9 @@ dd {
 			});
 
 		})
+		
+		
+		
 	</script>
 
 
