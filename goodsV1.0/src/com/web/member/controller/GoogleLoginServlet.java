@@ -61,7 +61,8 @@ public class GoogleLoginServlet extends HttpServlet {
 		session.setAttribute("loginResult", loginResult);
 		session.setAttribute("emailCheck", emailCheck);
 		session.setAttribute("m_status", m_status);
-		response.sendRedirect("/header.jsp");
+		session.setAttribute("loginCount", session.getAttribute("loginCount")!=null?(int)session.getAttribute("loginCount")+1:1);
+		response.sendRedirect(request.getContextPath()+"/views/client/common/header.jsp");
 	}
 
 	/**

@@ -3,14 +3,14 @@
 //$(function() {
 
 // 서브메뉴가 처음화면엔 안보이게 숨김
-$("ul.subMenu").hide();
+$("ul.subMenu").show();
 // 메인메뉴 li에 마우스 클릭하면
-$("ul.mainMenu").mouseenter(function () {
-    $(".subMenu").slideDown(1000);
-})
-$(".topMenu").mouseleave(function () {
-    $(".subMenu").slideUp(1000);
-})
+//$("ul.mainMenu").mouseenter(function () {
+//    $(".subMenu").slideDown(1000);
+//})
+//$(".topMenu").mouseleave(function () {
+//    $(".subMenu").slideUp(1000);
+//})
 
 
 // 로그인, 회원가입 팝업
@@ -55,7 +55,7 @@ function closeFindPw() {
     $('#findPw').css('display', 'none');
 }
 // 이용약관 열기
-function usePolicy() {
+function openUsePolicy() {
     $('#enroll').css('display', 'none');
     $('#usePolicy').css('display', 'block');
 }
@@ -234,7 +234,7 @@ function loginSubmit() {
 
 
 
-
+//sns 로그인 부분
 //구글 로그인 
 function onSignIn(googleUser) {
     // Useful data for your client-side scripts:
@@ -248,10 +248,11 @@ function onSignIn(googleUser) {
     $.ajax({
 		url:'/goods/googleLogin',
 		type: 'post',
-		async:false,
         data: { email: profile.getEmail(), name: profile.getName(), nickName:profile.getGivenName(), password:profile.getId() },
         success: function (login) {
-        	console.log("성공");        	
+        	console.log("성공");
+        	//console.log(sessionCount)
+        	if(sessionCount==1) location.reload();
         }		
 	})
 
@@ -268,6 +269,27 @@ function signOut() {
     });
 }
 
+//네이버 로그인 부분
+var naver_id_login = new naver_id_login("D2AFKSTSMw20Ced_tf5I","http://localhost:9090/" );
+var state = naver_id_login.getUniqState();
+//naver_id_login.setButton("white", 2,40);
+naver_id_login.setDomain("http://localhost:9090/");
+naver_id_login.setState(state);
+//naver_id_login.setPopup();
+naver_id_login.init_naver_id_login();
+
+//네이버 콜백 부분
+
+// 접근 토큰 값 출력
+//alert(naver_id_login.oauthParams.access_token);
+//// 네이버 사용자 프로필 조회
+//naver_id_login.get_naver_userprofile("naverSignInCallback()");
+//// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+//function naverSignInCallback() {
+//  alert(naver_id_login.getProfileData('email'));
+//  alert(naver_id_login.getProfileData('nickname'));
+//  alert(naver_id_login.getProfileData('age'));
+//}
 
 //로그인 구분버튼(카카오, 페이스북, 구글, 네이버)
 var loginImg = $('#loginCenterImg>.img>img');

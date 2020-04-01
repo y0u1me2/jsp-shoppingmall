@@ -26,6 +26,7 @@
 %>
 <script>
 		var loginResult='<%=loginResult%>';
+		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
 		console.log(loginResult);
 </script>
 
@@ -36,11 +37,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<!-- 구글 회원가입 -->
+<!-- 구글 로그인 -->
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="434214577564-es7em89nej7dmjke6sa184ttis3ndb70.apps.googleusercontent.com">
+<link rel="shortcut icon" href="#">
 <script src="<%=request.getContextPath()%>/js/googleSignIn.js" async defer></script>
-<!-- 구글 회원가입 -->
+<!-- 네이버 로그인 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <title>굿굿즈</title>
 
 <!-- css폴더에있는 css파일 불러오기 -->
@@ -121,12 +125,12 @@
 		</li>
 		</ul>
 		</div>
-		</div>
+
 
 		<%
 			}
 		%>
-
+		</div>
 		<!-- 메뉴바 -->
 		<div class="container2">
 
@@ -199,8 +203,6 @@
 		<div class="modal-back" id="login">
 			<div class="modal-login animate">
 				<form id="login-form" onsubmit="return loginSubmit()" method="post">
-				<%-- action="<%=request.getContextPath()%>/login"
-					method="post" onsubmit="return loginSubmit();" --%>
 					<div class="top-login">
 						<span> <img class="login-logo"
 							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
@@ -222,13 +224,14 @@
 							<img src="<%=request.getContextPath()%>/images/common/face.png"
 								alt="facebook">
 						</div>
+						
 						<div class="img g-signin2" data-onsuccess="onSignIn" data-theme="dark">
-						<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
 							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
-						<a href="#" onclick="signOut();">Sign out</a>
-						<div class="img">
+				
+						<div class="img" id="naver_id_login">
+						<!-- <div id="naverIdLogin"></div> -->
 							<img src="<%=request.getContextPath()%>/images/common/naver.png"
 								alt="naver">
 						</div>
@@ -238,8 +241,7 @@
 						<div class="find-info">
 							<button type="button" onclick="openEnroll(); closeLogin()">회원가입</button>
 							<span class="line">|</span>
-							<button type="button" onclick="openFindPw(); closeLogin();">비밀번호
-								찾기</button>
+							<button type="button" onclick="openFindPw(); closeLogin();">비밀번호 찾기</button>
 						</div>
 					</div>
 				</form>
@@ -255,10 +257,10 @@
 			<!-- 이용약관 팝업-->
 			<div class="modal-findPw animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/findPw.html" id="htmlPw"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/findPw.html" id="htmlPw"></object>
 				</div>
 				<div class="close-btn">
-					<span onclick="closefindPw();" class="close" title="Close Modal">&times;</span>
+					<span onclick="closeFindPw();" class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>
@@ -312,12 +314,6 @@
 									<td class="inputEnroll"><input type="text" name="nickName"
 										value="" placeholder="닉네임 입력" maxlength="15"></td>
 								</tr>
-								<!-- <tr>
-                                        <th>이름 <em><sup>*</sup></em></th>
-                                        <td class="inputEnroll">
-                                            <input type="text" value="" placeholder="이름 입력" maxlength="15">
-                                        </td>
-                                    </tr> -->
 							</tbody>
 						</table>
 						<!-- 이용약관 -->
@@ -369,7 +365,7 @@
 			<!-- 이용약관 팝업-->
 			<div class="modal-usePolicy animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/usePolicy.html" id="htmlPolicy"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeUsePolicy();" class="close" title="Close Modal">&times;</span>
@@ -383,7 +379,7 @@
 			<!-- 개인정보 수집 팝업-->
 			<div class="modal-personalInfo animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/personalInfo.html" id="htmlpInfo"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/personalInfo.html" id="htmlpInfo"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closePersonalInfo();" class="close"
