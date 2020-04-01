@@ -98,8 +98,7 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		for(String n : color) {
 			imgList.add(new ProductImage(0,0,n,mr.getOriginalFileName(n)));
 		}
-		System.out.println(imgList);
-
+		
 		int result = new AdminProductService().productEnroll(p, imgList);
 
 		

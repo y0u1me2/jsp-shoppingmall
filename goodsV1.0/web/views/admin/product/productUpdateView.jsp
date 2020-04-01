@@ -1,26 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="com.web.product.model.vo.Product" %>
+<%@ page import="com.web.product.model.vo.Product"%>
 
 <%
 Product p = (Product)request.getAttribute("product");
 %>
 
 <%@ include file="/views/admin/common/header.jsp"%>
+
 <style>
-div.content-wrapper {
-	background-color: white;
-	position: relative;
-	left: 100px;
-}
-
-div.goodsback {
-	height: auto;
-	position: relative;
-	top: 100px;
-}
-
 * {
 	margin: 0;
 }
@@ -30,68 +19,69 @@ body {
 	height: auto;
 }
 
-/* 섹션안 공간  */
-div.back {
+/* 섹션 안 공간  */
+div.content-wrapper {
+	background-color: white;
 	position: relative;
+	left: 100px;
 }
 
-/* 밑에 라인 */
-#gline {
+/* content */
+div.goodsback {
+	height: auto;
+	position: relative;
+	top: 100px;
+	width: 100%;
+}
+
+/* 상품정보수정 텍스트 */
+h1#one {
+	font-weight: bolder;
+	font-size: 30px;
+	position: relative;
+	top: 10px;
+}
+
+/* 상품정보수정 밑에 라인 */
+hr#gline {
 	border: 1px solid rgb(177, 174, 174);
 	position: relative;
 	top: 20px;
 	width: 80%;
 }
 
-.goodsback {
-	width: 100%;
-}
-
-/* box 스타일 */
-.box {
+/* 테이블 스타일 */
+table.box {
 	border-top: 1px solid #adadad;
 	border-bottom: 1px solid #adadad;
 	border-collapse: collapse;
 	width: 80%;
-
+	height: 200px;
 }
 
 /* 테이블 위치 */
-.text {
+div.text {
 	position: relative;
 	top: 30px;
 }
 
 /* 테이블 선 색상 */
-.box>tr, td {
+table.box>tr, td {
 	border: 1px solid #e2e0e0;
-		padding:10px 30px 10px 5px;
+	padding: 10px 30px 10px 5px;
 }
 
-/* 테이블 크기 */
-.box {
-	width: 80%;
-	height: 200px;
+/* 첫번째 td 스타일 */
+td:first-of-type {
+	color: #80878d;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: normal;
+	font-size: 15px;
+	background-color: #f5f4f4;
 }
 
-#td1, #td2, #td3, #fbtn {
-	margin-left: 10px;
-}
-
-/* 전체 1:1상담 목록 텍스트 */
-#one {
-		font-weight: bolder;
-	font-size: 30px;
-	position: relative;
-	top: 10px;
-}
-
-#btns {
-	position: relative;
-	top: 30px;
-	left: 300px;
-}
-
+/* 상품정보수정 버튼 */
 button#update-btn {
 	height: 40px;
 	width: 120px;
@@ -101,6 +91,9 @@ button#update-btn {
 	font-size: 15px;
 	color: rgb(134, 134, 133);
 	margin-right: 5px;
+	position:relative;
+	left:380px;
+	top:50px;
 }
 
 button#update-btn:hover {
@@ -108,90 +101,143 @@ button#update-btn:hover {
 	outline: none;
 }
 
-button#color-btn {
-	height: 40px;
-	width: 150px;
-	background: #313030;
-	border-radius: 7px;
-	margin-left: auto;
-	margin-right: auto;
-	border: 0;
-	font-size: 15px;
-	color: rgb(233, 233, 229);
+/* 상품색상추가 +버튼 */
+input#pColor-add {
+	padding: 3px 10px;
+	font-size: 12px;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	background-color: white;
+	border: 1px solid rgb(161, 161, 161);
 	position: relative;
+	left: 10px;
+	font-size: 15px;
 }
 
-button#color-btn:hover {
-	background: black;
-	outline: none;
+/* 상품색상 -버튼  */
+button.pColor-minus {
+	padding: 3px 10px;
+	font-size: 12px;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	background-color: white;
+	border: 1px solid rgb(161, 161, 161);
+	position: relative;
+	right: 50px;
+	font-size: 15px;
 }
-
-   td:first-of-type{
-   color: #80878d;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: normal;
-    font-size: 15px;
-    background-color: #f5f4f4;
-   }
 </style>
-</head>
 
 <!-- ============================================================== -->
 
 
 <div class="content-wrapper">
-	<div class="back">
+
+
+	<div class="goodsback">
+		<br> <br>
+		<h1 id="one">상품정보수정</h1>
+		<hr id="gline">
+		<br> <br>
+
+		<div class="text">
+			<form action="<%=request.getContextPath()%>/productUpdateEnd"
+				method="post" enctype="multipart/form-data">
+				<input type="hidden" name="pNo" value="<%=p.getpNo()%>" />
+				<table class="box">
+					<br>
+					<br>
+					<tr>
+						<td width="150px">상품명</br>(필수)
+						</td>
+						<td><input type="text" name="pName" value="<%=p.getpName()%>"></td>
+					</tr>
+					<tr>
+						<td>판매가</br>(필수)
+						</td>
+						<td><input type="text" name="pPrice"
+							value="<%=p.getpPrice()%>">원</td>
+					</tr>
+					<tr>
+						<td>카테고리</td>
+						<td><input type="text" name="category"
+							value="<%=p.getpCategory()%>"></td>
+					</tr>
+					<tr>
+						<td>상품설명</td>
+						<td><input type="text" name="comment" size="100"
+							value="<%=p.getpComment()%>"></td>
+					</tr>
+					<tr>
+						<td>섬네일 이미지 수정</td>
+						<td><input type="file" id="fbtn" name="listImage"></td>
+					</tr>
+
+					<tr>
+
+					</tr>
+
+					<tr>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp상품 색상 추가</td>
+						<td>*색상 선택 및 색상이미지를 업로드 해주세요<input id="pColor-add" type='button'
+							value="+" /></td>
+					</tr>
+
+					<tbody></tbody>
 
 
 
-		<div class="goodsback">
-			<br> <br>
-			<h1 id="one">상품정보수정</h1>
-			<hr id="gline">
-			<br> <br>
-
-			<div class="text">
-				<form action="<%=request.getContextPath()%>/productUpdateEnd" method="post"
-				enctype="multipart/form-data">
-						<input type="hidden" name="no" value="<%=p.getpNo()%>"/>
-					<table class="box">
-						<br>
-						<br>
-						<tr>
-							<td width="150px">상품명</br>(필수)</td>
-							<td><input type="text" name="pName" value="<%=p.getpName()%>"></td>
-						</tr>
-						<tr>
-							<td>판매가</br>(필수)</td>
-							<td><input type="text" name="pPrice" value="<%=p.getpPrice()%>" >원</td>
-						</tr>
-						<tr>
-							<td>카테고리</td>
-							<td><input type="text" name="category" value="<%=p.getpCategory()%>"></td>
-						</tr>	
-						<tr>
-							<td>상품설명</td>
-							<td><input type="text" name="comment" size="100" value="<%=p.getpComment()%>" ></td>
-						</tr>										
-						<tr>
-							<td>섬네일</br>이미지</td>
-							<td><input type="file" id="fbtn" name="upfile"></td>
-						</tr>
-						
-						
-						
-					</table>
+				</table>
 				<div id="btns">
 					<button id="update-btn" type="submit">상품정보수정</button>
 					&nbsp; &nbsp;
-				
+
 				</div>
-				</form>
-			</div>
+			</form>
+
 
 		</div>
 	</div>
+
+	<script>
+	
+	//색상 입력받는 div 추가하기
+	let colorCount=0;
+	$(function(){
+	$("#pColor-add").click(function(){
+		colorCount++;
+		var div = '<tr>'+
+			 		'<td>&nbsp&nbsp&nbsp&nbsp&nbsp상품 색상 추가</td>'+ 
+					'<td><select id="colorInput" name="colorInput"><option>색상을 선택해 주세요</option>'+
+					'<option value="화이트">화이트</option><option value="블랙">블랙</option>'+
+					'<option value="핑크">핑크</option><option value="그린">그린</option>'+
+					'<option value="블루">블루</option><option value="옐로우">옐로우</option>'+
+					'<option value="레드">레드</option><option value="네이비">네이비</option>'+
+					'<option value="퍼플">퍼플</option><option value="그레이">그레이</option>'+
+					'<option value="연그레이">연그레이</option></select>&nbsp&nbsp&nbsp'+
+					'<input type="file" id="pThumbnail" class="pThumbnail" name="colorFile'+colorCount+'" size="4" multiple/>'+
+					'<button class="pColor-minus">-</button></td></tr>';
+				   
+		 $('.box > tbody:last').append(div);
+		
+		 //색상 - 버튼
+		$(".pColor-minus").click(function(){
+			console.log($(this).parents("tr"));
+			$(this).parents("tr").remove();		
+		});	
+		//사용자가 색상 입력시 파일 name값 바꾸기
+		$(".pThumbnail").change(function(){
+			var inputName = $(this).prev().val();
+			$(this).attr("name",inputName);
+			//$(this).prev().attr("readonly",true);
+		});
+	});
+	
+	});
+
+	</script>
+
+
 </div>
 
 
