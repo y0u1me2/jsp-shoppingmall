@@ -1,7 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="com.web.cart.model.vo.*,java.util.List" %>
 <%@ include file="/views/client/common/header.jsp" %>
+<%
+	int j=0;
+	String[] quan2=request.getParameterValues("pQuantityF");
+	int[] quan=new int[quan2.length];
+	for(int i=0;i<quan.length;i++){
+		quan[i]=Integer.parseInt(quan2[i]);
+	}
+	List<Cart> cart= (List)request.getAttribute("cart");
+	int price = 0;
+	int q=0;
+	for(Cart c2 : cart){
+
+		price+=c2.getcPrice()*quan[q];
+		q++;
+		
+	}
+	
+%>
+
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style>
     /* 바디 해상도 및 폰트 */
@@ -529,12 +548,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                <%for(Cart c : cart) {%>
                     <tr class="basketbottom">
                         <!-- 장바구니 주문상품사진 -->
                         <td class="tumblrpoto">
                             <div style="width: 190px; height: 190px;">
                                 <div style="padding:15px;">
-                                    <img src="<%=request.getContextPath()%>/images/텀블러.jpg" alt="텀블러" width="160px"
+                                    <img src="<%=request.getContextPath()%>/upload/custom/<%=c.getcImage()%>" width="160px"
                                         height="160px">
                                 </div>
                             </div>
@@ -542,18 +562,20 @@
                         <!-- 장바구니 주문상품정보 -->
                         <td class="product">
                             <div class="names">
-                                <h3 style="font-size: 18px;">포토 텀블러 - 고급형</h3>
+                                <h3 style="font-size: 18px;"><%=c.getcName()%></h3>
                                 <h4 style="font-size: 14px; padding-top: 7px;">kh정보교육원</h4>
                             </div>
                             <div class="date" style="padding:20px 0 0 0; color:#99844b; font-size: 12px;">
                                 <span>2020.02.10 출고예정</span>
                             </div>
                         </td>
-                        <td>1개</td>
-                        <td>31,900원</td>
-                        <td><em>-1,600원</em></td>
-                        <td style="font-size: 15px; font-weight: bold;">30,300원</td>
+                        <td><%=quan[j]%>개</td>
+                        <td><%=c.getcPrice()%>원</td>
+                        <td><em><%=c.getcPrice()/10%></em><em>원</em></td>
+                        <td style="font-size: 15px; font-weight: bold;"><%=quan[j]*c.getcPrice()%>원</td>
                     </tr>
+                    <%=j++ %>
+                    <%  } %>	
                 </tbody>
             </table>
         </div>
@@ -992,7 +1014,9 @@
                                     <!-- 최종결제 최종금액 및 할인금액,배송비 -->
                                     <tr style="line-height: 40px;">
                                         <th style="padding-top: 30px;">상품 금액</th>
-                                        <td style="padding-top: 30px;">31,900원</td>
+                                        <td style="padding-top: 30px;">
+										<%=price%>
+										원</td>
                                     </tr>
                                     <!-- 할인금액 -->
                                     <tr style="line-height: 40px;">
