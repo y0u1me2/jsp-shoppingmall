@@ -356,6 +356,56 @@ public class AdminProductDao {
 		return result;
 	}
 
+	/*
+	 * //상품색상삭제화면 출력========================================= public Product
+	 * SearchProductNo(Connection conn,int no) {
+	 * 
+	 * PreparedStatement pstmt = null; ResultSet rs = null; String sql =
+	 * prop.getProperty("searchProduct");
+	 * 
+	 * Product p = null;
+	 * 
+	 * try { pstmt=conn.prepareStatement(sql);
+	 * 
+	 * pstmt.setInt(1, no); rs=pstmt.executeQuery();
+	 * 
+	 * if(rs.next()) { p=new Product();
+	 * 
+	 * p.setpNo(rs.getInt("p_no")); p.setpName(rs.getString("p_name"));
+	 * p.setpPrice(rs.getInt("p_price"));
+	 * p.setpCategory(rs.getString("p_category"));
+	 * p.setpThumbnail(rs.getString("p_thumbnail"));
+	 * p.setpComment(rs.getString("p_comment"));
+	 * p.setpStatus(rs.getString("p_status")); } }catch(SQLException e) {
+	 * e.printStackTrace(); }finally { close(rs); close(pstmt); } return p; }
+	 */
+	
+//상품색상삭제=========================================
+	public int colorDelete(Connection conn,int no,String [] color) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("colorDelete");
+
+		for (int i = 0; i<color.length; i++) {
+			System.out.println(color[i]);
+		}
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for (int i = 0; i <color.length; i++) {
+				pstmt.setString(1, color[i]);
+				pstmt.setInt(2, no);
+				result = pstmt.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 //상품목록 엑셀다운로드===========================================
 	public List<Product> excelDownLoad(Connection conn){
 			PreparedStatement pstmt = null;

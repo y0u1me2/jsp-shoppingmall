@@ -147,17 +147,24 @@ table#tbl-detail td {
 					</td>
 				</tr>
 				
-				<!-- <tr>
+				 <tr>
 					<td colspan="2" style="text-align: center"><input
-						type="button" id="update-btn" value="" 
+						type="button" id="update-btn" value="수정하기" 
 						onclick="fn_answer();">
 		
 					</td>
-				</tr> -->
+				</tr> 
 			</table>
 			</div>
 		</div>
 	
+	<script>
+	//수정하기 버튼을 누르면 수정페이지로 이동한다.
+	 function fn_answer(){
+		location.replace("<%=request.getContextPath()%>/InquiryAdminAnswerUpdate?ino=<%=ia.getI_No()%>");		
+	} 
+	
+	</script>
 		
 </div>
 

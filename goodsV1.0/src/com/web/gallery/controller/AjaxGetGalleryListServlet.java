@@ -3,7 +3,6 @@ package com.web.gallery.controller;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,16 +14,16 @@ import com.web.gallery.model.service.GalleryService;
 import com.web.gallery.model.vo.Gallery;
 
 /**
- * Servlet implementation class GalleryListServlet
+ * Servlet implementation class AjaxGetGalleryListServlet
  */
-@WebServlet("/gallery/list")
-public class GalleryListServlet extends HttpServlet {
+@WebServlet("/ajax/getGalleryList")
+public class AjaxGetGalleryListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GalleryListServlet() {
+    public AjaxGetGalleryListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,11 +34,8 @@ public class GalleryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		//페이지넘버, 카테고리, 상품명을 인자로 받아서 디비에서 리스트 불러오기
-//		new GalleryService().getGalleryList();
-		
 		String sort = request.getParameter("sort");
-		if(sort==null) sort="g_enroll_date";
+		if(sort==null) sort="like_cnt";
 		
 		String category = request.getParameter("category");
 		if(category==null) category = "";
@@ -114,12 +110,10 @@ public class GalleryListServlet extends HttpServlet {
 			pageBar += "<a href='javascript:void(0);' onclick='ajaxPageMove("+(pageNo)+");'>></a>";
 		}
 
-
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
 		
-		request.getRequestDispatcher("/views/client/gallery/galleryList.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/views/client/gallery/galleryContainer.jsp").forward(request, response);
 	}
 
 	/**

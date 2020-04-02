@@ -40,8 +40,8 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		// 1:1 문의하기
 
 		// 파일 업로드를 위한 로직처리
-		// 1.파일을 저장할 경로설정
-		String path = getServletContext().getRealPath("/upload/inquiry/zip/");
+		// 1.처음 압축파일을 저장할 경로설정
+		String path = getServletContext().getRealPath("/upload/inquiry/temp/");
 		File folder = new File(path);
 
 		// 해당 디렉토리가 없을경우 디렉토리를 생성
@@ -79,28 +79,27 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		CompressionUtil cu = new CompressionUtil();
 		cu.zip(new File(path), false);
 		
-		System.out.println(path);
 		
 		long currentTime = System.currentTimeMillis();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		String newName = "GoodGoods_" + sdf.format(new Date(currentTime)) + ".zip";
 		
-		String oldPath = path+".zip"; //경로.zip
-		String newPath = path+newName; //xx
+		//위에서 생성한 압축파일을 리네임 하여 저장하기위해 다시 경로 설정
+		String path2 = getServletContext().getRealPath("/upload/inquiry/");
+		
+		String oldPath = path2+"temp.zip"; //temp.zip
+		String newPath = path2+newName; //xx
 		File oldZip = new File(oldPath); //temp.zip
 		File newZip = new File(newPath); //original_시간.zip
 		boolean check = oldZip.renameTo(newZip); //압축파일 이름 변경
-
+		
+		System.out.println(newZip);
 		int no = Integer.parseInt(mr.getParameter("mNo"));
 		String type = mr.getParameter("inquiryType");
 		String phone = mr.getParameter("phone");
 		String title = mr.getParameter("title");
 		String content = mr.getParameter("content");
 		
-		/*
-		 * String oriFileName = mr.getOriginalFileName("newPath"); renamedFileName =
-		 * mr.getFilesystemName("newName");
-		 */
 		 		
 		// 폴더 안에 있던 원본 이미지들 삭제	
 		  File[] deleteFolderList = new File(path).listFiles(); 
