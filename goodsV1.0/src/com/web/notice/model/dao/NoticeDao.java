@@ -232,8 +232,21 @@ public class NoticeDao {
 		return result;
 	}
 	
-	
-	
-	
+	public int updateReadCount(Connection conn,int nNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("upcount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

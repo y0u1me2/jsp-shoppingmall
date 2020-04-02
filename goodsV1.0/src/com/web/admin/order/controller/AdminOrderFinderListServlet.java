@@ -1,4 +1,4 @@
-package com.web.notice.controller;
+package com.web.admin.order.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,23 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.member.model.service.AdminMemberService;
+import com.web.admin.order.model.service.AdminOrderListService;
+import com.web.admin.order.model.vo.OrderList;
 import com.web.notice.model.service.NoticeService;
-import com.web.notice.model.vo.Notice;
-
-
 
 /**
- * Servlet implementation class MemberFinderServlet
+ * Servlet implementation class AdminOrderFinderListServlet
  */
-@WebServlet("/admin/noticeFinder")
-public class NoticeFinderAdminServlet extends HttpServlet {
+@WebServlet("/admin/orderFinder")
+public class AdminOrderFinderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeFinderAdminServlet() {
+    public AdminOrderFinderListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -50,31 +48,32 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
 			
 		}catch(NumberFormatException e) {
-			numPerPage=10;
+			numPerPage=5;
 		}
-		List<Notice> list = new NoticeService().searchNoticePage(cPage,numPerPage,type,keyword);
+		List<OrderList> list = new AdminOrderListService().searchOrderList(cPage,numPerPage,type,keyword);
 		//pageBar만들기
 		
 		
-		int totalDate=new NoticeService().countNotice();
-		int finderDate=new NoticeService().countNotice(type,keyword);
+		int totalDate=new AdminOrderListService().amountOrderList();
+		int finderDate=new AdminOrderListService().amountOrderList(type,keyword);
 		int totalPage=(int)Math.ceil((double)finderDate/numPerPage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
+		System.out.println(finderDate);
 		String pageBar="";
 		//이전페이지 만들기
 		if(pageNo==1) {
 			pageBar+="<span><</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'><</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/orderFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'><</a>";
 		}																							//타입과 키워드가 유지되게하는 로직
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
-				pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
+				pageBar+="<a href='"+request.getContextPath()+"/admin/orderFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -82,21 +81,23 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		if(pageNo>totalPage) {
 			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/orderFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
 		}
-	
+		
+		
+		System.out.println(type);
+		
+
 		request.setAttribute("totalDate",totalDate);
 		request.setAttribute("finderDate",finderDate);
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/client/notice/noticeAdminList.jsp").forward(request, response);
-		
-	
+		request.getRequestDispatcher("/views/admin/order/orderList.jsp").forward(request, response);
 		
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -1,4 +1,4 @@
-package com.web.notice.controller;
+package com.web.admin.order.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,23 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.member.model.service.AdminMemberService;
-import com.web.notice.model.service.NoticeService;
-import com.web.notice.model.vo.Notice;
-
-
+import com.web.admin.order.model.service.AdminOrderListService;
+import com.web.admin.order.model.vo.OrderList;
 
 /**
- * Servlet implementation class MemberFinderServlet
+ * Servlet implementation class AdminOrderListServlet
  */
-@WebServlet("/admin/noticeFinder")
-public class NoticeFinderAdminServlet extends HttpServlet {
+@WebServlet("/admin/orderList")
+public class AdminOrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeFinderAdminServlet() {
+    public AdminOrderListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,65 +32,60 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String type=request.getParameter("searchType");
-		String keyword=request.getParameter("searchKeyword");
-		
 		int cPage;
-
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		}catch(NumberFormatException e) {
 			cPage=1;
 		}
+		
 		int numPerPage;
 		try {
 			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
-			
 		}catch(NumberFormatException e) {
-			numPerPage=10;
+			numPerPage=5;
 		}
-		List<Notice> list = new NoticeService().searchNoticePage(cPage,numPerPage,type,keyword);
-		//pageBar만들기
 		
-		
-		int totalDate=new NoticeService().countNotice();
-		int finderDate=new NoticeService().countNotice(type,keyword);
-		int totalPage=(int)Math.ceil((double)finderDate/numPerPage);
+		List<OrderList> list=new AdminOrderListService().selectOrderList(cPage,numPerPage);
+		int totalDate=new AdminOrderListService().amountOrderList();
+		int finderDate=new AdminOrderListService().amountOrderList();
+		int totalPage=(int)Math.ceil((double)totalDate/numPerPage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
+		
 		String pageBar="";
-		//이전페이지 만들기
+		
 		if(pageNo==1) {
 			pageBar+="<span><</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'><</a>";
-		}																							//타입과 키워드가 유지되게하는 로직
+			pageBar+="<a href='"+request.getContextPath()+"/admin/orderList?cPage="+(pageNo-1)+"&numPerPage="+numPerPage+"'><</a> ";
+		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar+="<span>"+pageNo+"</span>";
+				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
-				pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
+				pageBar+="<a href='"+request.getContextPath()+"/admin/orderList?cPage="+pageNo+"&numPerPage="+numPerPage+"'>"+pageNo+"</a> ";
 			}
 			pageNo++;
 		}
 		
+
+		//다음
 		if(pageNo>totalPage) {
 			pageBar+="<span>></span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
+			pageBar+="<a href='"+request.getContextPath()+"/admin/orderList?cPage="+pageNo+"&numPerPage="+numPerPage+"'>></a>";
 		}
-	
-		request.setAttribute("totalDate",totalDate);
-		request.setAttribute("finderDate",finderDate);
+		
+		request.setAttribute("finderDate", finderDate);
+		request.setAttribute("totalDate", totalDate);
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/client/notice/noticeAdminList.jsp").forward(request, response);
-		
-	
+		request.getRequestDispatcher("/views/admin/order/orderList.jsp").forward(request, response);
 		
 	}
 

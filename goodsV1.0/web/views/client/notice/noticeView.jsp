@@ -3,10 +3,14 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/client/common/header.jsp" %>
 <% 
+	String[] arr=new String[1];
+	arr[0]="첨부파일이 없습니다";
 	Notice n=(Notice)request.getAttribute("notice"); 
-	int num=n.getnOriginalFile().lastIndexOf(",");
-	String orifile=n.getnOriginalFile().substring(0,num);
-	String[] arr=orifile.split(",");
+	if(n.getnOriginalFile()!=null){
+		int num=n.getnOriginalFile().lastIndexOf(",");
+		String orifile=n.getnOriginalFile().substring(0,num);
+		arr=orifile.split(",");
+	}
 %>
 
 <style>
@@ -123,8 +127,8 @@
         </a>
         </p>
          <%} %>
-        <%}else{ %>
-			<p>첨부파일이 없습니다.</p>
+         <%}else{ %>
+         <p><%=arr[0] %></p>
          <%} %>
 	</div>
 	<div class="content">

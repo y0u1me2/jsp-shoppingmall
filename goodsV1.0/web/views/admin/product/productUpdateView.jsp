@@ -144,6 +144,7 @@ button.pColor-minus {
 			<form action="<%=request.getContextPath()%>/productUpdateEnd"
 				method="post" enctype="multipart/form-data">
 				<input type="hidden" name="pNo" value="<%=p.getpNo()%>" />
+					<input type="hidden" name="pThumbnail" value="<%=p.getpThumbnail()%>"/>
 				<table class="box">
 					<br>
 					<br>

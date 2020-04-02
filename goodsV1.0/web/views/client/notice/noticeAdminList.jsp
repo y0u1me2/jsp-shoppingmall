@@ -5,7 +5,7 @@
 
 <%
    List<Notice> list=(List)request.getAttribute("list");
-   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"All";;
+   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
    String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
    int totalDate=(int)request.getAttribute("totalDate");
    int finderDate=(int)request.getAttribute("finderDate");
@@ -479,6 +479,8 @@
                 </div>
                 <!-- 회원목록 박스 바디 -->
                 <form id="ckvalue">
+                <input type="hidden" name="type" value="<%=type %>"/>
+                <input type="hidden" name="keyword" value="<%=keyword %>"/>
                 <div class="mlist"> 
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
@@ -513,7 +515,7 @@
                                  <td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="<%=m.getnNo()%>"></td>
                                  
                                  <td><%=m.getnNo()%></td>
-                                 <td><a href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=m.getnNo()%>">
+                                 <td><a style="text-decoration:underline;" href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=m.getnNo()%>">
                 					<%=m.getnTitle() %>
                 				</a>
                 				</td>
@@ -527,7 +529,7 @@
                                  <td><%=m.getnWriter()%></td>
                                  <td><%=m.getnDate()%></td>
                                  <td>
-                                    <button type="button" class="btn_Wihte" onclick="memberDelete();" value="<%=m.getnNo()%>">삭제</button>
+                                    <button type="button" class="btn_Wihte" onclick="noticeDelete();" value="<%=m.getnNo()%>">삭제</button>
                                  </td>
                               </tr>                      
                            <%} %>
@@ -587,11 +589,11 @@
    		})
    		
    		//한개삭제
-   		function memberDelete(){
+   		function noticeDelete(){
    			var result=confirm('글을 삭제하시겠습니까?');
    			var value=$(event.target).val();
    			if(result){
-   				location.replace("<%=request.getContextPath()%>/admin/noticeDelete?no="+value);
+   				location.replace("<%=request.getContextPath()%>/admin/noticeDelete?no="+value+"&searchType=<%=type%>&searchKeyword=<%=keyword%>");
    			}
    		}
    		//선택한 항목삭제 및 수정하기
@@ -601,6 +603,7 @@
    				$("#ckvalue").submit();
    			})
    		})
+   		
    		$(function(){
    			$("#writeup").click(function(){
    				$("#ckvalue").attr("action","<%=request.getContextPath()%>/admin/noticeUpdate")
@@ -613,7 +616,6 @@
    				}
    			})
    		})
-   	 	
    		$(function(){
    			$("#numPerPage").change(function(){
    				$("#numPerPageFrm").submit();

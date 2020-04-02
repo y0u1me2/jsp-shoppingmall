@@ -39,7 +39,7 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		
 		// 파일 업로드를 위한 로직처리
 		// 1.파일을 저장할 경로설정
-		String path = getServletContext().getRealPath("/upload/product/");
+		String path = getServletContext().getRealPath("/images/product/");
 		
 		File folder = new File(path);
 		System.out.println("경로 : " + path);
@@ -76,7 +76,7 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		// 3.cosjar에서 지원하는 MultipartRequest객체를 생성
 		// MultipartRequest(HttpServletRequest, 저장경로, 파일저장최대크기, 문자열인코딩값파일 rename정책)
 
-		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new AdminProductFileRename());
+		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new  DefaultFileRenamePolicy());
 
 		int pNo = Integer.parseInt(mr.getParameter("pNo"));
 		String name = mr.getParameter("pName");
@@ -85,7 +85,6 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		String comment = mr.getParameter("comment");
 		String[] color = mr.getParameterValues("colorInput");
 		String listImage = mr.getOriginalFileName("listImage");
-		
 		
 		Product p = new Product(pNo, category, name, price, listImage, comment, null);
 		

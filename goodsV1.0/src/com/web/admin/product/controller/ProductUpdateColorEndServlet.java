@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.web.admin.product.service.AdminProductService;
 import com.web.common.AdminProductFileRename;
 
@@ -36,7 +37,7 @@ public class ProductUpdateColorEndServlet extends HttpServlet {
 		
 				// 파일 업로드를 위한 로직처리
 				// 1.파일을 저장할 경로설정
-				String path = getServletContext().getRealPath("/images/product/thumbnail");
+				String path = getServletContext().getRealPath("/images/product/");
 				File folder = new File(path);
 				System.out.println("경로 : " + path);
 
@@ -71,11 +72,7 @@ public class ProductUpdateColorEndServlet extends HttpServlet {
 				// 3.cosjar에서 지원하는 MultipartRequest객체를 생성
 				// MultipartRequest(HttpServletRequest, 저장경로, 파일저장최대크기, 문자열인코딩값파일 rename정책)
 
-				MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new AdminProductFileRename());
-					
-				long currentTime=System.currentTimeMillis();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-				String newName = "original_"+sdf.format(new Date(currentTime))+".zip";
+				MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new  DefaultFileRenamePolicy());
 				
 				String[] color = mr.getParameterValues("colorInput");
 				String listImage = mr.getOriginalFileName("listImage");
