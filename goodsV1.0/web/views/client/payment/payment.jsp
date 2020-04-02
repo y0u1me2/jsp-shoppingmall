@@ -605,7 +605,7 @@
     </div>
     <!-- 배송정보,할인/배송비,결제수단 -->
     <div class="bottom">
-        <form id="order-pay"  >
+        <form id="paymentOrder" action="<%=request.getContextPath()%>/payment/paymentOrder" method="post">
             <div class="left">
                 <ul>
                     <!-- 배송정보 -->
@@ -1027,9 +1027,9 @@
                                     <!-- 최종결제 헤더 인라인 스타일 -->
                                     <tr style="line-height: 90px;border-bottom: 1px solid black;">
                                         <th style="text-align: left; font-size: 20px;">합계</th>
-                                        <td style="text-align: right; font-size: 22px; color:#e8625a">
-                                        <input type="hidden" name="payAmount" id="payAmount" value="1">
-                                        <em class="format-comar"><%=totalPrice %></em> 원</td>
+                                        <td style="text-align: right; font-size: 25px; color:#e8625a">
+                                        <input type="hidden" name="payAmount" id="payAmount" value="500">
+                                        <span class="format-comar" style="color:red"><%=totalPrice %></span><span style="color:red">원</span></td>
                                     </tr>
                                 </thead>
                                 <!-- 최종결제 바디 padding 위아래 40px -->
@@ -1467,6 +1467,7 @@
                     m_redirect_url: 'https://www.yourdomain.com/payments/complete'
                 }, function (rsp) {
                     if (rsp.success) {
+                    	$("#paymentOrder").submit();
                         var msg = '결제가 완료되었습니다.';
                         msg += '고유ID : ' + rsp.imp_uid;
                         msg += '상점 거래ID : ' + rsp.merchant_uid;
@@ -1476,7 +1477,7 @@
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
-                    alert(msg);
+
                 }); 
              }
             }

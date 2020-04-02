@@ -78,7 +78,7 @@ div.step-step1>span {
 	padding: 0px 30px;
 }
 
-form>div.top2 {
+div.top2 {
 	display: inline-block;
 	width: 100%;
 	margin: 30px 0px 0px;
@@ -363,7 +363,7 @@ dd {
 	</div>
 
 	<div class="middle">
-	<!-- 	<form > -->
+	
 			<!-- 선택,삭제 메뉴 및 금액,주문 -->
 			<div class="top2">
 				<div class="inner">
@@ -389,7 +389,7 @@ dd {
 					</div>
 				</div>
 			</div>
-
+		
 			<div class="bottom2">
 				<div class="cart-product-wrap">
 					<!--장바구니 상단 멘트-->
@@ -436,7 +436,7 @@ dd {
 						<tbody>
 						 
 						<%for(Cart c : cart) {%>
-							<form action="<%=request.getContextPath()%>/payment" method="post">
+						
 							<tr>
 								<td style="text-align: center; vertical-align: top;">
 									<div class="cartCheckbox">
@@ -502,7 +502,7 @@ dd {
 								</td>
 							</tr>	
 							<% } %>		
-							</form>	
+					
 						</tbody>
 						
 					</table>
@@ -552,8 +552,9 @@ dd {
 			}
 			// 로드 시 전체체크/삭제가 체크돼이으면 체크 해제
 			$('#cartSelectReleaseAll').prop('checked',false);
-
 			
+			
+	
 			
 		})
 		 $.each($('.pdQuantity'),function(i,item){
@@ -591,6 +592,7 @@ dd {
 			
 		});
 		
+	
 		function cartSelRelAll() {
 
 			var AllPayResult;
