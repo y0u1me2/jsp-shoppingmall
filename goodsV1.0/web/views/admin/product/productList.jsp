@@ -305,7 +305,7 @@ color: rgb(0, 0, 0);
 						<td><%=p.getpCategory()%></td>
 
 						<td><img
-							src="<%=request.getContextPath()%>/images/product/thumbnail/<%=p.getpThumbnail() %>"
+							src="<%=request.getContextPath()%>/images/product/<%=p.getpThumbnail() %>"
 							width="40px" alt="이미지 없음"></td>
 
 						<td><%=p.getpName()%></td>
@@ -315,7 +315,7 @@ color: rgb(0, 0, 0);
 						<td><a href="<%=request.getContextPath()%>/productUpdateView?pNo=<%=p.getpNo()%>">
 						<input type="button" id="update-btn" value="정보수정" />
 						</a> 
-						<a href="<%=request.getContextPath()%>/productUpdateColor?no=<%=p.getpNo()%>">
+						<a href="<%=request.getContextPath()%>/productDeleteColor?no=<%=p.getpNo()%>">
 						<input type="button" id="color-btn"  value="색상삭제" /></a></td>
 
 						</form>

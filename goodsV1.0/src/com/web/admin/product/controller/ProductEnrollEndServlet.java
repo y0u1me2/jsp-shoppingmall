@@ -40,7 +40,7 @@ public class ProductEnrollEndServlet extends HttpServlet {
 
 		// 파일 업로드를 위한 로직처리
 		// 1.파일을 저장할 경로설정
-		String path = getServletContext().getRealPath("/upload/product/");
+		String path = getServletContext().getRealPath("/images/product/");
 		File folder = new File(path);
 		System.out.println("경로 : " + path);
 
@@ -63,9 +63,9 @@ public class ProductEnrollEndServlet extends HttpServlet {
 			}
 
 			// 업로드처리 로직에서 multipart/formdata형식으로 넘어오지 않으면
-			// 등록이 안되면 문의글 쓰는 페이지로 다시 이동
-			request.setAttribute("msg", "1:1문의등록에러!![form:enctype 관리자에게 문의]");
-			request.setAttribute("loc", request.getContextPath() + "/MyInquiryWrite");
+			// 등록이 안되면 상품등록 페이지로 이동
+			request.setAttribute("msg", "상품등록에러!![form:enctype 관리자에게 문의]");
+			request.setAttribute("loc", request.getContextPath() + "/productEnroll");
 			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 		}
 
@@ -83,8 +83,7 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		String comment = mr.getParameter("pComment");
 		String[] color = mr.getParameterValues("colorInput");
 		String listImage = mr.getOriginalFileName("listImage");
-		
-		
+					
 		//Enumeration<String> fileName= mr.getFileNames();
 		//HashMap<String,String> imgMap=new HashMap();
 				
@@ -95,6 +94,7 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		for(String n : color) {
 			imgList.add(new ProductImage(0,0,n,mr.getOriginalFileName(n)));
 		}
+		System.out.println(imgList);
 		
 		int result = new AdminProductService().productEnroll(p, imgList);
 

@@ -1,4 +1,4 @@
-package com.web.cart.controller;
+package com.web.payment.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,16 +14,16 @@ import com.web.cart.model.service.CartService;
 import com.web.cart.model.vo.Cart;
 
 /**
- * Servlet implementation class CartServlet
+ * Servlet implementation class PaymentServlet
  */
-@WebServlet("/cart")
-public class CartServlet extends HttpServlet {
+@WebServlet("/payment")
+public class PaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartServlet() {
+    public PaymentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,29 +33,20 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//for문 사용하면
-		//String[] strA = {"22","33","1"};
-		//int[] numsA = new int[strA.length];
-		//for(int i=0;i<strA.length; i++){ numsA[i] = Integer.parseInt(strA[i]); }
-		//쿠키
-		Cookie[] cookies = request.getCookies(); //null이거나 쿠키배열
-		String [] cart=new String[cookies.length];
-		if(cookies!=null) {//기존에 쿠키가 있는 경우
-			for(int i=0; i<cookies.length; i++) {
-				if(cookies[i].getName().equals("cart")) {
-					cart = cookies[i].getValue().split("\\|");
-
-				}
-			}
+//		System.out.println("두번??");
+		String[] cart = request.getParameterValues("cartSelectF");
+		String[] quan = request.getParameterValues("pQuantityF");
+		if(cart!=null) {
+			List<Cart> c = new CartService().searchCart(cart); 
+			
+//			for(Cart c2 : c) {
+//				System.out.println(c2);
+//			}
+			request.setAttribute("cart", c);
+			request.getRequestDispatcher("/views/client/payment/payment.jsp").forward(request, response);
+		}else {
+//			System.out.println("몇번도냐");
 		}
-		
-		List<Cart> c = new CartService().searchCart(cart); 
-		
-		
-		
-		request.setAttribute("cart", c);
-		request.getRequestDispatcher("/views/client/cart/cart.jsp").forward(request, response);
 	}
 
 	/**

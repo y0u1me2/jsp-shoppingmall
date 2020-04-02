@@ -8,11 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
 import com.web.gallery.model.vo.Gallery;
-import com.web.inquiry.model.vo.Inquiry;
 
 public class GalleryDao {
 	private Properties prop = new Properties();
@@ -48,30 +48,41 @@ public class GalleryDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = prop.getProperty("getZipFilename");
+		String zipFile = null;
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, gNo);
-			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				zipFile = rs.getString(1);
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
-		
-		return null;
+		return zipFile;
 	}
 
-	public List<Gallery> getGalleryList(Connection conn, int cPage, int numPerPage) {
+	public List<Gallery> getGalleryList(Connection conn, HashMap<String, Object> map) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = prop.getProperty("getGalleryList");
+		sql = sql.replace("SORT_TYPE", (String)map.get("sort"));
 		List<Gallery> list = new ArrayList<Gallery>();
+		int cPage = (Integer)map.get("cPage");
+		int numPerPage = (Integer)map.get("numPerPage");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, (cPage - 1) * numPerPage + 1);
-			pstmt.setInt(2, cPage * numPerPage);
+			pstmt.setString(1, (String)map.get("category"));
+			pstmt.setString(2, (String)map.get("pName"));
+			pstmt.setInt(3, (cPage - 1) * numPerPage + 1);
+			pstmt.setInt(4, cPage * numPerPage);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -93,7 +104,7 @@ public class GalleryDao {
 		return list;
 	}
 
-	public int totalDataCount(Connection conn) {
+	public int totalDataCount(Connection conn, HashMap<String, Object> map) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = prop.getProperty("totalDataCount");
@@ -101,6 +112,8 @@ public class GalleryDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String)map.get("category"));
+			pstmt.setString(2, (String)map.get("pName"));
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);

@@ -9,6 +9,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.web.product.model.vo.Product" %>
 
+
 <%
 
 	Member loginMember = (Member) session.getAttribute("loginedMember");//로그인 세션
@@ -23,6 +24,7 @@
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
 	
+
 %>
 <script>
 		var loginResult='<%=loginResult%>';
@@ -219,10 +221,12 @@
 						<div class="img">
 							<img src="<%=request.getContextPath()%>/images/common/kakao.png"
 								alt="kakao">
-						</div>
+						</div> 
+						
+		
 						<div class="img">
 							<img src="<%=request.getContextPath()%>/images/common/face.png"
-								alt="facebook">
+								alt="facebook">												
 						</div>
 						
 						<div class="img g-signin2" data-onsuccess="onSignIn" data-theme="dark">
@@ -476,4 +480,8 @@
 		</div>
 		<%} }%>
 		
+
+
+
+
 	</header>

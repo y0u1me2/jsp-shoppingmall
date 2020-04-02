@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ page import="java.util.List, com.web.gallery.model.vo.Gallery"%>
 
-<%@ include file="/views/client/common/header.jsp" %>
+<%@ page import="java.util.List, com.web.gallery.model.vo.Gallery"%>
 <%
 	List<Gallery> list = (List)request.getAttribute("list");
 
 %>
+
+<%@ include file="/views/client/common/header.jsp" %>
+
 <style>
 	section{
 		text-align: center;
@@ -121,7 +122,7 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
 }
 
 /* Modal Content (image) */
@@ -228,127 +229,150 @@
 
         <!-- 게시물 검색창 -->
         <div id="searchBox">
-        	<form action="" method="post" onsubmit="return false">
-        		<select style="vertical-align: middle;">
-                    <option>정렬</option>
-                    <option>인기순</option>
-                    <option>조회순</option>
-                    <option>최신순</option>
-                </select>
-        		
-        		<select id="select1" style="vertical-align: middle;">
-                    <option>카테고리</option>
-                    <option>케이스</option>
-                    <option>악세사리</option>
-                    <option>생활용품</option>
-                    <option>패션</option>
+        	<form id="frm1">
+        		<select name="sort" style="vertical-align: middle;">
+                    <option value="" disabled selected hidden>정렬</option>
+                    <option value="like_cnt">인기순</option>
+                    <option value="view_cnt">조회순</option>
+                    <option value="g_enroll_date">최신순</option>
                 </select>
                 
-                <select id="select2" style="vertical-align: middle; display: none;">
-                    
+                <select id="select1" name="category" style="vertical-align: middle;">
+                    <option value="" disabled selected hidden>카테고리</option>
+                    <option value="케이스">케이스</option>
+                    <option value="악세사리">악세사리</option>
+                    <option value="생활용품">생활용품</option>
+                    <option value="패션">패션</option>
                 </select>
                 
+                <select id="select2" name="pName" style="vertical-align: middle; display: none;">
+                </select>
         		
-        		<input type="submit" value="검색">
+        		<button type="button" id="btn1">검색</button>
         	</form>   
             
         </div>
 
-        <script>
-        $(function(){
-        	const select2 = $('#select2');
-        	$("#select1").change(function() {
-        		if($(this).val()=='카테고리'){
-        			select2.hide();
-        			select2.empty();
-        		}else{
-        			$.ajax({
-        				url:"<%=request.getContextPath()%>/getProductList",
-        				type:'post',
-        				data: {'category' : $(this).val()},
-        				dataType:"json",
-        				success:function(data){
-        					console.log(data);
-        					select2.empty();
-        					select2.append($('<option>').text('전체'));
-        					data.forEach(function(element){
-        						select2.append($('<option>').text(element));
-        					});
-        					select2.show();
-        					
-        				}
-        			})
-        		}
-        	});
-
-        })
-        </script>
 
 
-        <div id="galleryContainer">
-            <%for(Gallery g : list){ %>
-	            <div class="board">
-	                <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
-	                <input type="hidden" value="<%=g.getLikeCnt()%>">
-	                <input type="hidden" value="<%=g.getViewCnt()%>">
-	                
-	            </div>
-            <%} %>
-        </div>
-
-
-		<!-- The Modal -->
-<div id="myModal" class="modal">
-  <span class="close" id="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
-  <button onclick="location.replace('<%=request.getContextPath()%>/gallery/imageDownload')">따라 만들기</button>
-</div>
-
-
-
-
-
-
-
-
-
-
+		<div id="galleryContainer" style="border:1px solid blue">
+		<%for(Gallery g : list){ %>
+		      <div class="board">
+		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
+		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
+		          <input name="likeCnt" type="hidden" value="<%=g.getLikeCnt()%>">
+		          <input name="viewCnt" type="hidden" value="<%=g.getViewCnt()%>">
+		      </div>
+		<%} %>
+		      
 		<div id="pageBar">
 			<%=request.getAttribute("pageBar")%>
 		</div>
-       
 
+</div>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+	<span class="close" id="close">&times;</span>
+	<img class="modal-content" id="img01">
+	<div id="caption"></div>
+	<input type="hidden" id="gNo">
+	<button type="button" id="modalBtn">따라 만들기</button>
+</div>
 	
 
-    </section>
+</section>
 
 
 <script>
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = $("#myModal");
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById("myImg");
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
+var img = $("#myImg");
+var modalImg = $("#img01");
+var captionText = $("#caption");
+var gNo = $("#gNo");
+var modalBtn = $('#modalBtn');
 
 $(".myImg").click(function(){
-	modal.style.display = "block";
-	modalImg.src = this.src;
-	captionText.innerHTML = this.alt;
+	modal.show();
+	modalImg.attr("src", $(this).attr('src'));
+	captionText.html($(this).attr("alt"));
+	gNo.val($(this).next().val());
 	$('body').css("overflow", "hidden");
-	
+	modalBtn.click(function(){
+		location.replace('<%=request.getContextPath()%>/gallery/imageDownload?gNo='+gNo.val());
+	});
 });
 
 // Get the <span> element that closes the modal
-var span = document.getElementById("close");
+var span = $("#close");
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-  modal.style.display = "none";
+span.click(function() { 
+  modal.hide();
   $('body').css("overflow", "scroll");
-}
+});
+
+
+
+
+function ajaxPageMove(cPage){
+	let frm1=$('#frm1').serialize();
+	frm1+='&cPage='+cPage;
+	$.ajax({
+		url:"<%=request.getContextPath()%>/ajax/getGalleryList",
+		type:"post",
+		data: frm1,
+		success: function(data){
+			$('#galleryContainer').html(data);
+		}
+	})
+};
+
+
+$(function(){
+	const select2 = $('#select2');
+	$("#select1").change(function() {
+		if($(this).val()=='카테고리'){
+			select2.hide();
+			select2.empty();
+		}else{
+			$.ajax({
+				url:"<%=request.getContextPath()%>/getProductList",
+				type:'post',
+				data: {'category' : $(this).val()},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					select2.empty();
+					select2.append($('<option>').text('전체'));
+					data.forEach(function(element){
+						select2.append($('<option>').text(element));
+					});
+					select2.show();
+					
+				}
+			})
+		}
+	});
+	
+	$("#btn1").click(function(){
+		const frm1 = $('#frm1').serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/ajax/getGalleryList",
+			type:"post",
+			data: frm1,
+			success: function(data){
+				$('#galleryContainer').html(data);
+			}
+		})
+	});
+	
+})
+
 </script>
 
 

@@ -2,6 +2,7 @@ package com.web.gallery.model.service;
 import static com.web.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 
 import com.web.gallery.model.dao.GalleryDao;
@@ -22,23 +23,23 @@ public class GalleryService {
 	
 	public String getZipFilename(int gNo) {
 		Connection conn = getConnection();
-		String zipFilename = dao.getZipFilename(conn, gNo);
+		String zipFile = dao.getZipFilename(conn, gNo);
 		close(conn);
-		return zipFilename;
+		return zipFile;
 	}
 
 
-	public List<Gallery> getGalleryList(int cPage, int numPerPage) {
+	public List<Gallery> getGalleryList(HashMap<String, Object> map) {
 		Connection conn = getConnection();
-		List<Gallery> list = dao.getGalleryList(conn, cPage, numPerPage);
+		List<Gallery> list = dao.getGalleryList(conn, map);
 		close(conn);
 		return list;
 	}
 
 
-	public int totalDataCount() {
+	public int totalDataCount(HashMap<String, Object> map) {
 		Connection conn = getConnection();
-		int count = dao.totalDataCount(conn);
+		int count = dao.totalDataCount(conn, map);
 		close(conn);
 		return count;
 	}
