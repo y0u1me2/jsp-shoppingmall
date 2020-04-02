@@ -57,8 +57,8 @@ public class InquiryAnswerServlet extends HttpServlet {
 			}	
 			
 		//업로드처리 로직에서 multipart/formdata형식으로 넘어오지 않으면
-		//등록이 안되면 문의글 쓰는 페이지로 다시 이동
-		request.setAttribute("msg", "1:1문의등록에러!![form:enctype 관리자에게 문의]");
+		//등록이 안되면 답변등록 페이지로 다시 이동
+		request.setAttribute("msg", "답변등록에러!![form:enctype 관리자에게 문의]");
 		request.setAttribute("loc", request.getContextPath()+"/MyInquiryWrite");
 		request.getRequestDispatcher("/views/client/common/msg.jsp")
 		.forward(request, response);
@@ -85,7 +85,6 @@ public class InquiryAnswerServlet extends HttpServlet {
 				
 		InquiryAnswer ia = new InquiryAnswer(0,ino,id,title,content,null,oriFileName,renamedFileName,"Y",null);
 				
-		//n을 DB에 저장하기
 		int result = new AdminInquiryService().inquiryAnswer(ia);
 				
 		if(result>0) {
@@ -95,8 +94,7 @@ public class InquiryAnswerServlet extends HttpServlet {
 					
 		}else {	
 		//저장실패 : 답변 저장 실패 메세지 출력, 1:1문의 답변 작성페이지로 이동
-		//저장실패하면 폴더에 저장된 파일삭제
-			request.setAttribute("msg", "1:1문의 답변 저장이 실패하였습니다.");
+			request.setAttribute("msg", "1:1문의 답변 등록이 실패하였습니다.");
 			request.setAttribute("loc", "/InquiryAnswerView");
 		}
 			request.getRequestDispatcher("/views/client/common/msg.jsp")
