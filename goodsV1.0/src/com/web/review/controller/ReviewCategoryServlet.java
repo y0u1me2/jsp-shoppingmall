@@ -55,12 +55,9 @@ public class ReviewCategoryServlet extends HttpServlet {
 				totalReview=new ReviewService().countReviewCategory(p_Category);
 			}
 		}
-		System.out.println(request.getAttribute("p_Category"));
-		System.out.println(request.getAttribute("contentsCount"));
 		//게시글 수 처리 부분
 		//더 보기 횟수 제한
 		int contentsCount=request.getParameter("contentsCount")==null?0:Integer.parseInt(request.getParameter("contentsCount"));
-		System.out.println("표시할 리뷰갯수 :"+contentsCount);
 		int reviewListCount=2; //표시할 리뷰 갯수
 		int readMoreBarCount=(int) Math.ceil((double) totalReview / reviewListCount); //더보기 횟수
 		int totalMoreReview=0; //더보여줄 최대 횟수
@@ -69,7 +66,6 @@ public class ReviewCategoryServlet extends HttpServlet {
 		}else {
 			totalMoreReview=contentsCount+reviewListCount; //두개 더했는데 작으면 그냥 더한값
 		}
-		System.out.println("표시할 리뷰갯수 :"+totalMoreReview);
 		//html 작성부분
 		//for(Review r:list) {
 		for(int j=contentsCount;j<totalMoreReview;j++) {
