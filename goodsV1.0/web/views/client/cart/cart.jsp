@@ -550,14 +550,18 @@ dd {
 			for (var i = 0; i < chk.length; i++) {
 				chk[i].checked = false; //모두 해제
 			}
+			// 로드 시 전체체크/삭제가 체크돼이으면 체크 해제
+			$('#cartSelectReleaseAll').prop('checked',false);
+
 			
 			
 		})
-		$.each($('.pdQuantity'),function(i,item){
+		 $.each($('.pdQuantity'),function(i,item){
 			//최초 로드시 수량 1개로 초기화
 			let quan=$(item);
+			console.log(quan.val());
 			$(quan).attr("pdQuantity",'1');
-		})
+		}) 
 		$("#cartOrderBtn").click(function(){
 			let num = parseInt($("#cartSelCount").text());
 			if(num>0){
@@ -810,17 +814,17 @@ dd {
 								}
 
 							});
-			//최초 로드 시 제품들 가격.
-			
-			
+			//로드 시 제품들 가격.
+		
 			var quan = $('.pdQuantity');
-
+		
 			var productPrice = $('.sale');
 			for (let i = 0; i < productPrice.length; i++) {
 				var amount = new Array();
 				var productAmount = new Array();
-				amount[i] = quan.val() * parseInt(productPrice.eq(i).text());
-	
+				console.log($(quan[i]).val());
+				amount[i] = $(quan[i]).val() * parseInt(productPrice.eq(i).text());
+				console.log(amount[i]);
 				var productAmount = quan.parent().parent().parent().next()
 						.children();
 
