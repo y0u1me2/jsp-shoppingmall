@@ -10,13 +10,35 @@
 		quan[i]=Integer.parseInt(quan2[i]);
 	}
 	List<Cart> cart= (List)request.getAttribute("cart");
+	//밑에는 가격할인안된 총 가격
 	int price = 0;
+	//수량
 	int q=0;
 	for(Cart c2 : cart){
-
-		price+=c2.getcPrice()*quan[q];
-		q++;
-		
+		// 가격할인안된 총 가격
+		price+=(int)(c2.getcPrice()*1.1)*quan[q];;
+		q++;	
+	}
+	//세일된 가격 구하기
+	int sale = 0;
+	int s=0;
+	for(Cart c3 : cart){
+		// 가격할인안된 총 가격
+		sale+=(int)(c3.getcPrice()/10)*quan[s];
+		s++;	
+	}
+	//배송비
+	int deliveryPay = 0;
+	if(price-sale>=50000){
+		deliveryPay = 0;
+	}else{
+		deliveryPay = 2500;
+	}
+	
+	//총금액 
+	int totalPrice = price-sale;
+	if(totalPrice<50000){
+		totalPrice=totalPrice+2500;
 	}
 	
 %>
@@ -540,7 +562,8 @@
                 <!-- 장바구니 상품정보 헤드 -->
                 <thead>
                     <tr>
-                        <th colspan="2">주문 상품 정보</th>
+                    	<th >주문상품 사진</th>
+                        <th >주문상품 정보</th>
                         <th>수량</th>
                         <th>상품금액</th>
                         <th>할인금액</th>
@@ -569,10 +592,10 @@
                                 <span>2020.02.10 출고예정</span>
                             </div>
                         </td>
-                        <td><%=quan[j]%>개</td>
-                        <td><%=c.getcPrice()%>원</td>
-                        <td><em><%=c.getcPrice()/10%></em><em>원</em></td>
-                        <td style="font-size: 15px; font-weight: bold;"><%=quan[j]*c.getcPrice()%>원</td>
+                        <td><span class="format-comar"><%=quan[j]%>개</span></td>
+                        <td><span class="format-comar"><%=(int)(c.getcPrice()*1.1)*quan[j]%></span>원</td>
+                        <td><em>-</em><em class="format-comar"><%=c.getcPrice()/10*quan[j]%></em><em>원</em></td>
+                        <td style="font-size: 15px; font-weight: bold;"><span class="format-comar"><%=quan[j]*c.getcPrice()%></span>원</td>
                     </tr>
                     <%=j++ %>
                     <%  } %>	
@@ -582,7 +605,7 @@
     </div>
     <!-- 배송정보,할인/배송비,결제수단 -->
     <div class="bottom">
-        <form id=order-pay onsubmit="return ">
+        <form id="order-pay"  >
             <div class="left">
                 <ul>
                     <!-- 배송정보 -->
@@ -821,13 +844,13 @@
                                 <tbody>
                                     <tr>
                                         <!-- 할인금액 인라인 스타일 -->
-                                        <th style="font-weight: bold;">할인금액</th>
+                                        <th style="font-weight: bold;">특별 할인금액</th>
                                         <td>
-
+	
                                             <div class="input box medium">
                                                 <div>
                                                     <!-- 할인금액 input -->
-                                                    <input name="sellDiscount" value="-1,600">
+                                                    <input name="sellDiscount" value="0">
                                                 </div>
                                             </div>
                                             <!-- 원 -->
@@ -867,7 +890,7 @@
                                             <div class="input box medium">
                                                 <div>
                                                     <!-- 배송비 input -->
-                                                    <input name="sellDiscount" value="2,500">
+                                                    <input name="sellDiscount" value="<%=deliveryPay %>">
                                                 </div>
                                             </div>
                                             <span style="padding-right:6px;">원</span>
@@ -1006,7 +1029,7 @@
                                         <th style="text-align: left; font-size: 20px;">합계</th>
                                         <td style="text-align: right; font-size: 22px; color:#e8625a">
                                         <input type="hidden" name="payAmount" id="payAmount" value="1">
-                                        <em>30,900</em> 원</td>
+                                        <em class="format-comar"><%=totalPrice %></em> 원</td>
                                     </tr>
                                 </thead>
                                 <!-- 최종결제 바디 padding 위아래 40px -->
@@ -1015,13 +1038,12 @@
                                     <tr style="line-height: 40px;">
                                         <th style="padding-top: 30px;">상품 금액</th>
                                         <td style="padding-top: 30px;">
-										<%=price%>
-										원</td>
+										<span class="format-comar"><%=price%></span>원</td>
                                     </tr>
                                     <!-- 할인금액 -->
                                     <tr style="line-height: 40px;">
                                         <th>할인 금액</th>
-                                        <td><em>-1,600원</em></td>
+                                        <td><em>-</em><em class="format-comar"><%=sale %></em><em>원</em></td>
                                     </tr>
                                     <!-- 특별할인금액  -->
                                     <tr style="line-height: 40px;">
@@ -1036,7 +1058,7 @@
                                     <!-- 배송비  -->
                                     <tr style="line-height: 40px;">
                                         <th style="padding-bottom: 30px;">배송비 </th>
-                                        <td style="padding-bottom: 30px;">2,500원</td>
+                                        <td style="padding-bottom: 30px;"><span class="format-comar"><%=deliveryPay %></span>원</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1436,7 +1458,7 @@
                     pay_method: payChoice,
                     merchant_uid: 'merchant_' + new Date().getTime(),
                     name: '주문명: 굿굿즈 결제',
-                    amount: 1000,
+                    amount: payAmount,
                     buyer_email: userEmail,
                     buyer_name: userName,
                     buyer_tel: userPhone,
@@ -1459,6 +1481,30 @@
              }
             }
         }
+        $(function() {
+			//숫자 타입에서 쓸 수 있도록 format() 함수 추가
+			Number.prototype.format = function() {
+				if (this == 0)
+					return 0;
+				var reg = /(^[+-]?\d+)(\d{3})/;
+				var n = (this + '');
+				while (reg.test(n))
+					n = n.replace(reg, '$1' + ',' + '$2');
+				return n;
+			};
+
+			// 문자열 타입에서 쓸 수 있도록 format() 함수 추가
+			String.prototype.format = function() {
+				var num = parseFloat(this);
+				if (isNaN(num))
+					return "0";
+				return num.format();
+			};
+			$('.format-comar').text(function() {
+				$(this).text($(this).text().format());
+			});
+
+		})
       
     </script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
