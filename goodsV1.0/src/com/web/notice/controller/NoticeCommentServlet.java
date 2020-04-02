@@ -44,7 +44,7 @@ public class NoticeCommentServlet extends HttpServlet {
 		String loc="/notice/noticeView?nNo="+nNo;
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/client/notice/msg.jsp")
+		request.getRequestDispatcher("/views/admin/notice/msg.jsp")
 		.forward(request, response);
 	}
 

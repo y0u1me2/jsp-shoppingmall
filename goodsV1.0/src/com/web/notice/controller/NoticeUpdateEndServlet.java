@@ -98,16 +98,16 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 			String loc="";
 			if(result>0) {
 				//성공
-				msg="공지사항 저장성공";
+				msg="공지사항을 수정하였습니다";
 				loc="/admin/noticeList";
 			}else {
 				//실패
-				msg="공지사항 저장실패";
+				msg="공지사항 수정을 실패하였습니다.";
 				loc="/admin/noticeWrite";
 			}
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
-			request.getRequestDispatcher("/views/client/notice/msg.jsp")
+			request.getRequestDispatcher("/views/admin/notice/msg.jsp")
 			.forward(request, response);
 			
 			

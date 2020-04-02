@@ -68,7 +68,7 @@ public class NoticeViewServlet extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("notice",n);
-		request.getRequestDispatcher("/views/client/notice/noticeView.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/notice/noticeView.jsp").forward(request, response);
 		
 	}
 

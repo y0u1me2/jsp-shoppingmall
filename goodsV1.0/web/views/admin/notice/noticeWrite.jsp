@@ -116,7 +116,7 @@
 				processData:false,
 				contentType:false,
 				success:function(data){
-				 	alert("작성성공");
+				 	alert("공지사항을 등록하였습니다.");
 				 	location.replace("<%=request.getContextPath()%>/admin/noticeList")
 				},
 				error:function(r,e,m){
