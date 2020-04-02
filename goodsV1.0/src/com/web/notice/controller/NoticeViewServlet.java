@@ -1,6 +1,7 @@
 package com.web.notice.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,10 +9,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.web.notice.model.service.NoticeService;
 import com.web.notice.model.vo.Notice;
+import com.web.notice.model.vo.NoticeComment;
 
 /**
  * Servlet implementation class NoticeViewServlet
@@ -63,6 +64,9 @@ public class NoticeViewServlet extends HttpServlet {
 		
 		Notice n=new NoticeService().oneNotice(nNo,hasRead);
 		
+		List<NoticeComment> list=new NoticeService().selectComment(nNo);
+		
+		request.setAttribute("list", list);
 		request.setAttribute("notice",n);
 		request.getRequestDispatcher("/views/client/notice/noticeView.jsp").forward(request, response);
 		
