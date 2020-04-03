@@ -33,7 +33,7 @@ public class AdminInquiryDao {
 		}
 	}
 
-//문의 목록 보기=======================================
+//1:1문의 목록 보기===================================================
 	public List<Inquiry> searchInquiry(Connection conn, int cPage, int numPerPage) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -73,46 +73,7 @@ public class AdminInquiryDao {
 		return list;
 	}
 
-	public List<Inquiry> excelInquiry(Connection conn, int cPage, int numPerPage) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = prop.getProperty("searchPageInquiry");
-
-		List<Inquiry> list = new ArrayList();
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, (cPage - 1) * numPerPage + 1);
-			pstmt.setInt(2, cPage * numPerPage);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				Inquiry i = new Inquiry();
-
-				i.setI_No(rs.getInt("i_no"));
-				i.setI_Type(rs.getString("i_type"));
-				i.setI_Phone(rs.getString("i_phone"));
-				i.setI_Title(rs.getString("i_title"));
-				i.setI_Content(rs.getString("i_content"));
-				i.setI_Date(rs.getDate("i_date"));
-				i.setI_Original_Filename(rs.getString("i_original_filename"));
-				i.setStatus(rs.getString("status"));
-				i.setAnswer_status(rs.getString("answer_status"));
-
-				list.add(i);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return list;
-	}
-
-//문의 목록페이지바=======================================
+//문의 목록페이지바=================================================
 	public int inquiryCount(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -164,6 +125,7 @@ public class AdminInquiryDao {
 
 	}
 
+//답변완료하면 answer_status N을 Y로 바꾸기==========================================
 	public int answerStatus(Connection conn, InquiryAnswer ia) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("answerStatus");
@@ -185,7 +147,7 @@ public class AdminInquiryDao {
 		return result;
 	}
 
-//1:1문의 상세페이지====================================
+//1:1문의 상세페이지==============================================
 	public Inquiry selectInquiry(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -224,7 +186,7 @@ public class AdminInquiryDao {
 		return i; // null이거나 주소값이 있거나
 	}
 
-//오늘 등록된 1:1문의===========================================
+//오늘 등록된 1:1문의글 수===========================================
 	public int todayInquiry(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -276,7 +238,7 @@ public class AdminInquiryDao {
 		return result;
 	}
 
-//답변완료한 페이지===============================================
+//관리자가 답변완료한 페이지===============================================
 	public InquiryAnswer selectInquiryAnswer(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -349,4 +311,29 @@ public class AdminInquiryDao {
 		return ia; // null이거나 주소값이 있거나
 	}
 
+//답변수정 완료하기====================================================
+	public int updateInquiryAnswer(Connection conn,InquiryAnswer ia) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInquiryAnswer");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, ia.getIa_Title());
+			pstmt.setString(2, ia.getIa_Content());
+			pstmt.setString(3, ia.getIa_Original_Filename());
+			pstmt.setString(4, ia.getIa_Renamed_Filename());
+			pstmt.setInt(5, ia.getI_No());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}	
+		
+		
+		return result;
+	}
 }

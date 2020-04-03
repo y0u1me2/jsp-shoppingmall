@@ -23,7 +23,7 @@ public class InquiryAdminAnswerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 1:1문의답변 상세페이지로 이동하기
+		// 1:1문의답변한 상세페이지로 이동하기
 
 		// 사용자가 문의한 글번호를 가져온다
 		int no = Integer.parseInt(request.getParameter("ino"));

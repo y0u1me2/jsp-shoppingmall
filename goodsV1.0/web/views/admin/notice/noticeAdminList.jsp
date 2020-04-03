@@ -449,7 +449,7 @@
 		                </div>
 	                </div>
 	                <div class="gright numPer" id="numPerPage-container" >
-	                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==null||type.equals("All")?"noticeList":"noticeFinder"%>">   
+	                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==""||type.equals("All")?"noticeList":"noticeFinder"%>">   
 	                       <input type="hidden" name="cPage" value="<%=cPage%>">
 	                       <input type="hidden" name="searchType" value="<%=type%>">
 	                       <input type="hidden" name="searchKeyword" value="<%=keyword%>">                                          

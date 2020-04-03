@@ -10,13 +10,35 @@
 		quan[i]=Integer.parseInt(quan2[i]);
 	}
 	List<Cart> cart= (List)request.getAttribute("cart");
+	//밑에는 가격할인안된 총 가격
 	int price = 0;
+	//수량
 	int q=0;
 	for(Cart c2 : cart){
-
-		price+=c2.getcPrice()*quan[q];
-		q++;
-		
+		// 가격할인안된 총 가격
+		price+=(int)(c2.getcPrice()*1.1)*quan[q];;
+		q++;	
+	}
+	//세일된 가격 구하기
+	int sale = 0;
+	int s=0;
+	for(Cart c3 : cart){
+		// 가격할인안된 총 가격
+		sale+=(int)(c3.getcPrice()/10)*quan[s];
+		s++;	
+	}
+	//배송비
+	int deliveryPay = 0;
+	if(price-sale>=50000){
+		deliveryPay = 0;
+	}else{
+		deliveryPay = 2500;
+	}
+	
+	//총금액 
+	int totalPrice = price-sale;
+	if(totalPrice<50000){
+		totalPrice=totalPrice+2500;
 	}
 	
 %>
@@ -523,7 +545,7 @@
             </div>
         </div>
     </div>
-
+	<form id="paymentOrder" action="<%=request.getContextPath()%>/payment/paymentOrder" method="post">
     <div class="middle">
         <div class="order-product-wrap">
             <h2>장바구니 상품</h2>
@@ -540,7 +562,8 @@
                 <!-- 장바구니 상품정보 헤드 -->
                 <thead>
                     <tr>
-                        <th colspan="2">주문 상품 정보</th>
+                    	<th >주문상품 사진</th>
+                        <th >주문상품 정보</th>
                         <th>수량</th>
                         <th>상품금액</th>
                         <th>할인금액</th>
@@ -563,16 +586,21 @@
                         <td class="product">
                             <div class="names">
                                 <h3 style="font-size: 18px;"><%=c.getcName()%></h3>
+                                <input type="hidden" name="cNo" value="<%=c.getcCno()%>">
                                 <h4 style="font-size: 14px; padding-top: 7px;">kh정보교육원</h4>
                             </div>
                             <div class="date" style="padding:20px 0 0 0; color:#99844b; font-size: 12px;">
                                 <span>2020.02.10 출고예정</span>
                             </div>
                         </td>
-                        <td><%=quan[j]%>개</td>
-                        <td><%=c.getcPrice()%>원</td>
-                        <td><em><%=c.getcPrice()/10%></em><em>원</em></td>
-                        <td style="font-size: 15px; font-weight: bold;"><%=quan[j]*c.getcPrice()%>원</td>
+                        <td><span class="format-comar"><%=quan[j]%>개</span>
+                        	 <input type="hidden" name="pQuan" value="<%=quan[j]%>">
+                        </td>
+                        <td><span class="format-comar"><%=(int)(c.getcPrice()*1.1)*quan[j]%></span>원</td>
+                        <td><em>-</em>
+                        	<em class="format-comar" ><%=c.getcPrice()/10*quan[j]%></em><em>원</em></td>
+                        <td style="font-size: 15px; font-weight: bold;"><span class="format-comar"><%=quan[j]*c.getcPrice()%>
+                        	</span><input type="hidden" name="totalPrice" value="<%=quan[j]*c.getcPrice()%>">원</td>
                     </tr>
                     <%=j++ %>
                     <%  } %>	
@@ -582,7 +610,7 @@
     </div>
     <!-- 배송정보,할인/배송비,결제수단 -->
     <div class="bottom">
-        <form id=order-pay onsubmit="return ">
+        
             <div class="left">
                 <ul>
                     <!-- 배송정보 -->
@@ -610,7 +638,7 @@
                                 <tbody>
                                     <tr>
                                         <!-- 이름 헤더 -->
-                                        <th style="padding-top: 10px;">이름<span>*</span></th>
+                                        <th style="padding-top: 10px;">주문자 이름<span>*</span></th>
                                         <!-- 이름 바디 입력창 -->
                                         <td class="input-box-medium">
                                             <div style="padding-top: 9px;">
@@ -621,7 +649,7 @@
                                     </tr>
                                     <tr>
                                         <!-- 연락처 헤더 -->
-                                        <th>연락처<span>*</span></th>
+                                        <th>주문자 연락처<span>*</span></th>
                                         <td>
                                             <!-- 연락처 바디 입력창 -->
                                             <ul class="phone-numbers">
@@ -656,7 +684,7 @@
 
                                     <tr>
                                         <!-- 이메일 헤더 -->
-                                        <th>이메일<span>*</span></th>
+                                        <th>주문자 이메일<span>*</span></th>
                                         <!-- 이메일 입력창 -->
                                         <td>
                                             <div class="input-box-large">
@@ -742,8 +770,8 @@
                                                 <!-- 우편번호 입력란 (입력되면 안됨) -->
                                                 <label></label>
                                                 <div>
-                                                    <input class="pilsu" name="userAddrNumber" id="postcode" readonly
-                                                        placeholder="우편번호" />
+                                                    <input class="pilsu" name="userPost" id="postcode" readonly
+                                                        placeholder="우편번호" value/>
                                                     <!--readonly-->
                                                 </div>
                                             </div>
@@ -774,7 +802,7 @@
                                         <td class="method">
                                             <div class="radio">
                                                 <!-- 택배 라디오 버튼 -->
-                                                <input type="radio" name="delivery" value="011005">
+                                                <input type="radio" name="delivery" value="011005" checked>
                                                 <!-- 택배 라벨 -->
                                                 <label for="delivery">택배</label>
                                             </div>
@@ -821,13 +849,13 @@
                                 <tbody>
                                     <tr>
                                         <!-- 할인금액 인라인 스타일 -->
-                                        <th style="font-weight: bold;">할인금액</th>
+                                        <th style="font-weight: bold;">특별 할인금액</th>
                                         <td>
-
+	
                                             <div class="input box medium">
                                                 <div>
                                                     <!-- 할인금액 input -->
-                                                    <input name="sellDiscount" value="-1,600">
+                                                    <input name="sellDiscount" value="0">
                                                 </div>
                                             </div>
                                             <!-- 원 -->
@@ -867,7 +895,7 @@
                                             <div class="input box medium">
                                                 <div>
                                                     <!-- 배송비 input -->
-                                                    <input name="sellDiscount" value="2,500">
+                                                    <input name="sellDiscount" value="<%=deliveryPay %>">
                                                 </div>
                                             </div>
                                             <span style="padding-right:6px;">원</span>
@@ -1004,9 +1032,9 @@
                                     <!-- 최종결제 헤더 인라인 스타일 -->
                                     <tr style="line-height: 90px;border-bottom: 1px solid black;">
                                         <th style="text-align: left; font-size: 20px;">합계</th>
-                                        <td style="text-align: right; font-size: 22px; color:#e8625a">
-                                        <input type="hidden" name="payAmount" id="payAmount" value="1">
-                                        <em>30,900</em> 원</td>
+                                        <td style="text-align: right; font-size: 25px; color:#e8625a">
+                                        <input type="hidden" name="payAmount" id="payAmount" value="500">
+                                        <span class="format-comar" style="color:red"><%=totalPrice %></span><span style="color:red">원</span></td>
                                     </tr>
                                 </thead>
                                 <!-- 최종결제 바디 padding 위아래 40px -->
@@ -1015,13 +1043,12 @@
                                     <tr style="line-height: 40px;">
                                         <th style="padding-top: 30px;">상품 금액</th>
                                         <td style="padding-top: 30px;">
-										<%=price%>
-										원</td>
+										<span class="format-comar"><%=price%></span>원</td>
                                     </tr>
                                     <!-- 할인금액 -->
                                     <tr style="line-height: 40px;">
                                         <th>할인 금액</th>
-                                        <td><em>-1,600원</em></td>
+                                        <td><em>-</em><em class="format-comar"><%=sale %></em><em>원</em></td>
                                     </tr>
                                     <!-- 특별할인금액  -->
                                     <tr style="line-height: 40px;">
@@ -1036,7 +1063,7 @@
                                     <!-- 배송비  -->
                                     <tr style="line-height: 40px;">
                                         <th style="padding-bottom: 30px;">배송비 </th>
-                                        <td style="padding-bottom: 30px;">2,500원</td>
+                                        <td style="padding-bottom: 30px;"><span class="format-comar"><%=deliveryPay %></span>원</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1067,7 +1094,7 @@
                 </div>
             </div>
         </form>
-    </div>
+    <!-- </div> -->
 
 
 
@@ -1421,7 +1448,7 @@
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
              }else{
-               var IMP = window.IMP; // 생략가능
+                var IMP = window.IMP; // 생략가능
                var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
                var payAmount=$("#payAmount").val();//가격
                var userName=$("#userName").val();//이름
@@ -1436,7 +1463,7 @@
                     pay_method: payChoice,
                     merchant_uid: 'merchant_' + new Date().getTime(),
                     name: '주문명: 굿굿즈 결제',
-                    amount: 1000,
+                    amount: payAmount,
                     buyer_email: userEmail,
                     buyer_name: userName,
                     buyer_tel: userPhone,
@@ -1445,6 +1472,7 @@
                     m_redirect_url: 'https://www.yourdomain.com/payments/complete'
                 }, function (rsp) {
                     if (rsp.success) {
+                    	$("#paymentOrder").submit();
                         var msg = '결제가 완료되었습니다.';
                         msg += '고유ID : ' + rsp.imp_uid;
                         msg += '상점 거래ID : ' + rsp.merchant_uid;
@@ -1454,11 +1482,37 @@
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
-                    alert(msg);
-                }); 
-             }
+
+                });  
+              
+            /* 	$("#paymentOrder").submit();
+ */             }
             }
         }
+        $(function() {
+			//숫자 타입에서 쓸 수 있도록 format() 함수 추가
+			Number.prototype.format = function() {
+				if (this == 0)
+					return 0;
+				var reg = /(^[+-]?\d+)(\d{3})/;
+				var n = (this + '');
+				while (reg.test(n))
+					n = n.replace(reg, '$1' + ',' + '$2');
+				return n;
+			};
+
+			// 문자열 타입에서 쓸 수 있도록 format() 함수 추가
+			String.prototype.format = function() {
+				var num = parseFloat(this);
+				if (isNaN(num))
+					return "0";
+				return num.format();
+			};
+			$('.format-comar').text(function() {
+				$(this).text($(this).text().format());
+			});
+
+		})
       
     </script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

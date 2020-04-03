@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.web.notice.model.vo.Notice;
+import com.web.notice.model.vo.NoticeComment;
 
 public class NoticeDao {
 	
@@ -247,6 +248,55 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	public int insertComment(Connection conn,NoticeComment nc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nc.getmNo());
+			pstmt.setInt(2, nc.getnNo());
+			pstmt.setInt(3, nc.getNcLevel());
+			pstmt.setString(4, nc.getNcContent());
+			pstmt.setString(5, nc.getNcCommentRef()==0?null:String.valueOf(nc.getNcCommentRef()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public List<NoticeComment> selectComment(Connection conn,int nNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("selectComment");
+		List<NoticeComment> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				NoticeComment nc=new NoticeComment();
+				nc.setNcNo(rs.getInt("nc_no"));
+				nc.setmNo(rs.getInt("m_no"));
+				nc.setnNo(rs.getInt("n_no"));
+				nc.setNcLevel(rs.getInt("nc_level"));
+				nc.setNcContent(rs.getString("nc_content"));
+				nc.setNcCommentRef(rs.getInt("nc_comment_ref"));
+				nc.setNcDate(rs.getDate("nc_date"));
+				nc.setNickName(rs.getString("m_nickname"));
+				list.add(nc);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 }

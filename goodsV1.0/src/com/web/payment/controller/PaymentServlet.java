@@ -1,6 +1,7 @@
 package com.web.payment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,19 +33,20 @@ public class PaymentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+//		System.out.println("두번??");
 		String[] cart = request.getParameterValues("cartSelectF");
 		String[] quan = request.getParameterValues("pQuantityF");
-		
-		for(int i=0;i<cart.length;i++) {
-			System.out.println(cart[i]);
-			System.out.println(quan[i]);
+		if(cart!=null) {
+			List<Cart> c = new CartService().searchCart(cart); 
+			
+//			for(Cart c2 : c) {
+//				System.out.println(c2);
+//			}
+			request.setAttribute("cart", c);
+			request.getRequestDispatcher("/views/client/payment/payment.jsp").forward(request, response);
+		}else {
+//			System.out.println("몇번도냐");
 		}
-		List<Cart> c = new CartService().searchCart(cart); 
-		for(Cart c2 : c) {
-			System.out.println(c2);
-		}
-		request.setAttribute("cart", c);
-		request.getRequestDispatcher("/views/client/payment/payment.jsp").forward(request, response);;
 	}
 
 	/**
