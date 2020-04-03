@@ -1,4 +1,4 @@
-package com.web.notice.controller;
+package com.web.admin.login.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,18 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class NoticeWriteServlet
+ * Servlet implementation class AdminLogoutServlet
  */
-@WebServlet("/admin/noticeWrite")
-public class NoticeWriteServlet extends HttpServlet {
+@WebServlet("/admin/logout")
+public class AdminLogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteServlet() {
+    public AdminLogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +29,11 @@ public class NoticeWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
-		request.getRequestDispatcher("/views/admin/notice/noticeWrite.jsp").forward(request, response);
-		
+		HttpSession session=request.getSession(false);
+		if(session!=null) {
+			session.invalidate();
+			response.sendRedirect(request.getContextPath()+"/admin/login"); //세션 삭제하고 로그인 페이지로 이동
+		}
 	}
 
 	/**

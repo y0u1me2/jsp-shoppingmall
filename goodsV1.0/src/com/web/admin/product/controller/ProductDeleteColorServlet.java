@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
-@WebServlet("/productDeleteColor")
+@WebServlet("/admin/productDeleteColor")
 public class ProductDeleteColorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

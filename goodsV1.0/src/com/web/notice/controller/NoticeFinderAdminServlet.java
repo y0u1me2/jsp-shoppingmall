@@ -91,7 +91,7 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/client/notice/noticeAdminList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/notice/noticeAdminList.jsp").forward(request, response);
 		
 	
 		

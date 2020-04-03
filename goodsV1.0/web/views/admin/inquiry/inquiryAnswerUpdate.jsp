@@ -126,7 +126,7 @@ input#update-btn:hover {
 				<h1 id="title2">관리자님이 답변하신 내용을 수정해주세요.</h1>
 			</div>
 
-			<form action="<%=request.getContextPath() %>/InquiryAdminAnswerUpdateEnd"
+			<form action="<%=request.getContextPath() %>/admin/InquiryAdminAnswerUpdateEnd"
 				method="post" enctype="multipart/form-data">
 			<br> <input type="hidden" name="ino" value="<%=ia.getI_No() %>" />
 

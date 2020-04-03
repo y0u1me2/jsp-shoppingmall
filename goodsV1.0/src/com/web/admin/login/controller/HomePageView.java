@@ -1,4 +1,4 @@
-package com.web.notice.controller;
+package com.web.admin.login.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NoticeWriteServlet
+ * Servlet implementation class HomeServlet
  */
-@WebServlet("/admin/noticeWrite")
-public class NoticeWriteServlet extends HttpServlet {
+@WebServlet("/admin/home")
+public class HomePageView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteServlet() {
+    public HomePageView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +26,7 @@ public class NoticeWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		
-		request.getRequestDispatcher("/views/admin/notice/noticeWrite.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/home.jsp").forward(request, response);
 		
 	}
 

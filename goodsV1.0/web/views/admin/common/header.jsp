@@ -47,6 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="info">
           <a href="#" class="d-block">admin 님 접속중</a>
+          <button onclick="location.replace('<%=request.getContextPath()%>/admin/logout')">로그아웃</button>
         </div>
       </div>
 
@@ -98,13 +99,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<%=request.getContextPath() %>/ProductListView" class="nav-link">
+                <a href="<%=request.getContextPath() %>/admin/ProductListView" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>전체상품목록</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<%=request.getContextPath() %>/productEnroll" class="nav-link">
+                <a href="<%=request.getContextPath() %>/admin/productEnroll" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>상품등록</p>
                 </a>
@@ -147,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/InquiryList" class="nav-link">
+                <a href="<%=request.getContextPath()%>/admin/InquiryList" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>전체 1:1문의 목록</p>
                 </a>
