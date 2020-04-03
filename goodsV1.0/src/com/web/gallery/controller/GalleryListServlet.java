@@ -35,9 +35,7 @@ public class GalleryListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		//페이지넘버, 카테고리, 상품명을 인자로 받아서 디비에서 리스트 불러오기
-//		new GalleryService().getGalleryList();
-		
+	    
 		String sort = request.getParameter("sort");
 		if(sort==null) sort="g_enroll_date";
 		
@@ -46,10 +44,6 @@ public class GalleryListServlet extends HttpServlet {
 		
 		String pName = request.getParameter("pName");
 		if(pName==null||pName.equals("전체")) pName = "";
-		
-		System.out.println(sort);
-		System.out.println(category);
-		System.out.println(pName);
 		
 		
 		// DB에 저장된 문의내역을 페이징처리해서 가져온다

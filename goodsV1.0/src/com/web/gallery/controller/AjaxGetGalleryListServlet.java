@@ -43,10 +43,6 @@ public class AjaxGetGalleryListServlet extends HttpServlet {
 		String pName = request.getParameter("pName");
 		if(pName==null||pName.equals("전체")) pName = "";
 		
-		System.out.println(sort);
-		System.out.println(category);
-		System.out.println(pName);
-		
 		
 		// DB에 저장된 문의내역을 페이징처리해서 가져온다
 		int cPage;
