@@ -170,7 +170,7 @@ div#answer-content {
 			<br>
 			<br>
 
-			<form action="<%=request.getContextPath() %>/InquiryAnswer"
+			<form action="<%=request.getContextPath() %>/admin/InquiryAnswer"
 				method="post" enctype="multipart/form-data">
 
 				<input type="hidden" name="ino"

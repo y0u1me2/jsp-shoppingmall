@@ -13,7 +13,7 @@ import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
 
-@WebServlet("/productExcelDownLoad")
+@WebServlet("/admin/productExcelDownLoad")
 public class ProductExcelDownLoadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
