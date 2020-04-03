@@ -8,6 +8,7 @@ import java.sql.Connection;
 
 import com.web.payment.model.dao.PaymentDao;
 import com.web.payment.model.vo.Payment;
+import com.web.payment.model.vo.PaymentDetail;
 
 public class PaymentService {
 	private PaymentDao dao = new PaymentDao();
@@ -28,7 +29,23 @@ public class PaymentService {
 		close(conn);
 		return result;
 		
-}
+	}
+	
+	public int orderNoPayment(String oNos) {
+		Connection conn=getConnection();
+		int result =dao.OrderNoPayment(conn, oNos);
+		close(conn);
+		return result;
+		
+	}
+	public int insertPaymentDtail(PaymentDetail pd) {
+		Connection conn=getConnection();
+		int result =dao.insertPaymentDetail(conn, pd);
+		if(result>0)commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 	
 	
 }

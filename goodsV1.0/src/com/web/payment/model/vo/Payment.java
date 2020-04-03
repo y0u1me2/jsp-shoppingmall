@@ -17,12 +17,14 @@ public class Payment {
 	private String o_TotalPrice;
 	private String o_PayWay;
 	private int o_Delivery;
+	private String o_Cnos;
 	public Payment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Payment(int o_No, String m_No, Date o_Date, String o_Name, String o_Phone, String o_Email, String r_Name,
-			String r_Phone, String r_Address, String r_Post, String o_TotalPrice, String o_PayWay, int o_Delivery) {
+			String r_Phone, String r_Address, String r_Post, String o_TotalPrice, String o_PayWay, int o_Delivery,
+			String o_Cnos) {
 		super();
 		this.o_No = o_No;
 		this.m_No = m_No;
@@ -37,6 +39,7 @@ public class Payment {
 		this.o_TotalPrice = o_TotalPrice;
 		this.o_PayWay = o_PayWay;
 		this.o_Delivery = o_Delivery;
+		this.o_Cnos = o_Cnos;
 	}
 	public int getO_No() {
 		return o_No;
@@ -116,13 +119,20 @@ public class Payment {
 	public void setO_Delivery(int o_Delivery) {
 		this.o_Delivery = o_Delivery;
 	}
+	public String getO_Cnos() {
+		return o_Cnos;
+	}
+	public void setO_Cnos(String o_Cnos) {
+		this.o_Cnos = o_Cnos;
+	}
 	@Override
 	public String toString() {
 		return "Payment [o_No=" + o_No + ", m_No=" + m_No + ", o_Date=" + o_Date + ", o_Name=" + o_Name + ", o_Phone="
 				+ o_Phone + ", o_Email=" + o_Email + ", r_Name=" + r_Name + ", r_Phone=" + r_Phone + ", r_Address="
 				+ r_Address + ", r_Post=" + r_Post + ", o_TotalPrice=" + o_TotalPrice + ", o_PayWay=" + o_PayWay
-				+ ", o_Delivery=" + o_Delivery + "]";
+				+ ", o_Delivery=" + o_Delivery + ", o_Cnos=" + o_Cnos + "]";
 	}
+	
 	
 	
 	

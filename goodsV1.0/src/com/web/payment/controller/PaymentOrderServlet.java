@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.payment.model.service.PaymentService;
 import com.web.payment.model.vo.Payment;
+import com.web.payment.model.vo.PaymentDetail;
 
 /**
  * Servlet implementation class PaymentOrderServlet
@@ -37,10 +38,10 @@ public class PaymentOrderServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		// 우편번호, 주소, 운송장번호,이메일,결제방법,전화번호
 		String[] cNo=request.getParameterValues("cNo");//커스텀번호
-		String cNos=String.join(",", cNo);
+		String cNos=String.join(",", cNo); //1 , 2, 3 
 		//String[] pName=request.getParameterValues("pName");//상품 이름
-		String[] pQuan=request.getParameterValues("pQuan");//수량
-		String pQuans=String.join(",", pQuan);
+		String[] oQuan=request.getParameterValues("pQuan");//수량
+		String pQuans=String.join(",", oQuan);
 		String tPrice=request.getParameter("totalPrice");//총금액
 		String oName=request.getParameter("userName");//주문자 유저이름
 		String orderUserPhone1=request.getParameter("userPhone[0]");//주문자전화번호
@@ -68,14 +69,21 @@ public class PaymentOrderServlet extends HttpServlet {
 			payWay="가상계좌";
 		}
 		
-		Payment p = new Payment(0,null,null,oName,oPhone,oEmail,rName,rPhone,rAddress,rPost,tPrice,payWay,0);
+		Payment p = new Payment(0,null,null,oName,oPhone,oEmail,rName,rPhone,rAddress,rPost,tPrice,payWay,0,cNos);
 		int result = new PaymentService().insertPayment(p);
 		
 		if(result>0) {
 			System.out.println("나이스샷");
+			int oNo= new PaymentService().orderNoPayment(cNos);
+			System.out.println(oNo);
+			PaymentDetail pd = new PaymentDetail(oNo,cNo,oQuan);
+			int result2= new PaymentService().insertPaymentDtail(pd);
+			
 		}else {
 			System.out.println("개 하 열받아");
 		}
+		
+		
 		
 //		for(int i=0;i<cNo.length;i++) {
 //			System.out.println(i+"번째커스텀번호 : "+cNo[i]);
