@@ -79,18 +79,18 @@
        vertical-align: top;
        text-align: center;
     }
-    /* 회원정보 조회 스타일  */
-    .memberSearch{
+    /* 공지사항 조회 스타일  */
+    .noticeSearch{
         display: block;
     }
-    /* 회원정보 조회테이블 스타일 */
+    /* 공지사항 정보 조회테이블 스타일 */
     
-    div.memberSearch>table{
+    div.noticeSearch>table{
         line-height: 1.5;
         background-color: #fff;
     }
-    /* 회원정보 조회테이블 소제목 */
-    .memberSearch th{
+    /* 공지사항 정보 조회테이블 소제목 */
+    .noticeSearch th{
         font-weight: normal;
         /* vertical-align: top; */
         background-color: #f5f4f4;
@@ -100,14 +100,14 @@
         font-family: "돋움",Dotum,sans-serif;
         font-size: 13px;
     }
-    /* 회원정보 조회테이블 내용 */
-    .memberSearch td{
+    /* 공지사항 정보 조회테이블 내용 */
+    .noticeSearch td{
         padding: 8px 9px 10px;
         border: 1px solid #d9dadc;
         text-align: left;
         font-size: 12px;
     }
-    /* 회원정보로 조회 셀렉 옵션 리스트 스타일 */
+    /* 공지사항 정보로 조회 셀렉 옵션 리스트 스타일 */
     .fSelect{
         display: inline;
         margin-right: 5px;
@@ -119,7 +119,7 @@
         color: #111;
         vertical-align: middle;
     }
-    /* 회원정보 조회 인풋 스타일  */
+    /* 공지사항 정보 조회 인풋 스타일  */
     .fText{
         max-width: 100%;
         height: 22px;
@@ -196,20 +196,20 @@
 
 
 
-   /* 회원목록 스타일 시작 */
+   /* 공지사항 목록 스타일 시작 */
 
-   /* 회원목록 타이틀 div 스타일 */
-   .mListTitle{
+   /* 공지사항 목록 타이틀 div 스타일 */
+   .nListTitle{
         position: relative;
         margin: 18px 0px 10px;
         
    }
-   /* 회원목록 타이틀 밑 총 회원수 및 검색결과 div스타일 */
-   .mState{
+   /* 공지사항 목록 타이틀 밑 총 회원수 및 검색결과 div스타일 */
+   .nState{
         line-height: 20px;
         margin: 7px 0px;
    }
-   /* 회원목록 총 회원수 및 검색결과 스타일 */
+   /* 공지사항 목록 총 공지사항수 및 검색결과 스타일 */
    .total{
         /* float: left; */
         font-size: 12px;
@@ -235,8 +235,8 @@
        height:29px;
        padding-left:5px;
     }
-   /* 회원목록 리스트상자 헤더 */
-   .mListHeader{
+   /* 공지사항 목록 리스트상자 헤더 */
+   .nListHeader{
    		clear:both;
    		content:"";
         padding: 7px 15px;
@@ -258,7 +258,7 @@
    #numPerPageFem{
    	margin-botton:10px;
    }
-   /* 회원목록 버튼 div스타일 */
+   /* 공지사항 목록 버튼 div스타일 */
    .gleft{
          margin-top:2.5px;
         float: left;
@@ -278,7 +278,7 @@
          font-size:12px;
          text-align:rigth;    
    }
-    /* 회원목록 헤더 버튼 스타일 */
+    /* 공지사항 목록 헤더 버튼 스타일 */
     .btn_Wihte{
         padding: 3px 10px;
         /* line-height: 32px; */
@@ -288,14 +288,14 @@
         background-color: white;
         border: 1px solid rgb(161, 161, 161);
    }
-   /* 회원목록 리스트 내용 div스타일 */
+   /* 공지사항 목록 리스트 내용 div스타일 */
    .mlist{
         position: relative;
         overflow: auto;
         border-right: 1px solid #d9dadc;
         border-left: 1px solid #d9dadc;
    }
-    /* 회원목록 테이블스타일 */
+    /* 공지사항 목록 테이블스타일 */
    .mlist>table{
         background-color: #fff;
         margin-left: -1px;
@@ -310,7 +310,7 @@
         background-color: #f5f4f4;
         padding:9px 10px 7px;
    }
-   /* 회원목록 검색결과 x 스타일 */
+   /* 공지사항 목록 검색결과 x 스타일 */
    .empty{
         width: 839.2px;
         display: block;
@@ -371,7 +371,7 @@
             
             <div style="margin-bottom: 30px;">
               <h4 style="font-size: 17px;">공지사항 조회</h4>
-                <div class="memberSearch">
+                <div class="noticeSearch">
                     <!-- 회원정보 조회 테이블 -->
                     <table border="1" summary >
                         <colgroup>
@@ -432,16 +432,16 @@
          
             </div>
 
-            <!-- 회원 목록 div -->
+            <!-- 공지사항 목록 div -->
             <div style="margin-bottom: 150px;">
                 <div class="float">
 	                <div class="item">
-		                <div class="mListTitle">
-		                <!-- 회원목록 타이틀 -->
+		                <div class="nListTitle">
+		                <!-- 공지사항 목록 타이틀 -->
 		                    <h4 style="font-size: 17px;">공지사항 목록</h4>
 		                </div>
-		                <!-- 총 회원수 및 검색 결과 -->
-		                <div class="mState" style="display:inline-block">
+		                <!-- 총 공지사항 수 및 검색 결과 -->
+		                <div class="nState" style="display:inline-block">
 		                    <p class="total">
 		                        [총 공지사항 목록 <strong><%=totalDate%></strong>건] 검색결과 
 		                        <strong><%=finderDate%></strong>건
@@ -464,8 +464,8 @@
 	           		</div>
            		</div>
                 
-                <!-- 회원목록 박스 헤더 -->
-                <div class="mListHeader">
+                <!-- 공지사항 목록 박스 헤더 -->
+                <div class="nListHeader">
                     <div class="gleft">
                         <button type="button" class="btn_Wihte" id="allcheck" >전체선택</button>
                         <button type="button" class="btn_Wihte" id="removecheck" >선택해제</button>

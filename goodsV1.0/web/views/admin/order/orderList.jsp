@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/admin/common/header.jsp" %>
 <%
-	String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"All";;
+	String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
 	String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
 	/* int totalDate=(int)request.getAttribute("totalDate");
 	int finderDate=(int)request.getAttribute("finderDate");
@@ -218,10 +218,10 @@
    }
 
  	div#search_All{display:inline-block;}
-    div#search_c_no{display:none;}
+    div#search_o_no{display:none;}
     div#search_p_name{display:none;}
-    div#search_or_name{display:none;}
-    div#search_or_date{display:none;}
+    div#search_o_name{display:none;}
+    div#search_o_date{display:none;}
     #numPerPage{
     	padding:4px;
     }
@@ -370,46 +370,46 @@
                                 <td colspan="3">
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
                                      <select name="search_Type" id="search_Type" class="fSelect">
-                                        <option value="All" >전체검색</option>
-                                        <option value="c_no" >상품번호</option>
-                                        <option value="p_name" >상품명</option>
-                                        <option value="or_date" >결제날짜</option>
-                                        <option value="or_name" >구매자명</option>
+                                        <option value="All" <%=type==null||type.equals("All")?"selected":"" %> >전체검색</option>
+                                        <option value="o_no" <%=type!=null&&type.equals("o_no")?"selected":"" %>>상품번호</option>
+                                        <option value="p_name" <%=type!=null&&type.equals("p_name")?"selected":"" %>>상품명</option>
+                                        <option value="o_date" <%=type!=null&&type.equals("o_date")?"selected":"" %>>결제날짜</option>
+                                        <option value="o_name" <%=type!=null&&type.equals("o_name")?"selected":"" %>>구매자명</option>
                                     	</select> 
                                     <!-- 개인정보 검색 -->
 
                                     <div id="search_All">
-                                    	<form action="/goods/admin/memberList">
+                                    	<form action="<%=request.getContextPath()%>/admin/orderList">
 	                                    	<input type="hidden" name="searchType" value="All"/>
 	                                    	<input type="text" name="searchKeyword" value="" placeholder="전체 검색" readonly/>
 	                                     	<button type="submit" class="btn_Search">검색</button>
                                      	</form>
                                     </div>
 
-                               		 <div id="search_c_no">
-                               		 	<form action="/goods/admin/memberFinder">
-	                                    	<input type="hidden" name="searchType" value="c_no"/>
-	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 상품번호 입력"/>
+                               		 <div id="search_o_no">
+                               		 	<form action="<%=request.getContextPath()%>/admin/orderFinder">
+	                                    	<input type="hidden" name="searchType" value="o_no"/>
+	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 주문 입력"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
 	                                    </form>
                                     </div>
                                      <div id="search_p_name">
-                                     	<form action="/goods/admin/memberFinder">
+                                     	<form action="<%=request.getContextPath()%>/admin/orderFinder">
 	                                    	<input type="hidden" name="searchType" value="p_name"/>
 	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할  상품명 입력"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
                                     	</form>
                                     </div>
-                                     <div id="search_or_date">
-                                     	<form action="/goods/admin/memberFinder">
-	                                    	<input type="hidden" name="searchType" value="or_date"/>
+                                     <div id="search_o_date">
+                                     	<form action="<%=request.getContextPath()%>/admin/orderFinder">
+	                                    	<input type="hidden" name="searchType" value="o_date"/>
 	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 구매날짜 입력"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
                                     	</form>
                                     </div>
-                                     <div id="search_or_name">
-                                     	<form action="/goods/admin/memberFinder">
-	                                    	<input type="hidden" name="searchType" value="or_name"/>
+                                     <div id="search_o_name">
+                                     	<form action="<%=request.getContextPath()%>/admin/orderFinder">
+	                                    	<input type="hidden" name="searchType" value="o_name"/>
 	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 구매자 입력"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
                                     	</form>
@@ -444,10 +444,10 @@
                     </div>
                     
                     <div class="gright" id="numPerPage-container">
-        				<form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="/goods/admin/memberFinder">	
+        				<form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==""||type.equals("All")?"orderList":"orderFinder"%>">	
         					<input type="hidden" name="cPage" value="1">
-        					<input type="hidden" name="searchType" value="">
-        					<input type="hidden" name="searchKeyword" value="">														
+        					<input type="hidden" name="searchType" value="<%=type%>">
+        					<input type="hidden" name="searchKeyword" value="<%=keyword%>">														
         					<select name="numPerPage" id="numPerPage">
         						<option value="10" selected>5개씩 보기</option>
         						<option value="20" >10개씩 보기</option>
@@ -460,26 +460,26 @@
         			</div>
                 </div>
                 <!-- 회원목록 박스 바디 -->
-                <form>
+                <form id="ckvalue">
                 <div class="mlist"> 
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
-                        <col style="width:40px;">
-                        <col style="width:auto;">
                         <col style="width:50px;">
+                        <col style="width:auto;">
                         <col style="width:100px;">
                         <col style="width:100px;">
                         <col style="width:100px;">
+						<col style="width:80px;">
                         <col style="width:80px;">
                         <thead>
                             <tr>
                                 <th scope="col"><input type="checkbox"></th>
                                 <th scope="col">No</th>
                                 <th scope="col">상품정보</th>
-                                <th scope="col">수량</th>
-                                <th scope="col">총가격</th>
-                                <th scope="col">구매자</th>     
+                                <th scope="col">가격/수량</th>
+                                <th scope="col">구매자</th>
                                 <th scope="col">결제날짜</th>
+                                <th scope="col">배송현황</th>
                                 <th scope="col">내역삭제</th>
                             </tr>
                         </thead>
@@ -488,11 +488,11 @@
 	                        	<tr>
 	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="sunmi1926@naver.com"></td>
 	                        		
-	                        		<td>1</td>
+	                        		<td>12111</td>
 	                        		<td>114</td>
-	                        		<td>5</td>
-	                        		<td>나는 정</td>
+	                        		<td>가격</br>갯수</td>
 	                        		<td>null</td>
+	                        		<td></td>
 	                        		<td></td>
 	                        		<td>
 	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="sunmi1926@naver.com">삭제</button>
@@ -504,9 +504,9 @@
 	                        		
 	                        		<td>2</td>
 	                        		<td>113</td>
-	                        		<td>5</td>
 	                        		<td>지수</td>
 	                        		<td>null</td>
+	                        		<td></td>
 	                        		<td></td>
 	                        		<td>
 	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="choscien@gmail.com">삭제</button>
@@ -518,9 +518,9 @@
 	                        		
 	                        		<td>3</td>
 	                        		<td>84</td>
-	                        		<td>5</td>
 	                        		<td>기린</td>
 	                        		<td>null</td>
+	                        		<td></td>
 	                        		<td></td>
 	                        		<td>
 	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="girin@email.com">삭제</button>
@@ -532,9 +532,9 @@
 	                        		
 	                        		<td>4</td>
 	                        		<td>82</td>
-	                        		<td>5</td>
 	                        		<td>재훈</td>
 	                        		<td>null</td>
+	                        		<td></td>
 	                        		<td></td>
 	                        		<td>
 	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="apdlwl1582@naver.com">삭제</button>
@@ -546,9 +546,9 @@
 	                        		
 	                        		<td>5</td>
 	                        		<td>81</td>
-	                        		<td>5</td>
 	                        		<td>산더미</td>
 	                        		<td>null</td>
+	                        		<td></td>
 	                        		<td></td>
 	                        		<td>
 	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="sciencho@naver.com">삭제</button>
@@ -577,10 +577,10 @@
     		$("#search_Type").change(function(){
     			let value=$("#search_Type").val();
     			let all=$("#search_All");
-    			let no=$("#search_c_no");
+    			let no=$("#search_o_no");
     			let name=$("#search_p_name");
-    			let date=$("#search_or_date");
-    			let orname=$("#search_or_name");
+    			let date=$("#search_o_date");
+    			let orname=$("#search_o_name");
     			all.hide();
     			no.hide();
     			name.hide();
@@ -608,7 +608,8 @@
     	//선택삭제
     	$(function(){
     		$("#checkdelete").click(function(){
-    			
+    			$("#ckvalue").attr("action","<%=request.getContextPath()%>/admin/orderCheckDelete");
+    			$("#ckvalue").submit();
     		})
     	})
     </script>
