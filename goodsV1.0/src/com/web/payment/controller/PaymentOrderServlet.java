@@ -1,8 +1,13 @@
 package com.web.payment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,8 +66,49 @@ public class PaymentOrderServlet extends HttpServlet {
 		System.out.println("상세주소 : "+receUserAddrDetail);
 		System.out.println("결제방법 : "+payWay);
 		
+		String cartCook = "";
+		Cookie[] cookies = request.getCookies(); //null이거나 쿠키배열
+		for(Cookie c : cookies) {
+			if(c.getName().equals("cart")) {
+				cartCook=c.getValue();
+			}
+		}
+		
+		String[] cartCooks=cartCook.split("\\|");
+		List<String> list = new ArrayList(Arrays.asList(cartCooks));
+		System.out.println(list);
+		for(int j=0;j<list.size();j++) {
+			for(int i=0;i<cNo.length;i++)
+			if(list.get(j).equals(cNo[i])) {
+				System.out.println(cNo[i]);
+				list.remove(j);
+			}
+		}
+		list.toArray(cartCooks);
+		
+		System.out.println(list);
+		/*
+		 * String cookieVal=""; for(int i=0;i<cartCooks.length;i++) { if(i!=0)
+		 * cookieVal+="|"; cookieVal+=cartCooks[i]; }
+		 */
+		Cookie cookie = null;
+		if(cookies !=null) {
+			for(int i=0; i<cookies.length; i++) {
+				if(cookies[i].getName().equals("cart")) {
+				cookie = new Cookie("cart",String.join("|", cartCooks).replace("|null", ""));
+				cookie.setPath("/");
+				cookie.setMaxAge(60*60*24*90);
+				response.addCookie(cookie);
+				}
+			}
+		}
 		
 
+		
+		
+		
+
+		
 		
 		
 		
