@@ -290,7 +290,7 @@
 
         <div>
             <div id="airpod">
-                <img src="<%=request.getContextPath()%>/images/product/thumbnail/airpods.jpg" width="300px" alt="">
+                <img src="<%=request.getContextPath()%>/images/product/airpods_thumbnail.jpg" width="300px" alt="">
                 <br><br><a href="">에어팟 케이스</a>
                 <br>
                 <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
@@ -300,14 +300,14 @@
         </div>
 
         <div id="phone">
-            <img src="<%=request.getContextPath()%>/images/product/thumbnail/smartphone.jpg" width="300px" alt="">
+            <img src="<%=request.getContextPath()%>/images/product/smartphone_thumbnail.jpg" width="300px" alt="">
             <br><br> <a href="">핸드폰 케이스</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
                 매일매일 바꿔끼고 싶은<br>특별한 케이스를 만들어보세요.</p>
         </div>
 
         <div id="key">
-            <img src="<%=request.getContextPath()%>/images/product/thumbnail/keyring.jpg" width="300px" alt="">
+            <img src="<%=request.getContextPath()%>/images/product/keyring_thumbnail.jpg" width="300px" alt="">
             <br><br> <a href="">키링</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109); margin-top: 10px;">
                 요즘 인싸들의 대란템!<br>키링을 만나보세요.</p>
@@ -317,7 +317,7 @@
     <div class="imgss2">
 
         <div id="badge">
-            <img src="<%=request.getContextPath()%>/images/product/thumbnail/badge.jpg" width="300px  margin-top: 10px;">
+            <img src="<%=request.getContextPath()%>/images/product/badge_thumbnail.jpg" width="300px  margin-top: 10px;">
             <br><br><a href="">뱃지</a>
             <br>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
@@ -325,14 +325,14 @@
         </div>
 
         <div id="tee">
-            <img src="<%=request.getContextPath()%>/images/product/thumbnail/tshirt.jpg" width="300px" alt="">
+            <img src="<%=request.getContextPath()%>/images/product/tshirt_thumbnail.jpg" width="300px" alt="">
             <br><br> <a href="">티셔츠</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
                 친구들과 함께<br>커스텀 티셔츠를 만들어보세요.</p>
         </div>
 
         <div id="bag">
-            <img src="<%=request.getContextPath()%>/images/product/thumbnail/ecobag.jpg" width="300px" alt="">
+            <img src="<%=request.getContextPath()%>/images/product/ecobag_thumbnail.jpg" width="300px" alt="">
             <br><br><a href="">에코백</a>
             <br>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">

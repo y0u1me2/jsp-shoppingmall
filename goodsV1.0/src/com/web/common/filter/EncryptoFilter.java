@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 				"LoginServlet",
 				"profileServlet",
 				"mmbrswthdrServlet",
-				"LoginAbleServlet"
+				"LoginAbleServlet",
+				"AdminLoginServlet"
 //				"MemberUpdateServlet"
 //				"PasswordUupdateEndServlet"
 		})

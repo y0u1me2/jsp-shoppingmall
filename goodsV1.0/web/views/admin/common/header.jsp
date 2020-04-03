@@ -47,6 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <div class="info">
           <a href="#" class="d-block">admin 님 접속중</a>
+          <button onclick="location.replace('<%=request.getContextPath()%>/admin/logout')">로그아웃</button>
         </div>
       </div>
 
