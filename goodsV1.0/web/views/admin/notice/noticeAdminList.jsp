@@ -363,14 +363,14 @@
         <div class="goodsback">
             <br><br>
 
-            <h1 id="one">게시판조회/목록</h1>
+            <h1 id="one">공지사항 조회/목록</h1>
             <hr id="gline">
             <br/><br/>
             
             <!-- 회원정보 조회 div -->
             
             <div style="margin-bottom: 30px;">
-              <h4 style="font-size: 17px;">게시판 조회</h4>
+              <h4 style="font-size: 17px;">공지사항 조회</h4>
                 <div class="memberSearch">
                     <!-- 회원정보 조회 테이블 -->
                     <table border="1" summary >
@@ -383,7 +383,7 @@
                         <tbody>
                             <tr>
                                 <!-- 개인정보 테이블헤더 -->
-                                <th scope="row">개인정보</th>
+                                <th scope="row">글 정보</th>
                                 <!-- 개인정보 테이블 바디 -->
                                 <td colspan="3">
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
@@ -438,12 +438,12 @@
 	                <div class="item">
 		                <div class="mListTitle">
 		                <!-- 회원목록 타이틀 -->
-		                    <h4 style="font-size: 17px;">게시판 목록</h4>
+		                    <h4 style="font-size: 17px;">공지사항 목록</h4>
 		                </div>
 		                <!-- 총 회원수 및 검색 결과 -->
 		                <div class="mState" style="display:inline-block">
 		                    <p class="total">
-		                        [총 게시판목록 <strong><%=totalDate%></strong>명] 검색결과 
+		                        [총 공지사항 목록 <strong><%=totalDate%></strong>건] 검색결과 
 		                        <strong><%=finderDate%></strong>건
 		                    </p>
 		                </div>
