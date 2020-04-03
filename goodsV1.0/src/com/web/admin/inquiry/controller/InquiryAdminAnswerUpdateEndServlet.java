@@ -16,7 +16,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.admin.inquiry.model.vo.InquiryAnswer;
 
-@WebServlet("/InquiryAdminAnswerUpdateEnd")
+@WebServlet("/admin/InquiryAdminAnswerUpdateEnd")
 public class InquiryAdminAnswerUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,6 @@ public class InquiryAdminAnswerUpdateEndServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// 1:1답변 수정하기
-		// 상품수정하기
 
 		// 파일 업로드를 위한 로직처리
 		// 1.파일을 저장할 경로설정
@@ -58,7 +57,7 @@ public class InquiryAdminAnswerUpdateEndServlet extends HttpServlet {
 			// 업로드처리 로직에서 multipart/formdata형식으로 넘어오지 않으면
 			// 등록이 안되면 수정페이지로 이동
 			request.setAttribute("msg", "답변수정 에러!![form:enctype 관리자에게 문의]");
-			request.setAttribute("loc", request.getContextPath() + "/productUpdateView");
+			request.setAttribute("loc", request.getContextPath() + "/InquiryAdminAnswerUpdate");
 			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 		}
 
@@ -83,17 +82,16 @@ public class InquiryAdminAnswerUpdateEndServlet extends HttpServlet {
 		int result = new AdminInquiryService().updateInquiryAnswer(ia);
 
 		if (result > 0) {
-			System.out.println("???");
 			// 수정성공 : 수정 성공메세지출력, 수정완료한 답변페이지로 이동
 			request.setAttribute("msg", "답변 수정이 완료되었습니다.");
-			request.setAttribute("loc", "/InquiryAdminAnswer?ino="+ino);
+			request.setAttribute("loc", "/admin/InquiryList");
+			/* request.setAttribute("loc", "/InquiryAdminAnswer?ino="+ino); */
 			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 
 		} else {
-			System.out.println("!!!");
 			// 수정실패 : 수정 실패 메세지 출력, 수정화면으로 이동
 			request.setAttribute("msg", "답변 수정이 실패하였습니다.");
-			request.setAttribute("loc", "/InquiryAdminAnswerUpdate?ino=" + ino);
+			request.setAttribute("loc", "/admin/InquiryAdminAnswerUpdate?ino=" + ino);
 			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 		}
 	}

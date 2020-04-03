@@ -18,7 +18,7 @@
         
     /* -------------------------------------------------상품이미지 컨테이너(화면 왼쪽 부분) ----------------------------------------------------*/
     #img-container{
-         border: 1px solid black;
+         /* border: 1px solid black; */
          width: 50%;
          height: 680px;
     }
@@ -29,7 +29,7 @@
     #content-container{
         width: 50%;
         height: auto;
-        border: 1px solid black;
+        /* border: 1px solid black; */
         position: relative;
     }
 	
@@ -215,7 +215,7 @@
     
     
     
-        <div class="color-select" style="text-align:center; border:1px solid black; position:relative; top:50px; margin-bottom:50px;">
+        <div class="color-select" style="text-align:center; position:relative; top:100px; margin-bottom:50px;">
         	<p style="font-size:20px;  font-weight: bold; ">색상 선택</p>
     		
     		<form action="<%=request.getContextPath() %>/product/custom" method="post" onsubmit="return invalid();">

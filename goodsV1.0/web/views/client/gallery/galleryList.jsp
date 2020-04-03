@@ -88,28 +88,7 @@
             max-width: 100%;
         }
 
-        /* 페이징 부분(숫자) */
-        #paging {
-            /* border:1px solid black;  */
-            text-align: center;
-            line-height: 50px;
-        }
-
-        #paging a:link {
-            color: black;
-            text-decoration: none;
-        }
-
-        #paging a:visited {
-            color: black;
-            text-decoration: none;
-        }
-
-        #paging a:hover {
-            color: blue;
-            text-decoration: none;
-        }
-
+        
         
         /* The Modal (background) */
 .modal {
@@ -125,27 +104,29 @@
   background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
 }
 
+#modal-container {
+	margin: auto;
+	width: 500px;
+	height: 600px;
+	border: 1px solid black;
+	background-color: white;
+}
+
 /* Modal Content (image) */
 .modal-content {
-  margin: auto;
   display: block;
   width: 500px;
   height: 500px;
-  background:white;
-  border: 1px solid red;
 }
 
 /* Caption of Modal Image */
 #caption {
-  margin: auto;
   display: block;
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
   text-align: center;
   color: #ccc;
   padding: 10px 0;
   height: auto;
-  border: 1px solid red;
 }
 
 /* Add Animation */
@@ -211,14 +192,19 @@
 	font-family: "YoonGothicPro760";
 	display: inline-block;
 	vertical-align: top;
+	text-decoration: none;
 }
+
+#pageBar .cPage {
+	color: black;
+	font-weight: bold;
+} 
         
-        
-    </style>
+</style>
 
 
 
-<section style="border:1px solid red">
+<section>
         
         <!-- 게시판 제목 -->
         <h1 id="boardTitle">갤러리</h1>
@@ -255,7 +241,7 @@
 
 
 
-		<div id="galleryContainer" style="border:1px solid blue">
+		<div id="galleryContainer">
 		<%for(Gallery g : list){ %>
 		      <div class="board">
 		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
@@ -275,10 +261,14 @@
 <!-- The Modal -->
 <div id="myModal" class="modal">
 	<span class="close" id="close">&times;</span>
-	<img class="modal-content" id="img01">
-	<div id="caption"></div>
-	<input type="hidden" id="gNo">
-	<button type="button" id="modalBtn">따라 만들기</button>
+	
+	<div id="modal-Container">
+		<img class="modal-content" id="img01">
+		<div id="caption"></div>
+		<input type="hidden" id="gNo">
+		<button type="button" id="modalBtn">따라 만들기</button>
+	</div>
+	
 </div>
 	
 

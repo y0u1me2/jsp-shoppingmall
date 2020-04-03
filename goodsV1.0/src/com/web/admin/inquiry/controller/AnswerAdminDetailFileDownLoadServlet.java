@@ -14,19 +14,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/answerDetailFileDownLoad")
-public class AnswerDetailFileDownLoadServlet extends HttpServlet {
+
+@WebServlet("/admin/AnswerAdminDetailFileDownLoad")
+public class AnswerAdminDetailFileDownLoadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+ 
+    public AnswerAdminDetailFileDownLoadServlet() {
+        super();
+       
+    }
 
-	public AnswerDetailFileDownLoadServlet() {
-		super();
-
-	} 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//사용자가 1:1문의한 파일 다운
+		//관리자가 답변한  파일 다운 로직
 		
 		// 파일이 저장되어있는 실제 경로 가져오기
 		// 인코딩처리(한글로 된 파일은 글자가 깨짐)
@@ -36,7 +38,7 @@ public class AnswerDetailFileDownLoadServlet extends HttpServlet {
 		// 클라이언트에게 보내줌 -> 파일출력처리 - output write
 
 		// getServletContext().getRealPath = web -> web밑에부터 시작해서 경로를 찾음
-		String path = getServletContext().getRealPath("/upload/inquiry/");
+		String path = getServletContext().getRealPath("/upload/inquiryAnswer/");
 
 		// 쿼리스트링으로 보낸 파일명
 		String file = request.getParameter("filePath");
@@ -89,9 +91,9 @@ public class AnswerDetailFileDownLoadServlet extends HttpServlet {
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 

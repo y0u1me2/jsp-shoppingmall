@@ -139,7 +139,7 @@ button.pColor-minus {
 		<hr id="gline">
 		<br> <br>
 
-		<form method="post" action="<%=request.getContextPath() %>/productEnrollEnd" id="frm" enctype="multipart/form-data">
+		<form method="post" action="<%=request.getContextPath() %>/admin/productEnrollEnd" id="frm" enctype="multipart/form-data">
 			<table class="box" id="box">
 				</br>
 				</br>

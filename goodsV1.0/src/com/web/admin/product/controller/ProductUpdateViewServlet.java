@@ -12,7 +12,7 @@ import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
 
-@WebServlet("/productUpdateView")
+@WebServlet("/admin/productUpdateView")
 public class ProductUpdateViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
@@ -28,8 +28,6 @@ public class ProductUpdateViewServlet extends HttpServlet {
 		
 		//상품번호를 가져온다
 		int no = Integer.parseInt(request.getParameter("pNo"));
-		
-		System.out.println("수정화면 이동할때 전달? : "+no);
 		
 		Product p = new AdminProductService().searchProduct(no);
 		

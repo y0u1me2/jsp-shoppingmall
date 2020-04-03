@@ -141,7 +141,7 @@ button.pColor-minus {
 		<br> <br>
 
 		<div class="text">
-			<form action="<%=request.getContextPath()%>/productUpdateEnd"
+			<form action="<%=request.getContextPath()%>/admin/productUpdateEnd"
 				method="post" enctype="multipart/form-data">
 				<input type="hidden" name="pNo" value="<%=p.getpNo()%>" />
 					<input type="hidden" name="pThumbnail" value="<%=p.getpThumbnail()%>"/>
