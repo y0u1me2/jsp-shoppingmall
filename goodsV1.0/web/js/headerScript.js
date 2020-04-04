@@ -269,14 +269,29 @@ function signOut() {
 }
 
 //네이버 로그인 부분
-var naver_id_login = new naver_id_login("D2AFKSTSMw20Ced_tf5I","http://localhost:9090/" );
-var state = naver_id_login.getUniqState();
-//naver_id_login.setButton("white", 2,40);
-naver_id_login.setDomain("http://localhost:9090/");
-naver_id_login.setState(state);
-//naver_id_login.setPopup();
-naver_id_login.init_naver_id_login();
 
+var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "D2AFKSTSMw20Ced_tf5I",
+			callbackUrl: "http://localhost:9090/goods/index.jsp",
+			isPopup: false,
+			callbackHandle: false
+		}
+	);
+
+	naverLogin.init();
+	
+	naverLogin.getLoginStatus(function (status) {
+		if (status) {
+			var email = naverLogin.user.getEmail();
+			var name = naverLogin.user.getNickName();
+			var profileImage = naverLogin.user.getProfileImage();
+			var birthday = naverLogin.user.getBirthday();			var uniqId = naverLogin.user.getId();
+			var age = naverLogin.user.getAge();
+		} else {
+			console.log("AccessToken이 올바르지 않습니다.");
+		}
+	});
 //네이버 콜백 부분
 
 // 접근 토큰 값 출력
