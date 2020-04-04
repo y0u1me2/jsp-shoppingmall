@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class VisitorCheckFilter
  */
-@WebFilter("/")//index.jsp 페이지 쏴주는 서블릿 만들어야 함!
+@WebFilter("/home")//index.jsp 페이지 쏴주는 서블릿 만들어야 함!
 public class VisitorCheckFilter implements Filter {
 
     /**
