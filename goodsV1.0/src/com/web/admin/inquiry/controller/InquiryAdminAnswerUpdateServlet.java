@@ -12,7 +12,7 @@ import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.admin.inquiry.model.vo.InquiryAnswer;
 
 
-@WebServlet("/InquiryAdminAnswerUpdate")
+@WebServlet("/admin/InquiryAdminAnswerUpdate")
 public class InquiryAdminAnswerUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,7 +25,7 @@ public class InquiryAdminAnswerUpdateServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//답변 수정페이지에 답변내용 출력해주는 로직
+		//답변 수정페이지에 이전 답변내용 출력해주는 로직
 		
 		//글번호를 가져온다
 		int no = Integer.parseInt(request.getParameter("ino"));

@@ -141,7 +141,7 @@ button.pColor-minus {
 		<br> <br>
 
 		<div class="box">
-			<form method="post" id="frm" action="<%=request.getContextPath() %>/productDeleteColorEnd">
+			<form method="post" id="frm" action="<%=request.getContextPath() %>/admin/productDeleteColorEnd">
 
 			<table id="colorBox">
 				<tr>

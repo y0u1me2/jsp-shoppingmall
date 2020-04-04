@@ -12,7 +12,7 @@ import com.web.admin.inquiry.model.vo.InquiryAnswer;
 import com.web.inquiry.model.service.InquiryService;
 import com.web.inquiry.model.vo.Inquiry;
 
-@WebServlet("/inquiryAnswerDetail")
+@WebServlet("/admin/inquiryAnswerDetail")
 public class InquiryAnswerDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,7 +35,7 @@ public class InquiryAnswerDetailServlet extends HttpServlet {
 		// i가 null이면 요청하신 내역이 없습니다. 메세지를 출력하고 문의 목록리스트 페이지로 전환
 		if (i == null) {
 		request.setAttribute("msg", "요청하신 내역이 없습니다.");
-		request.setAttribute("loc", "/InquiryList");
+		request.setAttribute("loc", "/admin/InquiryList");
 
 		request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 

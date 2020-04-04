@@ -77,20 +77,24 @@ table#tbl-detail td {
 	text-align: left;
 }
 
- /* 나가기버튼 */
-#back-btn{
-        height: 35px;
-        width: 100px;
-        border: solid 1px rgb(147, 147, 194);
-        background: white;
-        border-radius: 5px;
-        font-size: 15px;
-        color: rgb(134, 134, 133);
-        margin-right: 5px;
-        position:relative;
-        top:20px;
-        left:350px;
-    }
+/* 수정하기버튼 */
+input#update-btn {
+	height: 35px;
+	width: 100px;
+	border: solid 1px rgb(147, 147, 194);
+	background: white;
+	border-radius: 5px;
+	font-size: 15px;
+	color: rgb(134, 134, 133);
+	margin-right: 5px;
+	position: relative;
+
+}
+
+input#update-btn:hover {
+	background: rgb(251, 251, 249);
+	outline: none;
+}
 
     .back-btn:hover{
         background:rgb(251, 251, 249);
@@ -122,7 +126,7 @@ table#tbl-detail td {
 
 			<input type="hidden" name="no" value="<%=ia.getI_No() %>"/>
 			<div>
-				<h1 id="title2">관리자님이 답변하신 내용입니다.</h1>
+				<h1 id="title2">관리자님이 고객님께 답변하신 내용입니다.</h1>
 			</div>
 			<br>
 
@@ -139,7 +143,7 @@ table#tbl-detail td {
 					<th>첨부파일</th>
 					<td>
 						<%if(ia.getIa_Original_Filename()!=null){ %> 
-						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=ia.getIa_Renamed_Filename()%>">
+						<a href="<%=request.getContextPath()%>/admin/AnswerAdminDetailFileDownLoad?filePath=<%=ia.getIa_Renamed_Filename()%>">
 							<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
 								<span><%=ia.getIa_Original_Filename()%></span> 
 						</a>
@@ -161,7 +165,7 @@ table#tbl-detail td {
 	<script>
 	//수정하기 버튼을 누르면 수정페이지로 이동한다.
 	 function fn_answer(){
-		location.replace("<%=request.getContextPath()%>/InquiryAdminAnswerUpdate?ino=<%=ia.getI_No()%>");		
+		location.replace("<%=request.getContextPath()%>/admin/InquiryAdminAnswerUpdate?ino=<%=ia.getI_No()%>");		
 	} 
 	
 	</script>

@@ -23,7 +23,7 @@ import com.web.common.MyFileRenamePolicy;
 import com.web.product.model.vo.Product;
 import com.web.product.model.vo.ProductImage;
 
-@WebServlet("/productUpdateEnd")
+@WebServlet("/admin/productUpdateEnd")
 public class ProductUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -66,7 +66,7 @@ public class ProductUpdateEndServlet extends HttpServlet {
 					// 업로드처리 로직에서 multipart/formdata형식으로 넘어오지 않으면
 					// 등록이 안되면 수정페이지로 이동
 					request.setAttribute("msg", "상품정보수정 에러!![form:enctype 관리자에게 문의]");
-					request.setAttribute("loc", request.getContextPath() + "/productUpdateView");
+					request.setAttribute("loc", request.getContextPath() + "/admin/productUpdateView");
 					request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 				}
 
@@ -100,13 +100,13 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		if (result > 0) {
 			// 수정성공 : 수정 성공메세지출력, 목록페이지로 이동
 			request.setAttribute("msg", "상품 정보 수정이 완료되었습니다.");
-			request.setAttribute("loc", "/ProductListView?no="+pNo);
+			request.setAttribute("loc", "/admin/ProductListView?no="+pNo);
 
 		} else {
 			// 수정실패 : 수정 실패 메세지 출력
 			// 저장실패하면 폴더에 저장된 파일삭제
 			request.setAttribute("msg", "상품 정보 수정이 실패하였습니다.");
-			request.setAttribute("loc", "/ProductListView?no="+pNo);
+			request.setAttribute("loc", "/admin/ProductListView?no="+pNo);
 		}
 		request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 

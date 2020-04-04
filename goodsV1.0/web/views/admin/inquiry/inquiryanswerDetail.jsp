@@ -143,7 +143,7 @@ table#tbl-detail td {
 					<th>첨부파일</th>
 					<td>
 						<%if(i.getI_Original_Filename()!=null){ %> 
-						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=i.getI_Renamed_Filename()%>">
+						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=i.getI_Original_Filename()%>">
 							<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
 								<span><%=i.getI_Original_Filename()%></span> 
 						</a>
@@ -169,7 +169,7 @@ table#tbl-detail td {
 	
 		//답변하기 버튼을 누르면 답변페이지로 이동한다.
 		 function fn_answer(){
-			location.replace("<%=request.getContextPath()%>/InquiryAnswerView?ino=<%=i.getI_No()%>");		
+			location.replace("<%=request.getContextPath()%>/admin/InquiryAnswerView?ino=<%=i.getI_No()%>");		
 		} 
 		
 	</script>	

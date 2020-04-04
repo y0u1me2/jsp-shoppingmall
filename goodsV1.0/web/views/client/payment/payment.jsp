@@ -602,7 +602,7 @@
                         <td style="font-size: 15px; font-weight: bold;"><span class="format-comar"><%=quan[j]*c.getcPrice()%>
                         	</span><input type="hidden" name="totalPrice" value="<%=quan[j]*c.getcPrice()%>">원</td>
                     </tr>
-                    <%=j++ %>
+                    <%j++; %>
                     <%  } %>	
                 </tbody>
             </table>
@@ -1448,7 +1448,7 @@
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
              }else{
-                var IMP = window.IMP; // 생략가능
+              /*   var IMP = window.IMP; // 생략가능
                var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
                var payAmount=$("#payAmount").val();//가격
                var userName=$("#userName").val();//이름
@@ -1483,10 +1483,10 @@
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
 
-                });  
+                }); */  
               
-            /* 	$("#paymentOrder").submit();
- */             }
+             	$("#paymentOrder").submit();
+             }
             }
         }
         $(function() {

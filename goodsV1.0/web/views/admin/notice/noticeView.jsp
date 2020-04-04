@@ -45,6 +45,7 @@
 		font-weight:lighter;
 		
 	}
+	/* 공지사항 정보 */
 	.info{
 		padding-left:30px;
 		padding-top: 10px;
@@ -71,6 +72,7 @@
     	visibility: hidden;
     	clear: both;
 	}
+	/* 파일 및 내용 */
 	.upfile{
 		position: relative;
     	padding: 15px 20px;
@@ -82,7 +84,7 @@
 	.content{
 		position: relative;
     	padding: 15px 20px;
-    	border-bottom: 1px solid #d5d5d5;
+    	border-bottom: 1px solid black;
 		text-align:left;
 		height:300px;
 	}
@@ -104,7 +106,7 @@
 	.not-btn .button {
     	display: inline;
 	}
-
+	/* 댓글 및 대댓글 */
 	#comment-container{
 		padding:20px 0 0 12px;
 		width:100%;
@@ -116,6 +118,10 @@
 		text-align:left;
 		padding-top:5px;
 	}
+	.cm-writer{
+		font-weight:bolder;
+		font-size:15px;
+	}
 	#btn-insert{
 		width:80px;
 		height:70px;
@@ -125,7 +131,6 @@
 		padding-bottom:10px;
 		width:100%;
 		height:auto;
-		border-bottom:1px solid #d5d5d5;
 	}
 	#nc_tbl{
 		width:100%;
@@ -145,7 +150,9 @@
 	.btn-reply{
 		display:none;
 	}
-	tr:hover button.btn-reply{display:inline;}
+	tr:hover button.btn-reply{
+		display:inline;
+	}
 	#nc_tbl .level2 td:first-of-type{
 		padding-left:80px
 	}
@@ -193,24 +200,25 @@
 			if(nc.getNcLevel()==1){ %>
 			<tr class="level1">
 				<td>
-					<sup class="comment-writer"><%=nc.getNickName() %></sup>
-					<sup class="comment-date"><%=nc.getNcDate() %></sup>
+					<sup class="cm-writer"><%=nc.getNickName() %></sup>&nbsp&nbsp&nbsp
+					<sup><%=nc.getNcDate() %></sup>
 					</br>
-					<%=nc.getNcContent() %>
+					<p><%=nc.getNcContent() %></p>
 				</td>
 				<td>
 					<button class="btn-reply" name="commentNo" value="<%=nc.getNcNo()%>">답글</button> 
 				</td>
 			</tr>
 			<%}else if(nc.getNcLevel()==2){ %>
-			<tr class="level2">
+			<tr class="level2" style="background-color:#f7f7f7">
 				<td>
-					<sup><%=nc.getNickName() %></sup>
+					<sup class="cm-writer"><%=nc.getNickName() %></sup>&nbsp&nbsp&nbsp
 					<sup><%=nc.getNcDate() %></sup>
 					</br>
-					<%=nc.getNcContent() %>
+					<p><%=nc.getNcContent() %></p>
 				</td>
-				<td></td>
+				<td>
+				</td>
 			</tr>
 			<%		} 
 				}

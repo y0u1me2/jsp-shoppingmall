@@ -235,7 +235,7 @@ color: rgb(0, 0, 0);
 	<div class="box-container">
 			<div class="list-container">
 
-			<button id="excel-btn"><a href="<%=request.getContextPath()%>/productExcelDownLoad">엑셀파일저장</a></button>
+			<button id="excel-btn"><a href="<%=request.getContextPath()%>/admin/productExcelDownLoad">엑셀파일저장</a></button>
 		
 					<div class="three-btn">
 						<button type="button" class="btn_Wihte"
@@ -248,7 +248,7 @@ color: rgb(0, 0, 0);
 					<div class="numPerPage-container">
 
 						<form name="numPerPageFrm" id="numPerPageFrm"
-							action="<%=request.getContextPath()%>/ProductListView">
+							action="<%=request.getContextPath()%>/admin/ProductListView">
 
 							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
 								name="numPerPage" id="numPerPage">
@@ -312,10 +312,10 @@ color: rgb(0, 0, 0);
 
 						<td><%=p.getpPrice()%></td>
 
-						<td><a href="<%=request.getContextPath()%>/productUpdateView?pNo=<%=p.getpNo()%>">
+						<td><a href="<%=request.getContextPath()%>/admin/productUpdateView?pNo=<%=p.getpNo()%>">
 						<input type="button" id="update-btn" value="정보수정" />
 						</a> 
-						<a href="<%=request.getContextPath()%>/productDeleteColor?no=<%=p.getpNo()%>">
+						<a href="<%=request.getContextPath()%>/admin/productDeleteColor?no=<%=p.getpNo()%>">
 						<input type="button" id="color-btn"  value="색상삭제" /></a></td>
 
 						</form>

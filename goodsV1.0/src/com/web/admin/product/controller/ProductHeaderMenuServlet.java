@@ -13,7 +13,7 @@ import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
 
-@WebServlet("/productHeaderMenu")
+@WebServlet("/admin/productHeaderMenu")
 public class ProductHeaderMenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

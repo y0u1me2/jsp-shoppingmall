@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.admin.member.model.service.AdminMemberService;
 
-@WebServlet("/inquiryCheckDelete")
+@WebServlet("/admin/inquiryCheckDelete")
 public class InquiryCheckDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
