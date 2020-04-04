@@ -31,6 +31,8 @@ public class AdminInquiryService {
 		Connection conn = getConnection();
 
 		int result = dao.inquiryCount(conn);
+		if (result > 0) commit(conn);
+		else rollback(conn);
 		close(conn);
 
 		return result;
@@ -68,6 +70,8 @@ public class AdminInquiryService {
 		Connection conn = getConnection();
 
 		int result = dao.todayInquiry(conn);
+		if (result > 0) commit(conn);
+		else rollback(conn);
 		close(conn);
 
 		return result;
@@ -106,7 +110,7 @@ public class AdminInquiryService {
 		Connection conn = getConnection();
 
 		InquiryAnswer ia = dao.inquiryView(conn, no);
-
+		
 		close(conn);
 
 		return ia;
@@ -117,6 +121,9 @@ public class AdminInquiryService {
 		Connection conn = getConnection();
 
 		int result = dao.updateInquiryAnswer(conn, ia);
+		
+		if (result > 0) commit(conn);
+		else rollback(conn);
 
 		close(conn);
 
