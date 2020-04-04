@@ -55,68 +55,6 @@
 <!-- AJAX 쓴다 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<style>
-a{
-	text-decoration:none;
-	color: rgb(95,93,93);
-	font-weight: 700;
-}
-
-ul{
-	list-style: none;
-    list-style-position: inside;
-	padding-left:0;
-}
-
-li{
-	list-style:none;
-	list-style-position: inside;
-}
-
-/* 메인 메뉴들 가로로 배열(flex) */
-.main{
-	width:80%;
-	height: 80px;
-	display:flex;
-	align-items: center;
-}
-
-.main>li{
-	position: relative;
-	width:150px;
-	height: 100%;
-	text-align:center;
-	
-}
-
-.main>li>a{
-	height: 100%;
-	display:block;
-	line-height:80px;
-}
-
-/* 서브메뉴들 */
-.main .sub{
-	position: absolute;
-	top: 80px;
-	left: 0;
-	display: none;
-	width:100%;
-	z-index: 1;
-	background: white;
-}
-
-.main .sub li{
-	padding: 20px;
-}
-
-.main li:hover .sub{
-	display: block;
-}
-
-</style>
-
-
 </head>
 
 <body>
@@ -194,51 +132,70 @@ li{
 			}
 		%>
 		</div>
-		
-		
-<!-- 드롭다운 메뉴 -->
-<div style=" display:flex;">
-	<!-- 로고 -->
-	<img src="<%=request.getContextPath()%>/images/common/영문검정.png" style="width:20%; height: 80px;" alt="goodgoods">
+		<!-- 메뉴바 -->
+		<div class="container2">
 
-	<ul class="main">
-		<li><a href="<%=request.getContextPath()%>/product/list?category=케이스">케이스</a>
-			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("케이스"))){%>
-					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
-				<% }%>
-			</ul>
-		</li>
-		
-		<li><a href="<%=request.getContextPath()%>/product/list?category=악세사리">악세사리</a>
-			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("악세사리"))){%>
-					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
-				<% }%>
-			</ul>
-		</li>
-		
-		<li><a href="<%=request.getContextPath()%>/product/list?category=생활용품">생활용품</a>
-			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("생활용품"))){%>
-					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
-				<% }%>
-			</ul>
-		</li>
-		
-		<li><a href="<%=request.getContextPath()%>/product/list?category=패션">패션</a>
-			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("패션"))){%>
-					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
-				<% }%>
-			</ul>
-		</li>
-		
-		<li><a href="#">갤러리</a></li>
-		
-		<li><a href="#">리뷰</a></li>
-	</ul>
-</div>
+			<!-- 로고 -->
+			<a href="<%=request.getContextPath() %>/index.jsp">
+				<span class="logo"> <img
+					src="<%=request.getContextPath()%>/images/common/영문검정.png" width="300px"
+					height="150px" alt="goodgoods">
+				</span>
+			</a>
+
+
+			<div class="topMenu">
+				<ul class="mainMenu" style="">
+					<li><span><a href="<%=request.getContextPath()%>/product/list?category=케이스"> 케이스</a></span></li>
+					<li><span><a href="<%=request.getContextPath()%>/product/list?category=악세사리"> 악세사리</a></span></li>
+					<li><span> <a href="<%=request.getContextPath()%>/product/list?category=생활용품"> 생활용품</a></span></li>
+					<li><span><a href="<%=request.getContextPath()%>/product/list?category=패션"> 패션</a></span></li>
+					<li><span><a href="<%=request.getContextPath()%>/gallery/list">갤러리</a></span></li>
+					<li><span><a href="<%=request.getContextPath()%>/reviewList"> 리뷰</a></span></li>
+					<li id="middleBar-img"></li>
+					<li><a href="https://www.kakaocorp.com/"><img id="cart"
+							src="<%=request.getContextPath()%>/images/common/cart.png" alt=""></a></li>
+					<li><a href="https://www.kakaocorp.com/"><img id="love"
+							src="<%=request.getContextPath()%>/images/common/love.png" alt=""></a></li>
+				</ul>
+			
+			
+				<ul class="mainMenu2">
+					<li>
+						<ul class="subMenu">
+							<li id="nop"><a href="#">에어팟 케이스</a></li>
+							<li id="nop"><a href="#">버즈 케이스</a></li>
+							<li id="nop"><a href="#">핸드폰 케이스</a></li>
+						</ul>
+					</li>
+					<li>
+						<ul class="subMenu">
+							<li id="nop"><a href="#">키링</a></li>
+							<li id="nop"><a href="#">뱃지</a></li>
+							<li id="nop"><a href="#">그립톡</a></li>
+						</ul>
+					</li>
+					<li>
+						<ul class="subMenu">
+							<li id="nop"><a href="#">텀블러</a></li>
+							<li id="nop"><a href="#">머그컵</a></li>
+							<li id="nop"><a href="#">노트</a></li>
+							<li id="nop"><a href="#">다이어리</a></li>
+						</ul>
+					</li>
+					<li>
+						<ul class="subMenu">
+							<li id="nop"><a href="#">티셔츠</a></li>
+							<li id="nop"><a href="#">에코백</a></li>
+						</ul>
+					</li>		 	
+				</ul>
+				 				
+			</div>
+			<hr>
+		</div>
+
+
 
 
 		<!--========================================팝업창들=============================================  -->
