@@ -22,7 +22,7 @@ import com.web.common.AdminProductFileRename;
 
 import com.web.product.model.vo.ProductImage;
 
-@WebServlet("/productDeleteColorEnd")
+@WebServlet("/admin/productDeleteColorEnd")
 public class ProductDeleteColorEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,11 +46,11 @@ public class ProductDeleteColorEndServlet extends HttpServlet {
 
 		if (result > 0) {
 			request.setAttribute("msg", "색상삭제가 완료 되었습니다.");
-			request.setAttribute("loc", "/ProductListView");
+			request.setAttribute("loc", "/admin/ProductListView");
 
 		} else {
 			request.setAttribute("msg", "색상삭제가 실패 하였습니다.");
-			request.setAttribute("loc", "/productDeleteColor");
+			request.setAttribute("loc", "/admin/productDeleteColor");
 		}
 		request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 

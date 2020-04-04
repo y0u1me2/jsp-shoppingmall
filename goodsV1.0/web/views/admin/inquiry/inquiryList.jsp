@@ -235,7 +235,7 @@ div#pageBar a {
 					<div class="gright" id="numPerPage-container">
 
 						<form name="numPerPageFrm" id="numPerPageFrm"
-							action="<%=request.getContextPath()%>/InquiryList">
+							action="<%=request.getContextPath()%>/admin/InquiryList">
 
 							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
 								name="numPerPage" id="numPerPage">
@@ -293,14 +293,14 @@ div#pageBar a {
 							if (i.getAnswer_status().equals("Y")) {
 						%>
 						<td><a
-							href="<%=request.getContextPath()%>/InquiryAdminAnswer?ino=<%=i.getI_No()%>">
+							href="<%=request.getContextPath()%>/admin/InquiryAdminAnswer?ino=<%=i.getI_No()%>">
 								<button id="inquiry-btn">답변완료</button>
 						</a></td>
 						<%
 							} else {
 						%>
 						<td><a
-							href="<%=request.getContextPath()%>/inquiryAnswerDetail?no=<%=i.getI_No()%>">
+							href="<%=request.getContextPath()%>/admin/inquiryAnswerDetail?no=<%=i.getI_No()%>">
 								<button id="inquiry-btn">답변전</button>
 						</a></td>
 
@@ -385,14 +385,14 @@ div#pageBar a {
 	 	        	}; 
 	 	      
 	 	        	  $.ajax({
-	 	                  url         :   "<%=request.getContextPath()%>/inquiryCheckDelete",
+	 	                  url         :   "<%=request.getContextPath()%>/admin/inquiryCheckDelete",
 	 	                  dataType    :   "html",
 	 	                  contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
 	 	                  type        :   "post",
 	 	                  data        :   objParams,
 	 	                  success     :   function(retVal){
 					 	     alert(retVal);
-					 	     location.replace("<%=request.getContextPath()%>/InquiryList");
+					 	     location.replace("<%=request.getContextPath()%>/admin/InquiryList");
 	 	                  },
 	 	                  error       :   function(request, status, error){
 	 	                      			  console.log("AJAX_ERROR");

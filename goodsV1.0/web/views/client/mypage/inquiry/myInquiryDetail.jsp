@@ -194,7 +194,7 @@ a img{
 						<%
 							if (i.getI_Original_Filename() != null) {
 						%> 
-						<a href="<%=request.getContextPath()%>/answerDetailFileDownLoad?filePath=<%=i.getI_Renamed_Filename()%>">
+						<a href="<%=request.getContextPath()%>/answerDetailFileDownLoad?filePath=<%=i.getI_Original_Filename()%>">
 						<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
 						<span><%=i.getI_Original_Filename()%></span> 
 						</a>

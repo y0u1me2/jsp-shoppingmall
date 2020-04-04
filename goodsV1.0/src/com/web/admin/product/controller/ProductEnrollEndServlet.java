@@ -24,7 +24,7 @@ import com.web.common.MyFileRenamePolicy;
 import com.web.product.model.vo.Product;
 import com.web.product.model.vo.ProductImage;
 
-@WebServlet("/productEnrollEnd")
+@WebServlet("/admin/productEnrollEnd")
 public class ProductEnrollEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -65,7 +65,7 @@ public class ProductEnrollEndServlet extends HttpServlet {
 			// 업로드처리 로직에서 multipart/formdata형식으로 넘어오지 않으면
 			// 등록이 안되면 상품등록 페이지로 이동
 			request.setAttribute("msg", "상품등록에러!![form:enctype 관리자에게 문의]");
-			request.setAttribute("loc", request.getContextPath() + "/productEnroll");
+			request.setAttribute("loc", request.getContextPath() + "/admin/productEnroll");
 			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 		}
 
@@ -94,16 +94,15 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		for(String n : color) {
 			imgList.add(new ProductImage(0,0,n,mr.getOriginalFileName(n)));
 		}
-		System.out.println(imgList);
 		
 		int result = new AdminProductService().productEnroll(p, imgList);
 
 		
 		  if (result > 0) { request.setAttribute("msg", "상품등록이 완료 되었습니다.");
-		  request.setAttribute("loc", "/productEnroll");
+		  request.setAttribute("loc", "/admin/productEnroll");
 		  
 		  } else { request.setAttribute("msg", "상품등록이 실패 하였습니다.");
-		  request.setAttribute("loc", "/productEnroll"); }
+		  request.setAttribute("loc", "/admin/productEnroll"); }
 		  request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request,
 		  response);
 		 

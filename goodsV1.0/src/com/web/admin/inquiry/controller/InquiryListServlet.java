@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.inquiry.model.vo.Inquiry;
 
-@WebServlet("/InquiryList")
+@WebServlet("/admin/InquiryList")
 public class InquiryListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -62,7 +62,7 @@ public class InquiryListServlet extends HttpServlet {
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/admin/InquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
 					+ numPerPage + "'><</a>";
 		}
 
@@ -72,7 +72,7 @@ public class InquiryListServlet extends HttpServlet {
 			if (pageNo == cPage) {
 				pageBar += "<span class='cPage'>" + pageNo + "</span>";
 			} else {
-				pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
+				pageBar += "<a href='" + request.getContextPath() + "/admin/InquiryList?cPage=" + pageNo + "&numPerPage="
 						+ numPerPage + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
@@ -82,7 +82,7 @@ public class InquiryListServlet extends HttpServlet {
 		if (pageNo > totalPage) {
 			pageBar += "<span>></span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/admin/InquiryList?cPage=" + pageNo + "&numPerPage="
 					+ numPerPage + "'>></a>";
 		}
 

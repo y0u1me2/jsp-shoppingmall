@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
-@WebServlet("/ProductListView")
+@WebServlet("/admin/ProductListView")
 
 public class ProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -73,7 +73,7 @@ public class ProductListServlet extends HttpServlet {
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
-			pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + (pageNo - 1) + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/admin/ProductListView?cPage=" + (pageNo - 1) + "&numPerPage="
 					+ numPerPage + "'><</a>";
 		}
 
@@ -83,7 +83,7 @@ public class ProductListServlet extends HttpServlet {
 			if (pageNo == cPage) {
 				pageBar += "<span class='cPage'>" + pageNo + "</span>";
 			} else {
-				pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + pageNo + "&numPerPage="
+				pageBar += "<a href='" + request.getContextPath() + "/admin/ProductListView?cPage=" + pageNo + "&numPerPage="
 						+ numPerPage + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
@@ -94,7 +94,7 @@ public class ProductListServlet extends HttpServlet {
 		if (pageNo > totalPage) {
 			pageBar += "<span>></span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + pageNo + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/admin/ProductListView?cPage=" + pageNo + "&numPerPage="
 					+ numPerPage + "'>></a>";
 		}
 
