@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ include file="/views/client/common/header3.jsp" %>
+<%@ include file="/views/client/common/header.jsp" %>
 
 <style>
  	a{
