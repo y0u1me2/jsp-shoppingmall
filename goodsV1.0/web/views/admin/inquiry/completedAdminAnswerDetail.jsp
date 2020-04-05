@@ -118,7 +118,7 @@ input#update-btn:hover {
 
 		<br><br>
 		<div class="goodsback">
-		<h1 id="title">문의내역</h1>
+		<h1 id="title">답변내역</h1>
 		<hr id="line1">
 		<br>
 		<br>
