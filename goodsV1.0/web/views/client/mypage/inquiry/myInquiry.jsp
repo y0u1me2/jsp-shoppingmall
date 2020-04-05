@@ -250,7 +250,6 @@ div#pageBar a {
 		<div>
 			<h1 id="one2">고객님의 최근 문의 내역입니다.</h1>
 			<div id="inquiryPeriod">
-				<p>조회기간&nbsp&nbsp&nbsp</p>
 				
 				<!-- 조회기간 선택하면 데이터 출력 개수가 옵션 값으로 변경되게 만들기 -->
 				<form name="numPerPageFrm" id="numPerPageFrm"
@@ -260,9 +259,9 @@ div#pageBar a {
 				<input type="hidden" name="cPage" value="<%=cPage%>">
 				
 				<select style="font-size: 16px;" name="numPerPage" id="numPerPage">
-					<option value="15" <%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩</option>
-					<option value="10" <%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩</option>
-					<option value="5"  <%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩</option>					
+					<option value="15" <%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩 보기</option>
+					<option value="10" <%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩 보기</option>
+					<option value="5"  <%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩 보기</option>					
 				</select>
 				</form>
 			</div>
