@@ -17,6 +17,7 @@
 
         html,
         body {
+        	width:1366px;
             height: 100%;
             margin: 0;
         }

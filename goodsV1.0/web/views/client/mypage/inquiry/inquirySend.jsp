@@ -69,7 +69,7 @@ hr#line1 {
 	top: 20px;
 }
 /* 테이블 */
-table.box {
+table.boxTable {
 	border-top: 1px solid #adadad;
 	border-bottom: 1px solid #adadad;
 	border-collapse: collapse;
@@ -77,7 +77,7 @@ table.box {
 }
 
 /* 테이블 선 색상 */
-table.box>tr, th, td {
+table.boxTable>tr,th,td{
 	border-top: 1px solid #e2e0e0;
 	border-bottom: 1px solid #e2e0e0;
 	padding:7px;
@@ -195,7 +195,7 @@ p#call {
 			<form method="post" id="frm" enctype="multipart/form-data">
 
 				<input type="hidden" name="mNo" value="<%=loginMember.getM_No()%>"/> 
-				<table class="box">
+				<table class="boxTable">
 					<tr>
 						<th id="th1">문의유형</th>
 						<td><select name="inquiryType">
