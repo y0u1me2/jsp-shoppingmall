@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class VisitorCheckFilter
  */
-@WebFilter("/home")//index.jsp 페이지 쏴주는 서블릿 만들어야 함!
+@WebFilter("/index.jsp")
 public class VisitorCheckFilter implements Filter {
 
     /**
@@ -43,8 +43,26 @@ public class VisitorCheckFilter implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		
-		String ip = ((HttpServletRequest)request).getHeader("X-Forwarded-For");
-		if (ip == null) ip = ((HttpServletRequest)request).getRemoteAddr();
+		HttpServletRequest req = (HttpServletRequest)request;
+		
+		String ip = req.getHeader("X-Forwarded-For");
+		 
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = req.getHeader("Proxy-Client-IP");
+	    }
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = req.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = req.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = req.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = req.getRemoteAddr();
+	    }
+
 		System.out.println(ip); //아이피 가져오기
 		
 		Connection conn = null;

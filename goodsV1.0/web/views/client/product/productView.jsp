@@ -108,7 +108,10 @@
          background:black;
     }
     
-    
+    /* 회색  버튼*/
+    input[type="radio"]#그레이{
+         background:grey;
+    }
 
     /* 분홍색 버튼 */
     input[type="radio"]#핑크{
@@ -197,7 +200,7 @@
 
 <!-- 상품 이미지(왼쪽 화면) -->
 <div id="img-container">
-	<img style="width:100%;" src="" alt="이미지 없음">
+	<img style="width:100%; height:100%;" src="" alt="이미지 없음">
 </div>
 
 
