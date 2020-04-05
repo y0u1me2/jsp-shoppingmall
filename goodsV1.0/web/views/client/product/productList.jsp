@@ -35,6 +35,7 @@
         }
 		
 		.inner-container {
+			width: 300px;
 			margin: 50px;
 		}
 		

@@ -8,7 +8,7 @@
 <style>
 body {
   background-color:#343a40;
-  width:100%;
+  width:1366px;
 }
 
 * {
