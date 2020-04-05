@@ -371,7 +371,7 @@
                                     <!-- 개인정보 테이블 바디 개인정보선택 -->
                                      <select name="search_Type" id="search_Type" class="fSelect">
                                         <option value="All" <%=type==null||type.equals("All")?"selected":"" %> >전체검색</option>
-                                        <option value="o_no" <%=type!=null&&type.equals("o_no")?"selected":"" %>>상품번호</option>
+                                        <option value="o_no" <%=type!=null&&type.equals("o_no")?"selected":"" %>>주문번호</option>
                                         <option value="p_name" <%=type!=null&&type.equals("p_name")?"selected":"" %>>상품명</option>
                                         <option value="o_date" <%=type!=null&&type.equals("o_date")?"selected":"" %>>결제날짜</option>
                                         <option value="o_name" <%=type!=null&&type.equals("o_name")?"selected":"" %>>구매자명</option>
@@ -389,7 +389,7 @@
                                		 <div id="search_o_no">
                                		 	<form action="<%=request.getContextPath()%>/admin/orderFinder">
 	                                    	<input type="hidden" name="searchType" value="o_no"/>
-	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 주문 입력"/>
+	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 주문번호 입력"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
 	                                    </form>
                                     </div>
