@@ -8,6 +8,7 @@
 <%-- <%@ page import="com.web.common.listener.SessionCheckListener" %> --%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.web.product.model.vo.Product" %>
+<%@ page import="com.web.product.model.service.ProductService" %>
 
 
 <%
@@ -23,6 +24,11 @@
 	
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
+	
+	List<Product> 케이스 = new ProductService().selectByCategory("케이스");
+	List<Product> 악세사리 = new ProductService().selectByCategory("악세사리");
+	List<Product> 생활용품 = new ProductService().selectByCategory("생활용품");
+	List<Product> 패션 = new ProductService().selectByCategory("패션");
 	
 
 %>
@@ -199,12 +205,14 @@ li{
 <!-- 드롭다운 메뉴 -->
 <div style=" display:flex;">
 	<!-- 로고 -->
-	<img src="<%=request.getContextPath()%>/images/common/영문검정.png" style="width:20%; height: 80px;" alt="goodgoods">
-
+	<a href="<%=request.getContextPath()%>/index.jsp" style="display:block; width:20%; height:80px;">
+		<img src="<%=request.getContextPath()%>/images/common/영문검정.png" style="width:100%; height:100%;" alt="goodgoods">
+	</a>
+	
 	<ul class="main">
 		<li><a href="<%=request.getContextPath()%>/product/list?category=케이스">케이스</a>
 			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("케이스"))){%>
+				<%for(Product p: 케이스){%>
 					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
 				<% }%>
 			</ul>
@@ -212,7 +220,7 @@ li{
 		
 		<li><a href="<%=request.getContextPath()%>/product/list?category=악세사리">악세사리</a>
 			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("악세사리"))){%>
+				<%for(Product p: 악세사리){%>
 					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
 				<% }%>
 			</ul>
@@ -220,7 +228,7 @@ li{
 		
 		<li><a href="<%=request.getContextPath()%>/product/list?category=생활용품">생활용품</a>
 			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("생활용품"))){%>
+				<%for(Product p: 생활용품){%>
 					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
 				<% }%>
 			</ul>
@@ -228,15 +236,15 @@ li{
 		
 		<li><a href="<%=request.getContextPath()%>/product/list?category=패션">패션</a>
 			<ul class="sub">
-				<%for(Product p: ((List<Product>)request.getAttribute("패션"))){%>
+				<%for(Product p: 패션){%>
 					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
 				<% }%>
 			</ul>
 		</li>
 		
-		<li><a href="#">갤러리</a></li>
+		<li><a href="<%=request.getContextPath()%>/gallery/list">갤러리</a></li>
 		
-		<li><a href="#">리뷰</a></li>
+		<li><a href="<%=request.getContextPath()%>/reviewList">리뷰</a></li>
 	</ul>
 </div>
 
