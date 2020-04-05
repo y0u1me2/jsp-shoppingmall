@@ -35,10 +35,6 @@ public class CartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		//for문 사용하면
-		//String[] strA = {"22","33","1"};
-		//int[] numsA = new int[strA.length];
-		//for(int i=0;i<strA.length; i++){ numsA[i] = Integer.parseInt(strA[i]); }
 		//쿠키
 		Cookie[] cookies = request.getCookies(); //null이거나 쿠키배열
 		String [] cart=new String[cookies.length];
