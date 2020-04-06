@@ -373,7 +373,8 @@ dd {
 							onclick="cartSelectAll();">전체 선택</button>
 						<button type="button" class="btn-white-small"
 							onclick="cartReleaseAll();">선택 해제</button>
-						<button type="button" class="btn-white-small" onclick="">삭제</button>
+						<button type="button" class="btn-white-small" 
+							onclick="cartSelectDelete()">삭제</button>
 					</div>
 					<div class="right">
 						<!-- 결제예정금액 및 상품주문 버튼-->
@@ -440,13 +441,15 @@ dd {
 	            			</tr>
 	            		<%}else{ %>	
 							<%for(Cart c : cart) {%>
-						
+							
 							<tr>
 								<td style="text-align: center; vertical-align: top;">
+									
 									<div class="cartCheckbox">
 										<input type="checkbox" name="cartSelect" class="cartSelect"
 											 value="<%=c.getcCno()%>">										
 									</div> <!-- 전체클릭하면 위에 체크되기-->
+									
 								</td>
 								<td>
 									<div
@@ -488,6 +491,7 @@ dd {
 									<span class="format-Price payPrice" name="payPrice"></span>원
 								</td>
 							</tr>
+						
 							<tr class="shoppingutil">
 
 								<td colspan="6" style="padding: 0;">
@@ -508,6 +512,7 @@ dd {
 									</div>
 								</td>
 							</tr>	
+							
 							<% } %>	
 						<%} %>		
 					
@@ -519,7 +524,8 @@ dd {
 				</div>
 			</div>
 		
-		
+		<form id="cartAllDelete" action="<%=request.getContextPath()%>/cart/cartSelectDelete" method="post">
+		</form>
 		<form id="cartF" action="<%=request.getContextPath()%>/payment" method="post">
 		</form> 
 	</div>
@@ -560,26 +566,25 @@ dd {
 			}
 			// 로드 시 전체체크/삭제가 체크돼이으면 체크 해제
 			$('#cartSelectReleaseAll').prop('checked',false);
-			
-			
-	
-			
+
 		})
 		 $.each($('.pdQuantity'),function(i,item){
 			//최초 로드시 수량 1개로 초기화
 			let quan=$(item);
 			console.log(quan.val());
 			$(quan).attr("pdQuantity",'1');
-		}) 
+		})
 		$(".cLDelete").click(function(){
 			var result = confirm('선택하신 상품을 삭제하시겠습니까?'); 
 			console.log($(this).next().children());
 			if(result) {
 				$(this).next(".cartDeleteF").submit();
 			}else{
+				
 			}
 			
 		})
+		
 		$("#cartOrderBtn").click(function(){
 			let num = parseInt($("#cartSelCount").text());
 			if(num>0){
@@ -608,8 +613,32 @@ dd {
 			}
 			
 		});
+		//선택항목삭제
+		function cartSelectDelete(){
+			let num = parseInt($("#cartSelCount").text());
+			if(num>0){
+				form=$("#cartAllDelete");
+				$(form).children().remove();
+				$.each($(".cartSelect"),function(i,item){
+					if(item.checked==true){
+						const inputCk = $("<input>").attr({
+							type:"hidden",name:"cartSelectDelete",value:$(item).val()
+						});
+
+						form.append(inputCk);
+					}
+				});
+				
+				var result = confirm('선택하신 상품을 삭제하시겠습니까?'); 
+				if(result) {
+					$("#cartAllDelete").submit();
+				}
+			
+			}else{
+				alert("선택사항을 확인해주세요.");
+			}
+		};
 		
-	
 		function cartSelRelAll() {
 
 			var AllPayResult;
