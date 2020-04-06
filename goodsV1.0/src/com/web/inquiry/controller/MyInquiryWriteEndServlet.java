@@ -109,7 +109,7 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 			  }
 		  }
 		 						
-		Inquiry i = new Inquiry(0, no, type, phone, title, content, null, newName,oldPath, "Y", null);
+		Inquiry i = new Inquiry(0, no, type, phone, title, content, null, newName, "Y", null);
 
 		// n을 DB에 저장하기
 		int result = new InquiryService().inquiryWrite(i);

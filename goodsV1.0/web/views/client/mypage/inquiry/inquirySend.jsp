@@ -3,7 +3,6 @@
 
 <%@ include file="/views/client/common/header.jsp"%>
 
-
 <style>
 
 

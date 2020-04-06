@@ -76,36 +76,36 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		// MultipartRequest(HttpServletRequest, 저장경로, 파일저장최대크기, 문자열인코딩값파일 rename정책)
 
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new DefaultFileRenamePolicy());
-				
+
 		String name = mr.getParameter("pName");
 		String category = mr.getParameter("pCategory");
 		int price = Integer.parseInt(mr.getParameter("pPrice"));
 		String comment = mr.getParameter("pComment");
 		String[] color = mr.getParameterValues("colorInput");
 		String listImage = mr.getOriginalFileName("listImage");
-					
-		//Enumeration<String> fileName= mr.getFileNames();
-		//HashMap<String,String> imgMap=new HashMap();
-				
-		Product p = new Product(0, category, name, price, listImage, comment, null);
 
-		//상품이미지저장
+		// Enumeration<String> fileName= mr.getFileNames();
+		// HashMap<String,String> imgMap=new HashMap();
+
+		// 상품이미지저장
 		List<ProductImage> imgList = new ArrayList();
-		for(String n : color) {
-			imgList.add(new ProductImage(0,0,n,mr.getOriginalFileName(n)));
+		for (String n : color) {
+			imgList.add(new ProductImage(0, 0, n, mr.getOriginalFileName(n)));
 		}
-		
+
+		Product p = new Product(0, category, name, price, listImage, comment, null,null);
 		int result = new AdminProductService().productEnroll(p, imgList);
 
-		
-		  if (result > 0) { request.setAttribute("msg", "상품등록이 완료 되었습니다.");
-		  request.setAttribute("loc", "/admin/productEnroll");
-		  
-		  } else { request.setAttribute("msg", "상품등록이 실패 하였습니다.");
-		  request.setAttribute("loc", "/admin/productEnroll"); }
-		  request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request,
-		  response);
-		 
+		if (result > 0) {
+			request.setAttribute("msg", "상품등록이 완료 되었습니다.");
+			request.setAttribute("loc", "/admin/productEnroll");
+
+		} else {
+			request.setAttribute("msg", "상품등록이 실패 하였습니다.");
+			request.setAttribute("loc", "/admin/productEnroll");
+		}
+		request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

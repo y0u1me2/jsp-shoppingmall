@@ -54,6 +54,7 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("loginResult", loginResult);
 		session.setAttribute("emailCheck", emailCheck);
 		session.setAttribute("m_status", m_status);
+		//request.getRequestDispatcher("/header.jsp").forward(request, response);
 		response.sendRedirect("/header.jsp");
 	}
 
