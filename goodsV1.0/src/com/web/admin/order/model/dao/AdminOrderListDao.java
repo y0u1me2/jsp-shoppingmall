@@ -91,6 +91,38 @@ public class AdminOrderListDao {
 		return list;
 	}
 	
+	public List<OrderList> searchDateOrderList(Connection conn,int cPage,int numPerPage,String type,String keyword){
+		Statement stmt=null;
+		ResultSet rs=null;
+		String sql="SELECT * FROM "
+				+ "(SELECT ROWNUM AS RNUM,A.* FROM(SELECT * FROM PAYMENTDETAIL PD JOIN CUSTOM C USING(C_NO) JOIN PRODUCT P ON C.P_NO=P.P_NO JOIN PAYMENT PM USING(O_NO) WHERE TO_CHAR("+type+",'YYYYMMDD') LIKE '%"+keyword+"%' ORDER BY O_NO) A) "
+						+ "WHERE RNUM BETWEEN "+((cPage-1)*numPerPage+1)+" AND "+(cPage*numPerPage);
+		List<OrderList> list=new ArrayList();
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			while(rs.next()) {
+				OrderList ol=new OrderList();
+				ol.setoNo(rs.getInt("o_no"));
+				ol.setCfileName(rs.getString("c_complete_file"));
+				ol.setpName(rs.getString("p_name"));
+				ol.setcColor(rs.getString("c_color"));
+				ol.settPrice(rs.getInt("p_price"));
+				ol.setoQuan(rs.getInt("o_quan"));
+				ol.setoName(rs.getString("o_name"));
+				ol.setoDate(rs.getDate("o_date"));
+				ol.setcNo(rs.getInt("c_no"));
+				list.add(ol);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}
+		return list;
+	}
+	
 	public int amountOrderList(Connection conn) {
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -112,7 +144,25 @@ public class AdminOrderListDao {
 	public int amountOrderList(Connection conn,String type,String keyword) {
 		Statement stmt=null;
 		ResultSet rs=null;
-		String sql="SELECT COUNT(*) CO FROM PAYMENTDETAIL JOIN CUSTOM C USING(C_NO) JOIN PRODUCT USING(P_NO) WHERE "+type+" LIKE '%"+keyword+"%'";
+		String sql="SELECT COUNT(*) CO FROM PAYMENTDETAIL JOIN PAYMENT USING(O_NO) JOIN CUSTOM C USING(C_NO) JOIN PRODUCT USING(P_NO) WHERE "+type+" LIKE '%"+keyword+"%'";
+		int count=0;
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			if(rs.next()) count=rs.getInt("co");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}
+		return count;
+	}
+	
+	public int amountDateOrderList(Connection conn,String type,String keyword) {
+		Statement stmt=null;
+		ResultSet rs=null;
+		String sql="SELECT COUNT(*) CO FROM PAYMENTDETAIL JOIN PAYMENT USING(O_NO) JOIN CUSTOM C USING(C_NO) JOIN PRODUCT USING(P_NO) WHERE TO_CHAR("+type+",'YYYYMMDD') LIKE '%"+keyword+"%'";
 		int count=0;
 		try {
 			stmt=conn.createStatement();
@@ -128,19 +178,19 @@ public class AdminOrderListDao {
 	}
 	
 	public int totalPrice(Connection conn) {
-		PreparedStatement pstmt=null;
+		Statement stmt=null;
 		ResultSet rs=null;
 		int total=0;
-		String sql=prop.getProperty("totalPrice");
+		String sql="SELECT SUM(O_TOTALPRICE) AS SUM FROM PAYMENTDETAIL JOIN PAYMENT USING(O_NO) JOIN CUSTOM USING(C_NO) JOIN PRODUCT USING(P_NO)";
 		try {
-			pstmt=conn.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
 			if(rs.next()) total=rs.getInt("sum");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rs);
-			close(pstmt);
+			close(stmt);
 		}
 		return total;
 	}
@@ -167,7 +217,7 @@ public class AdminOrderListDao {
 	public int deleteOrderList(Connection conn,int no) {
 		Statement stmt=null;
 		int result=0;
-		String sql="DELETE FROM ORDER_LIST WHERE OL_NO="+no;
+		String sql="DELETE FROM PAYMENTDETAIL WHERE C_NO="+no;
 		try {
 			stmt=conn.createStatement();
 			result=stmt.executeUpdate(sql);
@@ -182,7 +232,7 @@ public class AdminOrderListDao {
 	public int checkdelete(Connection conn,String[] check) {
 		PreparedStatement pstmt=null;
 		int result=0;
-		String sql=prop.getProperty("1");
+		String sql="DELETE FROM PAYMENTDETAIL WHERE C_NO=?";
 		try {
 			pstmt=conn.prepareStatement(sql);
 			for(String s : check) {

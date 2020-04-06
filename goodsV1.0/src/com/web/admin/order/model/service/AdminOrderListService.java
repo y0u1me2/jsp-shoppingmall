@@ -27,6 +27,13 @@ public class AdminOrderListService {
 		close(conn);
 		return list;
 	}
+	public List<OrderList> searchDateOrderList(int cPage,int numPerPage,String type,String keyword){
+		Connection conn=getConnection();
+		List<OrderList> list=dao.searchDateOrderList(conn,cPage,numPerPage,type,keyword);
+		close(conn);
+		return list;
+	}
+	
 	
 	public int amountOrderList() {
 		Connection conn=getConnection();
@@ -40,6 +47,14 @@ public class AdminOrderListService {
 		int count=dao.amountOrderList(conn,type,keyword);
 		close(conn);
 		return count;
+	}
+	
+	public int amountDateOrderList(String type,String keyword) {
+		Connection conn=getConnection();
+		int count=dao.amountDateOrderList(conn,type,keyword);
+		close(conn);
+		return count;
+		
 	}
 	
 	public int totalPrice() {
@@ -64,21 +79,15 @@ public class AdminOrderListService {
 		else rollback(conn);
 		close(conn);
 		return result;
-		
 	}
 	
 	public int checkdelete(String[] check) {
 		Connection conn=getConnection();
 		int result=dao.checkdelete(conn,check);
-		if(result>0) commit(conn);
+		if(result>check.length-1) commit(conn);
 		else rollback(conn);
 		close(conn);
 		return result;
 	}
-	
-	
-	
-	
-	
-	
+
 }

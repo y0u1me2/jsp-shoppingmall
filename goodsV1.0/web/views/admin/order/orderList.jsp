@@ -454,9 +454,9 @@
         					<input type="hidden" name="searchType" value="<%=type%>">
         					<input type="hidden" name="searchKeyword" value="<%=keyword%>">														
         					<select name="numPerPage" id="numPerPage">
-        						<option value="10" selected>5개씩 보기</option>
-        						<option value="20" >10개씩 보기</option>
-        						<option value="30" >15개씩 보기</option>
+        						<option value="10" <%=numPer==10?"selected":"" %>>10개씩 보기</option>
+        						<option value="20" <%=numPer==20?"selected":"" %>>20개씩 보기</option>
+        						<option value="30" <%=numPer==30?"selected":"" %>>30개씩 보기</option>
         					</select>
         					
         			<!-- select선택을하면 데이터 출력갯수가 옵션값으로 변경 -->
@@ -466,6 +466,8 @@
                 </div>
                 <!-- 회원목록 박스 바디 -->
                 <form id="ckvalue">
+                <input type="hidden" name="type" value="<%=type %>"/>
+                <input type="hidden" name="keyword" value="<%=keyword %>"/>
                 <div class="mlist"> 
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
@@ -564,7 +566,7 @@
     		var result=confirm("주문을 취소하시겠습니까?");
     		var value=$(event.target).val();
     		if(result){
-    			location.replace("<%=request.getContextPath()%>/admin/orderListDelete?no="+value+"?type="+type+"keyword="+keyword);
+    			location.replace("<%=request.getContextPath()%>/admin/orderListDelete?no="+value+"&searchType=<%=type%>&searchKeyword=<%=keyword%>");
     		}
     	}
     	//선택삭제
@@ -572,6 +574,12 @@
     		$("#checkdelete").click(function(){
     			$("#ckvalue").attr("action","<%=request.getContextPath()%>/admin/orderCheckDelete");
     			$("#ckvalue").submit();
+    		})
+    	})
+    	//페이징
+    	$(function(){
+    		$("#numPerPage").change(function(){
+    			$("#numPerPageFrm").submit();
     		})
     	})
     </script>
