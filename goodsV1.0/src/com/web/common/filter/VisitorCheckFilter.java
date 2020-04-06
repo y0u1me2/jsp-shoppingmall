@@ -75,7 +75,7 @@ public class VisitorCheckFilter implements Filter {
 			pstmt.setString(1, ip);
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			System.out.println("해당 아이피 오늘자 방문 기록 있음!");
 		}finally {
 			try {
 				pstmt.close();
@@ -86,11 +86,9 @@ public class VisitorCheckFilter implements Filter {
 		
 		if(result>0) {
 			commit(conn);
-			System.out.println("새로운 방문자");
 		}
 		else {
 			rollback(conn);
-			System.out.println("오늘자 방문 기록 있음");
 		}
 		
 		close(conn);

@@ -2,14 +2,14 @@
     pageEncoding="UTF-8"%>
     
 
-    
-<!DOCTYPE html>
+<%@ include file="/views/client/common/header.jsp" %>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
     <title>0. Design</title>
-    <link rel="shortcut icon" href="#">
+    <link rel="shortcut icon" href="#"> -->
     <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css" rel="stylesheet">
     <link type="text/css" href="<%=request.getContextPath() %>/api/toast/dist/tui-image-editor.css" rel="stylesheet">
     <style>
@@ -32,8 +32,7 @@
     <script type="text/javascript" src="<%=request.getContextPath() %>/api/toast/js/theme/white-theme.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/api/toast/js/theme/black-theme.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="<%=request.getContextPath() %>/js/jszip.min.js"></script>
-</head>
+<!-- </head> -->
 
 <body>
 
@@ -70,4 +69,4 @@
     </script>
 </body>
 
-</html>
+<%@ include file="/views/client/common/footer.jsp" %>

@@ -221,7 +221,7 @@
         <div class="color-select" style="text-align:center; position:relative; top:100px; margin-bottom:50px;">
         	<p style="font-size:20px;  font-weight: bold; ">색상 선택</p>
     		
-    		<form action="<%=request.getContextPath() %>/product/custom" method="post" onsubmit="return invalid();">
+    		<form action="<%=request.getContextPath() %>/product/custom" method="post" onsubmit="return validate();">
     			<input type="hidden" name="pNo" value="<%=p.getpNo()%>">
     			<input type="hidden" name="mNo" value="<%=loginMember!=null?loginMember.getM_No():""%>">
     			<input type="hidden" id="imgFile" name="imgFile" value="">
@@ -272,12 +272,19 @@
 
 
 <script>
-	function invalid(){
+	function validate(){
 		if($(':radio[name="colorType"]:checked').length < 1){
 			alert('색상을 선택하세요');
 			return false;
 		}
-		return true;
+		
+		if(mNo!=""){
+			return true;
+		}else{
+			alert('로그인이 필요한 서비스입니다.');
+			return false;
+			
+		}
 	}
 
 	$(function(){
