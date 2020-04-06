@@ -89,5 +89,12 @@ public class AdminOrderListService {
 		close(conn);
 		return result;
 	}
+	
+	public List<OrderList> excelDown(){
+		Connection conn=getConnection();
+		List<OrderList> list=dao.excelDown(conn);
+		close(conn);
+		return list;
+	}
 
 }

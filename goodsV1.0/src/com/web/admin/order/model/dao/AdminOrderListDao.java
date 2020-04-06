@@ -247,6 +247,35 @@ public class AdminOrderListDao {
 		return result;
 	}
 	
+	public List<OrderList> excelDown(Connection conn){
+		Statement stmt=null;
+		ResultSet rs=null;
+		String sql="SELECT * FROM (SELECT ROWNUM AS RNUM,A.* FROM(SELECT * FROM PAYMENTDETAIL PD JOIN CUSTOM C USING(C_NO) JOIN PRODUCT P ON C.P_NO=P.P_NO JOIN PAYMENT PM USING(O_NO) ORDER BY O_NO) A)";
+		List<OrderList> list=new ArrayList();
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			while(rs.next()) {
+				OrderList ol=new OrderList();
+				ol.setoNo(rs.getInt("o_no"));
+				ol.setCfileName(rs.getString("c_complete_file"));
+				ol.setpName(rs.getString("p_name"));
+				ol.setcColor(rs.getString("c_color"));
+				ol.settPrice(rs.getInt("p_price"));
+				ol.setoQuan(rs.getInt("o_quan"));
+				ol.setoName(rs.getString("o_name"));
+				ol.setoDate(rs.getDate("o_date"));
+				ol.setcNo(rs.getInt("c_no"));
+				list.add(ol);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}
+		return list;
+	}
 	
 	
 	

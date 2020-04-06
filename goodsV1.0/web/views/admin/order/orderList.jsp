@@ -221,7 +221,21 @@
    .total>strong{
         color: rgb(255, 109, 1);
    }
-
+   
+   /* 엑셀파일 */
+	#eleft{
+		float:left;
+	}
+	#eright{
+		float:right;
+		padding-right:220px;
+    	padding-top: 40px;
+	}
+	#exeldiv:after{
+		clear: both;
+		content:"";
+		display:block;
+	}
  	div#search_All{display:inline-block;}
     div#search_o_no{display:none;}
     div#search_p_name{display:none;}
@@ -429,16 +443,23 @@
 
             <!-- 회원 목록 div -->
             <div style="margin-bottom: 30px;">
-                <div class="mListTitle">
-                <!-- 회원목록 타이틀 -->
-                    <h4 style="font-size: 17px;">주문 목록</h4>
-                </div>
-                <!-- 총 회원수 및 검색 결과 -->
-                <div class="mState">
-                    <p class="total">
-                        [총 매출 <strong><%=totalPrice %></strong>원] 검색결과 
-                        <strong><%=searchPrice %></strong>원
-                    </p>
+                <div id="exeldiv">
+	                <div id="eleft">
+		                <div class="mListTitle">
+		                <!-- 회원목록 타이틀 -->
+		                    <h4 style="font-size: 17px;">주문 목록</h4>
+		                </div>
+		                <!-- 총 회원수 및 검색 결과 -->
+		                <div class="mState">
+		                    <p class="total">
+		                        [총 매출 <strong><%=totalPrice %></strong>원] 검색결과 
+		                        <strong><%=searchPrice %></strong>원
+		                    </p>
+		                </div>
+	                </div>
+	                <div id="eright">
+	                	<button type="button" class="btn_Wihte" id="excel">엑셀파일 저장</button>
+	                </div>
                 </div>
                 <!-- 회원목록 박스 헤더 -->
                 <div class="mListHeader">
@@ -506,7 +527,6 @@
 	                        		<td>
 	                        			<img src="<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>" width="50px" height="50px"/>
 	                        			<%=ol.getpName() %> <%=ol.getcColor() %>
-	                        			<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>
 	                        		</td>
 	                        		<td><%=ol.gettPrice()*ol.getoQuan() %>원</br><%=ol.getoQuan() %>개</td>
 	                        		<td><%=ol.getoName() %></td>
@@ -580,6 +600,12 @@
     	$(function(){
     		$("#numPerPage").change(function(){
     			$("#numPerPageFrm").submit();
+    		})
+    	})
+    	//엑셀파일 저장
+    	$(function(){
+    		$("#excel").click(function(){
+    			location.replace("<%=request.getContextPath()%>/admin/excel");
     		})
     	})
     </script>
