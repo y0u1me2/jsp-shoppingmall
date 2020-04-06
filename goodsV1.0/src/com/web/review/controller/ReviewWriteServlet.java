@@ -1,4 +1,4 @@
-package com.web.member.controller;
+package com.web.review.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NaverLoginAPI
+ * Servlet implementation class ReviewWriteServlet
  */
-@WebServlet("/naverLoginAPI")
-public class NaverLoginAPI extends HttpServlet {
+@WebServlet("/reviewWrite")
+public class ReviewWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NaverLoginAPI() {
+    public ReviewWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,11 +27,14 @@ public class NaverLoginAPI extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String token=request.getParameter("access_token");
-		String state=request.getParameter("state");
-		System.out.println("토큰 : "+token);
-		System.out.println("스테이트 : "+state);
-		
+		System.out.println("작성창인데 여기오면 gg인데");
+		int starPoint=Integer.parseInt(request.getParameter("starPoint"));
+		String content=request.getParameter("content");
+		String up_file=request.getParameter("up_file");
+		System.out.println("별점 : "+starPoint);
+		System.out.println("내용 : "+content);
+		System.out.println("파일이름 : "+up_file);
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**

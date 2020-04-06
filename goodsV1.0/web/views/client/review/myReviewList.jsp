@@ -313,43 +313,7 @@ to {
 			</div>
 		</div>
 		<div class="review-middle">
-			<!-- 다시해야할듯........================div로 ======================= -->
-			<%-- <%for(Review r : list) { %>
-			<div id="writtenReviewList" style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
-				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
-				<table>
-					<tr>
-						<td class="reviewProductImg" rowspan="3"><a href="#"> 
-						<img class="review-product"
-								src="http://blogfiles.naver.net/MjAyMDAyMjhfMjk1/MDAxNTgyODg3OTYxNTAx.65if9cw_x-J4nP-t9AUFic4VeVhf_V0mi88ZZ5XODUgg.XvjMwjsTpXdosK9tlxsm7nTTWE0YTYJtbc9Qq0pkXnMg.JPEG.momo7891/Description.jpg">
-						</a></td>
-						<td class="reviewTitle" colspan="3">
-						<a href="#">
-							상품이구요
-						</a></td>
-					</tr>
-					<tr class="reviewTR">
-						<td class="reviewStar">
-						<%for(int i=0;i<r.getRv_Star();i++) { %>
-							<span class="fa fa-star checked"></span>
-						<%} %>
-						<%for(int i=0;i<5-(r.getRv_Star());i++) { %>
-							<span class="fa fa-star"></span>
-						<%} %>
-						
-						<td class="reviewDate"><%=r.getRv_Date() %></td>
-						<td class="reviewWriter"><%=r.getM_nickName() %></td>
-					</tr>
-					<tr>
-						<td class="reviewContent" style="width:150px;" colspan="3"><%=r.getRv_Content() %></td>
-					</tr>
-				</table>
-				<div class="reviewImg">
-					<img
-						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
-				</div>
-			</div>
-			<%} %> --%>
+			
 			<!-- -============================================================================== -->
 		</div>
 	</div>
@@ -399,7 +363,7 @@ to {
 	<!-- ================================리뷰 작성 창 ================================= -->
 	<div class="reviewWrite-modal-back">
 		<div class="animate reviewWrite">
-			<form onsubmit="return reviewWrite()" method="post">
+			<form id="reviewWriteFrm">
 				<div class="reviewWrite-top">
 					<h2 style="margin: 0 0 20px 0">리뷰쓰기</h2>
 					<!-- 로그인 창 X표시 -->
@@ -441,7 +405,7 @@ to {
 				</div>
 				<div class="reviewWrite-bottom">
 					<button type="button" onclick="closeReviewWrite();">취소</button>
-					<button type="submit">등록</button>
+					<button id="submit" type="button">등록</button>
 				</div>
 			</form>
 		</div>
@@ -591,26 +555,28 @@ if($('#writtenReview').attr("class")=="selected") {
                 for (let j = 0; j < i + 1; j++) {//마우스로 별점 클릭했을때
                     $(star[j]).children('span').addClass('checked');//별점 유지
                 }
-                /* starPointValue=i+1;
-                $("#starPointValue").val()=starPointValue;
-    			console.log($("#starPointValue").val()); */
             })
         }
         
-        function reviewWrite() {
-        	//for(let i=0;i<star.length; i++){
-        		//console.log($(star[i]).children('span'));
-        	//}
+        $("#submit").click(function() {
+        	$("#starPointValue").val($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
+        	console.log($("#starPointValue").val());
+        	$.ajax({
+        		dataType: 'json',
+        		type : 'post',
+        		data: $("#reviewWriteFrm").serialize(),
+        		url: "<%=request.getContextPath()%>/reviewWrite"
+        	})
+        })
+        
+        
+        /* function reviewWrite() {
         	console.log($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
         	$("#starPointValue").val()=$(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length;
+        	console.log($("#starPointValue").val());
         	return false;        	
-        }
+        } */
         
-        
-        
-	
-	
-	
 </script>
 
 

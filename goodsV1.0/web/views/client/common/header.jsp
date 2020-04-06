@@ -50,9 +50,7 @@
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="434214577564-es7em89nej7dmjke6sa184ttis3ndb70.apps.googleusercontent.com">
 <script src="<%=request.getContextPath()%>/js/googleSignIn.js" async defer></script>
-<!-- 네이버 로그인 -->
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 <title>굿굿즈</title>
 
 <!-- css폴더에있는 css파일 불러오기 -->
