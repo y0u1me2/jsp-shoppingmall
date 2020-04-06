@@ -171,7 +171,9 @@ button.pColor-minus {
 					</tr>
 					<tr>
 						<td>섬네일 이미지 수정</td>
-						<td><input type="file" id="fbtn" name="listImage"></td>
+						<td><input type="file" id="fbtn" name="listImage">
+						<input type="file" style="display:none" name="oriThumbnail" value="<%=p.getpThumbnail()%>" />
+						</td>
 					</tr>
 
 					<tr>
