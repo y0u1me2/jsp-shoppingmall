@@ -121,8 +121,7 @@ public class ProductCustomEndServlet extends HttpServlet {
 			if(cookies!=null) {//기존에 쿠키가 있는 경우
 				for(int i=0; i<cookies.length; i++) {
 					if(cookies[i].getName().equals(String.valueOf(c.getmNo()))) {
-						System.out.println("cart 쿠키가 이미 있음!");
-						cookie = new Cookie("cart", cookies[i].getValue()+"|"+cno);
+						cookie = new Cookie(String.valueOf(c.getmNo()), cookies[i].getValue()+"|"+cno);
 						cookie.setMaxAge(60*60*24*90);//쿠키 유지 기간(90일)
 						cookie.setPath("/");
 						response.addCookie(cookie);
@@ -132,7 +131,6 @@ public class ProductCustomEndServlet extends HttpServlet {
 			}
 			
 			if(!isExist) {//쿠키가 없을 경우 쿠키 생성
-				System.out.println("cart 쿠키 없음");
 				cookie = new Cookie(String.valueOf(c.getmNo()), ""+cno);
 				cookie.setMaxAge(60*60*24*90);//쿠키 유지 기간(90일)
 				cookie.setPath("/");

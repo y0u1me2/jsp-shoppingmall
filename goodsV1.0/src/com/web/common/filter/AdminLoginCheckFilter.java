@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AdminLoginCheck
  */
-@WebFilter("/admin/*")
+@WebFilter(urlPatterns= {"/admin/*", "/views/admin/home.jsp"})
 public class AdminLoginCheckFilter implements Filter {
 
     /**
