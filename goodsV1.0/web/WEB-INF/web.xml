@@ -3,7 +3,7 @@
   <display-name>goods</display-name>
   <!-- 세션 유지 시간 지정 (단위 : 분) 시작 -->
   <session-config>
-  	<session-timeout>1</session-timeout>
+  	<session-timeout>30</session-timeout>
   </session-config>
   <!-- 세션 유지 시간 지정 종료 -->
   <welcome-file-list>
