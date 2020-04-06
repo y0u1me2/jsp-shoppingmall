@@ -48,7 +48,7 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
 			
 		}catch(NumberFormatException e) {
-			numPerPage=5;
+			numPerPage=10;
 		}
 		List<OrderList> list = new AdminOrderListService().searchOrderList(cPage,numPerPage,type,keyword);
 		//pageBar만들기
@@ -83,11 +83,13 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 		}else {
 			pageBar+="<a href='"+request.getContextPath()+"/admin/orderFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
 		}
+		//총 매출
+		int totalPrice=new AdminOrderListService().totalPrice();
+		int searchPrice=new AdminOrderListService().totalPrice(type,keyword);
+		System.out.println(searchPrice);
 		
-		
-		System.out.println(type);
-		
-
+		request.setAttribute("totalPrice", totalPrice);
+		request.setAttribute("searchPrice", searchPrice);
 		request.setAttribute("totalDate",totalDate);
 		request.setAttribute("finderDate",finderDate);
 		request.setAttribute("list", list);

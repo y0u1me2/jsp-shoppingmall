@@ -124,15 +124,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="<%=request.getContextPath()%>/admin/orderList" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>전체주문보기</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>주문정보수정/삭제</p>
+                  <p>주문 관리/조회</p>
                 </a>
               </li>
             </ul>
@@ -161,7 +155,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-clipboard"></i>
               <p>
-         		공지사항
+         		공지사항 관리
                 <i class="right fas fa-angle-right"></i>
               </p>
             </a>
@@ -169,7 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/admin/noticeList" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>공지사항 목록/삭제</p>
+                  <p>공지사항 관리/조회</p>
                 </a>
               </li> 
             </ul>
