@@ -268,42 +268,6 @@ function signOut() {
     });
 }
 
-//네이버 로그인 부분
-
-var naverLogin = new naver.LoginWithNaverId(
-		{
-			clientId: "D2AFKSTSMw20Ced_tf5I",
-			callbackUrl: "http://localhost:9090/goods/index.jsp",
-			isPopup: false,
-			callbackHandle: false
-		}
-	);
-
-	naverLogin.init();
-	
-	naverLogin.getLoginStatus(function (status) {
-		if (status) {
-			var email = naverLogin.user.getEmail();
-			var name = naverLogin.user.getNickName();
-			var profileImage = naverLogin.user.getProfileImage();
-			var birthday = naverLogin.user.getBirthday();			var uniqId = naverLogin.user.getId();
-			var age = naverLogin.user.getAge();
-		} else {
-			console.log("AccessToken이 올바르지 않습니다.");
-		}
-	});
-//네이버 콜백 부분
-
-// 접근 토큰 값 출력
-//alert(naver_id_login.oauthParams.access_token);
-//// 네이버 사용자 프로필 조회
-//naver_id_login.get_naver_userprofile("naverSignInCallback()");
-//// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-//function naverSignInCallback() {
-//  alert(naver_id_login.getProfileData('email'));
-//  alert(naver_id_login.getProfileData('nickname'));
-//  alert(naver_id_login.getProfileData('age'));
-//}
 
 //로그인 구분버튼(카카오, 페이스북, 구글, 네이버)
 var loginImg = $('#loginCenterImg>.img>img');

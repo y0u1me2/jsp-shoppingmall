@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.web.member.model.vo.Member"%>
 <%
-	Member loginMember = (Member) session.getAttribute("loginedMember");//로그인 세션
-	String emailCheck=(String)session.getAttribute("emailCheck");//이메일체크 여부
+	int loginCount =  (int)session.getAttribute("loginCount");//로그인 세션
+	Member loginedMember = (Member)session.getAttribute("loginedMember");//로그인 세션
 %>
     
     
@@ -24,7 +24,7 @@
 						<button type="button">장바구니</button>
 					</li>
 					<%
-						if (loginMember == null || loginMember != null&&emailCheck.equals("N")) {
+						if (loginCount==0) {
 					%>
 					<li>
 						<button type="button" onclick="openEnroll()">회원가입</button>
@@ -42,7 +42,7 @@
 			<div class="dropdown" id="memberName">
 				<div class="dropdown-scope">
 					<button type="button">
-						<h4><%=loginMember.getM_NickName()%>
+						<h4><%=loginedMember.getM_NickName()%>
 							님
 						</h4>
 					</button>
