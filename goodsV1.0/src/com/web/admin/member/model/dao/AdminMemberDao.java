@@ -251,4 +251,24 @@ public class AdminMemberDao {
 	      return list;
 		
 	}
+	
+	public int memberVisitCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rs=null;
+		String sql=prop.getProperty("memberVisitCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally { 
+			   close(rs);
+		       close(pstmt);
+		}
+		return result;
+	}
 }

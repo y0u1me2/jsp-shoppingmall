@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.cart.model.service.CartService;
 import com.web.cart.model.vo.Cart;
+import com.web.member.model.vo.Member;
 
 /**
  * Servlet implementation class CartAllDeleteServlet
@@ -38,11 +39,11 @@ public class CartAllDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String[] cNos = request.getParameterValues("cartSelectDelete");
-
+		Member lm = (Member)request.getSession().getAttribute("loginedMember");
 		String cartCook = "";
 		Cookie[] cookies = request.getCookies(); // null이거나 쿠키배열
 		for (Cookie c : cookies) {
-			if (c.getName().equals("cart")) {
+			if (c.getName().equals(String.valueOf(lm.getM_No()))) {
 				cartCook = c.getValue();
 			}
 		}
@@ -84,8 +85,8 @@ public class CartAllDeleteServlet extends HttpServlet {
 		Cookie cookie = null;
 		if (list.size() != 0) {
 			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("cart")) {
-					cookie = new Cookie("cart", cookL);
+				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+					cookie = new Cookie(String.valueOf(lm.getM_No()), cookL);
 					cookie.setPath("/");
 					cookie.setMaxAge(60 * 60 * 24 * 90);
 					response.addCookie(cookie);
@@ -94,8 +95,8 @@ public class CartAllDeleteServlet extends HttpServlet {
 			}
 		} else {
 			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("cart")) {
-					cookie = new Cookie("cart", "");
+				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+					cookie = new Cookie(String.valueOf(lm.getM_No()), "");
 					cookie.setPath("/");
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);

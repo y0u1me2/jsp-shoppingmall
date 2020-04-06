@@ -1,4 +1,4 @@
-package com.web.admin.member.controller;
+package com.web.admin.order.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.admin.member.model.service.AdminMemberService;
-import com.web.member.model.vo.Member;
+import com.web.admin.order.model.service.AdminOrderListService;
+import com.web.admin.order.model.vo.OrderList;
 
 /**
- * Servlet implementation class MemberStatusServlet
+ * Servlet implementation class AdminOrderListExcelDownServlet
  */
-@WebServlet("/admin/memberStatus")
-public class AdminMemberStatusServlet extends HttpServlet {
+@WebServlet("/admin/excel")
+public class AdminOrderListExcelDownServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberStatusServlet() {
+    public AdminOrderListExcelDownServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,20 +33,12 @@ public class AdminMemberStatusServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		List<Member> list = new AdminMemberService().memberNew();
-		
-		
-		int totalMember=new AdminMemberService().memberCount(); //토탈회원
-		int deleteMember=new AdminMemberService().memberDeleteCount();//탈퇴회원
-		int todayEnrollMember=new AdminMemberService().memberTodayEnrollCount();//오늘가입회원
-		int visitMember=new AdminMemberService().memberVisitCount();//오늘 방문회원
-		
+		List<OrderList> list=new AdminOrderListService().excelDown();
+		int totalPrice=new AdminOrderListService().totalPrice();
 		request.setAttribute("list", list);
-		request.setAttribute("todayEnrollMember", todayEnrollMember);
-		request.setAttribute("totalMember", totalMember);
-		request.setAttribute("deleteMember", deleteMember);
-		request.setAttribute("visitMember", visitMember);
-		request.getRequestDispatcher("/views/admin/member/memberStatus.jsp").forward(request, response);
+		request.setAttribute("total", totalPrice);
+		request.getRequestDispatcher("/views/admin/order/orderListExcel.jsp")
+		.forward(request, response);
 	}
 
 	/**
