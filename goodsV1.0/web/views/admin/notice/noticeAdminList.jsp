@@ -5,8 +5,8 @@
 
 <%
    List<Notice> list=(List)request.getAttribute("list");
-   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
-   String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
+   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";
+   String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
    int totalDate=(int)request.getAttribute("totalDate");
    int finderDate=(int)request.getAttribute("finderDate");
    int cPage=(int)request.getAttribute("cPage");

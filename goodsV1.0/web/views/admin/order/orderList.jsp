@@ -221,7 +221,21 @@
    .total>strong{
         color: rgb(255, 109, 1);
    }
-
+   
+   /* 엑셀파일 */
+	#eleft{
+		float:left;
+	}
+	#eright{
+		float:right;
+		padding-right:220px;
+    	padding-top: 40px;
+	}
+	#exeldiv:after{
+		clear: both;
+		content:"";
+		display:block;
+	}
  	div#search_All{display:inline-block;}
     div#search_o_no{display:none;}
     div#search_p_name{display:none;}
@@ -429,16 +443,23 @@
 
             <!-- 회원 목록 div -->
             <div style="margin-bottom: 30px;">
-                <div class="mListTitle">
-                <!-- 회원목록 타이틀 -->
-                    <h4 style="font-size: 17px;">주문 목록</h4>
-                </div>
-                <!-- 총 회원수 및 검색 결과 -->
-                <div class="mState">
-                    <p class="total">
-                        [총 매출 <strong><%=totalPrice %></strong>원] 검색결과 
-                        <strong><%=searchPrice %></strong>원
-                    </p>
+                <div id="exeldiv">
+	                <div id="eleft">
+		                <div class="mListTitle">
+		                <!-- 회원목록 타이틀 -->
+		                    <h4 style="font-size: 17px;">주문 목록</h4>
+		                </div>
+		                <!-- 총 회원수 및 검색 결과 -->
+		                <div class="mState">
+		                    <p class="total">
+		                        [총 매출 <strong><%=totalPrice %></strong>원] 검색결과 
+		                        <strong><%=searchPrice %></strong>원
+		                    </p>
+		                </div>
+	                </div>
+	                <div id="eright">
+	                	<button type="button" class="btn_Wihte" id="excel">엑셀파일 저장</button>
+	                </div>
                 </div>
                 <!-- 회원목록 박스 헤더 -->
                 <div class="mListHeader">
@@ -454,9 +475,9 @@
         					<input type="hidden" name="searchType" value="<%=type%>">
         					<input type="hidden" name="searchKeyword" value="<%=keyword%>">														
         					<select name="numPerPage" id="numPerPage">
-        						<option value="10" selected>5개씩 보기</option>
-        						<option value="20" >10개씩 보기</option>
-        						<option value="30" >15개씩 보기</option>
+        						<option value="10" <%=numPer==10?"selected":"" %>>10개씩 보기</option>
+        						<option value="20" <%=numPer==20?"selected":"" %>>20개씩 보기</option>
+        						<option value="30" <%=numPer==30?"selected":"" %>>30개씩 보기</option>
         					</select>
         					
         			<!-- select선택을하면 데이터 출력갯수가 옵션값으로 변경 -->
@@ -466,6 +487,8 @@
                 </div>
                 <!-- 회원목록 박스 바디 -->
                 <form id="ckvalue">
+                <input type="hidden" name="type" value="<%=type %>"/>
+                <input type="hidden" name="keyword" value="<%=keyword %>"/>
                 <div class="mlist"> 
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
@@ -504,7 +527,6 @@
 	                        		<td>
 	                        			<img src="<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>" width="50px" height="50px"/>
 	                        			<%=ol.getpName() %> <%=ol.getcColor() %>
-	                        			<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>
 	                        		</td>
 	                        		<td><%=ol.gettPrice()*ol.getoQuan() %>원</br><%=ol.getoQuan() %>개</td>
 	                        		<td><%=ol.getoName() %></td>
@@ -564,7 +586,7 @@
     		var result=confirm("주문을 취소하시겠습니까?");
     		var value=$(event.target).val();
     		if(result){
-    			location.replace("<%=request.getContextPath()%>/admin/orderListDelete?no="+value+"?type="+type+"keyword="+keyword);
+    			location.replace("<%=request.getContextPath()%>/admin/orderListDelete?no="+value+"&searchType=<%=type%>&searchKeyword=<%=keyword%>");
     		}
     	}
     	//선택삭제
@@ -572,6 +594,18 @@
     		$("#checkdelete").click(function(){
     			$("#ckvalue").attr("action","<%=request.getContextPath()%>/admin/orderCheckDelete");
     			$("#ckvalue").submit();
+    		})
+    	})
+    	//페이징
+    	$(function(){
+    		$("#numPerPage").change(function(){
+    			$("#numPerPageFrm").submit();
+    		})
+    	})
+    	//엑셀파일 저장
+    	$(function(){
+    		$("#excel").click(function(){
+    			location.replace("<%=request.getContextPath()%>/admin/excel");
     		})
     	})
     </script>
