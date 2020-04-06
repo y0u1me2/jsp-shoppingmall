@@ -167,69 +167,6 @@ public class AdminProductDao {
 		return result;
 	}
 		
-//헤더메뉴 추가=====================================
-	public List<Product> productHeaderMenu(Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<Product> list = new ArrayList();
-		String sql = prop.getProperty("productHeaderMenu");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-	
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				Product p = new Product();
-				p.setpNo(rs.getInt("p_no"));
-				p.setpName(rs.getString("p_name"));
-				p.setpCategory(rs.getString("p_category"));
-
-
-				list.add(p);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return list;
-
-	}
-
-	public List<Product> productInfo(Connection conn,int no){
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<Product> listP = new ArrayList();
-		String sql = prop.getProperty("productInfo");
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setInt(1, no);
-	
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				Product p = new Product();
-				p.setpNo(rs.getInt("p_no"));
-				p.setpName(rs.getString("p_name"));
-				p.setpCategory(rs.getString("p_category"));
-
-
-				listP.add(p);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return listP;
-
-	}
-
 
 //상품전체조회=======================================	
 	public List<Product> productList(Connection conn, int cPage, int numPerPage) {

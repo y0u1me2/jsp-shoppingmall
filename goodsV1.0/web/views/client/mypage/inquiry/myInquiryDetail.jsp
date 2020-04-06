@@ -192,11 +192,11 @@ a img{
 					<th>첨부파일</th>
 					<td>
 						<%
-							if (i.getI_Original_Filename() != null) {
+							if (i.getI_Renamed_Filename() != null) {
 						%> 
-						<a href="<%=request.getContextPath()%>/answerDetailFileDownLoad?filePath=<%=i.getI_Original_Filename()%>">
+						<a href="<%=request.getContextPath()%>/answerDetailFileDownLoad?filePath=<%=i.getI_Renamed_Filename()%>">
 						<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
-						<span><%=i.getI_Original_Filename()%></span> 
+						<span><%=i.getI_Renamed_Filename()%></span> 
 						</a>
 						 <%
 						 	}

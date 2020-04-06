@@ -20,6 +20,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.web.admin.product.service.AdminProductService;
 import com.web.common.AdminProductFileRename;
 import com.web.common.MyFileRenamePolicy;
+import com.web.notice.model.vo.Notice;
 import com.web.product.model.vo.Product;
 import com.web.product.model.vo.ProductImage;
 
@@ -84,46 +85,42 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		String comment = mr.getParameter("comment");
 		String[] color = mr.getParameterValues("colorInput");
 		String listImage = mr.getOriginalFileName("listImage");
-		String oriThumbnail = mr.getFilesystemName("oriThumbnail");
+		String oriThumbnail = mr.getParameter("pThumbnail");
 
-		System.out.println(oriThumbnail);
+		System.out.println("원본파일"+oriThumbnail);
+		
 
+		File f = mr.getFile("listImage"); //클라이언트가 넘긴 파일이 있는지 없는지 확인 하는 것
+		
+		if(f!=null && f.length()>0) { //새로 업로드한 파일이 있으면?
+			File deleteFile = new File(path+mr.getParameter("pThumbnail"));
+			boolean flag = deleteFile.delete();
+			System.out.println(flag?"기존파일삭제 성공":"기존파일삭제 실패");	
+		}
+		
 		// 상품이미지저장
 		List<ProductImage> imgList = new ArrayList();
 		for (String n : color) {
 			imgList.add(new ProductImage(0, 0, n, mr.getOriginalFileName(n)));
 		}
 		
-		if (listImage == null) {
-			Product p = new Product(0, category, name, price, oriThumbnail, comment, null,null);
+			Product p = new Product(0, category, name, price, listImage, comment, null,null);
+			
 			int result = new AdminProductService().productEnroll(p, imgList);
 	
 			if (result > 0) {
+				System.out.println("???");
 				// 수정성공 : 수정 성공메세지출력, 목록페이지로 이동		
 				request.setAttribute("msg", "상품 정보 수정이 완료되었습니다.");
 				request.setAttribute("loc", "/admin/ProductListView?no=" + pNo);
 	
 			} else {
+				System.out.println("!!!");
 				// 수정실패 : 수정 실패 메세지 출력
 				// 저장실패하면 폴더에 저장된 파일삭제
 				request.setAttribute("msg", "상품 정보 수정이 실패하였습니다.");
 				request.setAttribute("loc", "/admin/ProductListView?no=" + pNo);
 			}
-		}else {
-			Product p = new Product(0, category, name, price, listImage, comment, null,null);
-			int result = new AdminProductService().productEnroll(p, imgList);
-			
-			if (result > 0) {
-				request.setAttribute("msg", "상품등록이 완료 되었습니다.");
-				request.setAttribute("loc", "/admin/productEnroll");
-
-			} else {
-				request.setAttribute("msg", "상품등록이 실패 하였습니다.");
-				request.setAttribute("loc", "/admin/productEnroll");
-				request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
-			}
-		}
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

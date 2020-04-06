@@ -91,9 +91,9 @@ button#update-btn {
 	font-size: 15px;
 	color: rgb(134, 134, 133);
 	margin-right: 5px;
-	position:relative;
-	left:380px;
-	top:50px;
+	position: relative;
+	left: 380px;
+	top: 50px;
 }
 
 button#update-btn:hover {
@@ -143,8 +143,8 @@ button.pColor-minus {
 		<div class="text">
 			<form action="<%=request.getContextPath()%>/admin/productUpdateEnd"
 				method="post" enctype="multipart/form-data">
-				<input type="hidden" name="pNo" value="<%=p.getpNo()%>" />
-					<input type="hidden" name="pThumbnail" value="<%=p.getpThumbnail()%>"/>
+				<input type="hidden" name="pNo" value="<%=p.getpNo()%>" /> 
+
 				<table class="box">
 					<br>
 					<br>
@@ -171,8 +171,13 @@ button.pColor-minus {
 					</tr>
 					<tr>
 						<td>섬네일 이미지 수정</td>
-						<td><input type="file" id="fbtn" name="listImage">
-						<input type="file" style="display:none" name="oriThumbnail" value="<%=p.getpThumbnail()%>" />
+						<td><input type="file" id="fbtn" name="listImage"> 
+				
+							<%if(p.getpThumbnail()!=null){ %> 
+							<!-- 그전에 업로드 했던 파일이름 보이게 하기 --> 
+							<span><%=p.getpThumbnail() %></span> 
+							<input type="hidden" name="pThumbnail" value="<%=p.getpThumbnail()%>" />
+							<%} %>
 						</td>
 					</tr>
 
@@ -182,8 +187,8 @@ button.pColor-minus {
 
 					<tr>
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp상품 색상 추가</td>
-						<td>*색상 선택 및 색상이미지를 업로드 해주세요<input id="pColor-add" type='button'
-							value="+" /></td>
+						<td>*색상 선택 및 색상이미지를 업로드 해주세요<input id="pColor-add"
+							type='button' value="+" /></td>
 					</tr>
 
 					<tbody></tbody>
@@ -235,6 +240,7 @@ button.pColor-minus {
 			//$(this).prev().attr("readonly",true);
 		});
 	});
+	
 	
 	});
 
