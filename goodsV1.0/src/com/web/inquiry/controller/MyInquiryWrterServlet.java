@@ -22,7 +22,7 @@ public class MyInquiryWrterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//1:1문의내역 페이지로 이동
-		request.getRequestDispatcher("/views/client/inquiry/inquirySend.jsp")
+		request.getRequestDispatcher("/views/client/mypage/inquiry/inquirySend.jsp")
 		.forward(request, response);
 	}
 

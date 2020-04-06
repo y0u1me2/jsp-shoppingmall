@@ -112,7 +112,7 @@
 <section>
         <div class="reviewWrite-modal-back">
             <div class="animate reviewWrite">
-                <form method="POST">
+                <form method="POST" onsubmit="return ">
                     <div class="reviewWrite-top">
                         <h2 style="margin: 0 0 20px 0">리뷰쓰기</h2>
                         <!-- 로그인 창 X표시 -->

@@ -33,22 +33,14 @@ public class CheckEmailDuplicateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String emailCheck=(String) request.getParameter("email");//중복검사할 이메일 변수에 저장
-		if(emailCheck==null || "".equals(emailCheck)) {
-			System.out.println("전송실패");
-		}else {
-			System.out.println("전송성공");
-		}
-		System.out.println("검사할 email : "+emailCheck);
 		int data=0;
-		
 		boolean isUseAble=new MemberService().duplicationEmail(emailCheck);
 		//isUseAble이 true면 사용가능 / false면 불가능
-		System.out.println(isUseAble);
 		JSONObject obj = new JSONObject();
 		//값 전달함
 		
 		try{
-	          obj.put("isUseAble", isUseAble);
+	        obj.put("isUseAble", isUseAble);
 	    }catch (Exception e) {    
 	    	e.printStackTrace();
 	    }

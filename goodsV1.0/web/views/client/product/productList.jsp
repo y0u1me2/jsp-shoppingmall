@@ -35,6 +35,7 @@
         }
 		
 		.inner-container {
+			width: 300px;
 			margin: 50px;
 		}
 		
@@ -66,12 +67,12 @@
 <h1 id="category"><%=request.getParameter("category") %></h1>
 
  	<!-- 전체 컨테이너 -->
-	<div id="outer-container" style="border:1px solid black">
+	<div id="outer-container">
 
 		<!-- 썸네일 이미지랑 상품명, 소개글 묶음 박스 -->
 		<% for(Product p : list){ %>
 		     <div class="inner-container" onclick="location.href='<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo()%>'">
-		     	<img src="<%=request.getContextPath()%>/images/product/thumbnail/<%=p.getpThumbnail() %>" width="300px" height="300px" alt="이미지 없음">
+		     	<img src="<%=request.getContextPath()%>/images/product/<%=p.getpThumbnail() %>" width="300px" height="300px" alt="이미지 없음">
 		        <p class="bold"><%=p.getpName() %></p>
 		        <p class="normal"><%=p.getpComment() %></p>
 		     </div>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
-@WebServlet("/ProductListView")
+@WebServlet("/admin/ProductListView")
 
 public class ProductListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -73,18 +73,18 @@ public class ProductListServlet extends HttpServlet {
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
-			pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + (pageNo - 1) + "&numPerPage="
-					+ numPerPage + "'><</a>&nbsp ";
+			pageBar += "<a href='" + request.getContextPath() + "/admin/ProductListView?cPage=" + (pageNo - 1) + "&numPerPage="
+					+ numPerPage + "'><</a>";
 		}
 
 		// 1 2 3 4 5
 		// 5보다 크거나 10페이지보다 크지 않을때
 		while (!(pageNo > pageEnd || pageNo > totalPage)) {
 			if (pageNo == cPage) {
-				pageBar += "<span class='cPage'>" + pageNo + "</span>&nbsp ";
+				pageBar += "<span class='cPage'>" + pageNo + "</span>";
 			} else {
-				pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + pageNo + "&numPerPage="
-						+ numPerPage + "'>" + pageNo + "</a>&nbsp ";
+				pageBar += "<a href='" + request.getContextPath() + "/admin/ProductListView?cPage=" + pageNo + "&numPerPage="
+						+ numPerPage + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}
@@ -92,9 +92,9 @@ public class ProductListServlet extends HttpServlet {
 
 		// [>]
 		if (pageNo > totalPage) {
-			pageBar += "<span>></span>&nbsp";
+			pageBar += "<span>></span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/ProductListView?cPage=" + pageNo + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/admin/ProductListView?cPage=" + pageNo + "&numPerPage="
 					+ numPerPage + "'>></a>";
 		}
 

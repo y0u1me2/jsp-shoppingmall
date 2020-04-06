@@ -12,7 +12,7 @@ import com.web.admin.product.service.AdminProductService;
 import com.web.product.model.vo.Product;
 
 
-@WebServlet("/productUpdateView")
+@WebServlet("/admin/productUpdateView")
 public class ProductUpdateViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
@@ -24,12 +24,11 @@ public class ProductUpdateViewServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//상품정보 수정하기
+		//상품정보를 가져와서  수정 화면에 출력해주는 로직
 		
 		//상품번호를 가져온다
-		int no = Integer.parseInt(request.getParameter("no"));
+		int no = Integer.parseInt(request.getParameter("pNo"));
 		
-		//상품정보를 가져와서  수정 화면에 출력해주는 로직
 		Product p = new AdminProductService().searchProduct(no);
 		
 		request.setAttribute("product", p);

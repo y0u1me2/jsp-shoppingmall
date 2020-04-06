@@ -32,11 +32,7 @@ public class ReviewListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		List<Review> list=new ReviewService().searchReview();
-		int count=new ReviewService().countReview();
-		
-		request.setAttribute("review", list);
-		request.setAttribute("count", count);
+
 		
 		request.getRequestDispatcher("views/client/review/reviewList.jsp").forward(request, response);
 	}

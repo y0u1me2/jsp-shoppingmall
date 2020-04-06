@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/InquiryAnswerView")
+@WebServlet("/admin/InquiryAnswerView")
 public class InquiryAnswerViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
@@ -19,7 +19,7 @@ public class InquiryAnswerViewServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//답변하기 버튼 누르면 1:1문의 답변페이지 이동
+		//답변하기 버튼 누르면 1:1문의 답변 페이지 이동
 			
 		request.getRequestDispatcher("/views/admin/inquiry/inquiryanswer.jsp")
 		.forward(request, response);

@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ page import="java.util.List, com.web.gallery.model.vo.Gallery"%>
+<%
+	List<Gallery> list = (List)request.getAttribute("list");
+
+%>
+
 <%@ include file="/views/client/common/header.jsp" %>
 
 <style>
@@ -60,20 +66,20 @@
 
        
 
-        #boardContainer {
+        #galleryContainer {
             /* border: 1px solid red; */
             width: 100%;
             display: flex;
             flex-wrap: wrap;
             row-gap: 100px;
-            justify-content: space-between;
+            
         }
 
         .board {
             margin-top: 20px;
             margin-bottom: 20px;
-            width: 30%;
-            height: 350px;
+            width: 450px;
+            height: 450px;
             /* border: 1px solid black; */
             text-align: center;
         }
@@ -82,28 +88,7 @@
             max-width: 100%;
         }
 
-        /* 페이징 부분(숫자) */
-        #paging {
-            /* border:1px solid black;  */
-            text-align: center;
-            line-height: 50px;
-        }
-
-        #paging a:link {
-            color: black;
-            text-decoration: none;
-        }
-
-        #paging a:visited {
-            color: black;
-            text-decoration: none;
-        }
-
-        #paging a:hover {
-            color: blue;
-            text-decoration: none;
-        }
-
+        
         
         /* The Modal (background) */
 .modal {
@@ -116,30 +101,32 @@
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+}
+
+#modal-container {
+	margin: auto;
+	width: 500px;
+	height: 600px;
+	border: 1px solid black;
+	background-color: white;
 }
 
 /* Modal Content (image) */
 .modal-content {
-  margin: auto;
   display: block;
   width: 500px;
   height: 500px;
-  background:white;
-  border: 1px solid red;
 }
 
 /* Caption of Modal Image */
 #caption {
-  margin: auto;
   display: block;
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
   text-align: center;
   color: #ccc;
   padding: 10px 0;
   height: auto;
-  border: 1px solid red;
 }
 
 /* Add Animation */
@@ -184,14 +171,40 @@
     width: 100%;
   }
 }
+
+#pageBar {
+	width: 100%;
+	margin: 40px 0 40px 0;
+	text-align: center;
+}
+
+#pageBar>a, #pageBar>span {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #eee;
+	color: #999;
+	background-color: #fff;
+	margin: 0 2px;
+	position: relative;
+	font-size: 13px;
+	font-family: "YoonGothicPro760";
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none;
+}
+
+#pageBar .cPage {
+	color: black;
+	font-weight: bold;
+} 
         
-        
-        
-    </style>
+</style>
 
 
 
-<section style="border:1px solid red">
+<section>
         
         <!-- 게시판 제목 -->
         <h1 id="boardTitle">갤러리</h1>
@@ -202,124 +215,154 @@
 
         <!-- 게시물 검색창 -->
         <div id="searchBox">
-        	<form action="" method="post">
-        		<select style="vertical-align: middle;">
-                    <option>전체</option>
-                    <option>케이스</option>
-                    <option>악세사리</option>
-                    <option>생활용품</option>
-                    <option>패션</option>
+        	<form id="frm1">
+        		<select name="sort" style="vertical-align: middle;">
+                    <option value="" disabled selected hidden>정렬</option>
+                    <option value="like_cnt">인기순</option>
+                    <option value="view_cnt">조회순</option>
+                    <option value="g_enroll_date">최신순</option>
                 </select>
                 
-        		<select style="vertical-align: middle;">
-                    <option>정렬</option>
-                    <option>인기순</option>
-                    <option>조회순</option>
-                    <option>최신순</option>
+                <select id="select1" name="category" style="vertical-align: middle;">
+                    <option value="" disabled selected hidden>카테고리</option>
+                    <option value="케이스">케이스</option>
+                    <option value="악세사리">악세사리</option>
+                    <option value="생활용품">생활용품</option>
+                    <option value="패션">패션</option>
                 </select>
-        		<input type="submit" value="검색">
+                
+                <select id="select2" name="pName" style="vertical-align: middle; display: none;">
+                </select>
+        		
+        		<button type="button" id="btn1">검색</button>
         	</form>   
             
         </div>
 
-        
 
 
-        <div id="boardContainer">
-            <!--한페이지에 보여지는 게시물 개수(기본 6개 2*3) -->
-            <!--나중에 jstl c:forEach 구문이나 자바스크립트 for문으로 수정 필요-->
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/product/airpods_white.png" id="myImg" alt="누구누구 님의 디자인">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/2.jpg">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/3.jpg">
-            </div>
-            <div class="board">
-                <img src="<%=request.getContextPath() %>/images/4.jpg">
-            </div>
-            <!-- <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div>
-                <div class="board"></div> -->
-        </div>
+		<div id="galleryContainer">
+		<%for(Gallery g : list){ %>
+		      <div class="board">
+		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
+		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
+		          <input name="likeCnt" type="hidden" value="<%=g.getLikeCnt()%>">
+		          <input name="viewCnt" type="hidden" value="<%=g.getViewCnt()%>">
+		      </div>
+		<%} %>
+		      
+		<div id="pageBar">
+			<%=request.getAttribute("pageBar")%>
+		</div>
 
-
-		<!-- The Modal -->
-<div id="myModal" class="modal">
-  <span class="close" id="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
-  <button>따라 만들기</button>
 </div>
 
 
-
-
-
-
-
-
-
-
-
-        <!--페이징 영역 나중에 c:forEach 구문으로 수정해야 함-->
-        <div id="paging">
-            <a href="#">[처음]</a>
-            <a href="#">[이전]</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">7</a>
-            <a href="#">8</a>
-            <a href="#">9</a>
-            <a href="#">10</a>
-            <a href="#">[다음]</a>
-            <a href="#">[끝]</a>
-        </div>
-
+<!-- The Modal -->
+<div id="myModal" class="modal">
+	<span class="close" id="close">&times;</span>
+	
+	<div id="modal-Container">
+		<img class="modal-content" id="img01">
+		<div id="caption"></div>
+		<input type="hidden" id="gNo">
+		<button type="button" id="modalBtn">따라 만들기</button>
+	</div>
+	
+</div>
 	
 
-    </section>
+</section>
 
 
 <script>
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = $("#myModal");
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById("myImg");
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
+var img = $("#myImg");
+var modalImg = $("#img01");
+var captionText = $("#caption");
+var gNo = $("#gNo");
+var modalBtn = $('#modalBtn');
 
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
-  $('body').css("overflow", "hidden");
-  
-}
+$(".myImg").click(function(){
+	modal.show();
+	modalImg.attr("src", $(this).attr('src'));
+	captionText.html($(this).attr("alt"));
+	gNo.val($(this).next().val());
+	$('body').css("overflow", "hidden");
+	modalBtn.click(function(){
+		location.replace('<%=request.getContextPath()%>/gallery/imageDownload?gNo='+gNo.val());
+	});
+});
 
 // Get the <span> element that closes the modal
-var span = document.getElementById("close");
+var span = $("#close");
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-  modal.style.display = "none";
+span.click(function() { 
+  modal.hide();
   $('body').css("overflow", "scroll");
-}
+});
+
+
+
+
+function ajaxPageMove(cPage){
+	let frm1=$('#frm1').serialize();
+	frm1+='&cPage='+cPage;
+	$.ajax({
+		url:"<%=request.getContextPath()%>/ajax/getGalleryList",
+		type:"post",
+		data: frm1,
+		success: function(data){
+			$('#galleryContainer').html(data);
+		}
+	})
+};
+
+
+$(function(){
+	const select2 = $('#select2');
+	$("#select1").change(function() {
+		if($(this).val()=='카테고리'){
+			select2.hide();
+			select2.empty();
+		}else{
+			$.ajax({
+				url:"<%=request.getContextPath()%>/getProductList",
+				type:'post',
+				data: {'category' : $(this).val()},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					select2.empty();
+					select2.append($('<option>').text('전체'));
+					data.forEach(function(element){
+						select2.append($('<option>').text(element));
+					});
+					select2.show();
+					
+				}
+			})
+		}
+	});
+	
+	$("#btn1").click(function(){
+		const frm1 = $('#frm1').serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/ajax/getGalleryList",
+			type:"post",
+			data: frm1,
+			success: function(data){
+				$('#galleryContainer').html(data);
+			}
+		})
+	});
+	
+})
+
 </script>
 
 

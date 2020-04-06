@@ -8,7 +8,7 @@
 <style>
 body {
   background-color:#343a40;
-  width:100%;
+  width:1366px;
 }
 
 * {
@@ -84,7 +84,7 @@ input[type=submit] {
 <div class="wrapper">
 	<img src="<%=request.getContextPath() %>/resources/images/logo_white.png" style="width:100%; height:250px">
 	<div class="container">
-	  <form action="#">
+	  <form action="<%=request.getContextPath() %>/admin/loginCheck" method="post">
 	    <div class="row">
 	
 	      <div class="col">

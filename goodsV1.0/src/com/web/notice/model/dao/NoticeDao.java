@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.web.notice.model.vo.Notice;
+import com.web.notice.model.vo.NoticeComment;
 
 public class NoticeDao {
 	
@@ -38,7 +39,7 @@ public class NoticeDao {
 			pstmt.setInt(1, (cPage-1)*numPerPage+1);
 			pstmt.setInt(2, cPage*numPerPage);
 			rs=pstmt.executeQuery();
-			while(rs.next()) {
+			while(rs.next()){
 				Notice n=new Notice();
 				n.setnNo(rs.getInt("n_no"));
 				n.setnWriter(rs.getString("n_writer"));
@@ -49,7 +50,7 @@ public class NoticeDao {
 				n.setnDate(rs.getDate("n_date"));
 				n.setnReadcount(rs.getInt("n_readcount"));
 				n.setnStatus(rs.getString("n_status"));
-				list.add(n);				
+				list.add(n);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -192,10 +193,110 @@ public class NoticeDao {
 		return count;
 	}
 	
+	public int insertNotice(Connection conn,Notice n) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertNotice");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, n.getnWriter());
+			pstmt.setString(2, n.getnTitle());
+			pstmt.setString(3, n.getnContent());
+			pstmt.setString(4, n.getnOriginalFile());
+			pstmt.setString(5, n.getnRenamedFile());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
+	public int updateNotice(Connection conn, Notice n) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("updateNotice");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, n.getnTitle());
+			pstmt.setString(2, n.getnContent());
+			pstmt.setString(3, n.getnOriginalFile());
+			pstmt.setString(4, n.getnRenamedFile());
+			pstmt.setInt(5, n.getnNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
+	public int updateReadCount(Connection conn,int nNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("upcount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int insertComment(Connection conn,NoticeComment nc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertComment");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nc.getmNo());
+			pstmt.setInt(2, nc.getnNo());
+			pstmt.setInt(3, nc.getNcLevel());
+			pstmt.setString(4, nc.getNcContent());
+			pstmt.setString(5, nc.getNcCommentRef()==0?null:String.valueOf(nc.getNcCommentRef()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
-	
-	
+	public List<NoticeComment> selectComment(Connection conn,int nNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("selectComment");
+		List<NoticeComment> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				NoticeComment nc=new NoticeComment();
+				nc.setNcNo(rs.getInt("nc_no"));
+				nc.setmNo(rs.getInt("m_no"));
+				nc.setnNo(rs.getInt("n_no"));
+				nc.setNcLevel(rs.getInt("nc_level"));
+				nc.setNcContent(rs.getString("nc_content"));
+				nc.setNcCommentRef(rs.getInt("nc_comment_ref"));
+				nc.setNcDate(rs.getDate("nc_date"));
+				nc.setNickName(rs.getString("m_nickname"));
+				list.add(nc);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 }

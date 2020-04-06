@@ -20,6 +20,7 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+		
 	
 	public int enrollMember(Member m) {
 		Connection conn=getConnection();
@@ -29,12 +30,27 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	public int googleEnrollMember(Member m) {
+		Connection conn=getConnection();
+		int result=dao.googleEnrollMember(conn,m);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}	
 	
 	public boolean duplicationEmail(String emailCheck) {
 		Connection conn=getConnection();
 		boolean flag=dao.duplicationEmail(conn, emailCheck);
 		close(conn);
 		return flag;		
+	}
+	
+	public String passwordCheck(String emailCheck) {
+		Connection conn=getConnection();
+		String passwordCheck=dao.passwordCheck(conn, emailCheck);
+		close(conn);
+		return passwordCheck;
 	}
 	
 	public int setMemberEmailChecked(String email) {

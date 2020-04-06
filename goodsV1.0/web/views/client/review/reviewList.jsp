@@ -3,10 +3,10 @@
 
 <%@ include file="/views/client/common/header.jsp"%>
 <%@ page import="java.util.List,com.web.review.model.vo.Review" %>
-<% 
-	List<Review> list=(List)request.getAttribute("review");
+<%-- <% 
+	List<Review> reviewAllList=(List)request.getAttribute("reviewAllList");
 	int count=(int)request.getAttribute("count");
-%>
+%> --%>
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -246,6 +246,19 @@ div.starOut {
 	font-size: 16px;
 }
 
+div#moreReviewList {
+	margin:20px;
+	padding:10px;
+	font-size:17px;
+	border:solid 1px rgb(190, 190, 196);
+	cursor:pointer;
+}
+div#moreReviewList:hover {
+   background: rgb(251, 251, 249);
+   outline: none;
+}
+
+
 /* Add Zoom Animation 
         팝업시 줌 애니메이션*/
 .animate {
@@ -270,17 +283,17 @@ to {
 		<div class="review-top">
 			<div class="review-title">
 				<h1>
-					고객리뷰 ( <span id="number-of-object"><%=count %></span> )
+					고객리뷰 ( <span id="number-of-object"></span> )
 				</h1>
 			</div>
 			<div class="review-selection">
 				<div class="review-dropdown">
 					<select class="review-select" name="reviewSelect">
-						<option value="all">모든 상품</option>
-						<option value="1">케이스</option>
-						<option value="2">악세사리</option>
-						<option value="3">생활용품</option>
-						<option value="4">패션</option>
+						<option value="전체">모든 상품</option>
+						<option value="케이스">케이스</option>
+						<option value="악세사리">악세사리</option>
+						<option value="생활용품">생활용품</option>
+						<option value="패션">패션</option>
 					</select>
 				</div>
 				<div class="review-toggle">
@@ -292,9 +305,9 @@ to {
 				</div>
 			</div>
 		</div>
-		<div class="review-middle">
+		<div class="review-middle" id="review-middle">
 			<!-- 다시해야할듯........================div로 ======================= -->
-			<%for(Review r : list) { %>
+			<%-- <%for(Review r : list) { %>
 			<div style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
 				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
 				<table>
@@ -329,8 +342,11 @@ to {
 						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
 				</div>
 			</div>
-			<%} %>
+			<%} %> --%>
 			<!-- -============================================================================== -->
+		</div>
+		<div id="moreReviewList" style="text-align:center">
+			더보기
 		</div>
 	</div>
 	<!-- ============================================================================================ -->
@@ -388,29 +404,108 @@ to {
 	function closeReviewView() {
 		$('.reviewView-modal-back').css('display', 'none');
 	}
-
-	$('.reviewImg').click(function() {
-		$('.reviewView-modal-back').show();
-		var star=$('div.starOut>span');
+	
+	if($('.review-select').val()=='전체') { //페이지 로드후 카테고리가 "전체"일때
 		$.ajax({
-			url:'<%=request.getContextPath()%>/reviewView',
-			type:'post',
-			data:{rvNo:$(event.target).parent().siblings('input').val()},
-			success:function(data) {
-				$('#reviewViewWriter').text(data.m_nickName);
-				$('#reviewViewDate').text(data.rv_Date);
-				$('#reviewViewContent').text(data.rv_Content);
-				for(let i=0;i<5;i++) {
-					$(star[i]).removeClass('checked');
-				}
-				for(let i=0;i<data.rv_Star;i++) {
-					$(star[i]).addClass('checked');
-				}
+			url:'<%=request.getContextPath()%>/reviewCategory', 
+			type:'post',										/* 방식은 post */
+			dataType:"json",									/* 데이터의 저장 형식은 json */
+			data:{p_Category:$('.review-select').val()},		/* 키 : p_Category에 select의 값을 넣는다 */
+			success:function(data) {		
+				var reviewList=data.reviewList;					/* 변수 reviewList에 서블릿에서 받아온 reviewList를 넣는다. */
+				$('#review-middle').html(data.reviewList);		/* id값 review-middle(리뷰 리스트가 들어갈 곳)에 html형식으로 reviewList를 넣는다. */
+				$('#number-of-object').html(data.totalReview);		/* id값number-of-object(리뷰 수가 들어갈 곳)에 html형식으로 count를 넣는다. */
+			
+				//더보기 누를때 이벤트 ㅋㅋㅋ
+				$("#moreReviewList").click(function(){
+					$.ajax({
+						url:'<%=request.getContextPath()%>/reviewCategory',
+						type:'post',
+						dataType:"json",
+						data:{p_Category:$('.review-select').val(), contentsCount:$('#review-middle>div').length},
+						success:function(data2) {
+							$('#review-middle').append(data2.reviewList);
+							if(data2.totalMoreReview==data2.totalReview) {
+								$('#moreReviewList').css("display","none");
+							}
+						}
+					})
+				})
+				//리뷰리스트 불러오기 성공시 상세보기 이벤트
+				$('div.reviewImg').click(function() {			/* reviewImg의 div태그를 클릭하면 이하 로직을 실행한다. (review상세보기 기능) */
+					$('.reviewView-modal-back').show();			/* reivew 상세보기 모달창을 보여준다. */
+					var star=$('div.starOut>span');										/* 변수 star에 starOut의 div태그 아래의 span태그를 저장 */
+					$.ajax({
+						url:'<%=request.getContextPath()%>/reviewView',					
+						type:'post',
+						data:{rvNo:$(event.target).parent().siblings('input').val()},	/* 키: rvNo : hidden된 input의 값을 넣는다 (리뷰번호) */
+						success:function(data) {
+							$('#reviewViewWriter').text(data.m_nickName);				/* 각 id의 태그에 text형식으로 서블릿에서 온 data를 입력한다. */
+							$('#reviewViewDate').text(data.rv_Date);
+							$('#reviewViewContent').text(data.rv_Content);
+							for(let i=0;i<5;i++) {										/* 새로운 리뷰 별점을 위하여 기존에 있던 별점을 삭제하고  */
+								$(star[i]).removeClass('checked');						/* 해당 리뷰의 별점을 기준으로 checked 클래스를 추가한다. */
+							}
+							for(let i=0;i<data.rv_Star;i++) {
+								$(star[i]).addClass('checked');
+							}
+						}
+					})
+				})
+			}
+		})
+	} 
+	
+	$('select.review-select').change(function(){
+		$.ajax({
+			url:'<%=request.getContextPath()%>/reviewCategory', 
+			type:'post',										/* 방식은 post */
+			dataType:"json",									/* 데이터의 저장 형식은 json */
+			data:{p_Category:$('.review-select').val()},		/* 키 : p_Category에 select의 값을 넣는다 */
+			success:function(data) {		
+				var reviewList=data.reviewList;					/* 변수 reviewList에 서블릿에서 받아온 reviewList를 넣는다. */
+				$('#review-middle').html(data.reviewList);		/* id값 review-middle(리뷰 리스트가 들어갈 곳)에 html형식으로 reviewList를 넣는다. */
+				$('#number-of-object').html(data.totalReview);		/* id값number-of-object(리뷰 수가 들어갈 곳)에 html형식으로 count를 넣는다. */
+				
+				//더보기 누를때 이벤트 ㅋㅋㅋ
+				$("#moreReviewList").click(function(){
+					$.ajax({
+						url:'<%=request.getContextPath()%>/reviewCategory',
+						type:'post',
+						dataType:"json",
+						data:{p_Category:$('.review-select').val(), contentsCount:$('#review-middle>div').length},
+						success:function(data2) {
+							$('#review-middle').append(data2.reviewList);
+							if(data2.totalMoreReview==data2.totalReview) {
+								$('#moreReviewList').css("display","none");
+							}
+						}
+					})
+				})
+				//리뷰리스트 불러오기 성공시 상세보기 이벤트
+				$('div.reviewImg').click(function() {			/* reviewImg의 div태그를 클릭하면 이하 로직을 실행한다. (review상세보기 기능) */
+					$('.reviewView-modal-back').show();			/* reivew 상세보기 모달창을 보여준다. */
+					var star=$('div.starOut>span');										/* 변수 star에 starOut의 div태그 아래의 span태그를 저장 */
+					$.ajax({
+						url:'<%=request.getContextPath()%>/reviewView',					
+						type:'post',
+						data:{rvNo:$(event.target).parent().siblings('input').val()},	/* 키: rvNo : hidden된 input의 값을 넣는다 (리뷰번호) */
+						success:function(data) {
+							$('#reviewViewWriter').text(data.m_nickName);				/* 각 id의 태그에 text형식으로 서블릿에서 온 data를 입력한다. */
+							$('#reviewViewDate').text(data.rv_Date);
+							$('#reviewViewContent').text(data.rv_Content);
+							for(let i=0;i<5;i++) {										/* 새로운 리뷰 별점을 위하여 기존에 있던 별점을 삭제하고  */
+								$(star[i]).removeClass('checked');						/* 해당 리뷰의 별점을 기준으로 checked 클래스를 추가한다. */
+							}
+							for(let i=0;i<data.rv_Star;i++) {
+								$(star[i]).addClass('checked');
+							}
+						}
+					})
+				})
 			}
 		})
 	})
-	
-	$('select.review-select').val();
 </script>
 
 

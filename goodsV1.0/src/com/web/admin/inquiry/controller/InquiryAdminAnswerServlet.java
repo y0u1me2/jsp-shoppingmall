@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.admin.inquiry.model.vo.InquiryAnswer;
 
-@WebServlet("/InquiryAdminAnswer")
+@WebServlet("/admin/InquiryAdminAnswer")
 public class InquiryAdminAnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -23,18 +23,18 @@ public class InquiryAdminAnswerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 1:1문의답변 상세페이지로 이동하기
+		// 1:1문의답변한 상세페이지로 이동하기
 
 		// 사용자가 문의한 글번호를 가져온다
 		int no = Integer.parseInt(request.getParameter("ino"));
 
 		InquiryAnswer ia = new AdminInquiryService().selectInquiryAnswer(no);
 
-		// ia가 null이면 요청하신 내역이 없습니다. 메세지를 출력하고 문의내역리스트 페이지로 전환
+		// ia가 null이면 답변 내역이 없습니다. 메세지를 출력하고 문의내역리스트 페이지로 전환
 		if (ia == null) {
-			request.setAttribute("msg", "요청하신 내역이 없습니다.");
-			request.setAttribute("loc", "/InquiryList");
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			request.setAttribute("msg", "답변 내역이 없습니다."); 
+			request.setAttribute("loc", "/admin/InquiryList");
+			request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 
 		// ia가 값이 있으면 답변한 페이지로 전환
 		} else {

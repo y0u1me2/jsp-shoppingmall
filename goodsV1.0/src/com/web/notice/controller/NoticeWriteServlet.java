@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class NoticeWriteServlet
  */
-@WebServlet("/notice/noticeWrite")
+@WebServlet("/admin/noticeWrite")
 public class NoticeWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,7 +29,7 @@ public class NoticeWriteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		request.getRequestDispatcher("/views/client/notice/noticeWrite.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/notice/noticeWrite.jsp").forward(request, response);
 		
 	}
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.admin.member.model.service.AdminMemberService;
 
-@WebServlet("/inquiryCheckDelete")
+@WebServlet("/admin/inquiryCheckDelete")
 public class InquiryCheckDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,12 +24,10 @@ public class InquiryCheckDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//문의글 삭제하기
+		//사용자가 문의한 글 삭제하기
 		
 		String[] iCkDelete = request.getParameterValues("iCkArray[]");
-		
-		System.out.println(iCkDelete);
-		
+			
 		int result = new AdminInquiryService().inquiryCkDelete(iCkDelete);
 				
 		String msg="";

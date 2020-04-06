@@ -1,14 +1,16 @@
 package com.web.notice.model.service;
 
+import static com.web.common.JDBCTemplate.close;
+import static com.web.common.JDBCTemplate.commit;
+import static com.web.common.JDBCTemplate.getConnection;
+import static com.web.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.List;
 
 import com.web.notice.model.dao.NoticeDao;
 import com.web.notice.model.vo.Notice;
-import static com.web.common.JDBCTemplate.getConnection;
-import static com.web.common.JDBCTemplate.close;
-import static com.web.common.JDBCTemplate.rollback;
-import static com.web.common.JDBCTemplate.commit;
+import com.web.notice.model.vo.NoticeComment;
 
 public class NoticeService {
 	private NoticeDao dao=new NoticeDao();
@@ -35,6 +37,21 @@ public class NoticeService {
 		return count;
 	}
 	
+	public Notice oneNotice(int nNo,boolean hasRead) {
+		Connection conn=getConnection();
+		Notice n=dao.oneNotice(conn,nNo);
+		if(n!=null&&!hasRead) {
+			int result=dao.updateReadCount(conn,nNo);
+			if(result>0) {
+				n.setnReadcount(dao.oneNotice(conn, nNo).getnReadcount());
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}
+		close(conn);
+		return n;
+	}
 	public Notice oneNotice(int nNo) {
 		Connection conn=getConnection();
 		Notice n=dao.oneNotice(conn,nNo);
@@ -65,4 +82,41 @@ public class NoticeService {
 		close(conn);
 		return count;
 	}
+	
+	public int insertNotice(Notice n) {
+		Connection conn=getConnection();
+		int result=dao.insertNotice(conn,n);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public int updateNotice(Notice n) {
+		Connection conn=getConnection();
+		int result=dao.updateNotice(conn,n);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public int insertComment(NoticeComment nc) {
+		Connection conn=getConnection();
+		int result=dao.insertComment(conn,nc);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public List<NoticeComment> selectComment(int nNo){
+		Connection conn=getConnection();
+		List<NoticeComment> list=dao.selectComment(conn,nNo);
+		close(conn);
+		return list;
+	}
+	
+	
+	
 }

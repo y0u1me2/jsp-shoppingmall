@@ -31,21 +31,37 @@ public class NoticeDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int no=Integer.parseInt(request.getParameter("no"));
-		
+		String type=request.getParameter("searchType");
+		String keyword=request.getParameter("searchKeyword");
+		System.out.println(type+keyword);
 		int count=new NoticeService().oneDelete(no);
 		
-		String msg=" ";
 		
-		if(count>0) {
-			msg="삭제 성공";
-			request.setAttribute("msg", msg);
-			request.setAttribute("loc", "/admin/noticeList");
-			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
+		String msg=" ";
+		if(type.length()>0) {
+			if(count>0) {
+				msg="글을 삭제 하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/noticeFinder?searchType="+type+"&searchKeyword="+keyword);
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}else {
+				msg="글 삭제를 실패하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/noticeFinder?searchType="+type+"&searchKeyword="+keyword);
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}
 		}else {
-			msg="삭제 실패";
-			request.setAttribute("msg", msg);
-			request.setAttribute("loc", "/admin/noticeList");
-			request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
+			if(count>0) {
+				msg="글을 삭제 하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/noticeList");
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}else {
+				msg="글 삭제를 실패하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/noticeList");
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}
 		}
 	}
 

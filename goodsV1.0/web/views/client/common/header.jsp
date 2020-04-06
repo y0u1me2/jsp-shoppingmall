@@ -8,6 +8,8 @@
 <%-- <%@ page import="com.web.common.listener.SessionCheckListener" %> --%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.web.product.model.vo.Product" %>
+<%@ page import="com.web.product.model.service.ProductService" %>
+
 
 <%
 
@@ -23,9 +25,16 @@
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
 	
+	List<Product> 케이스 = new ProductService().selectByCategory("케이스");
+	List<Product> 악세사리 = new ProductService().selectByCategory("악세사리");
+	List<Product> 생활용품 = new ProductService().selectByCategory("생활용품");
+	List<Product> 패션 = new ProductService().selectByCategory("패션");
+	
+
 %>
 <script>
 		var loginResult='<%=loginResult%>';
+		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
 		console.log(loginResult);
 </script>
 
@@ -36,6 +45,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!-- 구글 로그인 -->
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="434214577564-es7em89nej7dmjke6sa184ttis3ndb70.apps.googleusercontent.com">
+<script src="<%=request.getContextPath()%>/js/googleSignIn.js" async defer></script>
+<!-- 네이버 로그인 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <title>굿굿즈</title>
 
 <!-- css폴더에있는 css파일 불러오기 -->
@@ -44,6 +60,68 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
 <!-- AJAX 쓴다 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+a{
+	text-decoration:none;
+	color: rgb(95,93,93);
+	font-weight: 700;
+}
+
+ul{
+	list-style: none;
+    list-style-position: inside;
+	padding-left:0;
+}
+
+li{
+	list-style:none;
+	list-style-position: inside;
+}
+
+/* 메인 메뉴들 가로로 배열(flex) */
+.main{
+	width:80%;
+	height: 80px;
+	display:flex;
+	align-items: center;
+}
+
+.main>li{
+	position: relative;
+	width:150px;
+	height: 100%;
+	text-align:center;
+	
+}
+
+.main>li>a{
+	height: 100%;
+	display:block;
+	line-height:80px;
+}
+
+/* 서브메뉴들 */
+.main .sub{
+	position: absolute;
+	top: 80px;
+	left: 0;
+	display: none;
+	width:100%;
+	z-index: 1;
+	background: white;
+}
+
+.main .sub li{
+	padding: 20px;
+}
+
+.main li:hover .sub{
+	display: block;
+}
+
+</style>
+
 
 </head>
 
@@ -57,10 +135,12 @@
 			<div class="container">
 				<ul class="right-top">
 					<li>
-						<button type="button"><a href="<%=request.getContextPath() %>/notice/noticeList">공지사항</a></button>
+						<button type="button"><a href="<%=request.getContextPath() %>/notice/noticeList"
+						style="text-decoration:none;">공지사항</a></button>
 					</li>
 					<li>
-						<button type="button"><a href="<%=request.getContextPath() %>/schome">고객센터</a></button>
+						<button type="button"><a href="<%=request.getContextPath() %>/schome"
+						style="text-decoration:none;">고객센터</a></button>
 					</li>
 					<li>
 						<button type="button">주문/배송</button>
@@ -94,15 +174,18 @@
 				</div>
 				<div id="infomation">
 					<ul>
-						<li><button type="button">마이페이지</button></li>
+						<li>
+						<button type="button">
+						<a href="<%=request.getContextPath()%>/orderDelivery">마이페이지</a>
+						</button></li>
 						<li>
 							<button type="button">
-								<a href="<%=request.getContextPath()%>/myReviewList?myNo=<%=loginMember.getM_No()%>">나의 리뷰</a>
+								<a href="<%=request.getContextPath()%>/myReviewList">나의 리뷰</a>
 							</button>
 						</li>
 						<li>
 							<button type="button">
-								<a href="<%=request.getContextPath()%>/logout.do">로그아웃</a>
+								<a onclick="signOut();" href="<%=request.getContextPath()%>/logout.do">로그아웃</a>
 							</button>
 						</li>
 					</ul>
@@ -111,76 +194,59 @@
 		</li>
 		</ul>
 		</div>
-		</div>
+
 
 		<%
 			}
 		%>
-
-		<!-- 메뉴바 -->
-		<div class="container2">
-
-			<!-- 로고 -->
-			<a href="<%=request.getContextPath() %>/index.jsp">
-				<span class="logo"> <img
-					src="<%=request.getContextPath()%>/images/common/영문검정.png" width="300px"
-					height="150px" alt="goodgoods">
-				</span>
-			</a>
-
-
-			<div class="topMenu">
-				<ul class="mainMenu" style="">
-					<li><span><a href="<%=request.getContextPath()%>/product/list?category=케이스"> 케이스</a></span></li>
-					<li><span><a href="<%=request.getContextPath()%>/product/list?category=악세사리"> 악세사리</a></span></li>
-					<li><span> <a href="<%=request.getContextPath()%>/product/list?category=생활용품"> 생활용품</a></span></li>
-					<li><span><a href="<%=request.getContextPath()%>/product/list?category=패션"> 패션</a></span></li>
-					<li><span><a href="">갤러리</a></span></li>
-					<li><span><a href="<%=request.getContextPath()%>/reviewList"> 리뷰</a></span></li>
-					<li id="middleBar-img"></li>
-					<li><a href="https://www.kakaocorp.com/"><img id="cart"
-							src="<%=request.getContextPath()%>/images/common/cart.png" alt=""></a></li>
-					<li><a href="https://www.kakaocorp.com/"><img id="love"
-							src="<%=request.getContextPath()%>/images/common/love.png" alt=""></a></li>
-				</ul>
-			
-			
-				<ul class="mainMenu2">
-					<li>
-						<ul class="subMenu">
-							<li id="nop"><a href="#">에어팟 케이스</a></li>
-							<li id="nop"><a href="#">버즈 케이스</a></li>
-							<li id="nop"><a href="#">핸드폰 케이스</a></li>
-						</ul>
-					</li>
-					<li>
-						<ul class="subMenu">
-							<li id="nop"><a href="#">키링</a></li>
-							<li id="nop"><a href="#">뱃지</a></li>
-							<li id="nop"><a href="#">그립톡</a></li>
-						</ul>
-					</li>
-					<li>
-						<ul class="subMenu">
-							<li id="nop"><a href="#">텀블러</a></li>
-							<li id="nop"><a href="#">머그컵</a></li>
-							<li id="nop"><a href="#">노트</a></li>
-							<li id="nop"><a href="#">다이어리</a></li>
-						</ul>
-					</li>
-					<li>
-						<ul class="subMenu">
-							<li id="nop"><a href="#">티셔츠</a></li>
-							<li id="nop"><a href="#">에코백</a></li>
-						</ul>
-					</li>		 	
-				</ul>
-				 				
-			</div>
-			<hr>
 		</div>
-
-
+		
+		
+<!-- 드롭다운 메뉴 -->
+<div style=" display:flex;">
+	<!-- 로고 -->
+	<a href="<%=request.getContextPath()%>/index.jsp" style="display:block; width:20%; height:80px;">
+		<img src="<%=request.getContextPath()%>/images/common/영문검정.png" style="width:100%; height:100%;" alt="goodgoods">
+	</a>
+	
+	<ul class="main">
+		<li><a href="<%=request.getContextPath()%>/product/list?category=케이스">케이스</a>
+			<ul class="sub">
+				<%for(Product p: 케이스){%>
+					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
+				<% }%>
+			</ul>
+		</li>
+		
+		<li><a href="<%=request.getContextPath()%>/product/list?category=악세사리">악세사리</a>
+			<ul class="sub">
+				<%for(Product p: 악세사리){%>
+					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
+				<% }%>
+			</ul>
+		</li>
+		
+		<li><a href="<%=request.getContextPath()%>/product/list?category=생활용품">생활용품</a>
+			<ul class="sub">
+				<%for(Product p: 생활용품){%>
+					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
+				<% }%>
+			</ul>
+		</li>
+		
+		<li><a href="<%=request.getContextPath()%>/product/list?category=패션">패션</a>
+			<ul class="sub">
+				<%for(Product p: 패션){%>
+					<li><a href="<%=request.getContextPath()%>/product/view?pNo=<%=p.getpNo() %>"><%=p.getpName() %></a></li>
+				<% }%>
+			</ul>
+		</li>
+		
+		<li><a href="<%=request.getContextPath()%>/gallery/list">갤러리</a></li>
+		
+		<li><a href="<%=request.getContextPath()%>/reviewList">리뷰</a></li>
+	</ul>
+</div>
 
 
 		<!--========================================팝업창들=============================================  -->
@@ -188,8 +254,7 @@
 		<!-- 로그인 팝업 -->
 		<div class="modal-back" id="login">
 			<div class="modal-login animate">
-				<form id="login-form" action="<%=request.getContextPath()%>/login"
-					method="post" onsubmit="return loginSubmit();">
+				<form id="login-form" onsubmit="return loginSubmit()" method="post">
 					<div class="top-login">
 						<span> <img class="login-logo"
 							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
@@ -206,27 +271,31 @@
 						<div class="img">
 							<img src="<%=request.getContextPath()%>/images/common/kakao.png"
 								alt="kakao">
-						</div>
+						</div> 
+						
+		
 						<div class="img">
 							<img src="<%=request.getContextPath()%>/images/common/face.png"
-								alt="facebook">
+								alt="facebook">												
 						</div>
-						<div class="img">
+						
+						<div class="img g-signin2" data-onsuccess="onSignIn" data-theme="dark">
 							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
-						<div class="img">
+				
+						<div class="img" id="naver_id_login">
+						<!-- <div id="naverIdLogin"></div> -->
 							<img src="<%=request.getContextPath()%>/images/common/naver.png"
 								alt="naver">
 						</div>
 					</div>
 					<div class="bottom-login">
-						<button type="submit" class="big-gray-btn">로그인</button>
+						<button type="submit" class="big-gray-btn" onclick="loginSubmit();">로그인</button>
 						<div class="find-info">
 							<button type="button" onclick="openEnroll(); closeLogin()">회원가입</button>
 							<span class="line">|</span>
-							<button type="button" onclick="openFindPw(); closeLogin();">비밀번호
-								찾기</button>
+							<button type="button" onclick="openFindPw(); closeLogin();">비밀번호 찾기</button>
 						</div>
 					</div>
 				</form>
@@ -242,10 +311,10 @@
 			<!-- 이용약관 팝업-->
 			<div class="modal-findPw animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/findPw.html" id="htmlPw"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/findPw.html" id="htmlPw"></object>
 				</div>
 				<div class="close-btn">
-					<span onclick="closefindPw();" class="close" title="Close Modal">&times;</span>
+					<span onclick="closeFindPw();" class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>
@@ -256,6 +325,7 @@
 		<div class="modal-back" id="enroll" >
 			<!-- 회원가입 팝업-->
 			<div class="modal-enroll animate">
+			
 				<form id="enroll-form"
 					action="<%=request.getContextPath()%>/memberEnrollEnd"
 					method="post" onsubmit="return enrollSubmit();">
@@ -298,12 +368,6 @@
 									<td class="inputEnroll"><input type="text" name="nickName"
 										value="" placeholder="닉네임 입력" maxlength="15"></td>
 								</tr>
-								<!-- <tr>
-                                        <th>이름 <em><sup>*</sup></em></th>
-                                        <td class="inputEnroll">
-                                            <input type="text" value="" placeholder="이름 입력" maxlength="15">
-                                        </td>
-                                    </tr> -->
 							</tbody>
 						</table>
 						<!-- 이용약관 -->
@@ -355,7 +419,7 @@
 			<!-- 이용약관 팝업-->
 			<div class="modal-usePolicy animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/usePolicy.html" id="htmlPolicy"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeUsePolicy();" class="close" title="Close Modal">&times;</span>
@@ -369,7 +433,7 @@
 			<!-- 개인정보 수집 팝업-->
 			<div class="modal-personalInfo animate">
 				<div class="url-html">
-					<%-- <object type="text/html" data="<%=request.getContextPath()%>/popup/personalInfo.html" id="htmlpInfo"></object> --%>
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/personalInfo.html" id="htmlpInfo"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closePersonalInfo();" class="close"
@@ -466,4 +530,8 @@
 		</div>
 		<%} }%>
 		
+
+
+
+
 	</header>

@@ -62,7 +62,6 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
-		System.out.println(finderDate);
 		String pageBar="";
 		//이전페이지 만들기
 		if(pageNo==1) {
@@ -85,18 +84,14 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		}else {
 			pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
 		}
-		
-		
-		System.out.println(type);
-		
-
+	
 		request.setAttribute("totalDate",totalDate);
 		request.setAttribute("finderDate",finderDate);
 		request.setAttribute("list", list);
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("cPage", cPage);
 		request.setAttribute("numPerPage", numPerPage);
-		request.getRequestDispatcher("/views/client/notice/noticeAdminList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/admin/notice/noticeAdminList.jsp").forward(request, response);
 		
 	
 		

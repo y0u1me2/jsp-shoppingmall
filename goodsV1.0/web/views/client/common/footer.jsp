@@ -7,13 +7,13 @@
         <hr id="line">
         <div class="foot">
             <pre>
-                        <table>
-                        <tr>
-                            <td>회사소개&nbsp;|&nbsp;</td>
+                        <table class="ftable">
+                        <tr class="ftable">
+                            <td class="ftable">회사소개&nbsp;|&nbsp;</td>
     
-                            <td>이용약관&nbsp;|&nbsp;</td>
+                            <td class="ftable">이용약관&nbsp;|&nbsp;</td>
     
-                            <td>개인정보처리방침</td>
+                            <td class="ftable">개인정보처리방침</td>
                         </tr>
                         </table>
                          <p>(주) 굿굿즈 대표이사 윤희연 사업자등록번호 103-39-239893 통신판매신고 2020-서울강남구-1293</p>

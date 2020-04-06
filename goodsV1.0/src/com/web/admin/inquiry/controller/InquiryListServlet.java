@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.web.admin.inquiry.model.service.AdminInquiryService;
 import com.web.inquiry.model.vo.Inquiry;
 
-@WebServlet("/InquiryList")
+@WebServlet("/admin/InquiryList")
 public class InquiryListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class InquiryListServlet extends HttpServlet {
 		try {
 			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
 		} catch (NumberFormatException e) {
-			numPerPage = 10;
+			numPerPage = 5;
 		}
 
 		List<Inquiry> list = new AdminInquiryService().searchInquiry(cPage, numPerPage);
@@ -62,27 +62,27 @@ public class InquiryListServlet extends HttpServlet {
 		if (pageNo == 1) {
 			pageBar += "<span><</span>";
 		} else {			       
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
-					+ numPerPage + "'><</a>&nbsp ";
+			pageBar += "<a href='" + request.getContextPath() + "/admin/InquiryList?cPage=" + (pageNo - 1) + "&numPerPage="
+					+ numPerPage + "'><</a>";
 		}
 
 		// 1 2 3 4 5
 		// 5보다 크거나 10페이지보다 크지 않을때
 		while (!(pageNo > pageEnd || pageNo > totalPage)) {
 			if (pageNo == cPage) {
-				pageBar += "<span class='cPage'>" + pageNo + "</span>&nbsp ";
+				pageBar += "<span class='cPage'>" + pageNo + "</span>";
 			} else {
-				pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
-						+ numPerPage + "'>" + pageNo + "</a>&nbsp ";
+				pageBar += "<a href='" + request.getContextPath() + "/admin/InquiryList?cPage=" + pageNo + "&numPerPage="
+						+ numPerPage + "'>" + pageNo + "</a>";
 			}
 			pageNo++;
 		}
 
 		// [>]
 		if (pageNo > totalPage) {
-			pageBar += "<span>></span>&nbsp";
+			pageBar += "<span>></span>";
 		} else {
-			pageBar += "<a href='" + request.getContextPath() + "/InquiryList?cPage=" + pageNo + "&numPerPage="
+			pageBar += "<a href='" + request.getContextPath() + "/admin/InquiryList?cPage=" + pageNo + "&numPerPage="
 					+ numPerPage + "'>></a>";
 		}
 

@@ -17,6 +17,7 @@
 
         html,
         body {
+        	width:1366px;
             height: 100%;
             margin: 0;
         }
@@ -31,14 +32,15 @@
     <script type="text/javascript" src="<%=request.getContextPath() %>/api/toast/js/theme/white-theme.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath() %>/api/toast/js/theme/black-theme.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="<%=request.getContextPath() %>/js/jszip.min.js"></script>
 </head>
 
 <body>
 
     <div id="tui-image-editor-container"></div>
+    
 	<input type="hidden" id="color" value="<%=request.getParameter("colorType")%>">
 	<input type="hidden" id="pNo" value="<%=request.getParameter("pNo")%>">
-	<input type="hidden" id="mNo" value="<%=request.getParameter("mNo")%>">
 	
     <script>
         // Image editor

@@ -18,7 +18,7 @@ import com.web.admin.inquiry.model.vo.InquiryAnswer;
 import com.web.common.MyFileRenamePolicy;
 
 
-@WebServlet("/InquiryAnswer")
+@WebServlet("/admin/InquiryAnswer")
 public class InquiryAnswerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -57,9 +57,9 @@ public class InquiryAnswerServlet extends HttpServlet {
 			}	
 			
 		//업로드처리 로직에서 multipart/formdata형식으로 넘어오지 않으면
-		//등록이 안되면 문의글 쓰는 페이지로 다시 이동
-		request.setAttribute("msg", "1:1문의등록에러!![form:enctype 관리자에게 문의]");
-		request.setAttribute("loc", request.getContextPath()+"/MyInquiryWrite");
+		//등록이 안되면 답변등록 페이지로 다시 이동
+		request.setAttribute("msg", "답변등록에러!![form:enctype 관리자에게 문의]");
+		request.setAttribute("loc", request.getContextPath()+"/admin/InquiryAnswer");
 		request.getRequestDispatcher("/views/client/common/msg.jsp")
 		.forward(request, response);
 		}
@@ -80,25 +80,22 @@ public class InquiryAnswerServlet extends HttpServlet {
 		String content = mr.getParameter("content");
 		String oriFileName = mr.getOriginalFileName("upfile");
 		String renamedFileName = mr.getFilesystemName("upfile");
-			
-		int mno = 99;
+
 		String id = "admin";
 				
-		InquiryAnswer ia = new InquiryAnswer(0,ino,mno,id,title,content,null,oriFileName,renamedFileName,"Y",null);
+		InquiryAnswer ia = new InquiryAnswer(0,ino,id,title,content,null,oriFileName,renamedFileName,"Y",null);
 				
-		//n을 DB에 저장하기
 		int result = new AdminInquiryService().inquiryAnswer(ia);
 				
 		if(result>0) {
 		//저장성공 : 답변 저장 성공메세지출력, 사용자 문의내역 목록 페이지로 이동
 			request.setAttribute("msg", "1:1문의답변이 등록되었습니다.");
-			request.setAttribute("loc", "/InquiryList");			
+			request.setAttribute("loc", "/admin/InquiryList");			
 					
 		}else {	
 		//저장실패 : 답변 저장 실패 메세지 출력, 1:1문의 답변 작성페이지로 이동
-		//저장실패하면 폴더에 저장된 파일삭제
-			request.setAttribute("msg", "1:1문의 답변 저장이 실패하였습니다.");
-			request.setAttribute("loc", "/InquiryAnswerView");
+			request.setAttribute("msg", "1:1문의 답변 등록이 실패하였습니다.");
+			request.setAttribute("loc", "/admin/InquiryAnswerView");
 		}
 			request.getRequestDispatcher("/views/client/common/msg.jsp")
 			.forward(request, response); 
