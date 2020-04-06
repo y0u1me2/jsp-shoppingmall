@@ -32,17 +32,17 @@ public class AdminOrderListCheckDeleteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String[] check=request.getParameterValues("mRowCheck");
 		
-		int result=new AdminOrderListService().checkdelete(check);
+//		int result=new AdminOrderListService().checkdelete(check);
 		
 		String msg="";
 		String loc="";
-		if(result>0) {
-			msg="주문을 취소하였습니다";
-			loc="/admin/orderList";
-		}else {
-			msg="주문취소를 실패하였습니다";
-			loc="/admin/orderList";
-		}
+//		if(result>0) {
+//			msg="주문을 취소하였습니다";
+//			loc="/admin/orderList";
+//		}else {
+//			msg="주문취소를 실패하였습니다";
+//			loc="/admin/orderList";
+//		}
 		request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
 	}
 

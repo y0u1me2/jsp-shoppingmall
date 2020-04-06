@@ -1,13 +1,18 @@
+<%@page import="com.web.admin.order.model.vo.OrderList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/admin/common/header.jsp" %>
 <%
-	String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
-	String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
-	/* int totalDate=(int)request.getAttribute("totalDate");
+	String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";
+	String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
+	List<OrderList> list=(List)request.getAttribute("list");
+	int totalPrice=(int)request.getAttribute("totalPrice");
+	int searchPrice=(int)request.getAttribute("searchPrice");
+	int totalDate=(int)request.getAttribute("totalDate");
 	int finderDate=(int)request.getAttribute("finderDate");
 	int cPage=(int)request.getAttribute("cPage");
-	int numPer=(int)request.getAttribute("numPerPage"); */
+	int numPer=(int)request.getAttribute("numPerPage"); 
 %>
  <style>
 
@@ -431,8 +436,8 @@
                 <!-- 총 회원수 및 검색 결과 -->
                 <div class="mState">
                     <p class="total">
-                        [총 매출 <strong>19</strong>원] 검색결과 
-                        <strong>19</strong>원
+                        [총 매출 <strong><%=totalPrice %></strong>원] 검색결과 
+                        <strong><%=searchPrice %></strong>원
                     </p>
                 </div>
                 <!-- 회원목록 박스 헤더 -->
@@ -484,76 +489,33 @@
                             </tr>
                         </thead>
                        
-                        <tbody>                        
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="sunmi1926@naver.com"></td>
-	                        		
-	                        		<td>12111</td>
-	                        		<td>114</td>
-	                        		<td>가격</br>갯수</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
+                        <tbody>     
+                        	   <%if(list.size()==0){ %> 
+                        	   <tr>
+	                        		<td id="conbox" colspan='8'>
+	                        			<p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
+	                        		</td>
+	                        	</tr>
+	                        	<%}else {
+	                        		for(OrderList ol : list) {%>         
+	                        	<tr id="centerInfo">
+	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="<%=ol.getcNo()%>"></td>
+	                        		<td><%=ol.getoNo() %></td>
 	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="sunmi1926@naver.com">삭제</button>
+	                        			<img src="<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>" width="50px" height="50px"/>
+	                        			<%=ol.getpName() %> <%=ol.getcColor() %>
+	                        			<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>
+	                        		</td>
+	                        		<td><%=ol.gettPrice()*ol.getoQuan() %>원</br><%=ol.getoQuan() %>개</td>
+	                        		<td><%=ol.getoName() %></td>
+	                        		<td><%=ol.getoDate() %></td>
+	                        		<td>배송중</td>
+	                        		<td>
+	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="<%=ol.getcNo()%>">삭제</button>
 	                        		</td>
 	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="choscien@gmail.com"></td>
-	                        		
-	                        		<td>2</td>
-	                        		<td>113</td>
-	                        		<td>지수</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="choscien@gmail.com">삭제</button>
-	                        		</td>
-	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="girin@email.com"></td>
-	                        		
-	                        		<td>3</td>
-	                        		<td>84</td>
-	                        		<td>기린</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="girin@email.com">삭제</button>
-	                        		</td>
-	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="apdlwl1582@naver.com"></td>
-	                        		
-	                        		<td>4</td>
-	                        		<td>82</td>
-	                        		<td>재훈</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="apdlwl1582@naver.com">삭제</button>
-	                        		</td>
-	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="sciencho@naver.com"></td>
-	                        		
-	                        		<td>5</td>
-	                        		<td>81</td>
-	                        		<td>산더미</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="sciencho@naver.com">삭제</button>
-	                        		</td>
-	                        	</tr> 
+	                        	 <%}
+	                        		} %>
                         </tbody>
                        
                     </table>
@@ -562,7 +524,7 @@
                 </div>
                 </form>
 				<div id="pageBar" style="width:80%; text-align:center; padding:20px 0;">
-        				<span><</span><span class='cPage'>1</span><a href='/goods/admin/memberList?cPage=2&numPerPage=10'>2</a> <span>></span>
+        			<%=request.getAttribute("pageBar") %>
         		</div>
 		
             </div>

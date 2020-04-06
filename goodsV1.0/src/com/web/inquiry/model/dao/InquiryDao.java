@@ -44,7 +44,6 @@ public class InquiryDao {
 			pstmt.setString(3, i.getI_Phone());
 			pstmt.setString(4, i.getI_Title());
 			pstmt.setString(5, i.getI_Content());
-			pstmt.setString(6,i.getI_Original_Filename());
 			pstmt.setString(7,i.getI_Renamed_Filename());
 
 			result = pstmt.executeUpdate();
@@ -85,7 +84,6 @@ public class InquiryDao {
 				i.setI_Title(rs.getString("i_title"));
 				i.setI_Content(rs.getString("i_content"));
 				i.setI_Date(rs.getDate("i_date"));
-				i.setI_Original_Filename(rs.getString("i_original_filename"));
 				i.setI_Renamed_Filename(rs.getString("i_renamed_filename"));
 				i.setStatus(rs.getString("status"));
 				i.setAnswer_status(rs.getString("answer_status"));
@@ -152,7 +150,6 @@ public class InquiryDao {
 				i.setI_Title(rs.getString("i_title"));
 				i.setI_Content(rs.getString("i_content"));
 				i.setI_Date(rs.getDate("i_date"));
-				i.setI_Original_Filename(rs.getString("i_original_filename"));
 				i.setI_Renamed_Filename(rs.getString("i_renamed_filename"));
 				i.setStatus(rs.getString("status"));
 

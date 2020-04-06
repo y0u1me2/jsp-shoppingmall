@@ -43,29 +43,6 @@ public class AdminProductService {
 		return result;
 	}
 
-//헤더 메뉴 추가하기=========================
-	public List<Product> productHeaderMenu() {
-		Connection conn = getConnection();
-
-		List<Product> list = dao.productHeaderMenu(conn);
-
-		close(conn);
-
-		return list;
-
-	}
-
-	public List<Product> productInfo(int no) {
-		Connection conn = getConnection();
-
-		List<Product> listP = dao.productInfo(conn, no);
-
-		close(conn);
-
-		return listP;
-
-	}
-
 //상품정보수정하기===================================
 	public int updateProduct(Product p, List<ProductImage> imgList, int pNo) {
 		Connection conn = getConnection();

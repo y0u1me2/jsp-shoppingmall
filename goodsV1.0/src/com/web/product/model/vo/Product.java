@@ -8,13 +8,14 @@ public class Product {
 	private String pThumbnail;
 	private String pComment;
 	private String pStatus;
+	private String pSize;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Product(int pNo, String pCategory, String pName, int pPrice, String pThumbnail, String pComment,
-			String pStatus) {
+			String pStatus, String pSize) {
 		super();
 		this.pNo = pNo;
 		this.pCategory = pCategory;
@@ -23,6 +24,7 @@ public class Product {
 		this.pThumbnail = pThumbnail;
 		this.pComment = pComment;
 		this.pStatus = pStatus;
+		this.pSize = pSize;
 	}
 
 	public final int getpNo() {
@@ -81,15 +83,20 @@ public class Product {
 		this.pStatus = pStatus;
 	}
 
+	public final String getpSize() {
+		return pSize;
+	}
+
+	public final void setpSize(String pSize) {
+		this.pSize = pSize;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [pNo=" + pNo + ", pCategory=" + pCategory + ", pName=" + pName + ", pPrice=" + pPrice
-				+ ", pThumbnail=" + pThumbnail + ", pComment=" + pComment + ", pStatus=" + pStatus + "]";
+				+ ", pThumbnail=" + pThumbnail + ", pComment=" + pComment + ", pStatus=" + pStatus + ", pSize=" + pSize
+				+ "]";
 	}
 
-	
-	
-	
-	
 	
 }
