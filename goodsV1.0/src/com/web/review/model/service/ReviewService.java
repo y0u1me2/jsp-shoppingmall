@@ -2,6 +2,8 @@ package com.web.review.model.service;
 
 import static com.web.common.JDBCTemplate.getConnection;
 import static com.web.common.JDBCTemplate.close;
+import static com.web.common.JDBCTemplate.commit;
+import static com.web.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -60,5 +62,14 @@ public class ReviewService {
 		List<Review> list=rdao.searchReviewCategory(conn, p_Category);
 		close(conn);
 		return list;
+	}
+	
+	public int insertReview(Review r) {
+		Connection conn=getConnection();
+		int result=rdao.insertReview(conn, r);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 }

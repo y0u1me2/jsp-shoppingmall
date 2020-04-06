@@ -1,11 +1,19 @@
 package com.web.review.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.web.notice.model.service.NoticeService;
+import com.web.review.model.service.ReviewService;
+import com.web.review.model.vo.Review;
 
 /**
  * Servlet implementation class ReviewWriteServlet
@@ -28,13 +36,54 @@ public class ReviewWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("작성창인데 여기오면 gg인데");
-		int starPoint=Integer.parseInt(request.getParameter("starPoint"));
-		String content=request.getParameter("content");
-		String up_file=request.getParameter("up_file");
+		
+		//경로설정
+		String path=getServletContext().getRealPath("/upload/review");
+		int maxSize=1024*1024*10; //10MB;
+		MultipartRequest mr=new MultipartRequest(request, path, maxSize, "UTF-8",new DefaultFileRenamePolicy());
+		
+		int starPoint=Integer.parseInt(mr.getParameter("starPoint"));
+		String content=mr.getParameter("content");		
+		String up_file=mr.getParameter("up_file");
+		int mNo=Integer.parseInt(mr.getParameter("mNo"));
+		int cNo=Integer.parseInt(mr.getParameter("cNo"));
+		
+
 		System.out.println("별점 : "+starPoint);
 		System.out.println("내용 : "+content);
 		System.out.println("파일이름 : "+up_file);
+		System.out.println("회원번호 : "+mNo);
+		System.out.println("커스텀번호 : "+cNo);
 		response.sendRedirect(request.getContextPath());
+		
+		Enumeration f=mr.getFileNames();
+		String oriFileName="";
+		String reNameFile="";
+		while(f.hasMoreElements()) {
+			String name=(String)f.nextElement();
+			reNameFile+=mr.getFilesystemName(name)+",";
+			oriFileName+=mr.getOriginalFileName(name)+",";
+			System.out.println(reNameFile);
+			System.out.println(oriFileName);
+		}
+		
+		Review r=new Review(mNo, cNo, content, starPoint, oriFileName, reNameFile);
+		int result=new ReviewService().insertReview(r);
+		String msg="";
+		String loc="/reviewList";
+		if(result>0) {
+			//성공
+			msg="리뷰 작성을 완료하였습니다.";
+		}else {
+			//실패
+			msg="리뷰 작성을 실패하였습니다.";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/admin/notice/msg.jsp")
+		.forward(request, response);
+		
+		
 	}
 
 	/**

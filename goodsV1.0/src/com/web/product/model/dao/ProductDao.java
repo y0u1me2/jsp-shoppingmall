@@ -158,6 +158,39 @@ public class ProductDao {
 		}
 		return cno; //커스텀 번호 반환, 에러시 0 반환
 	}
+	
+	//특정 한 개 커스텀 정보 가져오기(cNo -> Custom VO) 
+	public Custom getCustom(Connection conn, int cNo) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Custom c = null;
+		String sql = prop.getProperty("selectOneCustom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				c = new Custom();
+				c.setcNo(rs.getInt("C_NO"));
+				c.setColor(rs.getString("C_COLOR"));
+				c.setCompleteFile(rs.getString("c_complete_file"));
+				c.setEnrollDate(rs.getDate("c_enroll_date"));
+				c.setmNo(rs.getInt("m_no"));
+				c.setOriginalFile(rs.getString("c_original_file"));
+				c.setpNo(rs.getInt("p_no"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return c;//null이거나 아니거나
+	}
+	
 
 //	public int insertCustomImage(Connection conn, int cno, String file) {
 //		PreparedStatement pstmt = null;
