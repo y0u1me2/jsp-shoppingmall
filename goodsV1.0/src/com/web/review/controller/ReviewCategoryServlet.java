@@ -58,7 +58,7 @@ public class ReviewCategoryServlet extends HttpServlet {
 		//게시글 수 처리 부분
 		//더 보기 횟수 제한
 		int contentsCount=request.getParameter("contentsCount")==null?0:Integer.parseInt(request.getParameter("contentsCount"));
-		int reviewListCount=2; //표시할 리뷰 갯수
+		int reviewListCount=10; //표시할 리뷰 갯수
 		int readMoreBarCount=(int) Math.ceil((double) totalReview / reviewListCount); //더보기 횟수
 		int totalMoreReview=0; //더보여줄 최대 횟수
 		if(contentsCount+reviewListCount>=totalReview) {
@@ -70,7 +70,6 @@ public class ReviewCategoryServlet extends HttpServlet {
 		//for(Review r:list) {
 		for(int j=contentsCount;j<totalMoreReview;j++) {
 			starpoint="";
-			System.out.println(j+"번째 별점 : "+list.get(j).getRv_Star());
 			for(int i=0;i<list.get(j).getRv_Star();i++) {
 				starpoint+="<span class='fa fa-star checked'></span>";		
 			}
@@ -101,17 +100,11 @@ public class ReviewCategoryServlet extends HttpServlet {
 									+"</div>"
 									+"</div>";
 		}
-		System.out.println(reviewList);
 		jsonObj.put("reviewList", reviewList);
 		jsonObj.put("totalReview", totalReview);
 		jsonObj.put("totalMoreReview",totalMoreReview);
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(jsonObj,response.getWriter());
-		
-//		response.setContentType("text/html");
-//		response.setCharacterEncoding("utf-8");
-//		response.getWriter().write(reviewList);
-		//request.getRequestDispatcher("views/client/review/reviewList.jsp").forward(request, response);
 	}
 
 	/**
