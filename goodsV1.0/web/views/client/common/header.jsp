@@ -154,7 +154,8 @@ img#leftLogo{
 						<button type="button">주문/배송</button>
 					</li>
 					<li>
-						<button type="button">장바구니</button>
+						<button type="button"><a href="<%=request.getContextPath() %>/cart"
+						style="text-decoration:none;">장바구니</a></button>
 					</li>
 					<%
 						if (loginMember == null || loginMember != null&&emailCheck.equals("N")) {
