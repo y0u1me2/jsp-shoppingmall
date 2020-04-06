@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
 import com.web.product.model.service.ProductService;
+import com.web.product.model.vo.Custom;
 import com.web.product.model.vo.Product;
 import com.web.review.model.service.ReviewService;
 import com.web.review.model.vo.Review;
@@ -76,14 +77,15 @@ public class ReviewCategoryServlet extends HttpServlet {
 			for(int i=0;i<5-(list.get(j).getRv_Star());i++) {
 				starpoint+="<span class='fa fa-star'></span>";
 			}
-			Product p=new ProductService().getProduct(list.get(j).getP_No());
+			Custom c=new ProductService().customNo(list.get(j).getC_No());
+			Product p=new ProductService().getProduct(c.getpNo());
 			reviewList+="<div style='border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;'>"
 					+ "<input id='RvNo' type='hidden' value='"+list.get(j).getRv_No()+"'>"
 							+ "<table>"
 								+ "<tr>"
 									+ "<td class='reviewProductImg' rowspan='3'><a href='#'>"
 									+ "<img class='review-product'" 
-									+ "src='"+request.getContextPath()+"/images/product/"+p.getpThumbnail()+"'>"
+									+ "src='"+request.getContextPath()+"/images/product/"+c.getCompleteFile()+"'>"
 									+ "</a></td>"
 									+ "<td class='reviewTitle' colspan='3'>" + 
 									"<a href='#'>"+p.getpName()+
