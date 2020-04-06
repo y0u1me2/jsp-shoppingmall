@@ -91,5 +91,12 @@ public class AdminMemberService {
 		return list;
 		
 	}
+	
+	public int memberVisitCount() {
+		Connection conn=getConnection();
+		int result =dao.memberVisitCount(conn);
+		close(conn);
+		return result;
+	}
 
 }

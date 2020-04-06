@@ -39,12 +39,13 @@ public class AdminMemberStatusServlet extends HttpServlet {
 		int totalMember=new AdminMemberService().memberCount(); //토탈회원
 		int deleteMember=new AdminMemberService().memberDeleteCount();//탈퇴회원
 		int todayEnrollMember=new AdminMemberService().memberTodayEnrollCount();//오늘가입회원
-		
+		int visitMember=new AdminMemberService().memberVisitCount();//오늘 방문회원
 		
 		request.setAttribute("list", list);
 		request.setAttribute("todayEnrollMember", todayEnrollMember);
 		request.setAttribute("totalMember", totalMember);
 		request.setAttribute("deleteMember", deleteMember);
+		request.setAttribute("visitMember", visitMember);
 		request.getRequestDispatcher("/views/admin/member/memberStatus.jsp").forward(request, response);
 	}
 
