@@ -434,8 +434,12 @@ dd {
 						</thead>
 					
 						<tbody>
-						 
-						<%for(Cart c : cart) {%>
+						<%if(cart.isEmpty()){%>
+	            			<tr>
+	            				<td colspan='6'>장바구니 리스트가 없습니다.</td>
+	            			</tr>
+	            		<%}else{ %>	
+							<%for(Cart c : cart) {%>
 						
 							<tr>
 								<td style="text-align: center; vertical-align: top;">
@@ -490,18 +494,22 @@ dd {
 									<div
 										style="padding: 18px 0; height: 14px; border-top: 1px dashed rgb(218, 218, 218); padding-bottom: 25px;">
 										<span style="float: left; font-size: 12px;">
-											<button>편집하기</button> <span
+											<button type="button" class="cPEdit">편집하기</button> <span
 											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>복사하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>삭제하기</button>
-										</span> <span
+											<button type="button" class="cLDelete">삭제하기</button>
+											<form class="cartDeleteF" action="<%=request.getContextPath()%>/cart/cartListDelete" method="post">
+												<input type="hidden" class="cLDeleteNo" name="cLDeleteNo" value=<%=c.getcCno()%>>
+											</form>
+										</span>
+										<span
 											style="float: right; font-size: 12px; padding-top: 5px;">최종
-											편집일 <%=c.getcDate() %></span>
+											편집일 <%=c.getcDate() %>
+										</span>
 									</div>
 								</td>
 							</tr>	
-							<% } %>		
+							<% } %>	
+						<%} %>		
 					
 						</tbody>
 						
@@ -563,6 +571,15 @@ dd {
 			console.log(quan.val());
 			$(quan).attr("pdQuantity",'1');
 		}) 
+		$(".cLDelete").click(function(){
+			var result = confirm('선택하신 상품을 삭제하시겠습니까?'); 
+			console.log($(this).next().children());
+			if(result) {
+				$(this).next(".cartDeleteF").submit();
+			}else{
+			}
+			
+		})
 		$("#cartOrderBtn").click(function(){
 			let num = parseInt($("#cartSelCount").text());
 			if(num>0){

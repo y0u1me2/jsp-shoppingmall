@@ -539,7 +539,7 @@
                 <span style="padding-left: 100px; padding-right: 21px;">01. 장바구니</span>
                 <span style=>></span>
                 <span style="color: black; font-size: 20px; padding-left: 10px; padding-right: 20px;
-                        font-weight:900; padding-bottom: 17px; padding-top: 17px;">02. 주문/결제</span>
+                        font-weight:900; padding-bottom: 15px; padding-top: 17px;">02. 주문/결제</span>
                 <span style=>></span>
                 <span style="padding-right: 100px; padding-left: 21px;">03. 주문완료</span>
             </div>
@@ -1455,7 +1455,7 @@
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
              }else{
-                 var IMP = window.IMP; // 생략가능
+                /*  var IMP = window.IMP; // 생략가능
                var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
                var payAmount=$("#payAmount").val();//가격
                var userName=$("#userName").val();//이름
@@ -1480,19 +1480,19 @@
                 }, function (rsp) {
                     if (rsp.success) {
                     	$("#paymentOrder").submit();
-                       /*  var msg = '결제가 완료되었습니다.';
+                        var msg = '결제가 완료되었습니다.';
                         msg += '고유ID : ' + rsp.imp_uid;
                         msg += '상점 거래ID : ' + rsp.merchant_uid;
                         msg += '결제 금액 : ' + rsp.paid_amount;
-                        msg += '카드 승인번호 : ' + rsp.apply_num; */
+                        msg += '카드 승인번호 : ' + rsp.apply_num; 
                     } else {
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
 
-                });   
+                });     */
               
-             	/* $("#paymentOrder").submit(); */
+             	 $("#paymentOrder").submit(); 
              }
             }
         }

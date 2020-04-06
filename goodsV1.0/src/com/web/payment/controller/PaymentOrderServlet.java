@@ -111,14 +111,14 @@ public class PaymentOrderServlet extends HttpServlet {
 		//System.out.println("리무브된 리스트 값 : "+list);
 		//System.out.println("리무브된 리스트 사이즈값 : "+list.size());
 		String[] cookList = new String[list.size()];
-		String test = "";		
+		String cookL = "";		
 		for(int i=0;i<list.size();i++) {
 			cookList[i]=list.get(i);
 			//System.out.println("리무브된 리스트 값->배열로 옮긴값 : "+cookList[i]);
 			if(list.size()-1==i) {
-				test+=cookList[i];
+				cookL+=cookList[i];
 			}else {
-				test+=cookList[i]+"|";
+				cookL+=cookList[i]+"|";
 			}
 			
 		}
@@ -127,7 +127,7 @@ public class PaymentOrderServlet extends HttpServlet {
 		if(list.size()!=0) {
 				for(int i=0; i<cookies.length; i++) {
 					if(cookies[i].getName().equals("cart")) {
-							cookie = new Cookie("cart",test);				
+							cookie = new Cookie("cart",cookL);				
 							cookie.setPath("/");
 							cookie.setMaxAge(60*60*24*90);
 							response.addCookie(cookie);
