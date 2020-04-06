@@ -539,7 +539,7 @@
                 <span style="padding-left: 100px; padding-right: 21px;">01. 장바구니</span>
                 <span style=>></span>
                 <span style="color: black; font-size: 20px; padding-left: 10px; padding-right: 20px;
-                        font-weight:900; padding-bottom: 17px; padding-top: 17px;">02. 주문/결제</span>
+                        font-weight:900; padding-bottom: 15px; padding-top: 17px;">02. 주문/결제</span>
                 <span style=>></span>
                 <span style="padding-right: 100px; padding-left: 21px;">03. 주문완료</span>
             </div>
@@ -1018,7 +1018,7 @@
                     <!-- 최종결제 확인 타이틀 -->
                     <h3>최종결제 금액확인</h3>
                     <!-- 최종결제 border -->
-                    <div class="" style="border: 1px solid rgb(220, 220, 220); ">
+                    <div id="finalPayment" style="border: 1px solid rgb(220, 220, 220); ">
                         <!-- 최종결제 안쪽 패딩 -->
                         <div style="padding:0 20px;">
                             <table>
@@ -1122,6 +1122,7 @@
                      //에러를 다시 생성해줌
                         $("#paymentBt").css("color","#eee");
                         $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                        $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
                      //필수항목들을 전부다 하지 않았으므로 다시 결제하기 버튼 글자 컬러 원래 색으로 (#eee)변경
                   }
                  }else{
@@ -1134,6 +1135,7 @@
                        }
                      $("#paymentBt").css("color","black");
                      $("#paymentBt").css("border","1px solid black");
+                     $("#finalPayment").css("border", "1px solid black");
                      // 필수 항목들이  전부다 입력돼서 블랙으로 바꿔줌
                   }
             });
@@ -1160,6 +1162,7 @@
                               // input다음에 span을 넣어줌 html(내용).addclass는(css)
                               $("#paymentBt").css("color","#eee");
                            $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                           $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
                           }
                       } else {
                           //얘는 input에 내용이 있을때 들어감
@@ -1171,6 +1174,7 @@
                               // input다음에 span을 넣어줌 html(내용).addclass는(css
                               $("#paymentBt").css("color","#eee");
                            $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                           $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
                           }
                           if ($(this).attr('name') == "userPhone2[2]" && $(this).val().length < 4) {
                               //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
@@ -1180,6 +1184,7 @@
                               // input다음에 span을 넣어줌 html(내용).addclass는(css
                               $("#paymentBt").css("color","#eee");
                            $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                           $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
                           }
                       }
                   }else{
@@ -1197,6 +1202,7 @@
                               // input다음에 span을 넣어줌 html(내용).addclass는(css
                               $("#paymentBt").css("color","#eee");
                            $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                           $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
                           }else if($(this).attr('name') == "userPhone2[2]" && $(this).val().length < 4) {
                               $(this).removeClass('error');
                                //input에 클래스 에러(있을때) 삭제
@@ -1209,6 +1215,7 @@
                               // input다음에 span을 넣어줌 html(내용).addclass는(css
                               $("#paymentBt").css("color","#eee");
                            $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
+                           $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
                            }else{
                               $(this).removeClass('error');
                                //input에 클래스 에러(있을때) 삭제
@@ -1217,6 +1224,7 @@
                         
                               $("#paymentBt").css("color","black");
                               $("#paymentBt").css("border","1px solid black");
+                              $("#finalPayment").css("border", "1px solid black");
                            } 
                        
                   }
@@ -1259,6 +1267,7 @@
           }else{
               $("#paymentBt").css("color","black");
               $("#paymentBt").css("border","1px solid black");
+              $("#finalPayment").css("border", "1px solid black");
           }
             
             
@@ -1283,8 +1292,6 @@
                     }
                 }
             } else {
-                console.log(event.target);
-                console.log('나와이자식아');
                 // $(".btn-black-medium").click(function () {
                 //btn-black-medium class를 클릭 기능 실행
 
@@ -1448,7 +1455,7 @@
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
              }else{
-              /*   var IMP = window.IMP; // 생략가능
+                /*  var IMP = window.IMP; // 생략가능
                var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
                var payAmount=$("#payAmount").val();//가격
                var userName=$("#userName").val();//이름
@@ -1477,15 +1484,15 @@
                         msg += '고유ID : ' + rsp.imp_uid;
                         msg += '상점 거래ID : ' + rsp.merchant_uid;
                         msg += '결제 금액 : ' + rsp.paid_amount;
-                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                        msg += '카드 승인번호 : ' + rsp.apply_num; 
                     } else {
                         var msg = '결제에 실패하였습니다.';
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
 
-                }); */  
+                });     */
               
-             	$("#paymentOrder").submit();
+             	 $("#paymentOrder").submit(); 
              }
             }
         }
