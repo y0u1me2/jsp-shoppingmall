@@ -35,6 +35,7 @@
 <script>
 		var loginResult='<%=loginResult%>';
 		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
+		var mNo = '<%=session.getAttribute("loginedMember")==null?"":((Member)session.getAttribute("loginedMember")).getM_No()%>';
 		/* console.log(loginResult); */
 </script>
 
@@ -268,27 +269,14 @@ li{
 						</div>
 					</div>
 					<div id="loginCenterImg">
-						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/common/kakao.png"
-								alt="kakao">
-						</div> 
 						
-		
-						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/common/face.png"
-								alt="facebook">												
-						</div>
 						
 						<div class="img g-signin2" data-onsuccess="onSignIn" data-theme="dark">
 							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
 				
-						<div class="img" id="naver_id_login">
-						<!-- <div id="naverIdLogin"></div> -->
-							<img src="<%=request.getContextPath()%>/images/common/naver.png"
-								alt="naver">
-						</div>
+						
 					</div>
 					<div class="bottom-login">
 						<button type="submit" class="big-gray-btn" onclick="loginSubmit();">로그인</button>
