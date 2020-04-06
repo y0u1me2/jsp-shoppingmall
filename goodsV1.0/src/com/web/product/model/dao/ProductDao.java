@@ -48,6 +48,7 @@ public class ProductDao {
 				p.setpComment(rs.getString("p_comment"));
 				p.setpPrice(rs.getInt("p_price"));
 				p.setpThumbnail(rs.getString("p_thumbnail"));
+				p.setpSize(rs.getString("p_size"));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

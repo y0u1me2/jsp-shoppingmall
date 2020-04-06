@@ -81,7 +81,7 @@ li{
 /* 메인 메뉴들 가로로 배열(flex) */
 .main{
 	width:80%;
-	height: 80px;
+	height: 120px;
 	display:flex;
 	align-items: center;
 }
@@ -98,6 +98,9 @@ li{
 	height: 100%;
 	display:block;
 	line-height:80px;
+	position:relative;
+	top:20px;
+	font-size:20px;
 }
 
 /* 서브메뉴들 */
@@ -117,6 +120,12 @@ li{
 
 .main li:hover .sub{
 	display: block;
+}
+
+img#leftLogo{
+	position:relative;
+	bottom:5px;
+	left:90px;
 }
 
 </style>
@@ -202,10 +211,10 @@ li{
 		
 		
 <!-- 드롭다운 메뉴 -->
-<div style=" display:flex;">
+<div style=" display:flex;padding-bottom:20px;padding-top:20px;">
 	<!-- 로고 -->
 	<a href="<%=request.getContextPath()%>/index.jsp" style="display:block; width:20%; height:80px;">
-		<img src="<%=request.getContextPath()%>/images/common/영문검정.png" style="width:100%; height:100%;" alt="goodgoods">
+		<img src="<%=request.getContextPath()%>/images/common/좌측로고.png"  id="leftLogo" alt="goodgoods">
 	</a>
 	
 	<ul class="main">

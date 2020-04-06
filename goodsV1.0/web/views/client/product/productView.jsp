@@ -250,7 +250,7 @@
 		<table>
 			<tr>
 				<td style="width:30%;">사이즈</td>
-				<td>2.8cm x 3.8cm</td>
+				<td><%=p.getpSize() %></td>
 			</tr>
 			
 			<tr>

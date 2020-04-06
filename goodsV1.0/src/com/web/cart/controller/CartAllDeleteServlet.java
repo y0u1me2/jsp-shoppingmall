@@ -60,11 +60,16 @@ public class CartAllDeleteServlet extends HttpServlet {
 
 		}
 		list.toArray(cartCooks);
-
+		if(list.size()>0) {
+			if(list.get(0)=="") {
+				list.clear();
+			}
+		}
 		System.out.println("리무브된 리스트 값 : " + list);
 		System.out.println("리무브된 리스트 사이즈값 : " + list.size());
 		String[] cookList = new String[list.size()];
 		String cookL = "";
+
 		for (int i = 0; i < list.size(); i++) {
 			cookList[i] = list.get(i);
 			System.out.println("리무브된 리스트 값->배열로 옮긴값 : " + cookList[i]);
@@ -100,7 +105,6 @@ public class CartAllDeleteServlet extends HttpServlet {
 		}
 		
 		List<Cart> c = new CartService().searchCart(cookList); 
-		
 		request.setAttribute("cart", c);
 		request.getRequestDispatcher("/views/client/cart/cart.jsp").forward(request, response);
 
