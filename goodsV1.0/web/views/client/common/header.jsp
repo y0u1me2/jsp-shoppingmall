@@ -35,7 +35,7 @@
 <script>
 		var loginResult='<%=loginResult%>';
 		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
-		console.log(loginResult);
+		/* console.log(loginResult); */
 </script>
 
 <!DOCTYPE html>
@@ -161,7 +161,7 @@ li{
 			</div>
 		</div>
 		<%
-			} else {
+			} else if(loginMember != null&&emailCheck.equals("Y")) {
 		%>
 		<li>
 			<div class="dropdown" id="memberName">

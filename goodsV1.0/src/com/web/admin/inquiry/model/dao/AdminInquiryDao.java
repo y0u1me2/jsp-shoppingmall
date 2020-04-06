@@ -58,7 +58,6 @@ public class AdminInquiryDao {
 				i.setI_Title(rs.getString("i_title"));
 				i.setI_Content(rs.getString("i_content"));
 				i.setI_Date(rs.getDate("i_date"));
-				i.setI_Original_Filename(rs.getString("i_original_filename"));
 				i.setStatus(rs.getString("status"));
 				i.setAnswer_status(rs.getString("answer_status"));
 
@@ -170,7 +169,6 @@ public class AdminInquiryDao {
 				i.setI_Title(rs.getString("i_title"));
 				i.setI_Content(rs.getString("i_content"));
 				i.setI_Date(rs.getDate("i_date"));
-				i.setI_Original_Filename(rs.getString("i_Original_Filename"));
 				i.setI_Renamed_Filename(rs.getString("i_renamed_filename"));
 				i.setStatus(rs.getString("status"));
 

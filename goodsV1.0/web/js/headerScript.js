@@ -268,27 +268,6 @@ function signOut() {
     });
 }
 
-//네이버 로그인 부분
-var naver_id_login = new naver_id_login("D2AFKSTSMw20Ced_tf5I","http://localhost:9090/" );
-var state = naver_id_login.getUniqState();
-//naver_id_login.setButton("white", 2,40);
-naver_id_login.setDomain("http://localhost:9090/");
-naver_id_login.setState(state);
-//naver_id_login.setPopup();
-naver_id_login.init_naver_id_login();
-
-//네이버 콜백 부분
-
-// 접근 토큰 값 출력
-//alert(naver_id_login.oauthParams.access_token);
-//// 네이버 사용자 프로필 조회
-//naver_id_login.get_naver_userprofile("naverSignInCallback()");
-//// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-//function naverSignInCallback() {
-//  alert(naver_id_login.getProfileData('email'));
-//  alert(naver_id_login.getProfileData('nickname'));
-//  alert(naver_id_login.getProfileData('age'));
-//}
 
 //로그인 구분버튼(카카오, 페이스북, 구글, 네이버)
 var loginImg = $('#loginCenterImg>.img>img');
