@@ -84,21 +84,7 @@ public class PaymentOrderServlet extends HttpServlet {
 		}
 		
 		
-		
-//		for(int i=0;i<cNo.length;i++) {
-//			System.out.println(i+"번째커스텀번호 : "+cNo[i]);
-//			System.out.println(i+"번째수량: "+pQuan[i]);
-//		}
-//		System.out.println("총 금액 : "+tPrice);
-//		System.out.println("주문자 이름 : "+orderUserName);
-//		System.out.println("주문자 전화번호 : "+orderUserPhone1+"-"+orderUserPhone2+"-"+orderUserPhone3);
-//		System.out.println("주문자 이메일 : "+orderEmail);
-//		System.out.println("받는사람 이람 : "+receUserName);
-//		System.out.println("받는사람 전화번호 : "+receUserPhone1+"-"+receUserPhone2+"-"+receUserPhone3);
-//		System.out.println("우편번호 : "+receUserPost);
-//		System.out.println("주소 : "+receUserAddr);
-//		System.out.println("상세주소 : "+receUserAddrDetail);
-//		System.out.println("결제방법 : "+payWay);
+ 
 		
 		String cartCook = "";
 		Cookie[] cookies = request.getCookies(); //null이거나 쿠키배열
@@ -110,42 +96,56 @@ public class PaymentOrderServlet extends HttpServlet {
 		
 		String[] cartCooks=cartCook.split("\\|");
 		List<String> list = new ArrayList(Arrays.asList(cartCooks));
-		System.out.println(list);
+		System.out.println("최초 쿠키값 리스트 : "+list);
 		for(int j=0;j<list.size();j++) {
-			for(int i=0;i<cNo.length;i++)
-			if(list.get(j).equals(cNo[i])) {
-				System.out.println(cNo[i]);
-				list.remove(j);
+			for(int i=0;i<cNo.length;i++) {
+				if(list.get(j).equals(cNo[i])) {
+					//System.out.println("지울 쿠키값(선택된거) : "+cNo[i]);
+					list.remove(j);
+				}
 			}
+			
 		}
 		list.toArray(cartCooks);
 		
-		System.out.println(list);
-		/*
-		 * String cookieVal=""; for(int i=0;i<cartCooks.length;i++) { if(i!=0)
-		 * cookieVal+="|"; cookieVal+=cartCooks[i]; }
-		 */
+		//System.out.println("리무브된 리스트 값 : "+list);
+		//System.out.println("리무브된 리스트 사이즈값 : "+list.size());
+		String[] cookList = new String[list.size()];
+		String test = "";		
+		for(int i=0;i<list.size();i++) {
+			cookList[i]=list.get(i);
+			//System.out.println("리무브된 리스트 값->배열로 옮긴값 : "+cookList[i]);
+			if(list.size()-1==i) {
+				test+=cookList[i];
+			}else {
+				test+=cookList[i]+"|";
+			}
+			
+		}
+	
 		Cookie cookie = null;
-		if(cookies !=null) {
+		if(list.size()!=0) {
+				for(int i=0; i<cookies.length; i++) {
+					if(cookies[i].getName().equals("cart")) {
+							cookie = new Cookie("cart",test);				
+							cookie.setPath("/");
+							cookie.setMaxAge(60*60*24*90);
+							response.addCookie(cookie);
+					}
+					
+				}
+		}else {
 			for(int i=0; i<cookies.length; i++) {
 				if(cookies[i].getName().equals("cart")) {
-				cookie = new Cookie("cart",String.join("|", cartCooks).replace("|null", ""));
+				cookie = new Cookie("cart","");
 				cookie.setPath("/");
-				cookie.setMaxAge(60*60*24*90);
+				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 				}
+				
 			}
 		}
-		
 
-		
-		
-		
-
-		
-		
-		
-		
 	}
 
 	/**
