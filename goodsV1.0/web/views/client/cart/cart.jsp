@@ -5,6 +5,7 @@
 <%@ page import="com.web.cart.model.vo.*,java.util.List" %>
 <%
 	List<Cart> cart= (List)request.getAttribute("cart");
+    
 %>
 
 <style>
@@ -437,7 +438,7 @@ dd {
 						<tbody>
 						<%if(cart.isEmpty()){%>
 	            			<tr>
-	            				<td colspan='6'>장바구니 리스트가 없습니다.</td>
+	            				<td colspan='6' style="padding: 60px 0"><h3>장바구니 리스트가 없습니다.</h3></td>
 	            			</tr>
 	            		<%}else{ %>	
 							<%for(Cart c : cart) {%>
