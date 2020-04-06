@@ -3,6 +3,7 @@ package com.web.common.filter;
 import static com.web.common.JDBCTemplate.*;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -63,7 +64,8 @@ public class VisitorCheckFilter implements Filter {
 	        ip = req.getRemoteAddr();
 	    }
 
-		System.out.println(ip); //아이피 가져오기
+		ip = Inet4Address.getLocalHost().getHostAddress();
+		System.out.println("접속 아이피 주소: "+ip);
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
