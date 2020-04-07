@@ -452,8 +452,7 @@
 		                <!-- 총 회원수 및 검색 결과 -->
 		                <div class="mState">
 		                    <p class="total">
-		                        [총 매출 <strong><%=totalPrice %></strong>원] 검색결과 
-		                        <strong><%=searchPrice %></strong>원
+		                        [총 매출 <strong><%=totalPrice %></strong>원]
 		                    </p>
 		                </div>
 	                </div>
@@ -537,9 +536,8 @@
 	                        		</td>
 	                        	</tr>	                   
 	                        	 <%}
-	                        		} %>
+	                        	} %>
                         </tbody>
-                       
                     </table>
                     
                   <!--   <p class="empty">검색한 회원 결과가 없습니다.</p> -->
@@ -583,7 +581,7 @@
     	}
     	//한개삭제
     	function orderDelete(){
-    		var result=confirm("주문을 취소하시겠습니까?");
+    		var result=confirm("주문내역을 취소하시겠습니까?");
     		var value=$(event.target).val();
     		if(result){
     			location.replace("<%=request.getContextPath()%>/admin/orderListDelete?no="+value+"&searchType=<%=type%>&searchKeyword=<%=keyword%>");
