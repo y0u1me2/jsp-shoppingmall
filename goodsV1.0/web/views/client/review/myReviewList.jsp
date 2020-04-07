@@ -363,7 +363,8 @@ to {
 	<!-- ================================리뷰 작성 창 ================================= -->
 	<div class="reviewWrite-modal-back">
 		<div class="animate reviewWrite">
-			<form id="reviewWriteFrm">
+			<form id="reviewWriteFrm" action="<%=request.getContextPath()%>/reviewWrite" method="post" onsubmit="return reviewWrite();"
+					enctype="multipart/form-data">
 				<div class="reviewWrite-top">
 					<h2 style="margin: 0 0 20px 0">리뷰쓰기</h2>
 					<!-- 로그인 창 X표시 -->
@@ -373,7 +374,7 @@ to {
 					</div>
 				</div>
 				<!-- 커스터 넘버 받아와야함 !! -->
-				<input type="hidden" name="cNo" value="">
+				<input type="text" name="cNo" value="">
 				<input type="hidden" name="mNo" value="<%=loginMember.getM_No() %>">
 				<div class="reviewWrite-middle">
 					<h3 style="text-align: center; margin: 40px 0 20px 0">상품은
@@ -403,12 +404,12 @@ to {
 					</div>
 					<div class="reviewPhoto">
 						<h3></h3>
-						<input type="file" name="up_file">
+						<input type="file" name="up_file" multiple>
 					</div>
 				</div>
 				<div class="reviewWrite-bottom">
 					<button type="button" onclick="closeReviewWrite();">취소</button>
-					<button id="submit" type="button">등록</button>
+					<button id="submit" type="submit">등록</button>
 				</div>
 			</form>
 		</div>
@@ -561,7 +562,7 @@ if($('#writtenReview').attr("class")=="selected") {
             })
         }
         
-        $("#submit").click(function() {
+        <%-- $("#submit").click(function() {
         	$("#starPointValue").val($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
         	console.log($("#starPointValue").val());
         	$.ajax({
@@ -570,15 +571,18 @@ if($('#writtenReview').attr("class")=="selected") {
         		data: $("#reviewWriteFrm").serialize(),
         		url: "<%=request.getContextPath()%>/reviewWrite"
         	})
-        })
+        }) --%>
         
         
-        /* function reviewWrite() {
+        function reviewWrite() {
         	console.log($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
-        	$("#starPointValue").val()=$(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length;
-        	console.log($("#starPointValue").val());
-        	return false;        	
-        } */
+        	$("#starPointValue").val($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
+        	if($("#starPointValue").val()>0) {
+ 	       		return true;        	
+        	}else {
+        		return false;
+        	}
+        }
         
 </script>
 

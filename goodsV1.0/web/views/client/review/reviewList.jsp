@@ -90,9 +90,10 @@ td.reviewProductImg {
 	color: orange;
 }
 
+/* ====================포토리뷰 스위치================================== */
 /* 토글 스위치 스타일 */
 /* The switch - the box around the slider */
-.switch {
+/* .switch {
 	position: relative;
 	display: inline-block;
 	width: 50px;
@@ -100,14 +101,14 @@ td.reviewProductImg {
 	margin-left: 10px;
 	vertical-align: middle;
 }
-
+ */
 /* Hide default HTML checkbox */
-.switch input {
+/* .switch input {
 	display: none;
-}
+} */
 
 /* The slider */
-.slider {
+/* .slider {
 	position: absolute;
 	cursor: pointer;
 	top: 0;
@@ -118,8 +119,8 @@ td.reviewProductImg {
 	-webkit-transition: .4s;
 	transition: .4s;
 }
-
-.slider:before {
+ */
+/* .slider:before {
 	position: absolute;
 	content: "";
 	height: 15px;
@@ -143,16 +144,18 @@ input:checked+.slider:before {
 	-webkit-transform: translateX(26px);
 	-ms-transform: translateX(26px);
 	transform: translateX(26px);
-}
+} */
 
 /* Rounded sliders */
-.slider.round {
+/* .slider.round {
 	border-radius: 34px;
 }
 
 .slider.round:before {
 	border-radius: 50%;
-}
+} */
+
+/* ====================포토리뷰 스위치================================== */
 .reviewView-modal-back {
 	display: none;
 	z-index: 1;
@@ -183,8 +186,8 @@ input:checked+.slider:before {
 }
 
 .reviewViewPhoto>ul>li>img {
-	width: 624px;
-	/* height: 768px; */
+	width: 500px;
+	height: 500px;
 }
 /* 리뷰보기 글창(오른쪽) */
 .reviewViewRight {
@@ -296,53 +299,18 @@ to {
 						<option value="패션">패션</option>
 					</select>
 				</div>
-				<div class="review-toggle">
+				<!-- <div class="review-toggle">
 					<span style="margin: 0; font-size: 14px;">포토리뷰</span> 
 					<label class="switch"> 
 						<input type="checkbox"> 
 						<span class="slider round"></span>
 					</label>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div class="review-middle" id="review-middle">
 			<!-- 다시해야할듯........================div로 ======================= -->
-			<%-- <%for(Review r : list) { %>
-			<div style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
-				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
-				<table>
-					<tr>
-						<td class="reviewProductImg" rowspan="3"><a href="#"> 
-						<img class="review-product"
-								src="http://blogfiles.naver.net/MjAyMDAyMjhfMjk1/MDAxNTgyODg3OTYxNTAx.65if9cw_x-J4nP-t9AUFic4VeVhf_V0mi88ZZ5XODUgg.XvjMwjsTpXdosK9tlxsm7nTTWE0YTYJtbc9Qq0pkXnMg.JPEG.momo7891/Description.jpg">
-						</a></td>
-						<td class="reviewTitle" colspan="3">
-						<a href="#">
-							상품이구요
-						</a></td>
-					</tr>
-					<tr class="reviewTR">
-						<td class="reviewStar">
-						<%for(int i=0;i<r.getRv_Star();i++) { %>
-							<span class="fa fa-star checked"></span>
-						<%} %>
-						<%for(int i=0;i<5-(r.getRv_Star());i++) { %>
-							<span class="fa fa-star"></span>
-						<%} %>
-						
-						<td class="reviewDate"><%=r.getRv_Date() %></td>
-						<td class="reviewWriter"><%=r.getM_nickName() %></td>
-					</tr>
-					<tr>
-						<td class="reviewContent" style="width:150px;" colspan="3"><%=r.getRv_Content() %></td>
-					</tr>
-				</table>
-				<div class="reviewImg">
-					<img
-						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
-				</div>
-			</div>
-			<%} %> --%>
+			
 			<!-- -============================================================================== -->
 		</div>
 		<div id="moreReviewList" style="text-align:center">
@@ -362,8 +330,7 @@ to {
 			<div class="reviewView-middle">
 				<div class="reviewViewPhoto">
 					<ul>
-						<li><img
-							src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
+						<li><img id="reviewImg">
 						</li>
 					</ul>
 				</div>
@@ -440,9 +407,11 @@ to {
 						type:'post',
 						data:{rvNo:$(event.target).parent().siblings('input').val()},	/* 키: rvNo : hidden된 input의 값을 넣는다 (리뷰번호) */
 						success:function(data) {
+							console.log(data);
 							$('#reviewViewWriter').text(data.m_nickName);				/* 각 id의 태그에 text형식으로 서블릿에서 온 data를 입력한다. */
 							$('#reviewViewDate').text(data.rv_Date);
 							$('#reviewViewContent').text(data.rv_Content);
+							$('#reviewImg').attr('src','<%=request.getContextPath()%>/upload/review/'+data.rv_Re_Name);
 							for(let i=0;i<5;i++) {										/* 새로운 리뷰 별점을 위하여 기존에 있던 별점을 삭제하고  */
 								$(star[i]).removeClass('checked');						/* 해당 리뷰의 별점을 기준으로 checked 클래스를 추가한다. */
 							}
