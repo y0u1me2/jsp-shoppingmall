@@ -1,5 +1,5 @@
 ﻿
-    	var path="/goods/";
+    	
 	  //회원가입 창
 	    var inputEnroll = $('td.inputEnroll>input');//회원가입 창
 
@@ -33,7 +33,7 @@
 	                        var userEmail=$(this).val();//이메일을 변수에 저장
 	                        //=======================실험용 ajax===================================
 	                        $.ajax({
-	                        	url:path+'checkEmailDuplicate',
+	                        	url:contextPath+'/checkEmailDuplicate',
 	                        	type:'post',
 	                        	//dataType:"json",
 	                        	data: {email:$('#email').val()},
