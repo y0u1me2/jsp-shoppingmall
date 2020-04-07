@@ -1095,17 +1095,29 @@
             </div>
         </form>
     <!-- </div> -->
-		<div id="usePolicy" style="display:none;">
+		<div id="payPolicy" style="display:none;">
 			<!-- 이용약관 팝업-->
-			<div class="modal-usePolicy animate">
+			<div class="modal-payPolicy animate">
 				<div class="url-html">
-					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
+					<object type="text/html"  style="bottom: 975px; right:15px;" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closePayPolicy();" class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>
+	<style>
+	.modal-payPolicy {
+        border: 1px solid black;
+        width: 440px;
+        height: 564px;
+        padding: 40px 30px 30px 30px;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        position: relative;
+    }
+	
+	</style>
 
 
     <script>
@@ -1114,12 +1126,12 @@
     var paymentBt=$("#paymenyBt");
  	// 이용약관 열기
     function openPayPolicy() {
-        $('#usePolicy').css('display', 'block');
+        $('#payPolicy').css('display', 'block');
     }
     // 이용약관 닫기
     function closePayPolicy() {
-    	  $('#enroll').css('display', 'none');
-        $('#usePolicy').css('display', 'none');
+    	
+        $('#payPolicy').css('display', 'none');
     }
     
     
