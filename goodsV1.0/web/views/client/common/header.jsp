@@ -37,7 +37,7 @@
 		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
 		var mNo = '<%=session.getAttribute("loginedMember")==null?"":((Member)session.getAttribute("loginedMember")).getM_No()%>';
 		/* console.log(loginResult); */
-		var contextPath = "${pageContext.request.contextPath}";
+		var contextPath = "/20AM_GoodGoods";
 </script>
 
 <!DOCTYPE html>
