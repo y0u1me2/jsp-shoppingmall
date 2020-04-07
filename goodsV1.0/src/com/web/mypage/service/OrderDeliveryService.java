@@ -2,6 +2,8 @@ package com.web.mypage.service;
 
 import static com.web.common.JDBCTemplate.close;
 import static com.web.common.JDBCTemplate.getConnection;
+import static com.web.common.JDBCTemplate.commit;
+import static com.web.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -19,4 +21,17 @@ public class OrderDeliveryService {
 		close(conn);
 		return od;
 	}
+	public int orderDelete(int no) {
+		Connection conn=getConnection();
+		int result= dao.orderDelete(conn,no);
+		if(result>0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 }

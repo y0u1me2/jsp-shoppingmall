@@ -244,7 +244,7 @@ ul {
                     <table class="box">
                      <colgroup>
                      <!-- 주문자정보 테이블 헤더/바디 크기 -->
-                         <col style="width: 50px;">
+                         <col style="width: 80px;">
                          <col style="width: auto;">
                          <col style="width: 100px;">
                          <col style="width: 120px;">
@@ -274,38 +274,34 @@ ul {
                                주문삭제
                             </th>
                             <th>
-                               리뷰
-                            </th>
-                            <th>
                                갤러리
                             </th>                        
                         </tr>
                      </thead>
-                     <tbody>
+                     <tbody style="text-align: center;">
                         <%for(OrderDeliveryMember o : od){ %>
                         <tr>
                         <td>
                         <%=o.getoNo() %>
                         </td>
+                        
                         <td>
                         <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>" style="width:100px; height : 100px; "/>
+                        <span> 
                         <%=o.getpName() %> <%=o.getcColor() %>
+                        </span>
                         </td>
                         <td><%=o.getoQuan() %></br><%=o.gettPrice()*o.getoQuan() %></td>
                         <td><%=o.getoDate() %></td>
                         <td>배송중</td>
                         <td><button type="button" onclick="orderDeliverydt();" value="<%=o.getcNo() %>" />삭제</td>
-                        <td><button type="button" id="deleteorder" />리뷰</td>
                         <td><button type="button" id="deleteorder" />갤러리</td>
                         
                         </tr>
                     	<%} %>
                         <%if(od.isEmpty()){ %>
                         <tr>
-                        
-                            <td id="conbox" colspan="6">
-                           <!-- 주문한 내역이 없습니다. <br>
-                        이전 구매내역은 기간별조회를 통해 확인 가능합니다.   -->  
+                            <td id="conbox" colspan="6">  
                             </td>
                         </tr>
                         <%} %>
@@ -345,7 +341,7 @@ ul {
     <br> <br> <br> <br> <br>
 </section>
 <script>
-function orderDelete(){
+function orderDeliverydt(){
     var result=confirm("주문을 취소하시겠습니까?");
     var value=$(event.target).val();
     if(result){

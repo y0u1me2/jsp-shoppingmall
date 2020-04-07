@@ -1,13 +1,14 @@
 package com.web.mypage.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.member.model.vo.Member;
+import com.web.mypage.service.OrderDeliveryService;
 
 /**
  * Servlet implementation class OrderDeliveryDeleteServlet
@@ -30,9 +31,21 @@ public class OrderDeliveryDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int no =Integer.parseInt(request.getParameter("no"));
-		//Member lm = (Member)request.getSession().getAttribute("loginedMember");
+	
 		
-//		int result = new OrderDeliveryService().orderDelete();
+		int result = new OrderDeliveryService().orderDelete(no);
+		String msg = "";
+		String loc = "";
+		if(result>0) {
+			msg = "주문내역을 삭제하였습니다.";
+			loc = "/orderDelivery";
+		}else {
+			msg = "주문내역 삭제를 실패하였습니다.";
+			loc = "/orderDelivery";
+	}
+		request.setAttribute("msg",msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/admin/common/msg.jsp").forward(request, response);
 	}
 
 	/**

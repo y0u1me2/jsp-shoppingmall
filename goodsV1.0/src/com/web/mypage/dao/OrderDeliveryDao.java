@@ -22,14 +22,15 @@ public class OrderDeliveryDao {
 	public OrderDeliveryDao() {
 		try {
 			String path = AdminInquiryDao.class.getResource("/sql/client/orderDelivery-query.properties").getPath();
-			
+
 			prop.load(new FileReader(path));
-		
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	public List <OrderDeliveryMember> OrderDeliveryMember(Connection conn, int login) {
+
+	public List<OrderDeliveryMember> OrderDeliveryMember(Connection conn, int login) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = prop.getProperty("OrderDeliveryMember");
@@ -41,18 +42,18 @@ public class OrderDeliveryDao {
 			pstmt.setInt(1, login);
 			rs = pstmt.executeQuery();
 
-			while(rs.next()) {
-				OrderDeliveryMember ol=new OrderDeliveryMember();
+			while (rs.next()) {
+				OrderDeliveryMember ol = new OrderDeliveryMember();
 				ol.setoNo(rs.getInt("o_no"));
-	            ol.setCfileName(rs.getString("c_complete_file"));
-	            ol.setpName(rs.getString("p_name"));
-	            ol.setcColor(rs.getString("c_color"));
-	            ol.settPrice(rs.getInt("p_price"));
-	            ol.setoQuan(rs.getInt("o_quan"));
-	            ol.setoName(rs.getString("o_name"));
-	            ol.setoDate(rs.getDate("o_date"));
-	            ol.setcNo(rs.getInt("c_no"));
-	            list.add(ol);
+				ol.setCfileName(rs.getString("c_complete_file"));
+				ol.setpName(rs.getString("p_name"));
+				ol.setcColor(rs.getString("c_color"));
+				ol.settPrice(rs.getInt("p_price"));
+				ol.setoQuan(rs.getInt("o_quan"));
+				ol.setoName(rs.getString("o_name"));
+				ol.setoDate(rs.getDate("o_date"));
+				ol.setcNo(rs.getInt("c_no"));
+				list.add(ol);
 			}
 
 		} catch (SQLException e) {
@@ -63,5 +64,22 @@ public class OrderDeliveryDao {
 		}
 
 		return list; // null이거나 주소값이 있거나
+	}
+
+	public int orderDelete(Connection conn,int no) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		String sql = prop.getProperty("orderDelete");
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		result=pstmt.executeUpdate();
+		
+		}catch (Exception e) {
+		e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+	return result;
 	}
 }
