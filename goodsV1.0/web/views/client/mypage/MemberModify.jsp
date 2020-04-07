@@ -135,7 +135,7 @@
                 <tr>
                     <td class="line">비밀번호</td>
                     <td class="line">
-                        <form action="<%=request.getContextPath()%>/pwmodify">            
+                        <form action="<%=request.getContextPath()%>/pwmodify2">            
                             <button
                                 style="width: 150px; height: 30px; border-radius: 5px;background: rgb(235, 229, 229);color: rgb(51, 51, 51);">       
                               	  비밀번호 수정
