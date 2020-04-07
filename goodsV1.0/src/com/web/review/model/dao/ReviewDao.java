@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.web.admin.inquiry.model.vo.InquiryAnswer;
 import com.web.notice.model.dao.NoticeDao;
-import com.web.notice.model.vo.Notice;
-import com.web.review.model.vo.Review;
+import com.web.review.model.vo.*;
 
 public class ReviewDao {
 	
@@ -231,7 +229,51 @@ public class ReviewDao {
 			close(pstmt);
 		}
 		return result;// 0이나 1이 반환(행 업데이트)
-
+	}
+	
+	public List<ReviewAble> searchWriteAbleReview(Connection conn, int myNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("searchWriteAbleReview");
+		List<ReviewAble> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, myNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewAble r=new ReviewAble();
+				r.setcNo(rs.getInt("C_NO"));
+				r.setpName(rs.getString("P_NAME"));
+				r.setcFileName(rs.getString("C_COMPLETE_FILE"));
+				r.setoDate(rs.getDate("O_DATE"));
+				list.add(r);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int countMyWriteAbleReview(Connection conn, int myNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		String sql=prop.getProperty("countMyWriteAbleReview");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, myNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) count=rs.getInt("count(*)");
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
 	}
 	
 //	public int countNotice(Connection conn) {

@@ -54,15 +54,14 @@ public class ReviewWriteServlet extends HttpServlet {
 		System.out.println("파일이름 : "+up_file);
 		System.out.println("회원번호 : "+mNo);
 		System.out.println("커스텀번호 : "+cNo);
-		response.sendRedirect(request.getContextPath());
 		
 		Enumeration f=mr.getFileNames();
 		String oriFileName="";
 		String reNameFile="";
 		while(f.hasMoreElements()) {
 			String name=(String)f.nextElement();
-			reNameFile+=mr.getFilesystemName(name)+",";
-			oriFileName+=mr.getOriginalFileName(name)+",";
+			reNameFile+=mr.getFilesystemName(name);
+			oriFileName+=mr.getOriginalFileName(name);
 			System.out.println(reNameFile);
 			System.out.println(oriFileName);
 		}
@@ -70,7 +69,7 @@ public class ReviewWriteServlet extends HttpServlet {
 		Review r=new Review(mNo, cNo, content, starPoint, oriFileName, reNameFile);
 		int result=new ReviewService().insertReview(r);
 		String msg="";
-		String loc="/reviewList";
+		String loc="/myReviewList";
 		if(result>0) {
 			//성공
 			msg="리뷰 작성을 완료하였습니다.";
