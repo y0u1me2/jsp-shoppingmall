@@ -162,7 +162,7 @@ button.pColor-minus {
 
 				<tr>
 					<td>판매가(필수)</td>
-					<td><input type="text" id="td2" name="pPrice">원</td>
+					<td><input type="text" id="pPrice" name="pPrice">원</td>
 				</tr>
 				<tr>
 					<td>상품 설명 등록</td>
@@ -226,6 +226,20 @@ button.pColor-minus {
 		});
 	});
 	
+	 $("#pPrice").change(function(){
+		 checkPrice($('#pPrice').val());
+		});
+	 
+	 function checkPrice(){
+		var price=$("#pPrice").val().trim();
+	
+		   if(/[^0123456789]$/.test(price)) {
+		      alert("숫자만 입력할 수 있습니다.");
+		      $('#pPrice').val('').focus();
+		        return;
+		    }    
+		}
+
 	});
 
 	</script>

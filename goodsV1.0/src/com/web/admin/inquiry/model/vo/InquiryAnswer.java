@@ -6,7 +6,6 @@ public class InquiryAnswer {
 	
 	private int ia_No;
 	private int i_No;
-	private String admin_Id;
 	private String ia_Title;
 	private String ia_Content;
 	private Date ia_Date;
@@ -19,12 +18,11 @@ public class InquiryAnswer {
 	
 	}
 
-	public InquiryAnswer(int ia_No, int i_No, String admin_Id, String ia_Title, String ia_Content, Date ia_Date,
+	public InquiryAnswer(int ia_No, int i_No, String ia_Title, String ia_Content, Date ia_Date,
 			String ia_Original_Filename, String ia_Renamed_Filename, String ia_Status, String ia_Answer_Status) {
 		super();
 		this.ia_No = ia_No;
 		this.i_No = i_No;
-		this.admin_Id = admin_Id;
 		this.ia_Title = ia_Title;
 		this.ia_Content = ia_Content;
 		this.ia_Date = ia_Date;
@@ -48,14 +46,6 @@ public class InquiryAnswer {
 
 	public final void setI_No(int i_No) {
 		this.i_No = i_No;
-	}
-
-	public final String getAdmin_Id() {
-		return admin_Id;
-	}
-
-	public final void setAdmin_Id(String admin_Id) {
-		this.admin_Id = admin_Id;
 	}
 
 	public final String getIa_Title() {
@@ -116,17 +106,12 @@ public class InquiryAnswer {
 
 	@Override
 	public String toString() {
-		return "InquiryAnswer [ia_No=" + ia_No + ", i_No=" + i_No + ", admin_Id=" + admin_Id + ", ia_Title=" + ia_Title
-				+ ", ia_Content=" + ia_Content + ", ia_Date=" + ia_Date + ", ia_Original_Filename="
-				+ ia_Original_Filename + ", ia_Renamed_Filename=" + ia_Renamed_Filename + ", ia_Status=" + ia_Status
-				+ ", ia_Answer_Status=" + ia_Answer_Status + "]";
+		return "InquiryAnswer [ia_No=" + ia_No + ", i_No=" + i_No + ", ia_Title=" + ia_Title + ", ia_Content="
+				+ ia_Content + ", ia_Date=" + ia_Date + ", ia_Original_Filename=" + ia_Original_Filename
+				+ ", ia_Renamed_Filename=" + ia_Renamed_Filename + ", ia_Status=" + ia_Status + ", ia_Answer_Status="
+				+ ia_Answer_Status + "]";
 	}
 
 	
-	
-	
-
-	
-
 }
 

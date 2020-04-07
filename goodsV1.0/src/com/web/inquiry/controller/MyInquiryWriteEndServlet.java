@@ -93,7 +93,6 @@ public class MyInquiryWriteEndServlet extends HttpServlet {
 		File newZip = new File(newPath); //original_시간.zip
 		boolean check = oldZip.renameTo(newZip); //압축파일 이름 변경
 		
-		System.out.println(newZip);
 		int no = Integer.parseInt(mr.getParameter("mNo"));
 		String type = mr.getParameter("inquiryType");
 		String phone = mr.getParameter("phone");
