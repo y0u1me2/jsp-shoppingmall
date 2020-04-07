@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.member.model.vo.Member;
+
 /**
  * Servlet implementation class OrderDeliveryDeleteServlet
  */
@@ -28,6 +30,8 @@ public class OrderDeliveryDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int no =Integer.parseInt(request.getParameter("no"));
+		//Member lm = (Member)request.getSession().getAttribute("loginedMember");
+		
 //		int result = new OrderDeliveryService().orderDelete();
 	}
 
