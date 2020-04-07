@@ -669,7 +669,7 @@
 	 	        	$('input[name="mRowCheck"]:checked').each(function(i){
 	 	        		memCkArray.push($(this).val());
 	 	        	});	//체크된 리스트 저장
-	 	        	console.log(memCkArray);
+	 	        	//console.log(memCkArray);
 	 	        	 var objParams = {
 	 						"memCkArray" : memCkArray //선텍멤버 저장
 	 	        	}; 

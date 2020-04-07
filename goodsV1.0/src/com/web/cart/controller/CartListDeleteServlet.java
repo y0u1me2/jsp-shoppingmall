@@ -39,7 +39,6 @@ public class CartListDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String cNo = request.getParameter("cLDeleteNo");
-		System.out.println("삭제할 쿠키 : " + cNo);
 		Member lm = (Member)request.getSession().getAttribute("loginedMember");
 		String cartCook = "";
 		Cookie[] cookies = request.getCookies(); // null이거나 쿠키배열
@@ -50,10 +49,8 @@ public class CartListDeleteServlet extends HttpServlet {
 		}
 		String[] cartCooks = cartCook.split("\\|");
 		List<String> list = new ArrayList(Arrays.asList(cartCooks));
-		System.out.println("최초 쿠키값 리스트 : " + list);
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).equals(cNo)) {
-				System.out.println("지울 쿠키값(선택된거) : " + cNo);
 				list.remove(i);
 			}
 		}
@@ -66,14 +63,11 @@ public class CartListDeleteServlet extends HttpServlet {
 		}
 		
 		
-		System.out.println("리무브된 리스트 값 : " + list);
-		System.out.println("리무브된 리스트 사이즈값 : " + list.size());
 		String[] cookList = new String[list.size()];
 		String cookL = "";
 
 		for (int i = 0; i < list.size(); i++) {
 			cookList[i] = list.get(i);
-			System.out.println("리무브된 리스트 값->배열로 옮긴값 : " + cookList[i]);
 			if (list.size() - 1 == i) {
 				cookL += cookList[i];
 			} else {
