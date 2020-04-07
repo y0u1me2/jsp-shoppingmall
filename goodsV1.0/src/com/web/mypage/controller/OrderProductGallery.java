@@ -1,4 +1,4 @@
-package com.web.pwmodify.controller;
+package com.web.mypage.controller;
 
 import java.io.IOException;
 
@@ -7,21 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.web.pwmodify.service.ModifyPasswordService;
+import com.web.gallery.model.service.GalleryService;
 
 /**
- * Servlet implementation class MODIFY_PASSWORD
+ * Servlet implementation class OrderProductGallery
  */
-@WebServlet(name="pwmodifyServlet",urlPatterns="/pwmodify")
-public class ModifyPassword extends HttpServlet {
+@WebServlet("/orderGallery")
+public class OrderProductGallery extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModifyPassword() {
+    public OrderProductGallery() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,33 +30,20 @@ public class ModifyPassword extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("pwm");
-		String pw = request.getParameter("password");
-		String pw2 = request.getParameter("password_new");
+		//System.out.println("확인"+Integer.parseInt(request.getParameter("no")));
+		int cno = Integer.parseInt(request.getParameter("no"));
+		int result = new GalleryService().insertNewGallery(cno);//갤러리 등록
 		
-		System.out.println(email);
-		System.out.println(pw);
-		
-		int result = new ModifyPasswordService().Pwmodify(email,pw);
-		
-		HttpSession session=request.getSession(false);
-		
-		if(pw.equals(pw2)) {
-			//세션이 없으면 가져오지 마라
-			if(session!=null) {
-				session.invalidate();
-			}
-
-			
+		if(result>0) {		
 			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('비밀번호가 변경되었습니다. 다시로그인 해주세요'); location.replace('"+request.getContextPath()+"/');</script>");
-
-			
+			response.getWriter().write("<script>alert('갤러리에 등록되었습니다.'); location.replace('"+request.getContextPath()+"/gallery/list');</script>");
 		}else { //비밀번호 잘못 입력시 전 페이지로 이동
 			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.'); history.back();</script>");
+			response.getWriter().write("<script>alert('갤러리 등록에 실패하였습니다. 관리자에게 문의하세요.'); history.back();</script>");
 		}
 				
+		
+		
 	}
 
 	/**

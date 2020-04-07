@@ -47,7 +47,7 @@ ul {
     .back{
         width: 80%;
         position: relative;
-        left: 10%;  
+        left: 10%;
     }
     
     .backDiv{
@@ -129,7 +129,7 @@ ul {
    #conbox{
        text-align: center;
        height: 300px;
-       font-size: 11px;
+       font-size: 20px;
        color: rgb(139, 138, 138);
        position: relative;
        left: 250px;
@@ -175,6 +175,7 @@ ul {
     .uldiv{
     	padding:0px 20%;
     }
+
 
     </style>
 
@@ -279,33 +280,38 @@ ul {
                         </tr>
                      </thead>
                      <tbody style="text-align: center;">
-                        <%for(OrderDeliveryMember o : od){ %>
+                        <%if(od.isEmpty()){ %>
+                        <tr>
+                            <td id="conbox" colspan="6" style="right: 250px; left: 50px;"> 
+                            <p style="padding:30px 0; margin:0; ">주문 배송내역이 없습니다.</p> 
+                            </td>
+                       	</tr>
+                        <%}else{ %>
+                        	<%for(OrderDeliveryMember o : od){ %>
                         <tr>
                         <td>
                         <%=o.getoNo() %>
                         </td>
-                        
-                        <td>
+                        <td style="text-align: center;">
                         <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>" style="width:100px; height : 100px; "/>
-                        <span> 
-                        <%=o.getpName() %> <%=o.getcColor() %>
+                        <span style="display: inline-flex; vertical-align: bottom; padding: 50px 0px 50px;">
+                        <%=o.getpName() %> <%=o.getcColor() %>                
                         </span>
                         </td>
-                        <td><%=o.getoQuan() %></br><%=o.gettPrice()*o.getoQuan() %></td>
+                        <td><%=o.getoQuan() %>개 / <%=o.gettPrice()*o.getoQuan() %>원</td>
                         <td><%=o.getoDate() %></td>
                         <td>배송중</td>
                         <td><button type="button" onclick="orderDeliverydt();" value="<%=o.getcNo() %>" />삭제</td>
-                        <td><button type="button" id="deleteorder" />갤러리</td>
+                        <td><button type="button" id="deleteorder" onclick="orderGallery();" value="<%=o.getcNo()%>"/>갤러리</td>
                         
                         </tr>
                     	<%} %>
-                        <%if(od.isEmpty()){ %>
-                        <tr>
-                            <td id="conbox" colspan="6">  
-                            </td>
-                        </tr>
-                        <%} %>
+                       <%} %>
                         </tbody>
+                        
+                        
+                        
+                        
                     </table>
                 </form>
                 <hr id="line">
@@ -347,6 +353,13 @@ function orderDeliverydt(){
     if(result){
        location.replace("<%=request.getContextPath()%>/orderdelete?no="+value);
     }
+ }
+ function orderGallery(){
+	 var result=confirm("갤러리에 등록하시겠습니까?");
+	    var value=$(event.target).val();
+	    if(result){
+	       location.replace("<%=request.getContextPath()%>/orderGallery?no="+value);			
+	    } 
  }
 </script>
 

@@ -154,7 +154,7 @@ img#leftLogo{
 						style="text-decoration:none;">고객센터</a></button>
 					</li>
 					<li>
-						<button type="button">주문/배송</button>
+						<button type="button"><a href="<%=request.getContextPath() %>/orderDelivery">주문/배송</a></button>
 					</li>
 					<li>
 						<button type="button"><a href="<%=request.getContextPath() %>/cart"
