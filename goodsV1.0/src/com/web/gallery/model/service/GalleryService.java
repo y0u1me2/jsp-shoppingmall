@@ -43,4 +43,26 @@ public class GalleryService {
 		close(conn);
 		return count;
 	}
+
+
+	public int downCountPlus(int gNo) {
+		Connection conn = getConnection();
+		int result = dao.downCountPlus(conn, gNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		
+		return result;
+	}
+
+
+	public int viewCntPlus(int gNo) {
+		Connection conn = getConnection();
+		int result = dao.viewCntPlus(conn, gNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		
+		return result;
+	}
 }

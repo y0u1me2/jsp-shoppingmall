@@ -9,10 +9,11 @@
 
             <%for(Gallery g : list){ %>
 		      <div class="board">
-		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
+		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
-		          <input name="likeCnt" type="hidden" value="<%=g.getLikeCnt()%>">
-		          <input name="viewCnt" type="hidden" value="<%=g.getViewCnt()%>">
+		          <p>다운로드횟수: <%=g.getDownCnt()%></p>
+		          <p>조회수: <%=g.getViewCnt()%></p>
+		          <p>등록일: <%=g.getEnrollDate()%></p>
 		      </div>
 			<%} %>
         
@@ -52,7 +53,19 @@ $(".myImg").click(function(){
 	gNo.val($(this).next().val());
 	$('body').css("overflow", "hidden");
 	modalBtn.click(function(){
-		location.replace('<%=request.getContextPath()%>/gallery/imageDownload?gNo='+gNo.val());
+		if(mNo!=""){
+			location.replace('<%=request.getContextPath()%>/gallery/imageDownload?gNo='+gNo.val());
+		}else{
+			alert('로그인이 필요한 서비스입니다.');
+			$('#login').show();
+		}
+	});
+	$.ajax({
+		url:"<%=request.getContextPath()%>/gallery/ajaxViewCntPlus",
+		data:{'gNo' : $(this).next().val()},
+		type:"post",
+		success:function(){
+		}
 	});
 });
 
