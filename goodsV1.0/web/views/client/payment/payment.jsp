@@ -1075,7 +1075,7 @@
                                 style="display: block; color: #666; padding: 20px; line-height: 1.67em; font-size: 13px;">
 						                                주문할 상품의 상품명,상품가격, 배송정보를 확인하였으며,<br>
 						                                구매에 동의하시겠습니까? <button type="button">
-                                    <p style="text-decoration: underline;">약관보기</p>
+                                    <p style="text-decoration: underline;" onclick="openPayPolicy()">약관보기</p>
                                 </button>
                                 <br>
                                 <!-- 동의합니다 체크박스 클릭 -->
@@ -1095,13 +1095,35 @@
             </div>
         </form>
     <!-- </div> -->
-
+		<div id="usePolicy" style="display:none;">
+			<!-- 이용약관 팝업-->
+			<div class="modal-usePolicy animate">
+				<div class="url-html">
+					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
+				</div>
+				<div class="close-btn">
+					<span onclick="closePayPolicy();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>
+		</div>
 
 
     <script>
     var inputPilsu = $('input.pilsu');//요거 유효성검사 상태정보 input 변수
     var agreeWon=$('div>label>input[type="checkbox"]');//요거 유혀성검사 약관동의하기 input 변수
     var paymentBt=$("#paymenyBt");
+ 	// 이용약관 열기
+    function openPayPolicy() {
+        $('#usePolicy').css('display', 'block');
+    }
+    // 이용약관 닫기
+    function closePayPolicy() {
+    	  $('#enroll').css('display', 'none');
+        $('#usePolicy').css('display', 'none');
+    }
+    
+    
+    
         $(function () {
            
               $("#agreeWon").change(function(){

@@ -44,7 +44,7 @@ public class InquiryDao {
 			pstmt.setString(3, i.getI_Phone());
 			pstmt.setString(4, i.getI_Title());
 			pstmt.setString(5, i.getI_Content());
-			pstmt.setString(7,i.getI_Renamed_Filename());
+			pstmt.setString(6,i.getI_Renamed_Filename());
 
 			result = pstmt.executeUpdate();
 

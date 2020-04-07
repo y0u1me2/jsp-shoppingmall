@@ -135,11 +135,11 @@
 			processData:false,
 			contentType:false,
 			success:function(data){
-				alert("수정 성공");
+				alert("공지사항을 수정하였습니다.");
 			 	location.replace("<%=request.getContextPath()%>/admin/noticeList");
 			},
 			error:function(r,e,m){
-				alert("수정 실패");
+				alert("공지사항 수정을 실패하였습니다.");
 			}
 		})
 	})

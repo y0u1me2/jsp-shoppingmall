@@ -43,7 +43,6 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		String path = getServletContext().getRealPath("/images/product/");
 
 		File folder = new File(path);
-		System.out.println("경로 : " + path);
 
 		// 해당 디렉토리가 없을경우 디렉토리를 생성
 		if (!folder.exists()) {
@@ -85,10 +84,7 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		String comment = mr.getParameter("comment");
 		String[] color = mr.getParameterValues("colorInput");
 		String listImage = mr.getOriginalFileName("listImage");
-		String oriThumbnail = mr.getParameter("pThumbnail");
-
-		System.out.println("원본파일"+oriThumbnail);
-		
+		String oriThumbnail = mr.getParameter("pThumbnail");		
 
 		File f = mr.getFile("listImage"); //클라이언트가 넘긴 파일이 있는지 없는지 확인 하는 것
 		
@@ -109,17 +105,17 @@ public class ProductUpdateEndServlet extends HttpServlet {
 			int result = new AdminProductService().productEnroll(p, imgList);
 	
 			if (result > 0) {
-				System.out.println("???");
+				System.out.println("수정???");
 				// 수정성공 : 수정 성공메세지출력, 목록페이지로 이동		
 				request.setAttribute("msg", "상품 정보 수정이 완료되었습니다.");
-				request.setAttribute("loc", "/admin/ProductListView?no=" + pNo);
+				request.setAttribute("loc", "/admin/ProductListView?no="+pNo);
 	
 			} else {
-				System.out.println("!!!");
+				System.out.println("실패!!!");
 				// 수정실패 : 수정 실패 메세지 출력
 				// 저장실패하면 폴더에 저장된 파일삭제
 				request.setAttribute("msg", "상품 정보 수정이 실패하였습니다.");
-				request.setAttribute("loc", "/admin/ProductListView?no=" + pNo);
+				request.setAttribute("loc", "/admin/ProductListView?no="+pNo);
 			}
 	}
 

@@ -8,7 +8,6 @@
 	String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
 	List<OrderList> list=(List)request.getAttribute("list");
 	int totalPrice=(int)request.getAttribute("totalPrice");
-	int searchPrice=(int)request.getAttribute("searchPrice");
 	int totalDate=(int)request.getAttribute("totalDate");
 	int finderDate=(int)request.getAttribute("finderDate");
 	int cPage=(int)request.getAttribute("cPage");

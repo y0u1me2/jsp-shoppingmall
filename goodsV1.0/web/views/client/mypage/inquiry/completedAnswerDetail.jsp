@@ -136,9 +136,9 @@ table#tbl-detail td {
 			<br>
 			<li><a href="">포인트관리</a></li>
 			<br>
-			<li><a href="회원정보1.html">회원정보수정</a></li>
+			<li><a href="<%=request.getContextPath()%>/profile2">회원정보수정</a></li>
 			<br>
-			<li><a href="회원탈퇴.html">회원탈퇴</a></li>
+			<li><a href="<%=request.getContextPath()%>/mmbrswthdr2">회원탈퇴</a></li>
 			<br>
 		</ul>
 	</div>
