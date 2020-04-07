@@ -343,6 +343,10 @@
 	    display: inline-block;
 	    vertical-align: top;
 	}
+	 #pageBar>span.cPage{
+    	border: 1px solid #191919;
+    	color: #191919;
+    }
 	/* 공지사항 관리 글귀 */
 	#one{
 		font-weight: bolder;
