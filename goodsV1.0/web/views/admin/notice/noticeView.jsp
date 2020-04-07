@@ -112,7 +112,7 @@
 		width:100%;
 		height:100px;
 	}
-	#comment-content{
+	.comment-content{
 		width:90%;
 		height:70px;
 		text-align:left;
@@ -122,33 +122,44 @@
 		font-weight:bolder;
 		font-size:15px;
 	}
-	#btn-insert{
-		width:80px;
-		height:70px;
-	}
 	#nc_container{
-		margin-top:10px;
-		padding-bottom:10px;
-		width:100%;
-		height:auto;
+		margin-top: 20px;
+    	width: 100%;
+   		height: auto;
+   		background-color: rgb(251, 251, 249);
 	}
 	#nc_tbl{
 		width:100%;
 		border-collapse: collapse;
-		
 	}
 	#nc_tbl tr td:first-of-type{
 		padding: 5px 5px 5px 50px;
-		border-bottom:1px solid black;
 	}
 	#nc_tbl tr td:last-of-type{
 		text-align:right;
 		width: 100px;
 		padding-right:12px;
-		border-bottom:1px solid black;
 	}
 	.btn-reply{
 		display:none;
+		height: 40px;
+   		width: 50px;
+   		border: solid 1px rgb(147, 147, 194);
+   		background: white;
+   		border-radius: 10px;
+   		font-size: 15px;
+   		color: rgb(134, 134, 133);
+   		margin-right: 5px;
+	}
+	.btn-reply2{
+		height: 40px;
+   		width: 50px;
+   		border: solid 1px rgb(147, 147, 194);
+   		background: white;
+   		border-radius: 10px;
+   		font-size: 15px;
+   		color: rgb(134, 134, 133);
+   		margin-right: 5px;
 	}
 	tr:hover button.btn-reply{
 		display:inline;
@@ -157,10 +168,21 @@
 		padding-left:80px
 	}
 	.reply{
-		text-align:right;
 		width:100%;
-		height:auto;
+		height:80px;
 	}
+	/* 답글버튼 */
+	#btn-insert{
+	width:80px;
+	height:70px;
+   border: solid 1px rgb(147, 147, 194);
+   background: white;
+   border-radius: 10px;
+   font-size: 15px;
+   color: rgb(134, 134, 133);
+   margin-right: 5px;
+	}
+	
 </style>
 <section class="back">
 	<div class="back-div top">
@@ -191,7 +213,7 @@
          <%} %>
 	</div>
 	<div class="content">
-		<p class="context"><%=n.getnContent() %></p>
+		<pre class="context"><%=n.getnContent() %></pre>
 	</div>
 	<div id="nc_container">
 		<table id="nc_tbl">
@@ -206,7 +228,7 @@
 					<p><%=nc.getNcContent() %></p>
 				</td>
 				<td>
-					<button class="btn-reply" name="commentNo" value="<%=nc.getNcNo()%>">답글</button> 
+					<button class="btn-reply" name="commentNo" id="rep-btn" value="<%=nc.getNcNo()%>">답글</button> 
 				</td>
 			</tr>
 			<%}else if(nc.getNcLevel()==2){ %>
@@ -227,8 +249,8 @@
 	</div>
 	<div id="comment-container">
 				<form action="<%=request.getContextPath() %>/notice/noticeComment" method="post" onsubmit="return nosubmit();">
-					<input type="text" name="commentContent" id="comment-content" />
-					<button type="submit" id="btn-insert">댓글등록</button>
+					<input type="text" name="commentContent" class="comment-content" />
+					<button type="submit" id="btn-insert" class="btn-insert">댓글등록</button>
 					<input type="hidden" name="noticeNo" value="<%=n.getnNo()%>"/>
 					<input type="hidden" name="commentWriter" value="<%=loginMember!=null?loginMember.getM_No():""%>"/>
 					<input type="hidden" name="commentLevel" value="1"/>
@@ -269,11 +291,12 @@
 		if(<%=loginMember!=null%>){
 			const tr=$("<tr>").attr("class","reply");
 			const td=$("<td>").css({
-				"display":"none","text-align":"right"
+				"display":"none"
 			}).attr("colspan",2);
 			const form=$("<form>").attr({
 				"action":"<%=request.getContextPath()%>/notice/noticeComment",
-				"method":"post"
+				"method":"post",
+				"width":"100%"
 			});
 			const boardRef=$("<input>").attr({
 					"type":"hidden",
@@ -293,14 +316,17 @@
 			const comment=$("<input>").attr({
 				"type":"text",
 				"name": "commentContent"
-			});
+			}).css({
+				"width":"950px",
+				"height":"50px"
+			})
 			const commentRef=$("<input>").attr({
 				"type":"hidden",
 				"name": "commentNo",
 				"value":$(this).val()
 			});
 			const btn=$("<button>").attr({
-				"type":"submit","class":"btn-insert2"
+				"type":"submit","class":"btn-insert2 btn-reply2"
 			}).html("등록");
 			
 			form.append(boardRef).append(writer).append(level).append(comment).append(commentRef).append(btn);

@@ -24,18 +24,7 @@ public class Review {
 		this.rv_Re_Name=rv_Re_Name;
 	}
 	
-	public Review(int rv_No, int m_No, String m_nickName, int p_No, String rv_Title, String rv_Content, int rv_Star, String rv_Ori_Name,
-			String rv_Re_Name ) {
-		super();
-		this.rv_No = rv_No;
-		this.m_No = m_No;
-		this.c_No = p_No;
-		this.rv_Content = rv_Content;
-		this.rv_Star = rv_Star;
-		this.rv_Ori_Name = rv_Ori_Name;
-		this.rv_Re_Name = rv_Re_Name;
-		this.m_nickName = m_nickName;
-	}
+	
 	public Date getRv_Date() {
 		return rv_Date;
 	}

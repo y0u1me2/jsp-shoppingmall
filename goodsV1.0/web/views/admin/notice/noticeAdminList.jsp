@@ -343,6 +343,10 @@
 	    display: inline-block;
 	    vertical-align: top;
 	}
+	 #pageBar>span.cPage{
+    	border: 1px solid #191919;
+    	color: #191919;
+    }
 	/* 공지사항 관리 글귀 */
 	#one{
 		font-weight: bolder;
@@ -450,7 +454,7 @@
 	                </div>
 	                <div class="gright numPer" id="numPerPage-container" >
 	                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==""||type.equals("All")?"noticeList":"noticeFinder"%>">   
-	                       <input type="hidden" name="cPage" value="<%=cPage%>">
+	                       <input type="hidden" name="cPage" value="1">
 	                       <input type="hidden" name="searchType" value="<%=type%>">
 	                       <input type="hidden" name="searchKeyword" value="<%=keyword%>">                                          
 	                       <select name="numPerPage" id="numPerPage">

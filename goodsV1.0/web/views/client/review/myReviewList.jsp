@@ -12,6 +12,42 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
+button#update-btn {
+   height: 30px;
+   width: 80px;
+   background: #313030;
+   border-radius: 3px;
+   margin-left: auto;
+   margin-right: auto;
+   border: 0;
+   font-size: 15px;
+   color: rgb(233, 233, 229);
+   position: relative;
+   left: 2px;
+}
+
+button#update-btn:hover {
+   background: black;
+   outline: none;
+}
+
+/* 색상수정 버튼 */
+button#color-btn {
+   height: 30px;
+   width: 80px;
+   border: solid 1px rgb(190, 190, 196);
+   background: white;
+   border-radius: 3px;
+   font-size: 15px;
+   color: rgb(134, 134, 133);
+   margin-right: 5px;
+}
+
+button#color-btn:hover {
+   background: rgb(251, 251, 249);
+   outline: none;
+}
+
 /* 리뷰 창 */
 div.review-container {
 	width: 1140px;
@@ -28,7 +64,7 @@ div.review-title {
 	padding: 20px 0;
 }
 
-#reviewWriteBtn {
+.reviewWriteBtn {
 	margin: 30px 0;
 	border: none;
 	cursor: pointer;
@@ -298,13 +334,11 @@ to {
 					나의리뷰 ( <span id="number-of-object"></span> )
 				</h1>
 			</div>
-			<div class="review-selection">
-
+			<!-- <div class="review-selection">
 				<div id="reviewWrite">
 					<button type="button" id="reviewWriteBtn">리뷰쓰기</button>
 				</div>
-
-			</div>
+			</div> -->
 			<div class="review-toggle">
 				<button class="selected" id="writeAbleReview" type="button">작성
 					가능한 리뷰</button>
@@ -366,7 +400,7 @@ to {
 			<form id="reviewWriteFrm" action="<%=request.getContextPath()%>/reviewWrite" method="post" onsubmit="return reviewWrite();"
 					enctype="multipart/form-data">
 				<div class="reviewWrite-top">
-					<h2 style="margin: 0 0 20px 0">리뷰쓰기</h2>
+					<!-- <h2 style="margin: 0 0 20px 0">리뷰쓰기</h2> -->
 					<!-- 로그인 창 X표시 -->
 					<div class="close-btn">
 						<span onclick="closeReviewWrite();" class="close"
@@ -374,7 +408,7 @@ to {
 					</div>
 				</div>
 				<!-- 커스터 넘버 받아와야함 !! -->
-				<input type="text" name="cNo" value="">
+				<input id="pdNoInput" type="hidden" name="cNo" value="">
 				<input type="hidden" name="mNo" value="<%=loginMember.getM_No() %>">
 				<div class="reviewWrite-middle">
 					<h3 style="text-align: center; margin: 40px 0 20px 0">상품은
@@ -408,8 +442,8 @@ to {
 					</div>
 				</div>
 				<div class="reviewWrite-bottom">
-					<button type="button" onclick="closeReviewWrite();">취소</button>
-					<button id="submit" type="submit">등록</button>
+					<button id="color-btn" type="button" onclick="closeReviewWrite();">취소</button>
+					<button id="update-btn" type="submit">등록</button>
 				</div>
 			</form>
 		</div>
@@ -421,6 +455,8 @@ to {
 var writtenCount=0;
 if($('#writtenReview').attr("class")=="selected") {
 	$('.writtenReviewList').show();
+	$('.writeAbleReviewList').hide();
+	
 	//============================여기 아이작스====================================
 	/* 나의 리뷰 리스트 */
 	$.ajax({
@@ -457,7 +493,27 @@ if($('#writtenReview').attr("class")=="selected") {
 		})
 		//============================여기 아이작스====================================
 }else {	
-		$('.writtenReviewList').hide();
+	//리뷰 작성 안한 상품 보기
+	$('.writtenReviewList').hide();
+	$('.writeAbleReviewList').show();
+	//===========================================
+	$.ajax({
+		url:'<%=request.getContextPath()%>/myReviewWriteAble',
+		type:'post',
+		dataType:"json",
+		data:{myNo:<%=loginMember.getM_No()%>},
+		success:function(data) {
+			var reviewList=data.reviewList;
+			$('.review-middle').html(data.reviewList);
+			$('#number-of-object').html(data.count);
+			$('.reviewWriteBtn').click(function() {
+				$('.reviewWrite-modal-back').css("display","block");
+				$('#pdNoInput').val($(this).next().val());
+				reviewWrite();
+			})
+		}
+	})
+	//===========================================
 }
 	// 리뷰작성창 닫기
 	function closeReviewView() {
@@ -492,6 +548,7 @@ if($('#writtenReview').attr("class")=="selected") {
 		$(this).siblings('button').removeClass('selected');
 		if($(this).attr("id")=="writtenReview") {
 			$('.writtenReviewList').show();
+			$('.writeAbleReviewList').hide();
 			//============================여기 아이작스====================================
 			/* 나의 리뷰 리스트 */
 			$.ajax({
@@ -528,13 +585,36 @@ if($('#writtenReview').attr("class")=="selected") {
 				//============================여기 아이작스====================================
 		}else {	
 				$('.writtenReviewList').hide();
+				$('.writeAbleReviewList').show();
+				
+				//===========================================
+				$.ajax({
+					url:'<%=request.getContextPath()%>/myReviewWriteAble',
+					type:'post',
+					dataType:"json",
+					data:{myNo:<%=loginMember.getM_No()%>},
+					success:function(data) {
+						var reviewList=data.reviewList;
+						$('.review-middle').html(data.reviewList);
+						$('#number-of-object').html(data.count);
+						$('.reviewWriteBtn').click(function() {
+							$('.reviewWrite-modal-back').css("display","block");
+							console.log($(this).next());
+							$('#pdNoInput').val($(this).next().val());
+							reviewWrite();
+						})
+					}
+				})
+				//===========================================
 		}
 	})
 	
+	//======================작성창============================
+	
 	/* 작성모달창 */
-	$('#reviewWriteBtn').click(function() {
+	/* $('#reviewWriteBtn').click(function() {
 		$('.reviewWrite-modal-back').css("display","block");
-	})
+	}) */
 	
 	//리뷰작성창 닫기
     function closeReviewWrite() {
@@ -561,18 +641,6 @@ if($('#writtenReview').attr("class")=="selected") {
                 }
             })
         }
-        
-        <%-- $("#submit").click(function() {
-        	$("#starPointValue").val($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
-        	console.log($("#starPointValue").val());
-        	$.ajax({
-        		dataType: 'json',
-        		type : 'post',
-        		data: $("#reviewWriteFrm").serialize(),
-        		url: "<%=request.getContextPath()%>/reviewWrite"
-        	})
-        }) --%>
-        
         
         function reviewWrite() {
         	console.log($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);

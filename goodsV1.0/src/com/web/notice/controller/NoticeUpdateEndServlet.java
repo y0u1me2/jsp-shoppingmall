@@ -64,11 +64,9 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 				reNameFile+=mr.getFilesystemName(name)+",";
 				oriFileName+=mr.getOriginalFileName(name)+",";
 			}
-			System.out.println(title+" "+writer+" "+" "+content+" "+oriFileName+" "+reNameFile);
 			Notice n=new Notice(no,writer,title,content,oriFileName,reNameFile,null,0,null);
 			//클라이언트가 파일을 수정했는지에따라 분기문 처리
 			File fl=mr.getFile("file0");//클라이언트가 넘긴 파일이 있는지 없는지 확인가능
-			System.out.println(mr.getFile("file0"));
 			List<String> list=new ArrayList();
 			if(mr.getParameter("oriFile")!=null) {
 				int num=mr.getParameter("oriFile").lastIndexOf(",");
@@ -85,7 +83,6 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 					deleteFile.delete();
 				}
 			}else {
-				System.out.println("왜 이프문으로 안들어가니");
 				n.setnOriginalFile(mr.getParameter("oriFile"));
 				n.setnRenamedFile(mr.getParameter("reFile"));
 			}

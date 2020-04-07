@@ -72,7 +72,7 @@ public class NoticeFinderAdminServlet extends HttpServlet {
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar+="<span>"+pageNo+"</span>";
+				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()+"/admin/noticeFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}

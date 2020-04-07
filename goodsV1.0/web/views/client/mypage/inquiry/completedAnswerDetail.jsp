@@ -182,7 +182,7 @@ table#tbl-detail td {
 				</tr>
 									
 			</table>
-					<input type="button" id="back-btn" value="나가기" onclick="fn_out();"> 
+				<input type="button" id="back-btn" value="나가기" onclick="fn_out();"> 
 
 
 			<div id="callArea">
@@ -193,9 +193,9 @@ table#tbl-detail td {
 		
 	<script>
 		function fn_out(){
-			location.replace("<%=request.getContextPath()%>/myInquiryList");
+			location.replace("<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No()%>");
 		}
-	
+	 
 	
 	</script>
 </section>

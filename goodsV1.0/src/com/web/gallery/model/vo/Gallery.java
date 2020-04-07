@@ -6,24 +6,27 @@ public class Gallery {
 	private int gNo;
 	private int cNo;
 	private Date enrollDate;
-	private int likeCnt;
+	private int downCnt;
 	private int viewCnt;
 	private String status;
 	private String filename;
+	private String mNickname;
 	
 	public Gallery() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Gallery(int gNo, int cNo, Date enrollDate, int likeCnt, int viewCnt, String status, String filename) {
+	public Gallery(int gNo, int cNo, Date enrollDate, int downCnt, int viewCnt, String status, String filename,
+			String mNickname) {
 		super();
 		this.gNo = gNo;
 		this.cNo = cNo;
 		this.enrollDate = enrollDate;
-		this.likeCnt = likeCnt;
+		this.downCnt = downCnt;
 		this.viewCnt = viewCnt;
 		this.status = status;
 		this.filename = filename;
+		this.mNickname = mNickname;
 	}
 
 	public int getgNo() {
@@ -50,12 +53,12 @@ public class Gallery {
 		this.enrollDate = enrollDate;
 	}
 
-	public int getLikeCnt() {
-		return likeCnt;
+	public int getDownCnt() {
+		return downCnt;
 	}
 
-	public void setLikeCnt(int likeCnt) {
-		this.likeCnt = likeCnt;
+	public void setDownCnt(int downCnt) {
+		this.downCnt = downCnt;
 	}
 
 	public int getViewCnt() {
@@ -82,11 +85,24 @@ public class Gallery {
 		this.filename = filename;
 	}
 
+	public String getmNickname() {
+		return mNickname;
+	}
+
+	public void setmNickname(String mNickname) {
+		this.mNickname = mNickname;
+	}
+
 	@Override
 	public String toString() {
-		return "Gallery [gNo=" + gNo + ", cNo=" + cNo + ", enrollDate=" + enrollDate + ", likeCnt=" + likeCnt
-				+ ", viewCnt=" + viewCnt + ", status=" + status + ", filename=" + filename + "]";
+		return "Gallery [gNo=" + gNo + ", cNo=" + cNo + ", enrollDate=" + enrollDate + ", downCnt=" + downCnt
+				+ ", viewCnt=" + viewCnt + ", status=" + status + ", filename=" + filename + ", mNickname=" + mNickname
+				+ "]";
 	}
+
+	
+
+	
 
 	
 	

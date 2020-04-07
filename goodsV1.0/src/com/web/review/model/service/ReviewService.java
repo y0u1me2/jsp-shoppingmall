@@ -8,8 +8,11 @@ import static com.web.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+import com.web.mypage.vo.OrderDeliveryMember;
+import com.web.review.controller.ReviewWriteServlet;
 import com.web.review.model.dao.ReviewDao;
 import com.web.review.model.vo.Review;
+import com.web.review.model.vo.ReviewAble;
 
 public class ReviewService {
 	
@@ -71,5 +74,19 @@ public class ReviewService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+	public List<ReviewAble> searchWriteAbleReview(int myNo) {
+		Connection conn=getConnection();
+		List<ReviewAble> list=rdao.searchWriteAbleReview(conn, myNo);
+		close(conn);
+		return list;
+	}
+	
+	public int countReviewWriteAble(int myNo) {
+		Connection conn=getConnection();
+		int count=rdao.countMyWriteAbleReview(conn, myNo);
+		close(conn);
+		return count;
 	}
 }

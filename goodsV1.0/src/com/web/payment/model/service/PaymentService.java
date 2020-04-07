@@ -5,6 +5,7 @@ import static com.web.common.JDBCTemplate.getConnection;
 import static com.web.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.web.payment.model.dao.PaymentDao;
 import com.web.payment.model.vo.Payment;
@@ -46,6 +47,5 @@ public class PaymentService {
 		close(conn);
 		return result;
 	}
-	
 	
 }

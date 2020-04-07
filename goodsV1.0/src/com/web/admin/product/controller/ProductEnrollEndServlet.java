@@ -42,7 +42,6 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		// 1.파일을 저장할 경로설정
 		String path = getServletContext().getRealPath("/images/product/");
 		File folder = new File(path);
-		System.out.println("경로 : " + path);
 
 		// 해당 디렉토리가 없을경우 디렉토리를 생성
 		if (!folder.exists()) {
