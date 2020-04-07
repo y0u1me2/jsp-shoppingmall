@@ -392,7 +392,7 @@
                                     </div>
 
                                		 <div id="search_m_Name">
-                               		 	<form action="<%=request.getContextPath()%>/admin/memberF inder">
+                               		 	<form action="<%=request.getContextPath()%>/admin/memberFinder">
 	                                    	<input type="hidden" name="searchType" value="m_Name"/>
 	                                    	<input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_Name")?keyword:""%>" placeholder="검색할 이름 입력"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
