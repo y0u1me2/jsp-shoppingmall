@@ -179,8 +179,8 @@ public class MemberDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rs);
+			close(pstmt);
 		}
 		return flag;
 	}
@@ -201,8 +201,8 @@ public class MemberDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			close(pstmt);
 			close(rs);
+			close(pstmt);
 		}
 		return passwordCheck;
 	}
