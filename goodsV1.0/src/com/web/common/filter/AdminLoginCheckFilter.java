@@ -41,7 +41,7 @@ public class AdminLoginCheckFilter implements Filter {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		String uri = ((HttpServletRequest)request).getRequestURI();
 		
-		if(uri.equals("/goods/admin/login")||uri.equals("/goods/admin/loginCheck")) { //로그인 페이지랑 로그인 확인 서블릿은 필터 제외
+		if(uri.equals(request.getServletContext()+"/admin/login")||uri.equals(request.getServletContext()+"/admin/loginCheck")) { //로그인 페이지랑 로그인 확인 서블릿은 필터 제외
 			chain.doFilter(request, response);
 		}else {
 			if(session.getAttribute("loginStatus")==null || !((String)session.getAttribute("loginStatus")).equals("logined")) {
