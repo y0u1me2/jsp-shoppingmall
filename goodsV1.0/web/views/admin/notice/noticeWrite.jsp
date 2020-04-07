@@ -120,7 +120,7 @@
 				 	location.replace("<%=request.getContextPath()%>/admin/noticeList")
 				},
 				error:function(r,e,m){
-					alert("작성 실패");
+					alert("공지사항 등록을 실패하였습니다.");
 				}
 			})
 		})
