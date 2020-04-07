@@ -22,7 +22,7 @@ div#content {
 	position: relative;
 	text-align: center;
 	left: 100px;
-	top: 100px;
+	top: 50px;
 	width: 80%;
 }
 

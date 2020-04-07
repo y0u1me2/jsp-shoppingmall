@@ -43,7 +43,7 @@ public class JDBCTemplate {
 	//sql에서 사용한 객체 닫는 메소드 구현 (매개변수로 받은 커넥션을 닫아줌)
 	public static void close(Connection conn) {
 		try {
-			if(conn!=null && conn.isClosed()) {
+			if(conn!=null && !conn.isClosed()) {
 				conn.close();
 			}
 		}catch(SQLException e) {
@@ -55,7 +55,7 @@ public class JDBCTemplate {
 	//Statement를 닫아주는 메소드만 구현해도 다 처리할 수 있음
 	public static void close(Statement stmt) {
 		try {
-			if(stmt !=null && stmt.isClosed()) {
+			if(stmt !=null && !stmt.isClosed()) {
 				stmt.close();
 			}
 		}catch(SQLException e) {
@@ -66,7 +66,7 @@ public class JDBCTemplate {
 	//ResultSet닫기
 	public static void close(ResultSet rs) {
 		try {
-			if(rs !=null && rs.isClosed()) {
+			if(rs !=null && !rs.isClosed()) {
 				rs.close();
 			}
 		}catch(SQLException e) {
@@ -87,7 +87,7 @@ public class JDBCTemplate {
 	
 	public static void rollback(Connection conn) {
 		try {
-			if(conn!=null && conn.isClosed()) {
+			if(conn!=null && !conn.isClosed()) {
 				conn.rollback();
 			}
 		}catch(SQLException e) {
