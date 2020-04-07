@@ -67,8 +67,6 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 		}
 		
 		int totalPrice=new AdminOrderListService().totalPrice();
-		int searchPrice=new AdminOrderListService().totalPrice(type,keyword);
-		System.out.println(type+keyword+searchPrice);
 		
 		int totalPage=(int)Math.ceil((double)finderDate/numPerPage);
 		int pageBarSize=5;
@@ -99,7 +97,6 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 		//총 매출
 		
 		request.setAttribute("totalPrice", totalPrice);
-		request.setAttribute("searchPrice", searchPrice);
 		request.setAttribute("totalDate",totalDate);
 		request.setAttribute("finderDate",finderDate);
 		request.setAttribute("list", list);

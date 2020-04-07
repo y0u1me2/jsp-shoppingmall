@@ -80,8 +80,7 @@ public class ReviewWriteServlet extends HttpServlet {
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/admin/notice/msg.jsp")
-		.forward(request, response);
+		request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
 		
 		
 	}

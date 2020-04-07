@@ -62,7 +62,7 @@ response.setHeader("Content-Description", "JSP Generated Data");
 	                        		} %>
 	                        	<%if(list.size()!=0){ %> 
 	                        	 	<tr>
-	                        	 		<td colspan="6">총매출 <%=totalPrice%>원</td>
+	                        	 		<td colspan="6" style="text-align:right">총매출 <%=totalPrice%>원</td>
 	                        	 	</tr>
 	                        	<%}%>
                         </tbody>
