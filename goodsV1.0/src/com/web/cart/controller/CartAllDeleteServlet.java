@@ -50,11 +50,9 @@ public class CartAllDeleteServlet extends HttpServlet {
 
 		String[] cartCooks = cartCook.split("\\|");
 		List<String> list = new ArrayList(Arrays.asList(cartCooks));
-		System.out.println("최초 쿠키값 리스트 : " + list);
 		for (int j = 0; j < list.size(); j++) {
 			for (int i = 0; i < cNos.length; i++) {
 				if (list.get(j).equals(cNos[i])) {
-					System.out.println("지울 쿠키값(선택된거) : " + cNos[i]);
 					list.remove(j);
 				}
 			}
@@ -66,14 +64,11 @@ public class CartAllDeleteServlet extends HttpServlet {
 				list.clear();
 			}
 		}
-		System.out.println("리무브된 리스트 값 : " + list);
-		System.out.println("리무브된 리스트 사이즈값 : " + list.size());
 		String[] cookList = new String[list.size()];
 		String cookL = "";
 
 		for (int i = 0; i < list.size(); i++) {
 			cookList[i] = list.get(i);
-			System.out.println("리무브된 리스트 값->배열로 옮긴값 : " + cookList[i]);
 			if (list.size() - 1 == i) {
 				cookL += cookList[i];
 			} else {
