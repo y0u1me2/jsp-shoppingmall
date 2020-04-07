@@ -102,7 +102,7 @@
             <tr class="trst">
                 <td class="td1"><%=n.getnNo() %></td>
                 <td class="td2">
-                	<a href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=n.getnNo()%>">
+                	<a style="text-decoration:underline" href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=n.getnNo()%>">
                 	<%=n.getnTitle() %>
                 	</a>
                 </td>
