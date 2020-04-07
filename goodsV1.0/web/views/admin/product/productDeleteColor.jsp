@@ -30,6 +30,7 @@ div.content-wrapper {
 	position: relative;
 	top: 100px;
 	width: 100%;
+	margin-bottom:150px;
 }
 
 /* 상품색상수정 텍스트 */

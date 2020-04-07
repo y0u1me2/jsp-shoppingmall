@@ -13,6 +13,12 @@ div.content-wrapper {
 
 div.goodsback {
 	height: auto;
+	width: 100%;
+	margin-bottom:150px;
+	width: 80%;
+	position: relative;
+	top: 50px;
+	bottom: 50px;
 }
 
 * {
@@ -24,14 +30,7 @@ body {
 	height: auto;
 }
 
-.back {
-	height: 100%;
-	width: 80%;
-	position: relative;
-	top: 50px;
-	bottom: 50px;
-	display: flex;
-}
+
 
 /*리스트 스타일*/
 .lnb_list>li {
@@ -55,10 +54,6 @@ hr#gline {
 	border: 1px solid rgb(177, 174, 174);
 	position: relative;
 	top: 20px;
-	width: 100%;
-}
-
-.goodsback {
 	width: 100%;
 }
 
@@ -160,7 +155,6 @@ div#answer-content {
 
 <div class="content-wrapper">
 
-	<div class="back">
 
 		<div class="goodsback">
 			<br>
@@ -206,7 +200,6 @@ div#answer-content {
 
 			</form>
 		</div>
-	</div>
 
 </div>
 
