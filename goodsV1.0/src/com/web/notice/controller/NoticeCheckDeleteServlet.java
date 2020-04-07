@@ -37,7 +37,7 @@ public class NoticeCheckDeleteServlet extends HttpServlet {
 		int count=new NoticeService().checkDelete(check);
 		String msg=" ";
 		if(type.length()>0) {
-			if(count>0) {
+			if(count>check.length-1) {
 				msg="글을 삭제 하였습니다.";
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", "/admin/noticeFinder?searchType="+type+"&searchKeyword="+keyword);
@@ -49,7 +49,7 @@ public class NoticeCheckDeleteServlet extends HttpServlet {
 				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
 			}
 		}else {
-			if(count>0) {
+			if(count>check.length-1) {
 				msg="글을 삭제 하였습니다.";
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", "/admin/noticeList");

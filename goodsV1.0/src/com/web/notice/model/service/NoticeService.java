@@ -77,7 +77,7 @@ public class NoticeService {
 	public int checkDelete(String [] check) {
 		Connection conn=getConnection();
 		int count=dao.checkDelete(conn,check);
-		if(count>0) commit(conn);
+		if(count>check.length-1) commit(conn);
 		else rollback(conn);
 		close(conn);
 		return count;

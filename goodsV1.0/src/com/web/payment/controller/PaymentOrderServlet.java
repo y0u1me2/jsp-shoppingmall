@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.member.model.vo.Member;
 import com.web.payment.model.service.PaymentService;
 import com.web.payment.model.vo.Payment;
 import com.web.payment.model.vo.PaymentDetail;
@@ -38,6 +39,7 @@ public class PaymentOrderServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Member lm = (Member)request.getSession().getAttribute("loginedMember");
 		// 우편번호, 주소, 운송장번호,이메일,결제방법,전화번호
 		String[] cNo = request.getParameterValues("cNo");// 커스텀번호
 		String cNos = String.join(",", cNo); // 1 , 2, 3
@@ -78,7 +80,6 @@ public class PaymentOrderServlet extends HttpServlet {
 		if (result > 0) {
 			System.out.println("나이스샷");
 			int oNo = new PaymentService().orderNoPayment(cNos);
-			System.out.println(oNo);
 			PaymentDetail pd = new PaymentDetail(oNo, cNo, oQuan);
 			int result2 = new PaymentService().insertPaymentDtail(pd);
 
@@ -89,7 +90,7 @@ public class PaymentOrderServlet extends HttpServlet {
 		String cartCook = "";
 		Cookie[] cookies = request.getCookies(); // null이거나 쿠키배열
 		for (Cookie c : cookies) {
-			if (c.getName().equals("cart")) {
+			if (c.getName().equals(String.valueOf(lm.getM_No()))) {
 				cartCook = c.getValue();
 			}
 		}
@@ -126,8 +127,8 @@ public class PaymentOrderServlet extends HttpServlet {
 		Cookie cookie = null;
 		if (list.size() != 0) {
 			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("cart")) {
-					cookie = new Cookie("cart", cookL);
+				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+					cookie = new Cookie(String.valueOf(lm.getM_No()), cookL);
 					cookie.setPath("/");
 					cookie.setMaxAge(60 * 60 * 24 * 90);
 					response.addCookie(cookie);
@@ -136,8 +137,8 @@ public class PaymentOrderServlet extends HttpServlet {
 			}
 		} else {
 			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("cart")) {
-					cookie = new Cookie("cart", "");
+				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+					cookie = new Cookie(String.valueOf(lm.getM_No()), "");
 					cookie.setPath("/");
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);

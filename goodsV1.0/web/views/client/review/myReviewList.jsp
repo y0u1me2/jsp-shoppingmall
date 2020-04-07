@@ -372,6 +372,9 @@ to {
 							title="Close Modal">&times;</span>
 					</div>
 				</div>
+				<!-- 커스터 넘버 받아와야함 !! -->
+				<input type="hidden" name="cNo" value="">
+				<input type="hidden" name="mNo" value="<%=loginMember.getM_No() %>">
 				<div class="reviewWrite-middle">
 					<h3 style="text-align: center; margin: 40px 0 20px 0">상품은
 						만족하셨나요?</h3>

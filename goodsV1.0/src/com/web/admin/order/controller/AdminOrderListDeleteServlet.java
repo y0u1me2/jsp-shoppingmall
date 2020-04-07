@@ -31,20 +31,38 @@ public class AdminOrderListDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int no=Integer.parseInt(request.getParameter("no"));
-		//String type=request.getParameter("type")!=null?request.getParameter("type"):"";
-		//String keyword=request.getParameter("keyword")!=null?request.getParameter("keyword"):"";
-//		int result=new AdminOrderListService().deleteOrderList(no);
+		String type=request.getParameter("searchType");
+		String keyword=request.getParameter("searchKeyword");
+		System.out.println(type+keyword);
+		int result=new AdminOrderListService().deleteOrderList(no);
 		
-		String msg="";
-		String loc="";
-//		if(result>0) {
-//			msg="주문을 취소하였습니다";
-//			loc="/admin/orderList";
-//		}else {
-//			msg="주문취소를 실패하였습니다";
-//			loc="/admin/orderList";
-//		}
-		request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
+		String msg=" ";
+		if(type.length()>0) {
+			if(result>0) {
+				msg="주문내역을 삭제 하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderFinder?searchType="+type+"&searchKeyword="+keyword);
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}else {
+				msg="주문내역 삭제를 실패하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderFinder?searchType="+type+"&searchKeyword="+keyword);
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}
+		}else {
+			if(result>0) {
+				msg="주문내역을 삭제 하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderList");
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}else {
+				msg="주문내역 삭제를 실패하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderList");
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}
+		}
+
 	}
 
 	/**
