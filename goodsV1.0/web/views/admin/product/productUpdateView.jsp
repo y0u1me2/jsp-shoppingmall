@@ -32,6 +32,7 @@ div.goodsback {
 	position: relative;
 	top: 100px;
 	width: 100%;
+	margin-bottom:150px;
 }
 
 /* 상품정보수정 텍스트 */
