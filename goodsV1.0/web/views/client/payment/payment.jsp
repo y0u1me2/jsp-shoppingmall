@@ -1033,7 +1033,7 @@
                                     <tr style="line-height: 90px;border-bottom: 1px solid black;">
                                         <th style="text-align: left; font-size: 20px;">합계</th>
                                         <td style="text-align: right; font-size: 25px; color:#e8625a">
-                                        <input type="hidden" name="payAmount" id="payAmount" value="500">
+                                        <input type="hidden" name="payAmount" id="payAmount" value="<%=totalPrice %>">
                                         <span class="format-comar" style="color:red"><%=totalPrice %></span><span style="color:red">원</span></td>
                                     </tr>
                                 </thead>
@@ -1095,17 +1095,29 @@
             </div>
         </form>
     <!-- </div> -->
-		<div id="usePolicy" style="display:none;">
+		<div id="payPolicy" style="display:none;">
 			<!-- 이용약관 팝업-->
-			<div class="modal-usePolicy animate">
+			<div class="modal-payPolicy animate">
 				<div class="url-html">
-					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
+					<object type="text/html"  style="bottom: 975px; right:15px;" data="<%=request.getContextPath()%>/views/client/popup/usePolicy.html" id="htmlPolicy"></object>
 				</div>
 				<div class="close-btn">
 					<span onclick="closePayPolicy();" class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>
+	<style>
+	.modal-payPolicy {
+        border: 1px solid black;
+        width: 440px;
+        height: 564px;
+        padding: 40px 30px 30px 30px;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto;
+        position: relative;
+    }
+	
+	</style>
 
 
     <script>
@@ -1114,12 +1126,12 @@
     var paymentBt=$("#paymenyBt");
  	// 이용약관 열기
     function openPayPolicy() {
-        $('#usePolicy').css('display', 'block');
+        $('#payPolicy').css('display', 'block');
     }
     // 이용약관 닫기
     function closePayPolicy() {
-    	  $('#enroll').css('display', 'none');
-        $('#usePolicy').css('display', 'none');
+    	
+        $('#payPolicy').css('display', 'none');
     }
     
     
@@ -1477,7 +1489,7 @@
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
              }else{
-                /*  var IMP = window.IMP; // 생략가능
+               var IMP = window.IMP; // 생략가능
                var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
                var payAmount=$("#payAmount").val();//가격
                var userName=$("#userName").val();//이름
@@ -1512,9 +1524,8 @@
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
 
-                });     */
+                });     
               
-             	 $("#paymentOrder").submit(); 
              }
             }
         }

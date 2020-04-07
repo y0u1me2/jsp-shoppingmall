@@ -22,8 +22,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+	var contextPath = '<%=request.getContextPath()%>';
+	</script>
 </head>
-
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 

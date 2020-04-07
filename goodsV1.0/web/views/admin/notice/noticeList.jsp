@@ -69,6 +69,10 @@
 	    display: inline-block;
 	    vertical-align: top;
 	}
+	 #pageBar>span.cPage{
+    	border: 1px solid #191919;
+    	color: #191919;
+    }
 </style>
 <section class="back">
 	<div class="back-div top">
@@ -98,7 +102,7 @@
             <tr class="trst">
                 <td class="td1"><%=n.getnNo() %></td>
                 <td class="td2">
-                	<a href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=n.getnNo()%>">
+                	<a style="text-decoration:underline" href="<%=request.getContextPath()%>/notice/noticeView?nNo=<%=n.getnNo()%>">
                 	<%=n.getnTitle() %>
                 	</a>
                 </td>

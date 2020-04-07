@@ -20,6 +20,7 @@ div.goodsback{
 	height:auto;
 	position: relative;
 	top:100px;
+	margin-bottom:150px;
 }
 
 * {

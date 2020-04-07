@@ -77,7 +77,6 @@
     table.tbodyCenter td{
     	font-size:14px;
     	padding: 9px 9px 7px;
-    	vertical-align: top;
     	text-align: center;
     }
     /* 회원정보 조회 스타일  */

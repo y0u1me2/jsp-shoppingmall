@@ -35,7 +35,7 @@ public class AjaxGetGalleryListServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String sort = request.getParameter("sort");
-		if(sort==null) sort="like_cnt";
+		if(sort==null) sort="down_cnt";
 		
 		String category = request.getParameter("category");
 		if(category==null) category = "";

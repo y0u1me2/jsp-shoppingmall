@@ -129,14 +129,14 @@
 		<% } %>
 		//<input type="file" nam="bs">
 		$.ajax({
-			url:"<%=request.getContextPath()%>/admin/noticeUpdateEnd",
+			url:contextPath+'/admin/noticeUpdateEnd',
 			data:fd,
 			type:"post",
 			processData:false,
 			contentType:false,
 			success:function(data){
 				alert("공지사항을 수정하였습니다.");
-			 	location.replace("<%=request.getContextPath()%>/admin/noticeList");
+			 	location.replace(contextPath+"/admin/noticeList");
 			},
 			error:function(r,e,m){
 				alert("공지사항 수정을 실패하였습니다.");

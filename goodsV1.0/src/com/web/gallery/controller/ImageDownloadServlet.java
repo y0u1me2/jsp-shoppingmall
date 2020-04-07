@@ -79,6 +79,10 @@ public class ImageDownloadServlet extends HttpServlet {
 		bis.close();
 		bos.close();
 		
+		//다운로드 횟수 1 증가
+		//result가 0이면 실패, 1이면 성공
+		int result = service.downCountPlus(gNo);
+		if(result==0) System.out.println("파일 다운로드 횟수 증가 실패");
 	}
 
 	/**
