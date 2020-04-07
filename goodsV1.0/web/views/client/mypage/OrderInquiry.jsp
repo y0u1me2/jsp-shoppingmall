@@ -1,8 +1,11 @@
+<%@page import="com.web.mypage.vo.OrderDeliveryMember"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ include file="/views/client/common/header.jsp" %>
-
+<%
+	List <OrderDeliveryMember> od = (List)request.getAttribute("od");
+%>
     <style>
   
  /* aside메뉴 */
@@ -241,10 +244,7 @@ ul {
                     <table class="box">
                         <tr  id="bstyle">
                             <th>
-               	주문일             
-                            </th>
-                            <th>
-                                주문번호
+              	 주문번호             
                             </th>
                             <th>
                                 상품정보
@@ -253,30 +253,47 @@ ul {
                                 수량/금액
                             </th>
                             <th>
+                  	주문일             
+                            </th>
+                            <th>
                                 진행상태
                             </th>    
                             <th>
-                               비고
-                            </th>              
+                               주문삭제
+                            </th>
+                            <th>
+                               리뷰
+                            </th>
+                            <th>
+                               갤러리
+                            </th>                        
                         </tr>
+                        <%for(OrderDeliveryMember o : od){ %>
                         <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        
+                        <td>
+                        <%=o.getoNo() %>
+                        </td>
+                        <td>
+                        <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>"/>
+                        <%=o.getpName() %> <%=o.getcColor() %>
+                        </td>
+                        <td><%=o.getoQuan() %></br><%=o.gettPrice()*o.getoQuan() %></td>
+                        <td><%=o.getoDate() %></td>
+                        <td>배송중</td>
+                        <td><button type="button" onclick="orderDeliverydt();" value="<%=o.getcNo() %>" />삭제</td>
+                        <td><button type="button" id="deleteorder" />리뷰</td>
+                        <td><button type="button" id="deleteorder" />갤러리</td>
                         
                         </tr>
-                    
+                    	<%} %>
+                        <%if(od.isEmpty()){ %>
                         <tr>
-                            <td id="conbox">
+                            <td id="conbox" colspan="6">
                            <!-- 주문한 내역이 없습니다. <br>
                         이전 구매내역은 기간별조회를 통해 확인 가능합니다.   -->  
                             </td>
                         </tr>
-                        
+                        <%} %>
                     </table>
                 </form>
                 <hr id="line">
@@ -311,6 +328,15 @@ ul {
 
     <br> <br> <br> <br> <br>
 </section>
+<script>
+function orderDelete(){
+    var result=confirm("주문을 취소하시겠습니까?");
+    var value=$(event.target).val();
+    if(result){
+       location.replace("<%=request.getContextPath()%>/orderdelete?no="+value);
+    }
+ }
+</script>
 
 
 <%@ include file="/views/client/common/footer.jsp" %>

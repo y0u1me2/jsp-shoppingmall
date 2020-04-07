@@ -1,67 +1,115 @@
 package com.web.mypage.vo;
 
+import java.util.Date;
+
 public class OrderDeliveryMember {
 
-	private int c_No;
-	private int o_No;
-	private int m_No;
-	
+	private int oNo;
+	private String cfileName;
+	private String pName;
+	private String cColor;
+	private int tPrice;
+	private int oQuan;
+	private String oName;
+	private Date oDate;
+	private int cNo;
+
 	public OrderDeliveryMember() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderDeliveryMember(int c_No, int o_No, int m_No) {
+	public OrderDeliveryMember(int oNo, String cfileName, String pName, String cColor, int tPrice, int oQuan, String oName,
+			Date oDate, int cNo) {
 		super();
-		this.c_No = c_No;
-		this.o_No = o_No;
-		this.m_No = m_No;
+		this.oNo = oNo;
+		this.cfileName = cfileName;
+		this.pName = pName;
+		this.cColor = cColor;
+		this.tPrice = tPrice;
+		this.oQuan = oQuan;
+		this.oName = oName;
+		this.oDate = oDate;
+		this.cNo = cNo;
 	}
 
-	/**
-	 * @return the c_No
-	 */
-	public int getC_No() {
-		return c_No;
+	public int getoNo() {
+		return oNo;
 	}
 
-	/**
-	 * @param c_No the c_No to set
-	 */
-	public void setC_No(int c_No) {
-		this.c_No = c_No;
+	public void setoNo(int oNo) {
+		this.oNo = oNo;
 	}
 
-	/**
-	 * @return the o_No
-	 */
-	public int getO_No() {
-		return o_No;
+	public String getCfileName() {
+		return cfileName;
 	}
 
-	/**
-	 * @param o_No the o_No to set
-	 */
-	public void setO_No(int o_No) {
-		this.o_No = o_No;
+	public void setCfileName(String cfileName) {
+		this.cfileName = cfileName;
 	}
 
-	/**
-	 * @return the m_No
-	 */
-	public int getM_No() {
-		return m_No;
+	public String getpName() {
+		return pName;
 	}
 
-	/**
-	 * @param m_No the m_No to set
-	 */
-	public void setM_No(int m_No) {
-		this.m_No = m_No;
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+	public String getcColor() {
+		return cColor;
+	}
+
+	public void setcColor(String cColor) {
+		this.cColor = cColor;
+	}
+
+	public int gettPrice() {
+		return tPrice;
+	}
+
+	public void settPrice(int tPrice) {
+		this.tPrice = tPrice;
+	}
+
+	public int getoQuan() {
+		return oQuan;
+	}
+
+	public void setoQuan(int oQuan) {
+		this.oQuan = oQuan;
+	}
+
+	public String getoName() {
+		return oName;
+	}
+
+	public void setoName(String oName) {
+		this.oName = oName;
+	}
+
+	public Date getoDate() {
+		return oDate;
+	}
+
+	public void setoDate(Date oDate) {
+		this.oDate = oDate;
+	}
+
+	public int getcNo() {
+		return cNo;
+	}
+
+	public void setcNo(int cNo) {
+		this.cNo = cNo;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderDeliveryVo [c_No=" + c_No + ", o_No=" + o_No + ", m_No=" + m_No + "]";
+		return "OrderList [oNo=" + oNo + ", cfileName=" + cfileName + ", pName=" + pName + ", cColor=" + cColor
+				+ ", tPrice=" + tPrice + ", oQuan=" + oQuan + ", oName=" + oName + ", oDate=" + oDate + ", cNo=" + cNo
+				+ "]";
 	}
+
 	
 }

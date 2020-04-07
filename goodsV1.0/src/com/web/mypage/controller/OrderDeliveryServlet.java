@@ -27,7 +27,10 @@ public class OrderDeliveryServlet extends HttpServlet {
 		int login = Integer.parseInt(request.getParameter("mNo"));
 		System.out.println(login);
 		List <OrderDeliveryMember> od = new OrderDeliveryService().OrderDeliveryMember(login);
-		
+		for(OrderDeliveryMember d : od) {
+			System.out.println(d);
+		}
+		request.setAttribute("od",od);
 		
 		request.getRequestDispatcher("/views/client/mypage/OrderInquiry.jsp")
 		.forward(request, response);
