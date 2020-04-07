@@ -89,7 +89,7 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		File f = mr.getFile("listImage"); //클라이언트가 넘긴 파일이 있는지 없는지 확인 하는 것
 		
 		if(f!=null && f.length()>0) { //새로 업로드한 파일이 있으면?
-			File deleteFile = new File(path+mr.getParameter("pThumbnail"));
+			File deleteFile = new File(path+"oriThumbnail");
 			boolean flag = deleteFile.delete();
 			System.out.println(flag?"기존파일삭제 성공":"기존파일삭제 실패");	
 		}
@@ -102,21 +102,19 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		
 			Product p = new Product(0, category, name, price, listImage, comment, null,null);
 			
-			int result = new AdminProductService().productEnroll(p, imgList);
-	
+			int result = new AdminProductService().updateProduct(p, imgList,pNo);
+			
 			if (result > 0) {
-				System.out.println("수정???");
 				// 수정성공 : 수정 성공메세지출력, 목록페이지로 이동		
 				request.setAttribute("msg", "상품 정보 수정이 완료되었습니다.");
-				request.setAttribute("loc", "/admin/ProductListView?no="+pNo);
+				request.setAttribute("loc", "/admin/ProductListView");
 	
 			} else {
-				System.out.println("실패!!!");
-				// 수정실패 : 수정 실패 메세지 출력
-				// 저장실패하면 폴더에 저장된 파일삭제
+				// 수정실패 : 수정 실패 메세지 출력			
 				request.setAttribute("msg", "상품 정보 수정이 실패하였습니다.");
-				request.setAttribute("loc", "/admin/ProductListView?no="+pNo);
+				request.setAttribute("loc", "/admin/productUpdateView?pNo="+pNo);
 			}
+			request.getRequestDispatcher("/views/admin/common/msg.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

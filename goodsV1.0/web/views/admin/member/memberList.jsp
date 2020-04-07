@@ -464,8 +464,8 @@
                     </div>
                     
                     <div class="gright" id="numPerPage-container">
-        				<form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==null||type.equals("All")?"memberList":"memberFinder"%>">	
-        					<input type="hidden" name="cPage" value="<%=cPage%>">
+        				<form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==""||type.equals("All")?"memberList":"memberFinder"%>">	
+        					<input type="hidden" name="cPage" value="1">
         					<input type="hidden" name="searchType" value="<%=type%>">
         					<input type="hidden" name="searchKeyword" value="<%=keyword%>">														
         					<select name="numPerPage" id="numPerPage">

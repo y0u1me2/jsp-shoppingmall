@@ -34,14 +34,11 @@ public class ProductDeleteColorEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 상품색상 수정 로직
+		// 상품색상 삭제 로직
 	
 		int no = Integer.parseInt(request.getParameter("no"));
 		String[] color = request.getParameterValues("colorInput");
-		
-		System.out.println("번호?"+no);
-		System.out.println("색상불러오니?"+color);
-			
+				
 		int result = new AdminProductService().colorDelete(no,color);
 
 		if (result > 0) {

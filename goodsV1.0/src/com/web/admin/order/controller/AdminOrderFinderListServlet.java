@@ -82,7 +82,7 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar+="<span>"+pageNo+"</span>";
+				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()+"/admin/orderFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}

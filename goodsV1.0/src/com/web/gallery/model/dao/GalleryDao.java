@@ -90,9 +90,10 @@ public class GalleryDao {
 				g.setgNo(rs.getInt("G_NO"));
 				g.setcNo(rs.getInt("C_NO"));
 				g.setEnrollDate(rs.getDate("G_ENROLL_DATE"));
-				g.setLikeCnt(rs.getInt("LIKE_CNT"));
+				g.setDownCnt(rs.getInt("DOWN_CNT"));
 				g.setViewCnt(rs.getInt("VIEW_CNT"));
 				g.setFilename(rs.getString("C_COMPLETE_FILE"));
+				g.setmNickname(rs.getString("M_NICKNAME"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -125,6 +126,39 @@ public class GalleryDao {
 			close(pstmt);
 		}
 		return count;
+	}
+
+	//다운로드 횟수 1 증가
+	public int downCountPlus(Connection conn, int gNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("downCountPlus");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int viewCntPlus(Connection conn, int gNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("viewCountPlus");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

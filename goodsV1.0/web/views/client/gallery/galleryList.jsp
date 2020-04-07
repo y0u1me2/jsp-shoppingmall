@@ -80,12 +80,12 @@
             margin-bottom: 20px;
             width: 450px;
             height: 450px;
-            /* border: 1px solid black; */
             text-align: center;
         }
 
         .board img {
             max-width: 100%;
+            height:350px;
         }
 
         
@@ -106,17 +106,16 @@
 
 #modal-container {
 	margin: auto;
-	width: 500px;
-	height: 600px;
-	border: 1px solid black;
+	width: 400px;
+	height: 500px;
 	background-color: white;
 }
 
 /* Modal Content (image) */
 .modal-content {
   display: block;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
 }
 
 /* Caption of Modal Image */
@@ -218,7 +217,7 @@
         	<form id="frm1">
         		<select name="sort" style="vertical-align: middle;">
                     <option value="" disabled selected hidden>정렬</option>
-                    <option value="like_cnt">인기순</option>
+                    <option value="down_cnt">다운로드순</option>
                     <option value="view_cnt">조회순</option>
                     <option value="g_enroll_date">최신순</option>
                 </select>
@@ -244,10 +243,11 @@
 		<div id="galleryContainer">
 		<%for(Gallery g : list){ %>
 		      <div class="board">
-		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="누구누구 님의 디자인">
+		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
-		          <input name="likeCnt" type="hidden" value="<%=g.getLikeCnt()%>">
-		          <input name="viewCnt" type="hidden" value="<%=g.getViewCnt()%>">
+		          <p>다운로드횟수: <%=g.getDownCnt()%></p>
+		          <p>조회수: <%=g.getViewCnt()%></p>
+		          <p>등록일: <%=g.getEnrollDate()%></p>
 		      </div>
 		<%} %>
 		      
@@ -266,7 +266,7 @@
 		<img class="modal-content" id="img01">
 		<div id="caption"></div>
 		<input type="hidden" id="gNo">
-		<button type="button" id="modalBtn">따라 만들기</button>
+		<button type="button" id="modalBtn">이미지 다운로드</button>
 	</div>
 	
 </div>
@@ -293,7 +293,19 @@ $(".myImg").click(function(){
 	gNo.val($(this).next().val());
 	$('body').css("overflow", "hidden");
 	modalBtn.click(function(){
-		location.replace('<%=request.getContextPath()%>/gallery/imageDownload?gNo='+gNo.val());
+		if(mNo!=""){
+			location.replace('<%=request.getContextPath()%>/gallery/imageDownload?gNo='+gNo.val());
+		}else{
+			alert('로그인이 필요한 서비스입니다.');
+			$('#login').show();
+		}
+	});
+	$.ajax({
+		url:"<%=request.getContextPath()%>/gallery/ajaxViewCntPlus",
+		data:{'gNo' : $(this).next().val()},
+		type:"post",
+		success:function(){
+		}
 	});
 });
 
