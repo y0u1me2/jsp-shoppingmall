@@ -185,7 +185,7 @@ img#leftLogo{
 					<ul>
 						<li>
 						<button type="button">
-						<a href="<%=request.getContextPath()%>/orderDelivery">마이페이지</a>
+						<a href="<%=request.getContextPath()%>/orderDelivery?mNo=<%=loginMember.getM_No()%>">마이페이지</a>
 						</button></li>
 						<li>
 							<button type="button">

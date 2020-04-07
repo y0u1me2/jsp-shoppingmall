@@ -61,7 +61,7 @@ public class MyReviewLoadServlet extends HttpServlet {
 								+ "<tr>"
 									+ "<td class='reviewProductImg' rowspan='3'><a href='#'>"
 									+ "<img class='review-product'" 
-									+ "src='"+request.getContextPath()+"/images/product/thumbnail/"+c.getCompleteFile()+"'>"
+									+ "src='"+request.getContextPath()+"/upload/custom/"+c.getCompleteFile()+"'>"
 									+ "</a></td>"
 									+ "<td class='reviewTitle' colspan='3'>" + 
 									"<a href='#'>"+p.getpName()+
@@ -74,7 +74,7 @@ public class MyReviewLoadServlet extends HttpServlet {
 									+ "</tr><tr><td class='reviewContent' style='width:150px;' colspan='3'>"+r.getRv_Content()+"</td></tr></table>"
 									+ "<div class='reviewImg'>"
 									+ "<img"
-									+" src='https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg'>"
+									+" src='"+request.getContextPath()+"/upload/review/"+r.getRv_Ori_Name()+"'>"
 									+"</div>"
 									+"</div>";
 		}

@@ -115,10 +115,11 @@
                     <span id="msg_old_password"></span>
                 </td>
             </tr> -->
+        <form action="<%=request.getContextPath() %>/pwmodify" onsubmit="return delChk();" method="post" style="padding: 10px 0px 10px;">
             <tr>
                 <th class="line">새 비밀번호</th>
                 <td class="line">
-                    <input type="password" id="old_password" name="old_password" class="form-control" maxlength="20"
+                    <input type="password" id="old_password" name="password" class="form-control" maxlength="20"
                     style="width: 200px;">
                     <span id="msg_old_password"></span>
                 </td>
@@ -126,30 +127,28 @@
             <tr>
                 <th class="line">새 비밀번호 확인</th>
                 <td class="line">
-                    <input type="password" id="old_password" name="old_password" class="form-control" maxlength="20"
+                    <input type="password" id="old_password" name="password_new" class="form-control" maxlength="20"
                     style="width: 200px;">
                     <span id="msg_old_password"></span>
                 </td>
             </tr>
-            <tr>
+           <!--  <tr>
                 <th class="line">자동등록방지</th>
                 <td class="line">
                     <input type="password" id="old_password" name="old_password" class="form-control" maxlength="20"
                     style="width: 200px;">
                     <span id="msg_old_password"></span>
                 </td>
-            </tr>
+            </tr> -->
         </table>
         <div style="text-align: center; padding: 5px 0px 5px;">
+            <input type="hidden" name="pwm" value="<%=loginMember.getM_Email()%>">
             <button style="width: 140px;height: 50px; border-radius: 5px;background: #313030;color: rgb(233, 233, 229);">확인</button>
+            </form>
             <button style="width: 100px;height: 40px; border-radius: 5px;color: #313030;background: rgb(255, 254, 254);">초기화</button>
             </div>
         </div>
-               
-
-
-
-
+              
     </section>
 
 
