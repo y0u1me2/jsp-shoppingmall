@@ -25,10 +25,11 @@
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
 	
-	List<Product> 케이스 = new ProductService().selectByCategory("케이스");
-	List<Product> 악세사리 = new ProductService().selectByCategory("악세사리");
-	List<Product> 생활용품 = new ProductService().selectByCategory("생활용품");
-	List<Product> 패션 = new ProductService().selectByCategory("패션");
+	ProductService service =  new ProductService();
+	List<Product> 케이스 = service.selectByCategory("케이스");
+	List<Product> 악세사리 = service.selectByCategory("악세사리");
+	List<Product> 생활용품 = service.selectByCategory("생활용품");
+	List<Product> 패션 = service.selectByCategory("패션");
 	
 
 %>
