@@ -73,10 +73,9 @@ public class ImageDownloadServlet extends HttpServlet {
 			bos.write(read);
 		}
 		
+		
 		bis.close();
 		bos.close();
-		
-		response.sendRedirect(request.getContextPath()+"/product/view?pNo=1");
 		
 		
 	}

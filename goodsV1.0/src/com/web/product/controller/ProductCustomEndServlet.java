@@ -110,7 +110,7 @@ public class ProductCustomEndServlet extends HttpServlet {
 			System.out.println("데이터 입력 성공");
 			int cno = new ProductService().getCustomNo(c);
 			
-			new GalleryService().insertNewGallery(cno); //갤러리 등록 true false
+			//new GalleryService().insertNewGallery(cno); //갤러리 등록
 			
 			
 			//쿠키
