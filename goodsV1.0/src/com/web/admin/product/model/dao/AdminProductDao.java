@@ -85,6 +85,7 @@ public class AdminProductDao {
 		}catch(SQLException e){
 		e.printStackTrace();
 		}finally{
+			close(rs);
 		close(pstmt);
 		}return pNo;  // 상품번호 반환
 
