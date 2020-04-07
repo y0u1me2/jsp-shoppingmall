@@ -276,21 +276,5 @@ public class ReviewDao {
 		return count;
 	}
 	
-//	public int countNotice(Connection conn) {
-//		PreparedStatement pstmt=null;
-//		ResultSet rs=null;
-//		int count=0;
-//		String sql=prop.getProperty("countNotice");
-//		try {
-//			pstmt=conn.prepareStatement(sql);
-//			rs=pstmt.executeQuery();
-//			if(rs.next()) count=rs.getInt("count(*)");
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		return count;
-//	}
+
 }

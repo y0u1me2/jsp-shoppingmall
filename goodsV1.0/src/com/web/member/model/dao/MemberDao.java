@@ -89,19 +89,6 @@ public class MemberDao {
 		return m;
 	}
 	
-	/*
-	 * public int enrollMember(Connection conn, Member m) { PreparedStatement
-	 * pstmt=null; int result=0; String sql=prop.getProperty("enrollMember"); try {
-	 * pstmt=conn.prepareStatement(sql); pstmt.setString(1, m.getM_Email());
-	 * pstmt.setString(2, m.getM_Password()); pstmt.setString(3, m.getM_Name());
-	 * pstmt.setString(4, m.getM_NickName()); pstmt.setString(5, m.getM_Post());
-	 * pstmt.setString(6, m.getM_Address()); pstmt.setString(7, m.getM_Phone());
-	 * result=pstmt.executeUpdate();
-	 * 
-	 * }catch(SQLException e) { e.printStackTrace(); }finally { close(pstmt); }
-	 * return result; }
-	 */
-	
 	
 	//이거 아님요 나중에 지워야함
 	public int enrollMember(Connection conn, Member m) {

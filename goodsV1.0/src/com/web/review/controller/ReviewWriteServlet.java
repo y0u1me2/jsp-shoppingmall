@@ -35,7 +35,6 @@ public class ReviewWriteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("작성창인데 여기오면 gg인데");
 		
 		//경로설정
 		String path=getServletContext().getRealPath("/upload/review");
@@ -48,12 +47,6 @@ public class ReviewWriteServlet extends HttpServlet {
 		int mNo=Integer.parseInt(mr.getParameter("mNo"));
 		int cNo=Integer.parseInt(mr.getParameter("cNo"));
 		
-
-		System.out.println("별점 : "+starPoint);
-		System.out.println("내용 : "+content);
-		System.out.println("파일이름 : "+up_file);
-		System.out.println("회원번호 : "+mNo);
-		System.out.println("커스텀번호 : "+cNo);
 		
 		Enumeration f=mr.getFileNames();
 		String oriFileName="";
