@@ -41,8 +41,10 @@ public class PaymentOrderServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		Member lm = (Member)request.getSession().getAttribute("loginedMember");
 		// 우편번호, 주소, 운송장번호,이메일,결제방법,전화번호
+		
 		String[] cNo = request.getParameterValues("cNo");// 커스텀번호
 		String cNos = String.join(",", cNo); // 1 , 2, 3
+		String mNo = String.valueOf(lm.getM_No());
 		// String[] pName=request.getParameterValues("pName");//상품 이름
 		String[] oQuan = request.getParameterValues("pQuan");// 수량
 		String pQuans = String.join(",", oQuan);
@@ -73,79 +75,148 @@ public class PaymentOrderServlet extends HttpServlet {
 			payWay = "가상계좌";
 		}
 
-		Payment p = new Payment(0, null, null, oName, oPhone, oEmail, rName, rPhone, rAddress, rPost, tPrice, payWay, 0,
+		Payment p = new Payment(0, mNo, null, oName, oPhone, oEmail, rName, rPhone, rAddress, rPost, tPrice, payWay, 0,
 				cNos);
 		int result = new PaymentService().insertPayment(p);
-
-		if (result > 0) {
-			System.out.println("나이스샷");
-			int oNo = new PaymentService().orderNoPayment(cNos);
+		int result2 = 0;
+		int oNo = 0;
+		
+		if (result > 0) {			
+			oNo = new PaymentService().orderNoPayment(cNos);
 			PaymentDetail pd = new PaymentDetail(oNo, cNo, oQuan);
-			int result2 = new PaymentService().insertPaymentDtail(pd);
+			result2 = new PaymentService().insertPaymentDtail(pd);
+			
+			if(result2>0) {
+				String cartCook = "";
+				Cookie[] cookies = request.getCookies(); // null이거나 쿠키배열
+				for (Cookie c : cookies) {
+					if (c.getName().equals(String.valueOf(lm.getM_No()))) {
+						cartCook = c.getValue();
+					}
+				}
+
+				String[] cartCooks = cartCook.split("\\|");
+				List<String> list = new ArrayList(Arrays.asList(cartCooks));
+				System.out.println("최초 쿠키값 리스트 : " + list);
+				for (int j = 0; j < list.size(); j++) {
+					for (int i = 0; i < cNo.length; i++) {
+						if (list.get(j).equals(cNo[i])) {
+							// System.out.println("지울 쿠키값(선택된거) : "+cNo[i]);
+							list.remove(j);
+						}
+					}
+
+				}
+				list.toArray(cartCooks);
+
+				// System.out.println("리무브된 리스트 값 : "+list);
+				// System.out.println("리무브된 리스트 사이즈값 : "+list.size());
+				String[] cookList = new String[list.size()];
+				String cookL = "";
+				for (int i = 0; i < list.size(); i++) {
+					cookList[i] = list.get(i);
+					// System.out.println("리무브된 리스트 값->배열로 옮긴값 : "+cookList[i]);
+					if (list.size() - 1 == i) {
+						cookL += cookList[i];
+					} else {
+						cookL += cookList[i] + "|";
+					}
+
+				}
+
+				Cookie cookie = null;
+				if (list.size() != 0) {
+					for (int i = 0; i < cookies.length; i++) {
+						if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+							cookie = new Cookie(String.valueOf(lm.getM_No()), cookL);
+							cookie.setPath("/");
+							cookie.setMaxAge(60 * 60 * 24 * 90);
+							response.addCookie(cookie);
+						}
+
+					}
+				} else {
+					for (int i = 0; i < cookies.length; i++) {
+						if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+							cookie = new Cookie(String.valueOf(lm.getM_No()), "");
+							cookie.setPath("/");
+							cookie.setMaxAge(0);
+							response.addCookie(cookie);
+						}
+
+					}
+				}
+				request.getRequestDispatcher("/views/client/payment/paymentComplete.jsp").forward(request, response);
+			}else {
+				request.getRequestDispatcher("/views/client/payment/paymentFail.jsp").forward(request, response);
+				
+			}
 
 		} else {
-			System.out.println("개 하 열받아");
+			request.getRequestDispatcher("/views/client/payment/paymentFail.jsp").forward(request, response);
+	
 		}
 
-		String cartCook = "";
-		Cookie[] cookies = request.getCookies(); // null이거나 쿠키배열
-		for (Cookie c : cookies) {
-			if (c.getName().equals(String.valueOf(lm.getM_No()))) {
-				cartCook = c.getValue();
-			}
-		}
-
-		String[] cartCooks = cartCook.split("\\|");
-		List<String> list = new ArrayList(Arrays.asList(cartCooks));
-		System.out.println("최초 쿠키값 리스트 : " + list);
-		for (int j = 0; j < list.size(); j++) {
-			for (int i = 0; i < cNo.length; i++) {
-				if (list.get(j).equals(cNo[i])) {
-					// System.out.println("지울 쿠키값(선택된거) : "+cNo[i]);
-					list.remove(j);
-				}
-			}
-
-		}
-		list.toArray(cartCooks);
-
-		// System.out.println("리무브된 리스트 값 : "+list);
-		// System.out.println("리무브된 리스트 사이즈값 : "+list.size());
-		String[] cookList = new String[list.size()];
-		String cookL = "";
-		for (int i = 0; i < list.size(); i++) {
-			cookList[i] = list.get(i);
-			// System.out.println("리무브된 리스트 값->배열로 옮긴값 : "+cookList[i]);
-			if (list.size() - 1 == i) {
-				cookL += cookList[i];
-			} else {
-				cookL += cookList[i] + "|";
-			}
-
-		}
-
-		Cookie cookie = null;
-		if (list.size() != 0) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
-					cookie = new Cookie(String.valueOf(lm.getM_No()), cookL);
-					cookie.setPath("/");
-					cookie.setMaxAge(60 * 60 * 24 * 90);
-					response.addCookie(cookie);
-				}
-
-			}
-		} else {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
-					cookie = new Cookie(String.valueOf(lm.getM_No()), "");
-					cookie.setPath("/");
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
-
-			}
-		}
+//		String cartCook = "";
+//		Cookie[] cookies = request.getCookies(); // null이거나 쿠키배열
+//		for (Cookie c : cookies) {
+//			if (c.getName().equals(String.valueOf(lm.getM_No()))) {
+//				cartCook = c.getValue();
+//			}
+//		}
+//
+//		String[] cartCooks = cartCook.split("\\|");
+//		List<String> list = new ArrayList(Arrays.asList(cartCooks));
+//		System.out.println("최초 쿠키값 리스트 : " + list);
+//		for (int j = 0; j < list.size(); j++) {
+//			for (int i = 0; i < cNo.length; i++) {
+//				if (list.get(j).equals(cNo[i])) {
+//					// System.out.println("지울 쿠키값(선택된거) : "+cNo[i]);
+//					list.remove(j);
+//				}
+//			}
+//
+//		}
+//		list.toArray(cartCooks);
+//
+//		// System.out.println("리무브된 리스트 값 : "+list);
+//		// System.out.println("리무브된 리스트 사이즈값 : "+list.size());
+//		String[] cookList = new String[list.size()];
+//		String cookL = "";
+//		for (int i = 0; i < list.size(); i++) {
+//			cookList[i] = list.get(i);
+//			// System.out.println("리무브된 리스트 값->배열로 옮긴값 : "+cookList[i]);
+//			if (list.size() - 1 == i) {
+//				cookL += cookList[i];
+//			} else {
+//				cookL += cookList[i] + "|";
+//			}
+//
+//		}
+//
+//		Cookie cookie = null;
+//		if (list.size() != 0) {
+//			for (int i = 0; i < cookies.length; i++) {
+//				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+//					cookie = new Cookie(String.valueOf(lm.getM_No()), cookL);
+//					cookie.setPath("/");
+//					cookie.setMaxAge(60 * 60 * 24 * 90);
+//					response.addCookie(cookie);
+//				}
+//
+//			}
+//		} else {
+//			for (int i = 0; i < cookies.length; i++) {
+//				if (cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+//					cookie = new Cookie(String.valueOf(lm.getM_No()), "");
+//					cookie.setPath("/");
+//					cookie.setMaxAge(0);
+//					response.addCookie(cookie);
+//				}
+//
+//			}
+//		}
+//		request.getRequestDispatcher("/views/client/payment/paymentComplete.jsp").forward(request, response);
 
 	}
 

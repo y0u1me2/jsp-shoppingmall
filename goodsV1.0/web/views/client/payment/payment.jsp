@@ -1134,7 +1134,7 @@
                            //input에 span 지워줌
                        }
                      $("#paymentBt").css("color","black");
-                     $("#paymentBt").css("border","1px solid black");
+                     $("#paymentBt").css("border-top","1px solid black");
                      $("#finalPayment").css("border", "1px solid black");
                      // 필수 항목들이  전부다 입력돼서 블랙으로 바꿔줌
                   }
@@ -1223,7 +1223,7 @@
                                //input밑에 span경고창(있을때) 삭제
                         
                               $("#paymentBt").css("color","black");
-                              $("#paymentBt").css("border","1px solid black");
+                              $("#paymentBt").css("border-top","1px solid black");
                               $("#finalPayment").css("border", "1px solid black");
                            } 
                        
@@ -1266,7 +1266,7 @@
           
           }else{
               $("#paymentBt").css("color","black");
-              $("#paymentBt").css("border","1px solid black");
+              $("#paymentBt").css("border-top","1px solid black");
               $("#finalPayment").css("border", "1px solid black");
           }
             
