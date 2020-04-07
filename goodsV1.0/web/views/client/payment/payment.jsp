@@ -1033,7 +1033,7 @@
                                     <tr style="line-height: 90px;border-bottom: 1px solid black;">
                                         <th style="text-align: left; font-size: 20px;">합계</th>
                                         <td style="text-align: right; font-size: 25px; color:#e8625a">
-                                        <input type="hidden" name="payAmount" id="payAmount" value="500">
+                                        <input type="hidden" name="payAmount" id="payAmount" value="<%=totalPrice %>">
                                         <span class="format-comar" style="color:red"><%=totalPrice %></span><span style="color:red">원</span></td>
                                     </tr>
                                 </thead>
@@ -1489,7 +1489,7 @@
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
              }else{
-                /*  var IMP = window.IMP; // 생략가능
+               var IMP = window.IMP; // 생략가능
                var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
                var payAmount=$("#payAmount").val();//가격
                var userName=$("#userName").val();//이름
@@ -1524,9 +1524,8 @@
                         msg += '에러내용 : ' + rsp.error_msg;
                     }
 
-                });     */
+                });     
               
-             	 $("#paymentOrder").submit(); 
              }
             }
         }
