@@ -36,6 +36,7 @@ div.goodsback {
 	left: 110px;
 	top: 50px;
 	height: 1100px;
+	margin-bottom:150px;
 }
 
 /* 전체상품목록 텍스트 */
@@ -242,7 +243,7 @@ color: rgb(0, 0, 0);
 							onclick=" pAllClickSelect()">전체선택</button>
 						<button type="button" class="btn_Wihte"
 							onclick=" pAllClickRelease()">선택해제</button>
-						<button type="button" class="btn_Wihte" onclick=" pCkDelete()">삭제</button>
+						<button type="button" class="btn_Wihte" onclick="pCkDelete();">삭제</button>
 					</div>
 
 					<div class="numPerPage-container">
@@ -332,7 +333,7 @@ color: rgb(0, 0, 0);
 				</div>
 				</div>
 	</div>
-
+</div>
 	<script>
 	 //체크박스 전체선택하기
     var check = false;
@@ -396,14 +397,14 @@ color: rgb(0, 0, 0);
  	        	}; 
  	      
  	        	  $.ajax({
- 	                  url         :   "<%=request.getContextPath()%>/productCheckDelete",
+ 	                  url         :   "<%=request.getContextPath()%>/admin/productCheckDelete",
  	                  dataType    :   "html",
  	                  contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
  	                  type        :   "post",
  	                  data        :   objParams,
  	                  success     :   function(retVal){
 				 	     alert(retVal);
-				 	     location.replace("<%=request.getContextPath()%>/ProductListView");
+				 	     location.replace("<%=request.getContextPath()%>/admin/ProductListView");
  	                  },
  	                  error       :   function(request, status, error){
  	                      			  console.log("AJAX_ERROR");

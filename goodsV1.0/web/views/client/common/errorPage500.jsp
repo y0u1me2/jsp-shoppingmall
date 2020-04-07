@@ -21,8 +21,8 @@ body {
 div#content {
 	position: relative;
 	text-align: center;
-	left: 200px;
-	top: 200px;
+	left: 100px;
+	top: 100px;
 	width: 80%;
 }
 

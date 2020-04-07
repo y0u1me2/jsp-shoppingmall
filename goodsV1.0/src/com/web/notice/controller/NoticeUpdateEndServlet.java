@@ -43,7 +43,7 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 			if(!ServletFileUpload.isMultipartContent(request)) {
 				request.setAttribute("msg", "공지사항등록에러!![form:enctype 관리자에게 문의]");
 				request.setAttribute("loc", "/notice/noticeWrite");
-				request.getRequestDispatcher("/views/notice/msg.jsp").forward(request,response);
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request,response);
 			}
 				
 			//경로
@@ -81,7 +81,6 @@ public class NoticeUpdateEndServlet extends HttpServlet {
 			String ori=mr.getParameter("oriFile");
 			if(fl!=null && fl.length()>0) {
 				for(String s : list) {
-					System.out.println(s);
 					File deleteFile=new File(path+s);
 					deleteFile.delete();
 				}

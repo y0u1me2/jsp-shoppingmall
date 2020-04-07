@@ -22,7 +22,7 @@
 		position:relative;
 		text-align:center;
 		left:200px;
-		top:200px;
+		top:100px;
 		width:80%;
 	}
 

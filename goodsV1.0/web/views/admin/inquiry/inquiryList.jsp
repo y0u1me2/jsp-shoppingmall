@@ -32,6 +32,7 @@ div.back {
 	left: 110px;
 	top: 50px;
 	height: 1100px;
+	margin-bottom:150px;
 }
 
 /* content 공간 */
