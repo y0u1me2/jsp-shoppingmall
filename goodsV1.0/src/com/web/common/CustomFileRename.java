@@ -19,7 +19,6 @@ public class CustomFileRename implements FileRenamePolicy {
 			//중복값을 최소화하기 위해 밀리세컨초를 가져오고 거기에 랜덤값까지
 			long currentTime=System.currentTimeMillis();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-			System.out.println(oldFile.getName());
 			String fileName = oldFile.getName()+"_"+sdf.format(new Date(currentTime))+".png";
 			
 			if(oldFile.getName().equals("original")) {

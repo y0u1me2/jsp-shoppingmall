@@ -41,11 +41,11 @@ public class ImageDownloadServlet extends HttpServlet {
 		
 		//프론트에서 갤러리번호를 전달받고, 디비에서 해당 갤러리 번호를 가지고 압축파일명 가져옴, 해당 압축파일을 다운로드함
 		int gNo = Integer.parseInt(request.getParameter("gNo"));
-		System.out.println(gNo);
+		//System.out.println(gNo);
 		
 		String path = getServletContext().getRealPath("/upload/custom/");
 		String file = service.getZipFilename(gNo);
-		System.out.println(file);
+		//System.out.println(file);
 		
 		
 		

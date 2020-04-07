@@ -273,12 +273,11 @@
 
 <script>
 	function validate(){
-		if($(':radio[name="colorType"]:checked').length < 1){
-			alert('색상을 선택하세요');
-			return false;
-		}
-		
 		if(mNo!=""){
+			if($(':radio[name="colorType"]:checked').length < 1){
+				alert('색상을 선택하세요');
+				return false;
+			}
 			return true;
 		}else{
 			alert('로그인이 필요한 서비스입니다.');
@@ -286,6 +285,7 @@
 			return false;
 			
 		}
+		
 	}
 
 	$(function(){
