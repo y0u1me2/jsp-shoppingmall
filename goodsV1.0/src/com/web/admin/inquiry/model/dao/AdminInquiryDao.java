@@ -107,11 +107,10 @@ public class AdminInquiryDao {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setInt(1, ia.getI_No());
-			pstmt.setString(2, ia.getAdmin_Id());
-			pstmt.setString(3, ia.getIa_Title());
-			pstmt.setString(4, ia.getIa_Content());
-			pstmt.setString(5, ia.getIa_Original_Filename());
-			pstmt.setString(6, ia.getIa_Renamed_Filename());
+			pstmt.setString(2, ia.getIa_Title());
+			pstmt.setString(3, ia.getIa_Content());
+			pstmt.setString(4, ia.getIa_Original_Filename());
+			pstmt.setString(5, ia.getIa_Renamed_Filename());
 
 			result = pstmt.executeUpdate();
 
@@ -254,7 +253,6 @@ public class AdminInquiryDao {
 				ia = new InquiryAnswer();
 
 				ia.setI_No(rs.getInt("ia_no"));
-				ia.setAdmin_Id(rs.getString("admin_id"));
 				ia.setIa_Title(rs.getString("ia_title"));
 				ia.setIa_Content(rs.getString("ia_content"));
 				ia.setIa_Date(rs.getDate("ia_date"));
@@ -291,7 +289,6 @@ public class AdminInquiryDao {
 				ia = new InquiryAnswer();
 
 				ia.setI_No(rs.getInt("ia_no"));
-				ia.setAdmin_Id(rs.getString("admin_id"));
 				ia.setIa_Title(rs.getString("ia_title"));
 				ia.setIa_Content(rs.getString("ia_content"));
 				ia.setIa_Date(rs.getDate("ia_date"));

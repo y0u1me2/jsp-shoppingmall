@@ -75,9 +75,7 @@ public class InquiryAdminAnswerUpdateEndServlet extends HttpServlet {
 		String oriFileName = mr.getOriginalFileName("upfile");
 		String renamedFileName = mr.getFilesystemName("upfile");
 		
-		String id = "admin";
-		
-		InquiryAnswer ia = new InquiryAnswer(0,ino,id,title,content,null,oriFileName,renamedFileName,"Y",null);
+		InquiryAnswer ia = new InquiryAnswer(0,ino,title,content,null,oriFileName,renamedFileName,"Y",null);
 		
 		int result = new AdminInquiryService().updateInquiryAnswer(ia);
 

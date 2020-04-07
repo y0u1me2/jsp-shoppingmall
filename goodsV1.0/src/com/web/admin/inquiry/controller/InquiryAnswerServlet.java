@@ -80,10 +80,8 @@ public class InquiryAnswerServlet extends HttpServlet {
 		String content = mr.getParameter("content");
 		String oriFileName = mr.getOriginalFileName("upfile");
 		String renamedFileName = mr.getFilesystemName("upfile");
-
-		String id = "admin";
 				
-		InquiryAnswer ia = new InquiryAnswer(0,ino,id,title,content,null,oriFileName,renamedFileName,"Y",null);
+		InquiryAnswer ia = new InquiryAnswer(0,ino,title,content,null,oriFileName,renamedFileName,"Y",null);
 				
 		int result = new AdminInquiryService().inquiryAnswer(ia);
 				

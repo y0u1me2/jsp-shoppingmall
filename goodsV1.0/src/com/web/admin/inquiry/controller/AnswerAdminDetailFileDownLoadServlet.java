@@ -45,7 +45,6 @@ public class AnswerAdminDetailFileDownLoadServlet extends HttpServlet {
 
 		// 가져온 파일명과 일치하는 파일 가져오기(/upload/inquiryAnswer/filePath)
 		File downFile = new File(path + file);
-		System.out.println(downFile);
 
 		// 스트림 열기(보조스트림 이용하면 속도가 향상된다)
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(downFile));

@@ -35,7 +35,7 @@ public class InquiryDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("inquiryWrite");
 		int result = 0;
-		System.out.println(sql);
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 
@@ -183,7 +183,6 @@ public class InquiryDao {
 				ia = new InquiryAnswer();
 				
 				ia.setIa_No(rs.getInt("ia_no"));
-				ia.setAdmin_Id(rs.getString("admin_id"));
 				ia.setIa_Title(rs.getString("ia_title"));
 				ia.setIa_Content(rs.getString("ia_content"));
 				ia.setIa_Date(rs.getDate("ia_date"));
