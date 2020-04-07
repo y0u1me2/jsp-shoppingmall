@@ -8,7 +8,7 @@
  /* aside메뉴 */
 div.aside {
 	width: 20%;
-	height: 100%;
+	height: 0;
 	line-height: 130%;
 }
 
@@ -17,6 +17,9 @@ div.aside2 {
 	width: 8%;
 	height: 100%;
 	line-height: 130%;
+}
+aside2{
+	width : 10%;
 }
 
 /*리스트 스타일 */
@@ -45,7 +48,8 @@ ul {
     }
     
     .backDiv{
-        width:100%;
+        width:96%;
+        padding:0px 15%;
     }
   
     /* 첫번째 테이블 첫번째 줄 스타일 */
@@ -105,7 +109,7 @@ ul {
     .box{
         border-top: 1px solid #adadad;
         border-collapse: collapse;
-        width: 100%;
+        width: 97%;
     }
 
     /*주문배송내역 텍스트*/
@@ -165,6 +169,9 @@ ul {
         top: 5px;
         font-size: 11px;
     }
+    .uldiv{
+    	padding:0px 20%;
+    }
 
     </style>
 
@@ -199,9 +206,7 @@ ul {
 	</div>
 	
 	<!-- aside2 목록과붙어있는공간띄우기-->
-	<div class="aside2"></div>
-      
-    
+
         <div class="backDiv">
             <br><br>
             <h1 id="one">주문 · 배송 내역</h1>
@@ -236,7 +241,10 @@ ul {
                     <table class="box">
                         <tr  id="bstyle">
                             <th>
-                                주문일/주문번호
+               	주문일             
+                            </th>
+                            <th>
+                                주문번호
                             </th>
                             <th>
                                 상품정보
@@ -252,9 +260,20 @@ ul {
                             </th>              
                         </tr>
                         <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        
+                        
+                        </tr>
+                    
+                        <tr>
                             <td id="conbox">
-                           주문한 내역이 없습니다. <br>
-                        이전 구매내역은 기간별조회를 통해 확인 가능합니다.    
+                           <!-- 주문한 내역이 없습니다. <br>
+                        이전 구매내역은 기간별조회를 통해 확인 가능합니다.   -->  
                             </td>
                         </tr>
                         
@@ -265,7 +284,7 @@ ul {
         
 
         <div class="notice">
-            <ul>
+            <ul class="uldiv">
             <h4>주문 · 배송 유의사항</h4>          
             <li>주문내역에 대해 메일 및 SMS를 발송해드립니다.</li>
             <li>
@@ -289,10 +308,7 @@ ul {
             <li>현금영수증을 먼저 신청한 경우 세금계산서는 발급할 수 없습니다. </li>
             <li>무통장 입금의 경우, 세금계산서와 제출서류 다운로드는 결제완료 전에도 신청 및 다운로드가 가능합니다.</li>
         </ul>
-        </div>
-    
-    </div>
-    
+
     <br> <br> <br> <br> <br>
 </section>
 
