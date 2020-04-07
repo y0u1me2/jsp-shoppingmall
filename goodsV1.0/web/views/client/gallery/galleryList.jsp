@@ -106,8 +106,9 @@
 
 #modal-container {
 	margin: auto;
-	width: 400px;
-	height: 500px;
+	width: 800px;
+	height: 600px;
+	overflow: scroll;
 	background-color: white;
 }
 
@@ -274,10 +275,18 @@
 	
 	<div id="modal-Container">
 		<img class="modal-content" id="img01">
-		<div id="caption"></div>
-		<input type="hidden" id="gNo">
+		<span id="caption"></span>
+		
 		<button type="button" id="modalBtn">이미지 다운로드</button>
+		<form>
+			<input type="text" name="content" autocomplete="off">
+			<input type="hidden" name="rNo">
+			<input type="hidden" id="gNo" name="gNo">
+			<button>댓글 등록</button>
+		</form>
+		<div id="replyList"></div>
 	</div>
+	
 	
 </div>
 	
@@ -315,6 +324,30 @@ $(".myImg").click(function(){
 		data:{'gNo' : $(this).next().val()},
 		type:"post",
 		success:function(){
+		}
+	});
+	
+	$.ajax({
+		url:"<%=request.getContextPath()%>/gallery/getReplyList",
+		data:{'gNo' : $(this).next().val()},
+		type:"post",
+		dataType:"json",
+		async:false,
+		success:function(data){
+			console.log(data);
+			var table = $('<table>');
+			
+			var html;
+			
+			data.forEach(function(reply) {
+				html+= "<tr><td>"+reply['mNickname']+"<br>"+reply['rDate']+"</td><td>"+reply['rContent']+"</td></tr>";
+			});
+			
+			
+			table.append(html).css({'border': '1px solid black', 'border-collapse': 'collapse'});
+			
+			
+			$('#replyList').html(table);
 		}
 	});
 });
