@@ -242,6 +242,18 @@ ul {
                 <form>
                    <p id="msg"> 주문 취소는 결제 완료 후 1시간 이내에 [주문취소] 버튼을 이용해 가능합니다. </p>
                     <table class="box">
+                     <colgroup>
+                     <!-- 주문자정보 테이블 헤더/바디 크기 -->
+                         <col style="width: 50px;">
+                         <col style="width: auto;">
+                         <col style="width: 100px;">
+                         <col style="width: 120px;">
+                       	 <col style="width: 80px;">
+                         <col style="width: 80px;">
+                         <col style="width: 80px;">
+                         <col style="width: 80px;">
+                     </colgroup>
+                     <thead>
                         <tr  id="bstyle">
                             <th>
               	 주문번호             
@@ -268,13 +280,15 @@ ul {
                                갤러리
                             </th>                        
                         </tr>
+                     </thead>
+                     <tbody>
                         <%for(OrderDeliveryMember o : od){ %>
                         <tr>
                         <td>
                         <%=o.getoNo() %>
                         </td>
                         <td>
-                        <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>"/>
+                        <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>" style="width:100px; height : 100px; "/>
                         <%=o.getpName() %> <%=o.getcColor() %>
                         </td>
                         <td><%=o.getoQuan() %></br><%=o.gettPrice()*o.getoQuan() %></td>
@@ -288,12 +302,14 @@ ul {
                     	<%} %>
                         <%if(od.isEmpty()){ %>
                         <tr>
+                        
                             <td id="conbox" colspan="6">
                            <!-- 주문한 내역이 없습니다. <br>
                         이전 구매내역은 기간별조회를 통해 확인 가능합니다.   -->  
                             </td>
                         </tr>
                         <%} %>
+                        </tbody>
                     </table>
                 </form>
                 <hr id="line">
