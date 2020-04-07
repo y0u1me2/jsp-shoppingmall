@@ -45,7 +45,7 @@ public class NoticeWriteEndServlet extends HttpServlet {
 		}
 		
 		//경로
-		String path=getServletContext().getRealPath("/upload/notice");
+		String path=getServletContext().getRealPath("/upload/notice/");
 		int maxSize=1024*1024*10; //10MB;
 		MultipartRequest mr=new MultipartRequest(request, path, maxSize, "UTF-8",new DefaultFileRenamePolicy());
 		String title=mr.getParameter("title");
