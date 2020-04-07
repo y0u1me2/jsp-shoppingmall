@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.member.model.vo.Member;
 import com.web.mypage.service.OrderDeliveryService;
 import com.web.mypage.vo.OrderDeliveryMember;
 
@@ -24,7 +25,9 @@ public class OrderDeliveryServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
-		int login = Integer.parseInt(request.getParameter("mNo"));
+		//int login2 = Integer.parseInt(request.getParameter("mNo"));
+		Member lm = (Member)request.getSession().getAttribute("loginedMember");
+		int login = lm.getM_No();
 		System.out.println(login);
 		List <OrderDeliveryMember> od = new OrderDeliveryService().OrderDeliveryMember(login);
 		for(OrderDeliveryMember d : od) {

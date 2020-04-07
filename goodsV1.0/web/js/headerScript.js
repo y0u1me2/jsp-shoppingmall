@@ -99,7 +99,7 @@ for (let i = 0; i < inputLogin.length; i++) {
                 $(this).removeClass('empty error');
                 $(this).siblings('span').remove();
                 $.ajax({
-                    url: '/goods/checkEmailDuplicate',
+                    url: contextPath+'/checkEmailDuplicate',
                     type: 'post',
                     data: { email: $(inputLogin[0]).val() },
                     success: function (login) {
@@ -126,7 +126,7 @@ for (let i = 0; i < inputLogin.length; i++) {
                 $(this).removeClass('empty error');
                 $(this).siblings('span').remove();
                 $.ajax({
-                    url: '/goods/loginAble',
+                    url: contextPath+'/loginAble',
                     type: 'post',
                     data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
                     success: function (login) {
@@ -160,7 +160,7 @@ $(function(){
                     $(this).removeClass('empty error');
                     $(this).siblings('span').remove();
                     $.ajax({
-                        url: '/goods/checkEmailDuplicate',
+                        url: contextPath+'/checkEmailDuplicate',
                         type: 'post',
                         async:false,
                         data: { email: $(inputLogin[0]).val() },
@@ -192,7 +192,7 @@ $(function(){
                     $(this).removeClass('empty error');
                     $(this).siblings('span').remove();
                     $.ajax({
-                        url: '/goods/loginAble',
+                        url: contextPath+'/loginAble',
                         type: 'post',
                         async:false,
                         data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
@@ -217,7 +217,7 @@ $(function(){
 function loginSubmit() {
     if(emailCheck==true&&passwordCheck==true) {
     	$.ajax({
-    		url:'/goods/login',
+    		url:contextPath+'/login',
     		type: 'post',
     		async:false,
             data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
@@ -245,7 +245,7 @@ function onSignIn(googleUser) {
     //console.log("Image URL: " + profile.getImageUrl());
     //console.log("Email: " + profile.getEmail());
     $.ajax({
-		url:'/goods/googleLogin',
+		url:contextPath+'/googleLogin',
 		type: 'post',
         data: { email: profile.getEmail(), name: profile.getName(), nickName:profile.getGivenName(), password:profile.getId() },
         success: function (login) {

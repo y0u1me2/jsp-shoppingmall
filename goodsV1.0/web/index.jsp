@@ -5,12 +5,12 @@
 
 <%
 
-Product 에어팟 = new ProductService().getProduct(1);
-Product 핸드폰 = new ProductService().getProduct(3);
-Product 키링 = new ProductService().getProduct(4);
-Product 뱃지 = new ProductService().getProduct(5);
-Product 티셔츠 = new ProductService().getProduct(11);
-Product 에코백 = new ProductService().getProduct(12);
+Product 에어팟 = service.getProduct(1);
+Product 핸드폰 = service.getProduct(3);
+Product 키링 = service.getProduct(4);
+Product 뱃지 = service.getProduct(5);
+Product 티셔츠 = service.getProduct(11);
+Product 에코백 = service.getProduct(12);
 
 %>
 <style>
