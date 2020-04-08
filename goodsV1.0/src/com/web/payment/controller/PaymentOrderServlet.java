@@ -48,7 +48,7 @@ public class PaymentOrderServlet extends HttpServlet {
 		// String[] pName=request.getParameterValues("pName");//상품 이름
 		String[] oQuan = request.getParameterValues("pQuan");// 수량
 		String pQuans = String.join(",", oQuan);
-		String tPrice = request.getParameter("totalPrice");// 총금액
+		String tPrice = request.getParameter("payAmount");// 총금액
 		String oName = request.getParameter("userName");// 주문자 유저이름
 		String orderUserPhone1 = request.getParameter("userPhone[0]");// 주문자전화번호
 		String orderUserPhone2 = request.getParameter("userPhone[1]");// 주문자전화번호
