@@ -19,8 +19,8 @@ div.goodsback{
 	width:80%;
 	height:auto;
 	position: relative;
-	top:100px;
-	margin-bottom:150px;
+	top: 50px;
+	margin-bottom:25px;
 }
 
 * {
@@ -113,7 +113,6 @@ table#tbl-detail td {
 
  <div class="content-wrapper">
 
-		<br><br>
 		<div class="goodsback">
 		<h1 id="title">문의내역</h1>
 		<hr id="line1">

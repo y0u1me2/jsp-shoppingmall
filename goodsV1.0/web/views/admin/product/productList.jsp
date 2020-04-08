@@ -27,6 +27,8 @@ body {
 /* section */
 div.content-wrapper {
 	background-color: white;
+	height: auto;
+
 }
 
 /* 전체상품목록 div */
@@ -35,8 +37,9 @@ div.goodsback {
 	position: relative;
 	left: 110px;
 	top: 50px;
-	height: 1100px;
-	margin-bottom:150px;
+	margin-bottom:25px;
+	pdding-bottom:100px;
+
 }
 
 /* 전체상품목록 텍스트 */
@@ -112,6 +115,7 @@ td#conbox {
 div.box-container{
 	position: relative;
 	top:50px;
+	padding-bottom:100px;
 }
 
 /* 3개 버튼 위치 */
@@ -226,7 +230,7 @@ color: rgb(0, 0, 0);
 <div class="content-wrapper">
 
 		<div class="goodsback">
-			<br> <br>
+
 
 			<h1 id="title">전체상품목록</h1>
 			<hr id="gline">
@@ -253,14 +257,14 @@ color: rgb(0, 0, 0);
 
 							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
 								name="numPerPage" id="numPerPage">
-								<option value="5"
-									<%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩
+								<option value="15"
+									<%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩
 									보기</option>
 								<option value="10"
 									<%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩
 									보기</option>
-								<option value="15"
-									<%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩
+								<option value="5"
+									<%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩
 									보기</option>
 							</select>
 
