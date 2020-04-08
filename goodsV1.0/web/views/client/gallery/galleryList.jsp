@@ -106,8 +106,9 @@
 
 #modal-container {
 	margin: auto;
-	width: 400px;
-	height: 500px;
+	width: 800px;
+	height: 600px;
+	overflow: scroll;
 	background-color: white;
 }
 
@@ -123,7 +124,7 @@
   display: block;
   width: 100%;
   text-align: center;
-  color: #ccc;
+  color: rgb(95,93,93);
   padding: 10px 0;
   height: auto;
 }
@@ -243,10 +244,20 @@
 		<div id="galleryContainer">
 		<%for(Gallery g : list){ %>
 		      <div class="board">
-		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		      		
+		      	  <%-- <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
 		          <p>다운로드횟수: <%=g.getDownCnt()%></p>
 		          <p>조회수: <%=g.getViewCnt()%></p>
+		          <p>등록일: <%=g.getEnrollDate()%></p> --%>
+		      
+		      
+		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
+		          <p>
+		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/download_icon.png" style="width:20px; height:20px;"> <%=g.getDownCnt()%></span>
+		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/views_icon.png" style="width:20px; height:20px;"> <%=g.getViewCnt()%></span>
+		          </p>
 		          <p>등록일: <%=g.getEnrollDate()%></p>
 		      </div>
 		<%} %>
@@ -264,10 +275,18 @@
 	
 	<div id="modal-Container">
 		<img class="modal-content" id="img01">
-		<div id="caption"></div>
-		<input type="hidden" id="gNo">
+		<span id="caption"></span>
+		
 		<button type="button" id="modalBtn">이미지 다운로드</button>
+		<form>
+			<input type="text" name="content" autocomplete="off">
+			<input type="hidden" name="rNo">
+			<input type="hidden" id="gNo" name="gNo">
+			<button>댓글 등록</button>
+		</form>
+		<div id="replyList"></div>
 	</div>
+	
 	
 </div>
 	
@@ -305,6 +324,30 @@ $(".myImg").click(function(){
 		data:{'gNo' : $(this).next().val()},
 		type:"post",
 		success:function(){
+		}
+	});
+	
+	$.ajax({
+		url:"<%=request.getContextPath()%>/gallery/getReplyList",
+		data:{'gNo' : $(this).next().val()},
+		type:"post",
+		dataType:"json",
+		async:false,
+		success:function(data){
+			console.log(data);
+			var table = $('<table>');
+			
+			var html;
+			
+			data.forEach(function(reply) {
+				html+= "<tr><td>"+reply['mNickname']+"<br>"+reply['rDate']+"</td><td>"+reply['rContent']+"</td></tr>";
+			});
+			
+			
+			table.append(html).css({'border': '1px solid black', 'border-collapse': 'collapse'});
+			
+			
+			$('#replyList').html(table);
 		}
 	});
 });

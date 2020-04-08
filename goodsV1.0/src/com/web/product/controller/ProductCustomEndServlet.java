@@ -58,7 +58,6 @@ public class ProductCustomEndServlet extends HttpServlet {
 		
 		//multipartRequest 객체 생성
 		//multipartRequest(HttpServletRequest, 저장경로, 파일 최대크기, 문자열인코딩값, 파일 re-name정책)
-		//여기서 파일 저장함
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, "UTF-8", new CustomFileRename());
 		
 		//압축파일 생성
@@ -85,7 +84,6 @@ public class ProductCustomEndServlet extends HttpServlet {
 		Custom c = new Custom();
 		c.setpNo(Integer.parseInt(mr.getParameter("pNo")));
 		c.setmNo(Integer.parseInt(mr.getParameter("mNo")));
-		//c.setmNo(47);
 		c.setColor(mr.getParameter("color"));
 		c.setCompleteFile(mr.getFilesystemName("complete"));
 		c.setOriginalFile(newName);
@@ -105,13 +103,9 @@ public class ProductCustomEndServlet extends HttpServlet {
 		
 		
 		
-		int result = new ProductService().insertCustom(c); //
+		int result = new ProductService().insertCustom(c);
 		if(result>0) {
-			System.out.println("데이터 입력 성공");
 			int cno = new ProductService().getCustomNo(c);
-			
-			//new GalleryService().insertNewGallery(cno); //갤러리 등록
-			
 			
 			//쿠키
 			boolean isExist = false;
