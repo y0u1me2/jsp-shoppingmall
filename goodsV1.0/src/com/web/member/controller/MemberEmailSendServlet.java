@@ -45,6 +45,7 @@ public class MemberEmailSendServlet extends HttpServlet {
 		int result=(int) request.getAttribute("result");
 		
 		String host="http://rclass.iptime.org:9999/20AM_GoodGoods/";
+		//String host="http://localhost:9090/goods/";
 		String from="errornotzoo@gmail.com";
 		String to = email;
 		String subject="GOODGOODS 회원가입을 감사드립니다.";

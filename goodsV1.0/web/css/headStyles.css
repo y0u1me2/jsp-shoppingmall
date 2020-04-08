@@ -274,7 +274,6 @@
     .modal-login {
         /* border: 1px solid black; */
         width: 360px;
-        /* height: 470px; */
         max-height: 650px;
         padding: 40px;
         background-color: #fefefe;
@@ -315,7 +314,6 @@
     .bottom-login {
         /* border: 1px solid blue; */
         width: 100%;
-        height: 50%;
         padding: 70px 0px 0px;
     }
 
