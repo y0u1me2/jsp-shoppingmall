@@ -182,8 +182,8 @@ td.reviewProductImg {
 }
 
 .reviewViewPhoto>ul>li>img {
-	width: 624px;
-	/* height: 768px; */
+    width: 500px;
+    height: 500px;
 }
 /* 리뷰보기 글창(오른쪽) */
 .reviewViewRight {
@@ -364,8 +364,7 @@ to {
 			<div class="reviewView-middle">
 				<div class="reviewViewPhoto">
 					<ul>
-						<li><img
-							src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
+						<li><img id="reviewImg">
 						</li>
 					</ul>
 				</div>
@@ -433,17 +432,17 @@ to {
 					</div>
 					<div class="reviewContent">
 						<h3>어떤 점이 좋았나요?</h3>
-						<textarea rows="5" cols="50" name="content"
+						<textarea style="margin-top:50px; resize:initial;" rows="5" cols="50" name="content"
 							placeholder="최소 10자 이상 입력해주세요"></textarea>
 					</div>
 					<div class="reviewPhoto">
 						<h3></h3>
-						<input type="file" name="up_file" multiple>
+						<input style="margin-top:50px;" type="file" name="up_file">
 					</div>
 				</div>
 				<div class="reviewWrite-bottom">
-					<button id="color-btn" type="button" onclick="closeReviewWrite();">취소</button>
 					<button id="update-btn" type="submit">등록</button>
+					<button id="color-btn" type="button" onclick="closeReviewWrite();">취소</button>
 				</div>
 			</form>
 		</div>
@@ -480,6 +479,8 @@ if($('#writtenReview').attr("class")=="selected") {
 							$('#reviewViewWriter').text(data.m_nickName);
 							$('#reviewViewDate').text(data.rv_Date);
 							$('#reviewViewContent').text(data.rv_Content);
+							//
+							$('#reviewImg').attr('src','<%=request.getContextPath()%>/upload/review/'+data.rv_Re_Name);
 							for(let i=0;i<5;i++) {
 								$(star[i]).removeClass('checked');
 							}
@@ -531,6 +532,8 @@ if($('#writtenReview').attr("class")=="selected") {
 				$('#reviewViewWriter').text(data.m_nickName);
 				$('#reviewViewDate').text(data.rv_Date);
 				$('#reviewViewContent').text(data.rv_Content);
+				//
+				$('#reviewImg').attr('src','<%=request.getContextPath()%>/upload/review/'+data.rv_Re_Name);
 				for(let i=0;i<5;i++) {
 					$(star[i]).removeClass('checked');
 				}
@@ -571,6 +574,8 @@ if($('#writtenReview').attr("class")=="selected") {
 									$('#reviewViewWriter').text(data.m_nickName);
 									$('#reviewViewDate').text(data.rv_Date);
 									$('#reviewViewContent').text(data.rv_Content);
+									//
+									$('#reviewImg').attr('src','<%=request.getContextPath()%>/upload/review/'+data.rv_Re_Name);
 									for(let i=0;i<5;i++) {
 										$(star[i]).removeClass('checked');
 									}
