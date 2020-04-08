@@ -335,19 +335,20 @@
     	border: 1px solid #191919;
     	color: #191919;
     }
-    
+    #one{
+      font-weight: bolder;
+         font-size: 30px;
+   }
     </style>
 
 
 
 
-<section style="height:auto; padding-bottom:100px;">
+<section style="height:auto; padding-bottom:50px;">
         <div class="back">
 
     
         <div class="goodsback">
-            <br><br>
-
             <h1 id="one">회원조회/목록</h1>
             <hr id="gline">
             <br/><br/>
@@ -505,8 +506,8 @@
                         <tbody>
                         <%if (list.isEmpty()) {%>
           	       			<tr>
-                     			<td id="conbox" colspan='8'>
-                     				<p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
+                     			<td id="conbox" colspan='7'>
+                     				<p style="padding:100px 0; margin:0; font-size:20px;">검색된 회원 내역이 없습니다.</p>
                      			</td>
                   			</tr>
                   		<%} else { %>

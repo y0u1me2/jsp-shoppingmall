@@ -163,6 +163,11 @@
         vertical-align: top;
         font-size: 13px;
     }
+    
+    #one{
+      font-weight: bolder;
+         font-size: 30px;
+   }
 
     </style>
 
@@ -176,7 +181,6 @@
         
 
         <div class="goodsback">
-            <br><br>
             <h1 id="one">회원방문/가입 현황</h1>
             <hr id="gline">
             <br><br>
