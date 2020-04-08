@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.web.gallery.model.dao.GalleryDao;
 import com.web.gallery.model.vo.Gallery;
+import com.web.gallery.model.vo.Reply;
 
 public class GalleryService {
 	private GalleryDao dao = new GalleryDao();
@@ -63,6 +64,24 @@ public class GalleryService {
 		else rollback(conn);
 		close(conn);
 		
+		return result;
+	}
+
+
+	public List<Reply> getReplyList(int gNo) {
+		Connection conn = getConnection();
+		List<Reply> list = dao.getReplyList(conn, gNo);
+		close(conn);
+		return list;
+	}
+
+
+	public int insertReply(Reply reply) {
+		Connection conn = getConnection();
+		int result = dao.insertReply(conn, reply);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
 		return result;
 	}
 }

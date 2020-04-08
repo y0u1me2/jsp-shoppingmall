@@ -34,7 +34,6 @@ public class AjaxAdminMemberCkDeleteServlet extends HttpServlet {
 		String[] memCkDelete = request.getParameterValues("memCkArray[]");
 		
 		int result=new AdminMemberService().memberCkDelete(memCkDelete);
-		System.out.println("result값 : "+result);
 		String msg="";//사용자자에게 띄울 메세지 내용
 		String loc="/admin/member/memberList";//메세지 띄운 후 이동할 페이지
 		if(result>0) {

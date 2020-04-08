@@ -9,13 +9,23 @@
 
             <%for(Gallery g : list){ %>
 		      <div class="board">
-		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		      		
+		      	  <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
-		          <p>다운로드횟수: <%=g.getDownCnt()%></p>
+		          <p>다운로드수: <%=g.getDownCnt()%></p>
 		          <p>조회수: <%=g.getViewCnt()%></p>
 		          <p>등록일: <%=g.getEnrollDate()%></p>
+		      
+		      
+		          <%-- <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
+		          <p>
+		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/download_icon.png" style="width:20px; height:20px;"> <%=g.getDownCnt()%></span>
+		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/views_icon.png" style="width:20px; height:20px;"> <%=g.getViewCnt()%></span>
+		          </p>
+		          <p>등록일: <%=g.getEnrollDate()%></p> --%>
 		      </div>
-			<%} %>
+		<%} %>
         
         
         
@@ -23,20 +33,7 @@
 			<%=request.getAttribute("pageBar")%>
 		</div>
 <script>
-function ajaxPageMove(cPage){
-	let frm1=$('#frm1').serialize();
-	frm1+='&cPage='+cPage;
-	$.ajax({
-		url:"<%=request.getContextPath()%>/ajax/getGalleryList",
-		type:"post",
-		data: frm1,
-		success: function(data){
-			$('#galleryContainer').html(data);
-		}
-	})
-};
-
-//Get the modal
+// Get the modal
 var modal = $("#myModal");
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
@@ -67,6 +64,30 @@ $(".myImg").click(function(){
 		success:function(){
 		}
 	});
+	
+	$.ajax({
+		url:"<%=request.getContextPath()%>/gallery/getReplyList",
+		data:{'gNo' : $(this).next().val()},
+		type:"post",
+		dataType:"json",
+		async:false,
+		success:function(data){
+			console.log(data);
+			var table = $('<table>');
+			
+			var html;
+			
+			data.forEach(function(reply) {
+				html+= "<tr><td>"+reply['mNickname']+"<br>"+reply['rDate']+"</td><td>"+reply['rContent']+"</td></tr>";
+			});
+			
+			
+			table.append(html).css({'border': '1px solid black', 'border-collapse': 'collapse'});
+			
+			
+			$('#replyList').html(table);
+		}
+	});
 });
 
 // Get the <span> element that closes the modal
@@ -77,6 +98,64 @@ span.click(function() {
   modal.hide();
   $('body').css("overflow", "scroll");
 });
+
+
+
+
+function ajaxPageMove(cPage){
+	let frm1=$('#frm1').serialize();
+	frm1+='&cPage='+cPage;
+	$.ajax({
+		url:"<%=request.getContextPath()%>/ajax/getGalleryList",
+		type:"post",
+		data: frm1,
+		success: function(data){
+			$('#galleryContainer').html(data);
+		}
+	})
+};
+
+
+$(function(){
+	const select2 = $('#select2');
+	$("#select1").change(function() {
+		if($(this).val()=='카테고리'){
+			select2.hide();
+			select2.empty();
+		}else{
+			$.ajax({
+				url:"<%=request.getContextPath()%>/getProductList",
+				type:'post',
+				data: {'category' : $(this).val()},
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					select2.empty();
+					select2.append($('<option>').text('전체'));
+					data.forEach(function(element){
+						select2.append($('<option>').text(element));
+					});
+					select2.show();
+					
+				}
+			})
+		}
+	});
+	
+	$("#btn1").click(function(){
+		const frm1 = $('#frm1').serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/ajax/getGalleryList",
+			type:"post",
+			data: frm1,
+			success: function(data){
+				$('#galleryContainer').html(data);
+			}
+		})
+	});
+	
+})
+
 
 
 </script>

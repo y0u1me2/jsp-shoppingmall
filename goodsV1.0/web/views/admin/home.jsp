@@ -36,7 +36,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="d-flex">
+                <!-- <div class="d-flex">
                   <p class="d-flex flex-column">
                     <span class="text-bold text-lg">820</span>
                     <span>Visitors Over Time</span>
@@ -47,14 +47,14 @@
                     </span>
                     <span class="text-muted">Since last week</span>
                   </p>
-                </div>
+                </div> -->
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
                   <canvas id="visitors-chart" height="200"></canvas>
                 </div>
 
-                <div class="d-flex flex-row justify-content-end">
+                <!-- <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> This Week
                   </span>
@@ -62,7 +62,7 @@
                   <span>
                     <i class="fas fa-square text-gray"></i> Last Week
                   </span>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- /.card -->
@@ -183,7 +183,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="d-flex">
+                <!-- <div class="d-flex">
                   <p class="d-flex flex-column">
                     <span class="text-bold text-lg">$18,230.00</span>
                     <span>Sales Over Time</span>
@@ -194,14 +194,14 @@
                     </span>
                     <span class="text-muted">Since last month</span>
                   </p>
-                </div>
+                </div> -->
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
                   <canvas id="sales-chart" height="200"></canvas>
                 </div>
 
-                <div class="d-flex flex-row justify-content-end">
+                <!-- <div class="d-flex flex-row justify-content-end">
                   <span class="mr-2">
                     <i class="fas fa-square text-primary"></i> This year
                   </span>
@@ -209,7 +209,7 @@
                   <span>
                     <i class="fas fa-square text-gray"></i> Last year
                   </span>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- /.card -->
@@ -285,5 +285,7 @@
     </div>
   </aside>
   <!-- /.control-sidebar -->
+
+
 
 <%@ include file="/views/admin/common/footer.jsp" %>

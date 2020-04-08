@@ -7,12 +7,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
 import com.web.gallery.model.vo.Gallery;
+import com.web.gallery.model.vo.Reply;
 
 public class GalleryDao {
 	private Properties prop = new Properties();
@@ -152,6 +154,54 @@ public class GalleryDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<Reply> getReplyList(Connection conn, int gNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getReplyList");
+		List<Reply> list = new ArrayList<Reply>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Reply r = new Reply();
+				r.setgNo(gNo);
+				r.setmNickname(rs.getString("m_nickname"));
+				r.setmNo(rs.getInt("M_NO"));
+				r.setrContent(rs.getString("r_content"));
+				r.setrDate(new SimpleDateFormat("yyyy.MM.dd").format(rs.getDate("r_date")));
+				r.setrNo(rs.getInt("r_no"));
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int insertReply(Connection conn, Reply reply) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertReply");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reply.getgNo());
+			pstmt.setInt(2, reply.getmNo());
+			pstmt.setString(3, reply.getrContent());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
