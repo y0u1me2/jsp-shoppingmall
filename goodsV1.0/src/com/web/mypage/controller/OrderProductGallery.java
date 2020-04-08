@@ -33,11 +33,11 @@ public class OrderProductGallery extends HttpServlet {
 		//System.out.println("확인"+Integer.parseInt(request.getParameter("no")));
 		int cno = Integer.parseInt(request.getParameter("no"));
 		int result = new GalleryService().insertNewGallery(cno);//갤러리 등록
-		
+		System.out.println(result);
 		if(result>0) {		
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().write("<script>alert('갤러리에 등록되었습니다.'); location.replace('"+request.getContextPath()+"/gallery/list');</script>");
-		}else { //비밀번호 잘못 입력시 전 페이지로 이동
+		}else { 
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().write("<script>alert('갤러리 등록에 실패하였습니다. 관리자에게 문의하세요.'); history.back();</script>");
 		}

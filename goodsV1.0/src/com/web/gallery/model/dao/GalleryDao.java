@@ -35,7 +35,7 @@ public class GalleryDao {
 			pstmt.setInt(1, cNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
