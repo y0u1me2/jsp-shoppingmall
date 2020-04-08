@@ -25,7 +25,8 @@ div.content-wrapper {
 div.goodsback {
 	height: auto;
 	position: relative;
-	top: 100px;
+		top: 50px;
+	margin-bottom:25px;
 	width: 100%;
 }
 
@@ -134,7 +135,7 @@ button.pColor-minus {
 <div class="content-wrapper">
 
 	<div class="goodsback">
-		<br> <br>
+
 		<h1 id="one">상품등록</h1>
 		<hr id="gline">
 		<br> <br>

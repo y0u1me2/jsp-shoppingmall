@@ -31,8 +31,7 @@ div.back {
 	position: relative;
 	left: 110px;
 	top: 50px;
-	height: 1100px;
-	margin-bottom:150px;
+	margin-bottom:25px;
 }
 
 /* content 공간 */
@@ -208,7 +207,7 @@ div#pageBar a {
 	<div class="back">
 
 		<div class="goodsback">
-			<br> <br>
+
 
 			<h1 id="title">전체1:1문의 목록</h1>
 			<hr id="gline">
