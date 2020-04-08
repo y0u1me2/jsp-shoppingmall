@@ -522,7 +522,7 @@
 	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="<%=ol.getcNo()%>"></td>
 	                        		<td><%=ol.getoNo() %></td>
 	                        		<td>
-	                        			<img src="<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>" width="50px" height="50px"/>
+	                        			<img src="<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>" width="100x" height="100px"/>
 	                        			<%=ol.getpName() %> <%=ol.getcColor() %>
 	                        		</td>
 	                        		<td><%=ol.gettPrice()*ol.getoQuan() %>원</br><%=ol.getoQuan() %>개</td>
