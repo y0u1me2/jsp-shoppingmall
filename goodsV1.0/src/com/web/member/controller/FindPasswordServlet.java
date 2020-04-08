@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import com.web.member.model.service.MemberService;
 import com.web.member.model.vo.Member;
 
@@ -35,13 +37,30 @@ public class FindPasswordServlet extends HttpServlet {
 		String email=request.getParameter("email");
 		String userName=request.getParameter("userName");
 		Member m=new MemberService().searchEmailGetMember(email);
+		JSONObject obj = new JSONObject();
 		if(userName.equals(m.getM_Name())) {//메일의 이름과 입력창의 이름이 같으면
+			//값 전달함			
+			try{
+		        obj.put("same", true);
+		    }catch (Exception e) {    
+		    	e.printStackTrace();
+		    }
+
 			//새로운 비밀번호 생성 후 
-			String newPw=getRandomPassword(13);
-			request.setAttribute("password", newPw);
-			RequestDispatcher rd=request.getRequestDispatcher("/memberPwEmailSend");
-			rd.forward(request, response);
-		}		
+//			String newPw=getRandomPassword(13);
+//			request.setAttribute("password", newPw);
+//			RequestDispatcher rd=request.getRequestDispatcher("/memberPwEmailSend");
+//			rd.forward(request, response);
+		}else {
+			try{
+		        obj.put("same", false);
+		    }catch (Exception e) {    
+		    	e.printStackTrace();
+		    }
+		}
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(obj.toString());
 	}
 	//임시 비밀번호 생성기
 	public static String getRandomPassword(int len) {

@@ -211,9 +211,7 @@ img#leftLogo{
 						<button type="button"><a href="<%=request.getContextPath() %>/schome"
 						style="text-decoration:none;">고객센터</a></button>
 					</li>
-
-				
-
+					
 					<%
 						if (loginMember == null || loginMember != null&&emailCheck.equals("N")) {
 					%>
@@ -250,8 +248,8 @@ img#leftLogo{
 							</button>
 						</li>
 						<li>
-						<button type="button"><a href="<%=request.getContextPath() %>/orderDelivery">주문/배송</a></button>
-					</li>
+							<button type="button">주문/배송</button>
+						</li>
 						<li>
 							<button type="button"><a href="<%=request.getContextPath() %>/cart"
 							style="text-decoration:none;">장바구니</a></button>
