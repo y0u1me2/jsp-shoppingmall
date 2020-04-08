@@ -22,9 +22,9 @@ Product 에코백 = service.getProduct(12);
     #goodslogo {
         animation: bounceInDown 4s;
         text-align: center;
-        padding-left: 450px;
+        padding-left: 400px;
         width: 500px;
-        right: 200px;
+        right: 300px;
     }
 
     /* 타이핑 텍스트 */
