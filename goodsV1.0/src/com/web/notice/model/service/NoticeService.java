@@ -117,6 +117,14 @@ public class NoticeService {
 		return list;
 	}
 	
+	public int commentDt(int ncNo) {
+		Connection conn=getConnection();
+		int result=dao.commentDt(conn,ncNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 	
 	
 }
