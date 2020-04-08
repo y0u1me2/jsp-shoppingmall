@@ -469,10 +469,10 @@ img#leftLogo{
 					</h4>
 				</div>
 				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>	
@@ -487,10 +487,10 @@ img#leftLogo{
 					</h4>
 				</div>
 				<div class="enrol lEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>	
@@ -505,14 +505,14 @@ img#leftLogo{
 					<h4>이메일을 확인하여 인증을 완료해주세요.</h4>
 				</div>
 				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>	
 		</div>
-		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("N")) {%>
+		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&(emailCheck.equals("N")||m_status.equals("N"))) {%>
 		<div class="modal-back" id="enrollEnd" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
@@ -521,10 +521,10 @@ img#leftLogo{
 					관리자에게 문의하여주세요.</h4>
 				</div>
 				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>	
 		</div>

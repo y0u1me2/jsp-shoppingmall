@@ -1,17 +1,11 @@
 ﻿
-//드롭다운 메뉴
-//$(function() {
-
-// 서브메뉴가 처음화면엔 안보이게 숨김
-$("ul.subMenu").show();
-// 메인메뉴 li에 마우스 클릭하면
-//$("ul.mainMenu").mouseenter(function () {
-//    $(".subMenu").slideDown(1000);
-//})
-//$(".topMenu").mouseleave(function () {
-//    $(".subMenu").slideUp(1000);
-//})
-
+//상태 팝업
+$('.enrollEnd').siblings().click(function(){
+	$('#enrollEnd').css('display', 'none');
+})
+$('.close-btn').siblings().click(function() {
+	$('#enrollEnd').css('display', 'none');
+})
 
 // 로그인, 회원가입 팝업
 
