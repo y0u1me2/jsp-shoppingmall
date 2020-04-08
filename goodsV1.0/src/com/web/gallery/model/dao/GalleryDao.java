@@ -1,5 +1,5 @@
 package com.web.gallery.model.dao;
-import static com.web.common.JDBCTemplate.*;
+import static com.web.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.web.gallery.model.vo.Gallery;
 import com.web.gallery.model.vo.Reply;
+import com.web.mypage.vo.ODMember;
 
 public class GalleryDao {
 	private Properties prop = new Properties();
@@ -37,7 +38,7 @@ public class GalleryDao {
 			pstmt.setInt(1, cNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -185,6 +186,29 @@ public class GalleryDao {
 				list.add(r);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public List<ODMember> statusGallery(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ODMember> list= new ArrayList();
+		String sql = prop.getProperty("statusGallery");
+		try {
+			pstmt=conn.prepareStatement("select GALLERY_STATUS from custom where m_no=?");
+			pstmt.setInt(1, mNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				ODMember odm=new ODMember();
+				odm.setGalleryStatus(rs.getString("GALLERY_STATUS"));
+				list.add(odm);
+			}
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rs);

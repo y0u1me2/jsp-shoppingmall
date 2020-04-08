@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.gallery.model.service.GalleryService;
 import com.web.member.model.vo.Member;
 import com.web.mypage.service.OrderDeliveryService;
-import com.web.mypage.vo.OrderDeliveryMember;
+import com.web.mypage.vo.ODMember;
 
 
 @WebServlet("/orderDelivery")
@@ -28,13 +29,14 @@ public class OrderDeliveryServlet extends HttpServlet {
 		//int login2 = Integer.parseInt(request.getParameter("mNo"));
 		Member lm = (Member)request.getSession().getAttribute("loginedMember");
 		int login = lm.getM_No();
-		System.out.println(login);
-		List <OrderDeliveryMember> od = new OrderDeliveryService().OrderDeliveryMember(login);
-		for(OrderDeliveryMember d : od) {
-			System.out.println(d);
-		}
-		request.setAttribute("od",od);
 		
+//		List<ODMember> list= new GalleryService().statusGallery(login);
+//		String[] statuss = new String[list.size()];
+		
+		List <ODMember> od = new OrderDeliveryService().OrderDeliveryMember(login);
+		System.out.println(od);
+		
+		request.setAttribute("od",od);
 		request.getRequestDispatcher("/views/client/mypage/OrderInquiry.jsp")
 		.forward(request, response);
 	}

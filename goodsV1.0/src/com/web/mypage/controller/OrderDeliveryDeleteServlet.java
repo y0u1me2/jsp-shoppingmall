@@ -31,7 +31,7 @@ public class OrderDeliveryDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int no =Integer.parseInt(request.getParameter("no"));
-	
+		
 		
 		int result = new OrderDeliveryService().orderDelete(no);
 		String msg = "";

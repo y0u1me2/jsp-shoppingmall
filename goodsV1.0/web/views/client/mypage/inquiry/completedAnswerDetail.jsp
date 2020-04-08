@@ -106,7 +106,12 @@ table#tbl-detail td {
         outline: none;
     } 
 }
-
+h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
+}
 </style>
 
 <%@ include file="/views/client/common/header.jsp"%>
@@ -130,7 +135,7 @@ table#tbl-detail td {
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
 			<li><a href="<%=request.getContextPath()%>/myInquiryList"
-			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의내역</a></li>
+			style="color:#0E0E0E; font-weight: bold;">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>

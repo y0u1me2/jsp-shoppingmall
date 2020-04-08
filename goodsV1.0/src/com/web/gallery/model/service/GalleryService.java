@@ -1,5 +1,8 @@
 package com.web.gallery.model.service;
-import static com.web.common.JDBCTemplate.*;
+import static com.web.common.JDBCTemplate.close;
+import static com.web.common.JDBCTemplate.commit;
+import static com.web.common.JDBCTemplate.getConnection;
+import static com.web.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -8,6 +11,7 @@ import java.util.List;
 import com.web.gallery.model.dao.GalleryDao;
 import com.web.gallery.model.vo.Gallery;
 import com.web.gallery.model.vo.Reply;
+import com.web.mypage.vo.ODMember;
 
 public class GalleryService {
 	private GalleryDao dao = new GalleryDao();
@@ -71,6 +75,14 @@ public class GalleryService {
 	public List<Reply> getReplyList(int gNo) {
 		Connection conn = getConnection();
 		List<Reply> list = dao.getReplyList(conn, gNo);
+		close(conn);
+		return list;
+	}
+
+	
+	public List<ODMember> statusGallery(int cNo) {
+		Connection conn = getConnection();
+		List<ODMember> list = dao.statusGallery(conn,cNo);
 		close(conn);
 		return list;
 	}

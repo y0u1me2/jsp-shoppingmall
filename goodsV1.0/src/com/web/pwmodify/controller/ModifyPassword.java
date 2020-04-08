@@ -53,7 +53,6 @@ public class ModifyPassword extends HttpServlet {
 			response.getWriter().write("<script>alert('비밀번호가 변경되었습니다. 다시로그인 해주세요'); location.replace('"+request.getContextPath()+"/');</script>");
 
 			
-			
 		}else { //비밀번호 잘못 입력시 전 페이지로 이동
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.'); history.back();</script>");
