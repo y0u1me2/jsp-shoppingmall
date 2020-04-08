@@ -423,7 +423,7 @@ $(function(){
 })
 
 function mno(){
-	$('#mNo').val("<%=loginMember.getM_No()%>");
+	$('#mNo').val('<%=loginMember!=null?loginMember.getM_No():""%>');
 	return true;
 }
 
