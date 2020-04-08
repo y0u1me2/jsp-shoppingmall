@@ -192,6 +192,24 @@ public class GalleryDao {
 		}
 		return list;
 	}
+
+	public int insertReply(Connection conn, Reply reply) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertReply");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reply.getgNo());
+			pstmt.setInt(2, reply.getmNo());
+			pstmt.setString(3, reply.getrContent());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

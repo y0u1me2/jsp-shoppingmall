@@ -74,4 +74,14 @@ public class GalleryService {
 		close(conn);
 		return list;
 	}
+
+
+	public int insertReply(Reply reply) {
+		Connection conn = getConnection();
+		int result = dao.insertReply(conn, reply);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

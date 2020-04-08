@@ -245,20 +245,20 @@
 		<%for(Gallery g : list){ %>
 		      <div class="board">
 		      		
-		      	  <%-- <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		      	  <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
-		          <p>다운로드횟수: <%=g.getDownCnt()%></p>
+		          <p>다운로드수: <%=g.getDownCnt()%></p>
 		          <p>조회수: <%=g.getViewCnt()%></p>
-		          <p>등록일: <%=g.getEnrollDate()%></p> --%>
+		          <p>등록일: <%=g.getEnrollDate()%></p>
 		      
 		      
-		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		          <%-- <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
 		          <p>
 		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/download_icon.png" style="width:20px; height:20px;"> <%=g.getDownCnt()%></span>
 		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/views_icon.png" style="width:20px; height:20px;"> <%=g.getViewCnt()%></span>
 		          </p>
-		          <p>등록일: <%=g.getEnrollDate()%></p>
+		          <p>등록일: <%=g.getEnrollDate()%></p> --%>
 		      </div>
 		<%} %>
 		      
@@ -278,12 +278,16 @@
 		<span id="caption"></span>
 		
 		<button type="button" id="modalBtn">이미지 다운로드</button>
-		<form>
-			<input type="text" name="content" autocomplete="off">
-			<input type="hidden" name="rNo">
+		<%if(loginMember!=null){ %>
+		<form method="post" action="<%=request.getContextPath() %>/gallery/replyInsert" onsubmit="return mno();">
+			<input type="text" name="content" autocomplete="off" maxlength="100">
 			<input type="hidden" id="gNo" name="gNo">
+			<input type="hidden" id="mNo" name="mNo">
 			<button>댓글 등록</button>
 		</form>
+		<%}else{ %>
+		<p>댓글은 로그인 후 작성하실 수 있습니다.</p>
+		<%} %>
 		<div id="replyList"></div>
 	</div>
 	
@@ -417,6 +421,11 @@ $(function(){
 	});
 	
 })
+
+function mno(){
+	$('#mNo').val("<%=loginMember.getM_No()%>");
+	return true;
+}
 
 </script>
 
