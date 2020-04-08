@@ -539,7 +539,7 @@
                 <span style="padding-left: 100px; padding-right: 21px;">01. 장바구니</span>
                 <span style=>></span>
                 <span style="color: black; font-size: 20px; padding-left: 10px; padding-right: 20px;
-                        font-weight:900; padding-bottom: 15px; padding-top: 17px;">02. 주문/결제</span>
+                        font-weight:900; padding-bottom: 16.5px; padding-top: 17px;">02. 주문/결제</span>
                 <span style=>></span>
                 <span style="padding-right: 100px; padding-left: 21px;">03. 주문완료</span>
             </div>
@@ -587,10 +587,9 @@
                             <div class="names">
                                 <h3 style="font-size: 18px;"><%=c.getcName()%></h3>
                                 <input type="hidden" name="cNo" value="<%=c.getcCno()%>">
-                                <h4 style="font-size: 14px; padding-top: 7px;">kh정보교육원</h4>
                             </div>
                             <div class="date" style="padding:20px 0 0 0; color:#99844b; font-size: 12px;">
-                                <span>2020.02.10 출고예정</span>
+                                <span>GoodGoods</span>
                             </div>
                         </td>
                         <td><span class="format-comar"><%=quan[j]%>개</span>
@@ -690,7 +689,7 @@
                                             <div class="input-box-large">
                                                 <label></label>
                                                 <div>
-                                                    <input class="pilsu" name="userEmail" id="userEmail" value="">
+                                                    <input type="email" class="pilsu" name="userEmail" id="userEmail" value="">
                                                 </div>
                                             </div>
                                         </td>

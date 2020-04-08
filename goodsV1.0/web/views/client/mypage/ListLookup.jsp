@@ -81,7 +81,7 @@ color:#5F5D5D;
            <ul class="lnb_list">
 			<li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li>
 			<br>
-			<li><a href="<%=request.getContextPath()%>/listLookUp"
+			<li><a href="#"
 			style="color:#0E0E0E; font-weight: bold;">찜 목록 조회</a></li>
 			<br>
 			<li><a href=>반품/환불</a></li>

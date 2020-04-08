@@ -1,17 +1,11 @@
 ﻿
-//드롭다운 메뉴
-//$(function() {
-
-// 서브메뉴가 처음화면엔 안보이게 숨김
-$("ul.subMenu").show();
-// 메인메뉴 li에 마우스 클릭하면
-//$("ul.mainMenu").mouseenter(function () {
-//    $(".subMenu").slideDown(1000);
-//})
-//$(".topMenu").mouseleave(function () {
-//    $(".subMenu").slideUp(1000);
-//})
-
+//상태 팝업
+$('.enrollEnd').siblings().click(function(){
+	$('#enrollEnd').css('display', 'none');
+})
+$('.close-btn').siblings().click(function() {
+	$('#enrollEnd').css('display', 'none');
+})
 
 // 로그인, 회원가입 팝업
 
@@ -292,5 +286,40 @@ if (loginResult == 'Y') {
 }
 
 
+//비번찾기
+console.log($(".top>form>input"));
+$(".top>form>input").blur(function() {
+	console.log("아니??");
+	console.log($(this).val());
+	if(!$(this).val().equals("")) {
+		$.ajax({
+			url: contextPath+'/checkEmailDuplicate',
+	        type: 'post',
+	        data: { email: $('#email').val() },
+			success:function(resp){	  
+				if(resp.isUseAble) {
+					console.log("닉성공시 : "+resp.isUseAble);
+					$('#email').siblings('span').remove();
+					$('#email').removeClass('error');//이메일 확인창에 error 클래스 지우고
+					$('#email').after($('<span>').html('등록한 이메일 입니다.').addClass('correct'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시한다.
+					
+					$.ajax({//이메일 보내서 이름 일치여부 확인
+						url: contextPath+'/findPassword',
+						type: 'post',
+						data: { email: $('#email').val(), userName: $('#userName').val() },
+						success:function(findPw){		
+						}
+					})
+				}else {
+					console.log("닉실패시 : "+resp.isUseAble);
+					$('#email').siblings('span').remove();
+					$('#email').addClass('error');  //input에 error 클래스 추가하고
+					$('#email').after($('<span>').html('등록한 이메일이 없습니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+				}
+			}
+		})   
+	}//if
+})//blur
+	
 
 

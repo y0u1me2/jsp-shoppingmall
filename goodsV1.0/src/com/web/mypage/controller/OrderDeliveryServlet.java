@@ -34,7 +34,6 @@ public class OrderDeliveryServlet extends HttpServlet {
 //		String[] statuss = new String[list.size()];
 		
 		List <ODMember> od = new OrderDeliveryService().OrderDeliveryMember(login);
-		System.out.println(od);
 		
 		request.setAttribute("od",od);
 		request.getRequestDispatcher("/views/client/mypage/OrderInquiry.jsp")

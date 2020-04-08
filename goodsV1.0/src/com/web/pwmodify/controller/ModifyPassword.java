@@ -35,9 +35,6 @@ public class ModifyPassword extends HttpServlet {
 		String pw = request.getParameter("password");
 		String pw2 = request.getParameter("password_new");
 		
-		System.out.println(email);
-		System.out.println(pw);
-		
 		int result = new ModifyPasswordService().Pwmodify(email,pw);
 		
 		HttpSession session=request.getSession(false);

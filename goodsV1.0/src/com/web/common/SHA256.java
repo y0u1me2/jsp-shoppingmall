@@ -22,8 +22,10 @@ public class SHA256 {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("나는 SHA-256 result입니다. : "+result);
-		System.out.println("나는 SHA-256 toString입니다. : "+result.toString());
+		/*
+		 * System.out.println("나는 SHA-256 result입니다. : "+result);
+		 * System.out.println("나는 SHA-256 toString입니다. : "+result.toString());
+		 */
 		return result.toString();
 	}
 }
