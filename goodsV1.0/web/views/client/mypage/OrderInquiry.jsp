@@ -118,7 +118,7 @@ color:#5F5D5D;
     .box{
         border-top: 1px solid #adadad;
         border-collapse: collapse;
-        width: 97%;
+        width: 100%;
     }
 
     /*주문배송내역 텍스트*/
@@ -207,7 +207,7 @@ color:#5F5D5D;
 			<li><a href="<%=request.getContextPath()%>/orderDelivery"
 			style="color:#0E0E0E; font-weight: bold;">주문/배송 조회</a></li>
 			<br>
-			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
+			<li><a href="#">찜 목록 조회</a></li>
 			<br>
 			<li><a href=>반품/환불</a></li>
 			<br>
@@ -262,7 +262,7 @@ color:#5F5D5D;
                     <table class="box">
                      <colgroup>
                      <!-- 주문자정보 테이블 헤더/바디 크기 -->
-                         <col style="width: 60px;">
+                         <col style="width: 70px;">
                          <col style="width: 90px;">
                          <col style="width: 200px;">
                          <col style="width: 120px;">
