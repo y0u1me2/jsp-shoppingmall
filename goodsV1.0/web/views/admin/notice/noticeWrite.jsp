@@ -52,7 +52,6 @@
 <section>
 	<div class="back">
 		<div class="writeback">
-			<br><br>
 			<h1 id="one">공지사항 글쓰기</h1>
 			<hr id="gline">
 			<br><br>
