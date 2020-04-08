@@ -224,7 +224,11 @@
 				<td>
 					<sup class="cm-writer"><%=nc.getNickName() %></sup>&nbsp&nbsp&nbsp
 					<sup><%=nc.getNcDate() %></sup>
+					<%if(loginMember!=null&&loginMember.getM_No()==nc.getmNo()) {%>
+					&nbsp&nbsp&nbsp<sup><a href="<%=request.getContextPath()%>/notice/noticeCommentDt?ncNo=<%=nc.getNcNo()%>&nNo=<%=nc.getnNo()%>">[댓글삭제]</a></sup>
+					<%} %>
 					</br>
+					
 					<p><%=nc.getNcContent() %></p>
 				</td>
 				<td>
@@ -234,8 +238,11 @@
 			<%}else if(nc.getNcLevel()==2){ %>
 			<tr class="level2" style="background-color:#f7f7f7">
 				<td>
-					<sup class="cm-writer"><%=nc.getNickName() %></sup>&nbsp&nbsp&nbsp
+					<sup class="cm-writer"><span style="font-weight:light">ㄴ </span><%=nc.getNickName() %></sup>&nbsp&nbsp&nbsp
 					<sup><%=nc.getNcDate() %></sup>
+					<%if(loginMember!=null&&loginMember.getM_No()==nc.getmNo()) {%>
+					&nbsp&nbsp&nbsp<sup><a href="<%=request.getContextPath()%>/notice/noticeCommentDt?ncNo=<%=nc.getNcNo()%>&nNo=<%=nc.getnNo()%>">[댓글삭제]</a></sup>
+					<%} %>
 					</br>
 					<p><%=nc.getNcContent() %></p>
 				</td>

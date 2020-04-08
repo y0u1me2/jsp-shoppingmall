@@ -175,12 +175,13 @@ public class ProductDao {
 				c = new Custom();
 				c.setcNo(rs.getInt("C_NO"));
 				c.setColor(rs.getString("C_COLOR"));
-				c.setCompleteFile(rs.getString("c_complete_file"));
+				c.setCompleteFile(rs.getString("C_COMPLETE_FILE"));
 				c.setEnrollDate(rs.getDate("c_enroll_date"));
 				c.setmNo(rs.getInt("m_no"));
 				c.setOriginalFile(rs.getString("c_original_file"));
 				c.setpNo(rs.getInt("p_no"));
 			}
+			System.out.println(c.getCompleteFile());
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

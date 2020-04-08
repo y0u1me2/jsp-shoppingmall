@@ -299,4 +299,19 @@ public class NoticeDao {
 		return list;
 	}
 	
+	public int commentDt(Connection conn,int ncNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("commentDt");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ncNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
