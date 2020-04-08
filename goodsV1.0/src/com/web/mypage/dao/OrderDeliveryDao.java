@@ -53,6 +53,7 @@ public class OrderDeliveryDao {
 				ol.setoName(rs.getString("o_name"));
 				ol.setoDate(rs.getDate("o_date"));
 				ol.setcNo(rs.getInt("c_no"));
+				ol.setGalleryStatus(rs.getString("gallery_status"));
 				list.add(ol);
 			}
 
@@ -82,4 +83,23 @@ public class OrderDeliveryDao {
 		}
 	return result;
 	}
+	
+	public int statusUpdate(Connection conn,int cNo) {
+		PreparedStatement pstmt = null;
+		int sResult=0;
+		String sql = prop.getProperty("statusUpdate");
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, cNo);
+		sResult=pstmt.executeUpdate();
+		
+		}catch (Exception e) {
+		e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+	return sResult;
+	}
+	
 }

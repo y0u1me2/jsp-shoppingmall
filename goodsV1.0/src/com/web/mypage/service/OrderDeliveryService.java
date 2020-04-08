@@ -34,4 +34,17 @@ public class OrderDeliveryService {
 		return result;
 	}
 	
+	public int statusUpdate(int cNo) {
+		Connection conn=getConnection();
+		int sResult= dao.statusUpdate(conn,cNo);
+		if(sResult>0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return sResult;
+	}
+	
 }

@@ -1,7 +1,6 @@
 package com.web.mypage.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.gallery.model.service.GalleryService;
-import com.web.mypage.vo.ODMember;
+import com.web.mypage.service.OrderDeliveryService;
 
 /**
  * Servlet implementation class OrderProductGallery
@@ -34,15 +33,22 @@ public class OrderProductGallery extends HttpServlet {
 		// TODO Auto-generated method stub
 		//System.out.println("확인"+Integer.parseInt(request.getParameter("no")));
 		int cno = Integer.parseInt(request.getParameter("no"));
+		int sResult = new OrderDeliveryService().statusUpdate(cno);
 		int result = new GalleryService().insertNewGallery(cno);//갤러리 등록
 		
-		if(result>0) {		
-			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('갤러리에 등록되었습니다.'); location.replace('"+request.getContextPath()+"/gallery/list');</script>");
-		}else { 
+		if(sResult>0) {
+			if(result>0) {		
+				response.setContentType("text/html; charset=UTF-8"); 
+				response.getWriter().write("<script>alert('갤러리에 등록되었습니다.'); location.replace('"+request.getContextPath()+"/gallery/list');</script>");
+			}else { 
+				response.setContentType("text/html; charset=UTF-8"); 
+				response.getWriter().write("<script>alert('갤러리 등록에 실패하였습니다. 관리자에게 문의하세요.'); history.back();</script>");
+			}
+		}else {
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().write("<script>alert('갤러리 등록에 실패하였습니다. 관리자에게 문의하세요.'); history.back();</script>");
 		}
+		
 				
 		
 		

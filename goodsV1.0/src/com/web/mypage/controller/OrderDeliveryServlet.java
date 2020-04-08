@@ -33,10 +33,6 @@ public class OrderDeliveryServlet extends HttpServlet {
 //		List<ODMember> list= new GalleryService().statusGallery(login);
 //		String[] statuss = new String[list.size()];
 		
-		
-		
-		
-		
 		List <ODMember> od = new OrderDeliveryService().OrderDeliveryMember(login);
 		System.out.println(od);
 		
