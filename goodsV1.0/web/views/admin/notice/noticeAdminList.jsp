@@ -362,11 +362,7 @@
 
 <section style="height:auto;">
         <div class="back">
-
-    
         <div class="goodsback">
-            <br><br>
-
             <h1 id="one">공지사항 조회/목록</h1>
             <hr id="gline">
             <br/><br/>
@@ -510,7 +506,7 @@
                         <%if (list.isEmpty()) {%>
                              <tr>
                               <td id="conbox" colspan='7'>
-                                 <p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
+                                 <p style="padding:100px 0; margin:0;font-size:20px">검색된 회원 내역이 없습니다.</p>
                               </td>
                            </tr>
                         <%} else { %>

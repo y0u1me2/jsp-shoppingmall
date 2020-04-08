@@ -360,8 +360,6 @@
 
     
         <div class="goodsback">
-            <br><br>
-
             <h1 id="one">주문 전체관리</h1>
             <hr id="gline">
             <br/><br/>
@@ -513,7 +511,7 @@
                         	   <%if(list.size()==0){ %> 
                         	   <tr>
 	                        		<td id="conbox" colspan='8'>
-	                        			<p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
+	                        			<p style="padding:100px 0; margin:0;font-size:20px">검색된 회원 내역이 없습니다.</p>
 	                        		</td>
 	                        	</tr>
 	                        	<%}else {
