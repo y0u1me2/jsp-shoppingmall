@@ -401,7 +401,7 @@
 
                                     <div id="search_All">
                                        <form action="<%=request.getContextPath()%>/admin/noticeList">
-                                          <input type="hidden" name="searchType" value="All"/>
+                                          <input type="hidden" name="searchType" value=""/>
                                           <input type="text" name="searchKeyword"  placeholder="전체 검색" readonly/>
                                            <button type="submit" class="btn_Search">검색</button>
                                         </form>
