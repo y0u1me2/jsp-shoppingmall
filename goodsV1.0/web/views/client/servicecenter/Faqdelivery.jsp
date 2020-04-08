@@ -176,7 +176,7 @@
     padding-left: 13px;
     line-height: 25px;
     font-size: 16px;
-    color: #000;
+    color: #949494;
     background: transparent url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg) no-repeat left 6px;
 }
         .senter>li>a{
@@ -186,6 +186,13 @@
         ul{
             list-style:none;
         }
+        h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
+}
+        
     </style>
     
     <section>
@@ -197,8 +204,8 @@
 
             <ul class="lnb_list">
                 <li><a href="<%=request.getContextPath() %>/schome">고객센터 Home</a></li><br />
-                <li><a href="">공지사항</a></li><br />
-                <li><a href="<%=request.getContextPath() %>/faqPay?cg=FAQ_1" style="color: rgb(23, 7, 248); font-weight: bolder;">FAQ</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/notice/noticeList">공지사항</a></li><br />
+                <li><a href="<%=request.getContextPath() %>/faqPay?cg=FAQ_1" style="color:#0E0E0E; font-weight: bolder;">FAQ</a></li><br />
                 <li><a href="">이벤트</a></li><br />
                 <li><a href="">이용안내</a></li><br />
                 <li><a href="">제작 가이드</a></li><br />

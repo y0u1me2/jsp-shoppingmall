@@ -256,7 +256,7 @@
 	</div>
 	<div id="comment-container">
 				<form action="<%=request.getContextPath() %>/notice/noticeComment" method="post" onsubmit="return nosubmit();">
-					<input type="text" name="commentContent" class="comment-content" />
+					<input type="text" name="commentContent" class="comment-content" id="comment-con" />
 					<button type="submit" id="btn-insert" class="btn-insert">댓글등록</button>
 					<input type="hidden" name="noticeNo" value="<%=n.getnNo()%>"/>
 					<input type="hidden" name="commentWriter" value="<%=loginMember!=null?loginMember.getM_No():""%>"/>
@@ -303,7 +303,8 @@
 			const form=$("<form>").attr({
 				"action":"<%=request.getContextPath()%>/notice/noticeComment",
 				"method":"post",
-				"width":"100%"
+				"width":"100%",
+				"onsubmit":"return nosubmit();"
 			});
 			const boardRef=$("<input>").attr({
 					"type":"hidden",
@@ -322,7 +323,8 @@
 			});
 			const comment=$("<input>").attr({
 				"type":"text",
-				"name": "commentContent"
+				"name": "commentContent",
+				"class":"comment-content",
 			}).css({
 				"width":"950px",
 				"height":"50px"
@@ -346,7 +348,7 @@
 	})
 	//서밋 안시키기
 	function nosubmit(){
-		if($("#comment-content").val().length<1){
+		if($(".comment-content").val().length==0){
 			return false;
 		}else{
 			return true;

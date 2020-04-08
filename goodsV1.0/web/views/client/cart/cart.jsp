@@ -499,9 +499,9 @@ dd {
 									<div
 										style="padding: 18px 0; height: 14px; border-top: 1px dashed rgb(218, 218, 218); padding-bottom: 25px;">
 										<span style="float: left; font-size: 12px;">
-											<button type="button" class="cPEdit">편집하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
+											<span style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
 											<button type="button" class="cLDelete">삭제하기</button>
+											<span style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
 											<form class="cartDeleteF" action="<%=request.getContextPath()%>/cart/cartListDelete" method="post">
 												<input type="hidden" class="cLDeleteNo" name="cLDeleteNo" value=<%=c.getcCno()%>>
 											</form>

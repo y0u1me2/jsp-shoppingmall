@@ -35,7 +35,7 @@ public class FaqPayServlet extends HttpServlet {
 //		int no=Integer.parseInt(request.getParameter("no"));
 		String cg=request.getParameter("cg");
 		List<FAQ> list= new FAQService().selectCategory(cg);
-		System.out.println(list.toString());
+	//	System.out.println(list.toString());
 		request.setAttribute("faq", list);
            		
 		request.getRequestDispatcher("/views/client/servicecenter/Faqmember.jsp").forward(request, response);

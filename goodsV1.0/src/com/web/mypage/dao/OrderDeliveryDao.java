@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.web.admin.inquiry.model.dao.AdminInquiryDao;
-import com.web.mypage.vo.OrderDeliveryMember;
+import com.web.mypage.vo.ODMember;
 
 public class OrderDeliveryDao {
 
@@ -30,12 +30,12 @@ public class OrderDeliveryDao {
 		}
 	}
 
-	public List<OrderDeliveryMember> OrderDeliveryMember(Connection conn, int login) {
+	public List<ODMember> OrderDeliveryMember(Connection conn, int login) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = prop.getProperty("OrderDeliveryMember");
 
-		List<OrderDeliveryMember> list = new ArrayList();
+		List<ODMember> list = new ArrayList();
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class OrderDeliveryDao {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				OrderDeliveryMember ol = new OrderDeliveryMember();
+				ODMember ol = new ODMember();
 				ol.setoNo(rs.getInt("o_no"));
 				ol.setCfileName(rs.getString("c_complete_file"));
 				ol.setpName(rs.getString("p_name"));
@@ -53,6 +53,7 @@ public class OrderDeliveryDao {
 				ol.setoName(rs.getString("o_name"));
 				ol.setoDate(rs.getDate("o_date"));
 				ol.setcNo(rs.getInt("c_no"));
+				ol.setGalleryStatus(rs.getString("gallery_status"));
 				list.add(ol);
 			}
 
@@ -82,4 +83,23 @@ public class OrderDeliveryDao {
 		}
 	return result;
 	}
+	
+	public int statusUpdate(Connection conn,int cNo) {
+		PreparedStatement pstmt = null;
+		int sResult=0;
+		String sql = prop.getProperty("statusUpdate");
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, cNo);
+		sResult=pstmt.executeUpdate();
+		
+		}catch (Exception e) {
+		e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+	return sResult;
+	}
+	
 }

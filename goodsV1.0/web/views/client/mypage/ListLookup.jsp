@@ -33,7 +33,7 @@
 	padding-left: 13px;
 	line-height: 25px;
 	font-size: 16px;
-	color: #000;
+	color: #949494;
 	background: transparent
 		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
 		no-repeat left 6px;
@@ -51,7 +51,12 @@
             /* height: 600px; */
             
         }
-
+h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
+}
 /* ======================================================================== */
     /* 섹션 스타일 */
     .back{
@@ -76,8 +81,8 @@
            <ul class="lnb_list">
 			<li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li>
 			<br>
-			<li><a href="<%=request.getContextPath()%>/listLookUp"
-			style="color: rgb(23, 7, 248); font-weight: bold;">찜 목록 조회</a></li>
+			<li><a href="#"
+			style="color:#0E0E0E; font-weight: bold;">찜 목록 조회</a></li>
 			<br>
 			<li><a href=>반품/환불</a></li>
 			<br>
