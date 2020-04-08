@@ -213,7 +213,7 @@
          <%} %>
 	</div>
 	<div class="content">
-		<p class="context"><%=n.getnContent() %></p>
+		<pre class="context"><%=n.getnContent() %></pre>
 	</div>
 	<div id="nc_container">
 		<table id="nc_tbl">

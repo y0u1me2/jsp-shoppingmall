@@ -420,7 +420,7 @@
                                      <div id="search_o_date">
                                      	<form action="<%=request.getContextPath()%>/admin/orderFinder">
 	                                    	<input type="hidden" name="searchType" value="o_date"/>
-	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 구매날짜 입력"/>
+	                                    	<input type="text" name="searchKeyword" value="" placeholder="날짜 입력[형식을 맞춰주세요 ex)20200301]"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
                                     	</form>
                                     </div>

@@ -48,7 +48,7 @@ public class PaymentOrderServlet extends HttpServlet {
 		// String[] pName=request.getParameterValues("pName");//상품 이름
 		String[] oQuan = request.getParameterValues("pQuan");// 수량
 		String pQuans = String.join(",", oQuan);
-		String tPrice = request.getParameter("totalPrice");// 총금액
+		String tPrice = request.getParameter("payAmount");// 총금액
 		String oName = request.getParameter("userName");// 주문자 유저이름
 		String orderUserPhone1 = request.getParameter("userPhone[0]");// 주문자전화번호
 		String orderUserPhone2 = request.getParameter("userPhone[1]");// 주문자전화번호
@@ -97,7 +97,7 @@ public class PaymentOrderServlet extends HttpServlet {
 
 				String[] cartCooks = cartCook.split("\\|");
 				List<String> list = new ArrayList(Arrays.asList(cartCooks));
-				System.out.println("최초 쿠키값 리스트 : " + list);
+				//System.out.println("최초 쿠키값 리스트 : " + list);
 				for (int j = 0; j < list.size(); j++) {
 					for (int i = 0; i < cNo.length; i++) {
 						if (list.get(j).equals(cNo[i])) {

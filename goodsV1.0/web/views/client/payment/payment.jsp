@@ -1222,9 +1222,9 @@
                           }
                       }
                   }else{
-                     console.log(this);
+                     //console.log(this);
                       if ($(this).attr('name') == "userPhone[2]" && $(this).val().length < 4) {
-                           console.log("언제쯤나오냐");
+                           //console.log("언제쯤나오냐");
                          $(this).removeClass('error');
                             //input에 클래스 에러(있을때) 삭제
                             $(this).siblings('span').remove();
@@ -1309,8 +1309,8 @@
 
        
         function pilsuInput() {
-            console.log("나오나?");
-            console.log($(inputPilsu[0]).val());
+           // console.log("나오나?");
+            //console.log($(inputPilsu[0]).val());
             if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
                 $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
                 $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == "") {
@@ -1345,8 +1345,8 @@
         }
 
         function pilsuInput2() {
-            console.log("나오나?");
-            console.log($(inputPilsu[0]).val());
+           // console.log("나오나?");
+            //console.log($(inputPilsu[0]).val());
             if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
                 $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
                 $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == "") {

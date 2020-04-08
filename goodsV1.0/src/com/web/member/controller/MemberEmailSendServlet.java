@@ -60,15 +60,7 @@ public class MemberEmailSendServlet extends HttpServlet {
 					+ "</div>";
 		
 		Properties p=new Properties();//실제로 smtp서버를 이용하기위한 정보
-//		p.put("mail.smtp.user",from);//사용할 계정
-//		p.put("mail.smtp.host","smtp.googlemail.com");//구글에서 제공하는 smtp 서버
-//		p.put("mail.smtp.port","456");//구글에서 제공하는 포트 번호(정해져잇음)
-//		p.put("mail.smtp.starttls.enable","true");
-//		p.put("mail.smtp.auth","true");
-//		p.put("mail.smtp.debug","true");
-//		p.put("mail.smtp.socketFactory.port","456");
-//		p.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-//		p.put("mail.smtp.socketFactory.fallback","false");
+
 		p.put("mail.smtp.starttls.enable", "true");
 		p.put("mail.transport.protocol", "smtp");
 		p.put("mail.smtp.host", "smtp.gmail.com");

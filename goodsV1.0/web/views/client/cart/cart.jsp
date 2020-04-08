@@ -572,12 +572,12 @@ dd {
 		 $.each($('.pdQuantity'),function(i,item){
 			//최초 로드시 수량 1개로 초기화
 			let quan=$(item);
-			console.log(quan.val());
+			//console.log(quan.val());
 			$(quan).attr("pdQuantity",'1');
 		})
 		$(".cLDelete").click(function(){
 			var result = confirm('선택하신 상품을 삭제하시겠습니까?'); 
-			console.log($(this).next().children());
+			//console.log($(this).next().children());
 			if(result) {
 				$(this).next(".cartDeleteF").submit();
 			}else{
@@ -871,9 +871,9 @@ dd {
 			for (let i = 0; i < productPrice.length; i++) {
 				var amount = new Array();
 				var productAmount = new Array();
-				console.log($(quan[i]).val());
+				//console.log($(quan[i]).val());
 				amount[i] = $(quan[i]).val() * parseInt(productPrice.eq(i).text());
-				console.log(amount[i]);
+				//console.log(amount[i]);
 				var productAmount = quan.parent().parent().parent().next()
 						.children();
 
@@ -909,7 +909,7 @@ dd {
 					var num = target.val();
 					num++;
 					;
-					console.log(target.val(num))
+					//console.log(target.val(num))
 					var quantity = target.val(num);
 					// 1. "," 있는 스트링을 변환
 					var amount = $(this).parent().parent().parent().prev()

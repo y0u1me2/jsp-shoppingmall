@@ -57,7 +57,6 @@ public class GoogleLoginServlet extends HttpServlet {
 		if (m != null&&m_status.equals("Y")&&emailCheck.equals("Y")) {
 			loginResult="Y";		
 		}
-		System.out.println(loginResult);
 		session.setAttribute("loginedMember", m);
 		session.setAttribute("loginResult", loginResult);
 		session.setAttribute("emailCheck", emailCheck);

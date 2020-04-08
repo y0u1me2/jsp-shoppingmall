@@ -1,6 +1,74 @@
 $(function () {
   'use strict'
 
+	
+	function getContextPath() {
+
+		var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+
+		return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+
+	}
+
+	
+	function sortObject(o)
+	{
+	    var sorted = {},
+	    key, a = [];
+
+	    // 키이름을 추출하여 배열에 집어넣음
+	    for (key in o) {
+	        if (o.hasOwnProperty(key)) a.push(key);
+	    }
+
+	    // 키이름 배열을 정렬
+	    a.sort();
+
+	    // 정렬된 키이름 배열을 이용하여 object 재구성
+	    for (key=0; key<a.length; key++) {
+	        sorted[a[key]] = o[a[key]];
+	    }
+	    return sorted;
+	}
+
+
+
+
+	var visit_date = new Array();
+	var visitor_cnt = new Array();
+	
+	$.ajax({
+		url:getContextPath()+"/admin/ajaxGetVisitor",
+		type:"get",
+		dataType:"json",
+		async:false,
+		success:function(data){
+			data = sortObject(data);
+			for(var key in data){
+				visit_date.push(key);
+				visitor_cnt.push(Number(data[key]));
+			}
+		}
+	});
+	
+	
+	var sales_date = new Array();
+	var sales_cnt = new Array();
+	
+	$.ajax({
+		url:getContextPath()+"/admin/getSales",
+		type:"get",
+		dataType:"json",
+		async:false,
+		success:function(data){
+			data = sortObject(data);
+			for(var key in data){
+				sales_date.push(key);
+				sales_cnt.push(Number(data[key]));
+			}
+		}
+	});
+	
   var ticksStyle = {
     fontColor: '#495057',
     fontStyle: 'bold'
@@ -13,18 +81,20 @@ $(function () {
   var salesChart  = new Chart($salesChart, {
     type   : 'bar',
     data   : {
-      labels  : ['JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+      /*labels  : ['JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],*/
+      labels  : sales_date,
       datasets: [
         {
           backgroundColor: '#007bff',
           borderColor    : '#007bff',
-          data           : [1000, 2000, 3000, 2500, 2700, 2500, 3000]
-        },
+          /*data           : [1000, 2000, 3000, 2500, 2700, 2500, 3000]*/
+          data           : sales_cnt
+        }/*,
         {
           backgroundColor: '#ced4da',
           borderColor    : '#ced4da',
           data           : [700, 1700, 2700, 2000, 1800, 1500, 2000]
-        }
+        }*/
       ]
     },
     options: {
@@ -54,11 +124,11 @@ $(function () {
 
             // Include a dollar sign in the ticks
             callback: function (value, index, values) {
-              if (value >= 1000) {
-                value /= 1000
-                value += 'k'
+              if (value >= 10000) {
+                value /= 10000
+                value += '만원'
               }
-              return '$' + value
+              return value
             }
           }, ticksStyle)
         }],
@@ -76,10 +146,10 @@ $(function () {
   var $visitorsChart = $('#visitors-chart')
   var visitorsChart  = new Chart($visitorsChart, {
     data   : {
-      labels  : ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
+      labels  : visit_date,
       datasets: [{
         type                : 'line',
-        data                : [1, 120, 170, 167, 180, 177, 160],
+        data                : visitor_cnt,
         backgroundColor     : 'transparent',
         borderColor         : '#007bff',
         pointBorderColor    : '#007bff',
@@ -87,18 +157,7 @@ $(function () {
         fill                : false
         // pointHoverBackgroundColor: '#007bff',
         // pointHoverBorderColor    : '#007bff'
-      },
-        {
-          type                : 'line',
-          data                : [60, 80, 70, 67, 80, 77, 100],
-          backgroundColor     : 'tansparent',
-          borderColor         : '#ced4da',
-          pointBorderColor    : '#ced4da',
-          pointBackgroundColor: '#ced4da',
-          fill                : false
-          // pointHoverBackgroundColor: '#ced4da',
-          // pointHoverBorderColor    : '#ced4da'
-        }]
+      }]
     },
     options: {
       maintainAspectRatio: false,
@@ -124,7 +183,7 @@ $(function () {
           },
           ticks    : $.extend({
             beginAtZero : true,
-            suggestedMax: 200
+            suggestedMax: 100
           }, ticksStyle)
         }],
         xAxes: [{

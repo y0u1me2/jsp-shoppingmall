@@ -51,8 +51,6 @@ public class NoticeWriteEndServlet extends HttpServlet {
 		String title=mr.getParameter("title");
 		String writer=mr.getParameter("writer");
 		String content=mr.getParameter("content");
-		System.out.println(title+writer+content);
-		System.out.println("두번돌아?");
 		Enumeration f=mr.getFileNames();
 		String oriFileName="";
 		String reNameFile="";
@@ -60,8 +58,6 @@ public class NoticeWriteEndServlet extends HttpServlet {
 			String name=(String)f.nextElement();
 			reNameFile+=mr.getFilesystemName(name)+",";
 			oriFileName+=mr.getOriginalFileName(name)+",";
-			System.out.println(reNameFile);
-			System.out.println(oriFileName);
 		}
 		Notice n=new Notice(0,writer,title,content,oriFileName,reNameFile,null,0,null);
 		int result=new NoticeService().insertNotice(n);

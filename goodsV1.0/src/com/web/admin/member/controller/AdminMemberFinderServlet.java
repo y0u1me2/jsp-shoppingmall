@@ -83,7 +83,6 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		}
 		
 		
-		System.out.println(type);
 		
 
 		request.setAttribute("totalMember",totalMember);

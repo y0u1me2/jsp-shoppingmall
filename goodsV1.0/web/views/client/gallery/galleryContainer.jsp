@@ -9,10 +9,18 @@
 
             <%for(Gallery g : list){ %>
 		      <div class="board">
-		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		          <%-- <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
 		          <p>다운로드횟수: <%=g.getDownCnt()%></p>
 		          <p>조회수: <%=g.getViewCnt()%></p>
+		          <p>등록일: <%=g.getEnrollDate()%></p> --%>
+		          
+		          <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
+		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
+		          <p>
+		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/download_icon.png" style="width:20px; height:20px;"> <%=g.getDownCnt()%></span>
+		          	<span style="display:inline-block; margin: 0 15;"><img src="<%=request.getContextPath() %>/images/common/views_icon.png" style="width:20px; height:20px;"> <%=g.getViewCnt()%></span>
+		          </p>
 		          <p>등록일: <%=g.getEnrollDate()%></p>
 		      </div>
 			<%} %>
