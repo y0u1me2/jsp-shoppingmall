@@ -67,12 +67,12 @@ color:#5F5D5D;
         height: 50px;
         color: rgb(95, 93, 93);  
     } 
-    #btn1{
-        font-size: 12px;
+    .btn1{
+        font-size: 12px;    
     }
 
     /* 6개월 12개월 24개월 버튼 */
-    #btn1>button{
+    .btn1>button{
         height: 40px;
         width: 70px;
         border: solid 1px rgb(217, 217, 221);
@@ -181,6 +181,17 @@ color:#5F5D5D;
     .uldiv{
     	padding:0px 20%;
     }
+    .iBtn1, .dBtn1{
+    	cursor:pointer;
+   }
+   .iBtn1:hover{
+         background-color:#747474;
+         color:white;
+     }
+    .dBtn1:hover{
+         background-color:#747474;
+           color:white;
+     }
 
 
     </style>
@@ -225,7 +236,7 @@ color:#5F5D5D;
         <div id="bstyle1">
             <table id="box1">
                 <tr>
-                    <td id="btn1">
+                    <td class="btn1">
                         &nbsp;&nbsp;기간별 조회&nbsp;&nbsp;
                         <button>6개월</button>
                         <button>12개월</button>
@@ -251,22 +262,24 @@ color:#5F5D5D;
                     <table class="box">
                      <colgroup>
                      <!-- 주문자정보 테이블 헤더/바디 크기 -->
-                         <col style="width: 80px;">
-                         <col style="width: auto;">
-                         <col style="width: 100px;">
+                         <col style="width: 60px;">
+                         <col style="width: 90px;">
+                         <col style="width: 200px;">
                          <col style="width: 120px;">
                        	 <col style="width: 80px;">
                          <col style="width: 80px;">
                          <col style="width: 80px;">
                          <col style="width: 80px;">
+                         
                      </colgroup>
                      <thead>
                         <tr  id="bstyle">
                             <th>
               	 주문번호             
                             </th>
-                            <th>
-                                상품정보
+
+                            <th colspan="2">
+                   	상품정보        
                             </th>
                             <th>
                                 수량/금액
@@ -290,7 +303,7 @@ color:#5F5D5D;
                         	if(od.isEmpty()){
                         %>
                         <tr>
-                            <td id="conbox" colspan="6" style="right: 250px; left: 50px;"> 
+                            <td id="conbox" colspan="8" style="right: 250px; left: 50px;"> 
                             <p style="padding:30px 0; margin:0; ">주문 배송내역이 없습니다.</p> 
                             </td>
                        	</tr>
@@ -305,23 +318,25 @@ color:#5F5D5D;
                         <%=o.getoNo() %>
                         </td>
                         <td style="text-align: center;">
-                        <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>" style="width:100px; height : 100px; "/>
-                        <span style="display: inline-flex; vertical-align: bottom; padding: 50px 0px 50px;">
+                        <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>" style="width:100px; height : 100px; margin-left: 20px; "/>
+                        </td>
+                        <td>
+                        <span style="display: inline-flex; vertical-align: bottom; padding: 50px 0px 50px; text-align: left; ">
                         <%=o.getpName() %> <%=o.getcColor() %>                
                         </span>
                         </td>
                         <td><%=o.getoQuan() %>개 / <%=o.gettPrice()*o.getoQuan() %>원</td>
                         <td><%=o.getoDate() %></td>
                         <td>배송중</td>
-                        <td id="btn1"><button type="button" onclick="orderDeliverydt();" value="<%=o.getcNo() %>" />삭제</td>
+                        <td class="btn1"><button class="dBtn1" type="button" onclick="orderDeliverydt();" value="<%=o.getcNo() %>" >삭&nbsp&nbsp&nbsp제</button></td>
                        	
                        	<%if(o.getGalleryStatus().equals("N")){ %>
-                        <td id="btn1"><button type="button" id="deleteorder" onclick="orderGallery();" value="<%=o.getcNo()%>"/>
-                        	갤러리 등록
+                        <td class="btn1"><button class="iBtn1"  type="button" id="deleteorder" onclick="orderGallery();" value="<%=o.getcNo()%>" style="font-size:11px;">
+                        	갤러리등록</button>
                         </td>
                         <%}else{ %>
-                        <td id="btn1">
-                        <button style="background-color: black;color: white;" type="button" disabled="disabled">등록완료</button>
+                        <td class="btn1">
+                        <button style="background-color: #eee;color: #989898;" type="button" disabled="disabled">등록완료</button>
                         </td>
                       	<%} %>
                       	
