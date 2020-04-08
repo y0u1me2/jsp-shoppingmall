@@ -131,6 +131,64 @@ img#leftLogo{
 	left:90px;
 }
 
+/* 유의사항 */
+.container {
+            margin: 0;
+            padding: 0;
+        }
+        .top>h1 {
+            margin: 0;
+            padding: 0 0 40px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: normal;
+        }
+        /* 입력창 */
+        .input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid rgb(238, 238, 238);
+            font-size: 14px;
+            cursor: text;
+        }
+        /* 입력창 선택시 */
+        .input:active {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid black;
+            font-size: 14px;
+            cursor: text;
+        }
+         /* 유의사항 */
+         .middle {
+            padding-top: 40px;
+        }
+        .middle>dl>dt>span {
+            margin-bottom: 15px;
+            line-height: 1;
+            font-size: 16px;
+            text-align: left;
+        }
+        .middle>dl>dd {
+            font-size: 12px;
+            text-align: left;
+            color: #666;
+            line-height: 1.67em;
+            padding-left: 8px;
+            margin-bottom: 4px;
+        }
+        .middle>dl>dd>span {
+            text-align: left;
+            color: #e5362c;
+            margin-bottom: 0;
+        }
+        .bottom {
+            padding-top: 108px;
+            margin-bottom: 0;
+        }
+
 </style>
 
 
@@ -311,11 +369,36 @@ img#leftLogo{
 			<!-- 이용약관 팝업-->
 			<div class="modal-findPw animate">
 				<div class="url-html">
-					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/findPw.html" id="htmlPw"></object>
+					<div class="container">
+				        <div class="top">
+				            <h1>아이디/비밀번호 찾기</h1>
+				            <form>
+					            <input id="findPwEmail" type="text" class="input" placeholder="이메일">
+					            <input id="findPwUserName" type="text" class="input" placeholder="이름"> 
+				            </form>     
+				        </div>
+				        <div class="middle">
+				            <dl>
+				                <dt>
+				                    <span>유의사항</span>
+				                </dt>
+				                <dd>
+				                    이메일이 확인이 불가능한 경우, <span>고객센터(1577-4701)</span> 로 연락 주시기 바랍니다.
+				                </dd>
+				                <dd>
+				                    회원님의 이메일 주소로 임시 비밀번호가 발송됩니다.
+				                </dd>
+				                <dd>
+				                    로그인후 비밀번호를 꼭 변경해 주세요.
+				                </dd>
+				            </dl>
+				        </div>        
+				    </div>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeFindPw();" class="close" title="Close Modal">&times;</span>
 				</div>
+            	<button type="submit" class="big-gray-btn">보내기</button>
 			</div>
 		</div>
 		
@@ -365,7 +448,7 @@ img#leftLogo{
 								</tr>
 								<tr>
 									<th>닉네임 <em><sup>*</sup></em></th>
-									<td class="inputEnroll"><input type="text" name="nickName"
+									<td class="inputEnroll"><input id="nickName" type="text" name="nickName"
 										value="" placeholder="닉네임 입력" maxlength="15"></td>
 								</tr>
 							</tbody>

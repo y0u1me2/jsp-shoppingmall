@@ -46,6 +46,13 @@ public class MemberService {
 		return flag;		
 	}
 	
+	public boolean duplicationNickName(String nickName) {
+		Connection conn=getConnection();
+		boolean flag=dao.duplicationNickName(conn, nickName);
+		close(conn);
+		return flag;		
+	}
+	
 	public String passwordCheck(String emailCheck) {
 		Connection conn=getConnection();
 		String passwordCheck=dao.passwordCheck(conn, emailCheck);
@@ -62,9 +69,16 @@ public class MemberService {
 		return result;
 	}
 	
-	public Member searchEmail(String userName) {
+	public Member searchEmail(String nickName) {
 		Connection conn=getConnection();
-		Member m=dao.searchEmail(conn,userName);
+		Member m=dao.searchEmail(conn,nickName);
+		close(conn);
+		return m;
+	}
+	
+	public Member searchEmailGetMember(String email) {
+		Connection conn=getConnection();
+		Member m=dao.searchEmailGetMember(conn,email);
 		close(conn);
 		return m;
 	}

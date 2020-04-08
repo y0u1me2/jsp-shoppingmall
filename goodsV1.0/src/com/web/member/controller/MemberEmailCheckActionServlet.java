@@ -40,13 +40,16 @@ public class MemberEmailCheckActionServlet extends HttpServlet {
 		if (request.getParameter("code") != null) {
 			code = request.getParameter("code");
 		}
-		String userName=(String) request.getParameter("userName");
-		Member m=new MemberService().searchEmail(userName);
+		String nickName=(String) request.getParameter("nickName");
+		Member m=new MemberService().searchEmail(nickName);
 		
 		String email=m.getM_Email();
 		String sha256=SHA256.getSHA256(email);
 		
 		boolean isRight=(sha256.equals(code))?true:false;
+		System.out.println("sha  "+sha256);
+		System.out.println("code  "+code);
+		System.out.println(isRight);
 		if(isRight==true) {
 			int rst=new MemberService().setMemberEmailChecked(email);
 			RequestDispatcher rd=null;

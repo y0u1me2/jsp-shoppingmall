@@ -58,14 +58,45 @@ public class MemberDao {
 	}
 	
 	
-	public Member searchEmail(Connection conn, String userName) {
+	public Member searchEmail(Connection conn, String nickName) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("searchEmail");
 		Member m=null;
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,userName);
+			pstmt.setString(1,nickName);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=new Member();
+				m.setM_No(rs.getInt("M_NO"));
+				m.setM_Email(rs.getString("M_EMAIL"));
+				m.setM_Password(rs.getString("M_PASSWORD"));				
+				m.setM_Name(rs.getString("M_NAME"));
+				m.setM_NickName(rs.getString("M_NICKNAME"));
+				m.setM_EmailCheck(rs.getString("M_EmailCheck"));
+				m.setM_Address(rs.getString("M_ADDRESS"));
+				m.setM_Post(rs.getString("M_POST"));
+				m.setM_Phone(rs.getString("M_PHONE"));
+				m.setM_Enroll(rs.getDate("M_ENROLL"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	public Member searchEmailGetMember(Connection conn, String email) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("searchEmailGetMember");
+		Member m=null;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,email);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				m=new Member();
@@ -159,6 +190,27 @@ public class MemberDao {
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, emailCheck);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {//조회한거 있을때 false
+				flag=false;				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return flag;
+	}
+	
+	public boolean duplicationNickName(Connection conn, String nickName) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("duplicationNickName");
+		boolean flag=true;
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nickName);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {//조회한거 있을때 false
 				flag=false;				

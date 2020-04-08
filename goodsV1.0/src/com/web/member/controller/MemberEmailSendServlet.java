@@ -41,11 +41,13 @@ public class MemberEmailSendServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=(String) request.getAttribute("email");
-		String userName=(String)request.getAttribute("userName");
+		String nickName=(String)request.getAttribute("nickName");
 		int result=(int) request.getAttribute("result");
 		
-		String host="http://rclass.iptime.org:9999/20AM_GoodGoods/";
+		//String host="http://rclass.iptime.org:9999/20AM_GoodGoods/";
 		//String host="http://localhost:9090/goods/";
+		String host=request.getRequestURL().toString().replace(request.getRequestURI(),"")+request.getContextPath()+"/";
+		
 		String from="errornotzoo@gmail.com";
 		String to = email;
 		String subject="GOODGOODS 회원가입을 감사드립니다.";
@@ -56,7 +58,7 @@ public class MemberEmailSendServlet extends HttpServlet {
 							+ "<img width='200px' height='100px' src='https://postfiles.pstatic.net/MjAyMDAzMTZfMTE4/MDAxNTg0MzU0NzY4NTE2.E1U0LOI5LkQUVkIPpTpDMa7yKLOAEONjqtWEhzHrpI4g.30-tvuOG3ncs0Ll-6qzx82T8K3agWuuN5Gf2J_kqf9Qg.PNG.sciencho/%EC%98%81%EB%AC%B8%EA%B2%80%EC%A0%95.png?type=w580'>"
 						+ "</div>"
 						+"<div>"
-							+ "<a href='"+host+"memberEmailCheckAction?code="+sha256+"&userName="+userName+"'>이메일 인증하기</a>"
+							+ "<a href='"+host+"memberEmailCheckAction?code="+sha256+"&nickName="+nickName+"'>이메일 인증하기</a>"
 						+ "</div>"
 					+ "</div>";
 		
