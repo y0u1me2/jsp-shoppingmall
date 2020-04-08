@@ -24,6 +24,8 @@ import com.web.review.model.vo.Review;
 @WebServlet("/reviewCategory")
 public class ReviewCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ReviewService rs=new ReviewService();
+	ProductService ps=new ProductService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,16 +46,16 @@ public class ReviewCategoryServlet extends HttpServlet {
 		String starpoint="";
 		int totalReview=0;
 		if(request.getParameter("p_Category")==null) {
-			list=new ReviewService().searchReview();
-			totalReview=new ReviewService().countReview();
+			list=rs.searchReview();
+			totalReview=rs.countReview();
 		}else {
 			String p_Category=request.getParameter("p_Category");
 			if(p_Category.equals("전체")) {
-				list=new ReviewService().searchReview();
-				totalReview=new ReviewService().countReview();
+				list=rs.searchReview();
+				totalReview=rs.countReview();
 			}else {
-				list=new ReviewService().searchReviewCategory(p_Category);
-				totalReview=new ReviewService().countReviewCategory(p_Category);
+				list=rs.searchReviewCategory(p_Category);
+				totalReview=rs.countReviewCategory(p_Category);
 			}
 		}
 		//게시글 수 처리 부분
@@ -77,19 +79,21 @@ public class ReviewCategoryServlet extends HttpServlet {
 			for(int i=0;i<5-(list.get(j).getRv_Star());i++) {
 				starpoint+="<span class='fa fa-star'></span>";
 			}
-			Custom c=new ProductService().customNo(list.get(j).getC_No());
-			Product p=new ProductService().getProduct(c.getpNo());
+			Custom c=ps.customNo(list.get(j).getC_No());
+			System.out.println("커스텀넘버 : "+list.get(j).getC_No());
+			System.out.println("서블릿 커스텀파일 : "+c.getCompleteFile());
+			Product p=ps.getProduct(c.getpNo());
 			reviewList+="<div style='border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;'>"
 					+ "<input id='RvNo' type='hidden' value='"+list.get(j).getRv_No()+"'>"
 							+ "<table>"
 								+ "<tr>"
-									+ "<td class='reviewProductImg' rowspan='3'><a href='#'>"
+									+ "<td class='reviewProductImg' rowspan='3'>"
 									+ "<img class='review-product'" 
 									+ "src='"+request.getContextPath()+"/upload/custom/"+c.getCompleteFile()+"'>"
-									+ "</a></td>"
-									+ "<td class='reviewTitle' colspan='3'>" + 
-									"<a href='#'>"+p.getpName()+
-									"</a></td></tr>"
+									+ "</td>"
+									+ "<td class='reviewTitle' colspan='3'>"  
+									+p.getpName()
+									+"</td></tr>"
 									+ "<tr class='reviewTR'>"
 									+ "<td class='reviewStar'>"
 									+ starpoint+ "</td>"
