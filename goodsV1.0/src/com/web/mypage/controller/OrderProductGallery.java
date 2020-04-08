@@ -1,6 +1,7 @@
 package com.web.mypage.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.gallery.model.service.GalleryService;
+import com.web.mypage.vo.ODMember;
 
 /**
  * Servlet implementation class OrderProductGallery
@@ -33,7 +35,7 @@ public class OrderProductGallery extends HttpServlet {
 		//System.out.println("확인"+Integer.parseInt(request.getParameter("no")));
 		int cno = Integer.parseInt(request.getParameter("no"));
 		int result = new GalleryService().insertNewGallery(cno);//갤러리 등록
-		System.out.println(result);
+		
 		if(result>0) {		
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().write("<script>alert('갤러리에 등록되었습니다.'); location.replace('"+request.getContextPath()+"/gallery/list');</script>");

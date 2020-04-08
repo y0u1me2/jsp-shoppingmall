@@ -2,7 +2,7 @@ package com.web.mypage.vo;
 
 import java.util.Date;
 
-public class OrderDeliveryMember {
+public class ODMember {
 
 	private int oNo;
 	private String cfileName;
@@ -15,11 +15,11 @@ public class OrderDeliveryMember {
 	private int cNo;
 	private String galleryStatus;
 	
-	public OrderDeliveryMember() {
+	public ODMember() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderDeliveryMember(int oNo, String cfileName, String pName, String cColor, int tPrice, int oQuan,
+	public ODMember(int oNo, String cfileName, String pName, String cColor, int tPrice, int oQuan,
 			String oName, Date oDate, int cNo, String galleryStatus) {
 		super();
 		this.oNo = oNo;

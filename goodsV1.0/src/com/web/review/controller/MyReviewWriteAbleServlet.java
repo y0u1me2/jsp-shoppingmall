@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
-import com.web.mypage.vo.OrderDeliveryMember;
+import com.web.mypage.vo.ODMember;
 import com.web.product.model.service.ProductService;
 import com.web.product.model.vo.Custom;
 import com.web.product.model.vo.Product;

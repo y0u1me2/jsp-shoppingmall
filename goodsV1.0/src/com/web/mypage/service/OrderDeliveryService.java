@@ -9,15 +9,15 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.web.mypage.dao.OrderDeliveryDao;
-import com.web.mypage.vo.OrderDeliveryMember;
+import com.web.mypage.vo.ODMember;
 
 public class OrderDeliveryService {
 
 	private OrderDeliveryDao dao = new OrderDeliveryDao();
 
-	public List<OrderDeliveryMember> OrderDeliveryMember(int login) {
+	public List<ODMember> OrderDeliveryMember(int login) {
 		Connection conn = getConnection();
-		List<com.web.mypage.vo.OrderDeliveryMember> od = dao.OrderDeliveryMember(conn, login);
+		List<com.web.mypage.vo.ODMember> od = dao.OrderDeliveryMember(conn, login);
 		close(conn);
 		return od;
 	}

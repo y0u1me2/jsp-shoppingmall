@@ -1,10 +1,10 @@
-<%@page import="com.web.mypage.vo.OrderDeliveryMember"%>
+<%@page import="com.web.mypage.vo.ODMember"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ include file="/views/client/common/header.jsp" %>
 <%
-	List <OrderDeliveryMember> od = (List)request.getAttribute("od");
+	List <ODMember> od = (List)request.getAttribute("od");
 %>
     <style>
   
@@ -202,7 +202,7 @@ color:#5F5D5D;
 			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>">1:1문의내역</a></li>
+			<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No()%>">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>
@@ -286,14 +286,20 @@ color:#5F5D5D;
                         </tr>
                      </thead>
                      <tbody style="text-align: center;">
-                        <%if(od.isEmpty()){ %>
+                        <%
+                        	if(od.isEmpty()){
+                        %>
                         <tr>
                             <td id="conbox" colspan="6" style="right: 250px; left: 50px;"> 
                             <p style="padding:30px 0; margin:0; ">주문 배송내역이 없습니다.</p> 
                             </td>
                        	</tr>
-                        <%}else{ %>
-                        	<%for(OrderDeliveryMember o : od){ %>
+                        <%
+                        	}else{
+                        %>
+                        	<%
+                        		for(ODMember o : od){
+                        	%>
                         <tr>
                         <td>
                         <%=o.getoNo() %>
@@ -308,9 +314,10 @@ color:#5F5D5D;
                         <td><%=o.getoDate() %></td>
                         <td>배송중</td>
                         <td id="btn1"><button type="button" onclick="orderDeliverydt();" value="<%=o.getcNo() %>" />삭제</td>
-                       	<%if(o.getGalleryStatus()=="N"){ %>
+                       	
+                       	<%if(o.getGalleryStatus().equals("N")){ %>
                         <td id="btn1"><button type="button" id="deleteorder" onclick="orderGallery();" value="<%=o.getcNo()%>"/>
-                        	갤러리
+                        	갤러리 등록
                         </td>
                         <%}else{ %>
                         <td id="btn1">
