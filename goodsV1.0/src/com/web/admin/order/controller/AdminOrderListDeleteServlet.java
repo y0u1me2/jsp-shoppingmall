@@ -33,7 +33,6 @@ public class AdminOrderListDeleteServlet extends HttpServlet {
 		int no=Integer.parseInt(request.getParameter("no"));
 		String type=request.getParameter("searchType");
 		String keyword=request.getParameter("searchKeyword");
-		System.out.println(type+keyword);
 		int result=new AdminOrderListService().deleteOrderList(no);
 		
 		String msg=" ";

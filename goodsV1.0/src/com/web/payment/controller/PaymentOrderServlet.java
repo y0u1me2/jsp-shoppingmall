@@ -97,7 +97,7 @@ public class PaymentOrderServlet extends HttpServlet {
 
 				String[] cartCooks = cartCook.split("\\|");
 				List<String> list = new ArrayList(Arrays.asList(cartCooks));
-				System.out.println("최초 쿠키값 리스트 : " + list);
+				//System.out.println("최초 쿠키값 리스트 : " + list);
 				for (int j = 0; j < list.size(); j++) {
 					for (int i = 0; i < cNo.length; i++) {
 						if (list.get(j).equals(cNo[i])) {
