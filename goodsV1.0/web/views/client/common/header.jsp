@@ -283,7 +283,7 @@ img#leftLogo{
 		
 		
 <!-- 드롭다운 메뉴 -->
-<div style=" display:flex;padding-bottom:20px;padding-top:20px;">
+<div style=" display:flex;padding-bottom:20px;padding-top:20px; border-bottom: 2px solid rgb(240, 240, 240);">
 	<!-- 로고 -->
 	<a href="<%=request.getContextPath()%>/index.jsp" style="display:block; width:20%; height:80px;">
 		<img src="<%=request.getContextPath()%>/images/common/좌측로고.png"  id="leftLogo" alt="goodgoods">
