@@ -39,7 +39,7 @@
    }
    	#subm{
    		text-align:right;
-   		padding:15px 17px 0 0;
+   		padding:15px 42px 0 0;
    }
    #write-tbl>th,td{
    		padding:10px 0 10px 0;
@@ -48,6 +48,17 @@
 		font-weight: bolder;
    		font-size: 30px;
 	}
+	/* 완료버튼 */
+	.btn_Wihte{
+        padding: 3px 10px;
+        /* line-height: 32px; */
+        font-size: 12px;
+        line-height: 32px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        background-color: white;
+        border: 1px solid rgb(161, 161, 161);
+   }
 </style>
 <section>
 	<div class="back">
@@ -80,7 +91,7 @@
         </tr>
         <tr>
             <th colspan="2" id="subm">
-              	<button type="button" id="btn">작성완료</button>
+              	<button type="button" id="btn" class="btn_Wihte">작성완료</button>
             </th>
         </tr>
     </table>

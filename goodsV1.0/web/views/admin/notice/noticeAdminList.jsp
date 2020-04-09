@@ -492,7 +492,7 @@
                         <col style="width:100px">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox" class="mRowCheck"></th>
+                                <th scope="col"><input type="checkbox" class="mRowCheck" id="allck"></th>
                                 <th scope="col">번호</th>
                                 <th scope="col">제목</th>
                                 <th scope="col">첨부파일</th>
@@ -587,6 +587,16 @@
    				$(".mRowCheck").prop("checked",false);
    			})
    		})
+    	$(function(){
+    		$("#allck").click(function(){
+    			if($("#allck").is(":checked")){
+    				$(".mRowCheck").prop("checked",true);
+    			}else{
+    				$(".mRowCheck").prop("checked",false);
+    			}
+    		})
+    		
+    	})
    		
    		//한개삭제
    		function noticeDelete(){
