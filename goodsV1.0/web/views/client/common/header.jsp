@@ -386,7 +386,7 @@ img#leftLogo{
 				<div class="url-html">
 					<div class="container">
 				        <div class="top">
-				            <h1>아이디/비밀번호 찾기</h1>
+				            <h1>비밀번호 찾기</h1>
 				            <form method="post" action="<%=request.getContextPath()%>/findPw">
 					            <input id="findPwEmail" name="findPwEmail" type="text" class="input" placeholder="이메일">
 					            <input id="findPwUserName" name="findPwUserName" type="text" class="input" placeholder="이름"> 
