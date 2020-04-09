@@ -44,8 +44,8 @@ public class MmbrsWthdr extends HttpServlet {
 			}
 
 			
-			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('회원탈퇴가 완료되었습니다.'); location.replace('"+request.getContextPath()+"/views/client/mypage/Wthdrpage.jsp');</script>");
+
+			request.getRequestDispatcher("/views/client/mypage/Wthdrpage.jsp").forward(request, response);
 
 			
 			
