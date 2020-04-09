@@ -141,7 +141,7 @@ $(function(){
                 if ($(this).val() == "") {
                     $(this).siblings('span').remove();
                     $(this).addClass('error');
-                    $(this).after($('<span>').html('아이디를 입력하세요.').addClass('error'));
+                    $(this).after($('<span>').html('이메일을 입력하세요.').addClass('error'));
                     emailCheck=false;
                 } else {
                     $(this).removeClass('empty error');
@@ -207,7 +207,7 @@ function loginSubmit() {
     		url:contextPath+'/login',
     		type: 'post',
     		async:false,
-            data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
+            data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val(), saveEmail: $("#saveEmail").is(":checked")?"true":"false" },
             success: function (login) {
             	console.log("성공");
             	

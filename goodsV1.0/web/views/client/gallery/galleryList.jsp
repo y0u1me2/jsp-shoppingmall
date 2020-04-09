@@ -76,15 +76,16 @@
         }
 
         .board {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            width: 450px;
+            margin: 25px;
+            width: 400px;
             height: 450px;
             text-align: center;
+            background: rgb(245, 245, 245);
+            cursor:pointer;
         }
 
         .board img {
-            max-width: 100%;
+            width: 350px;
             height:350px;
         }
 
@@ -95,7 +96,7 @@
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 50px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -107,20 +108,20 @@
 #modal-container {
 	margin: auto;
 	width: 800px;
-	height: 600px;
+	height: 650px;
 	background-color: white;
+	text-align: center;
+	overflow: auto;
 }
 
 /* Modal Content (image) */
 .modal-content {
-  display: block;
   width: 400px;
   height: 400px;
 }
 
 /* Caption of Modal Image */
 #caption {
-  display: block;
   width: 100%;
   text-align: center;
   color: rgb(95,93,93);
@@ -198,7 +199,22 @@
 	color: black;
 	font-weight: bold;
 } 
-        
+
+.btnBlack{
+	border-radius:10px;
+	border: none;
+	background: #eee;
+	
+	background: #303030;
+	color: white;
+	
+	padding:5px 10px;
+}
+
+table td{
+	padding: 5px;
+}
+
 </style>
 
 
@@ -270,24 +286,29 @@
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
-	<span class="close" id="close">&times;</span>
+	<span class="close" id="close" onclick="emptyTextarea();">&times;</span>
 	
 	<div id="modal-Container">
-		<img class="modal-content" id="img01">
-		<span id="caption"></span>
+		<div style="background:#eee;">
+			<img style="border:1px solid #eee;" class="modal-content" id="img01">
+		</div>
+		<div style="margin-top:40px;">
+			<span id="caption"></span>
+			<button class="btnBlack" type="button" id="modalBtn" style="cursor:pointer;">이미지 다운로드</button>
+		</div>
 		
-		<button type="button" id="modalBtn">이미지 다운로드</button>
+		
 		<%if(loginMember!=null){ %>
-		<form method="post" action="<%=request.getContextPath() %>/gallery/replyInsert" onsubmit="return mno();">
-			<input type="text" name="content" autocomplete="off" maxlength="100">
+		<form style=" margin-top:40px;" method="post" action="<%=request.getContextPath() %>/gallery/replyInsert" onsubmit="return validate();">
+			<textarea id="ta1" style="vertical-align:middle; resize:none; width:50%; border:1px solid #eee;" rows="3" placeholder="100자 이내로 입력해주시기 바랍니다." name="content"></textarea>
 			<input type="hidden" id="gNo" name="gNo">
 			<input type="hidden" id="mNo" name="mNo">
-			<button>댓글 등록</button>
+			<button class="btnBlack" style="cursor:pointer; vertical-align:middle;">댓글 등록</button>
 		</form>
 		<%}else{ %>
 		<p>댓글은 로그인 후 작성하실 수 있습니다.</p>
 		<%} %>
-		<div id="replyList"></div>
+		<div id="replyList" style="margin-top:40px; "></div>
 	</div>
 	
 	
@@ -338,16 +359,16 @@ $(".myImg").click(function(){
 		async:false,
 		success:function(data){
 			console.log(data);
-			var table = $('<table>');
+			var table = $('<table>').css({'margin-left': '10%','width': '80%', 'border-collapse': 'collapse'});
 			
 			var html;
 			
 			data.forEach(function(reply) {
-				html+= "<tr><td>"+reply['mNickname']+"<br>"+reply['rDate']+"</td><td>"+reply['rContent']+"</td></tr>";
+				html+= "<tr style='border-bottom:1px solid #eee;'><td width='30%'>"+reply['mNickname']+"<br>"+reply['rDate']+"</td><td width='70%'>"+reply['rContent']+"</td></tr>";
 			});
 			
 			
-			table.append(html).css({'border': '1px solid black', 'border-collapse': 'collapse'});
+			table.append(html);
 			
 			
 			$('#replyList').html(table);
@@ -421,9 +442,23 @@ $(function(){
 	
 })
 
-function mno(){
-	$('#mNo').val('<%=loginMember!=null?loginMember.getM_No():""%>');
+function validate(){
+	if(<%=loginMember==null%>){
+		alert('현재 로그인이 되어 있지 않습니다. 로그인 후 이용바랍니다.');
+		return false;
+	}else{
+		$('#mNo').val('<%=loginMember!=null?loginMember.getM_No():""%>');
+	}
+	console.log($('#ta1').val().length);
+	if($('#ta1').val().length>100){
+		alert('100자를 초과하여 입력하셨습니다.');
+		return false;
+	}
 	return true;
+}
+
+function emptyTextarea(){
+	$('#ta1').val('');
 }
 
 </script>
