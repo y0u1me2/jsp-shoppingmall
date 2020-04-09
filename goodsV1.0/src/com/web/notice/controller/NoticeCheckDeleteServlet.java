@@ -31,6 +31,9 @@ public class NoticeCheckDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String[] check=request.getParameterValues("mRowCheck");
+		for(String s : check) {
+			System.out.println(s);
+		}
 		String type=request.getParameter("type");
 		String keyword=request.getParameter("keyword");
 		
