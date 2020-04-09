@@ -62,7 +62,7 @@ function closePersonalInfo() {
     $('#personalInfo').css('display', 'none');
 }
 function closeEnrollEnd() {
-    $('#enrollEnd').css('display', 'none');
+    $('.modal-back').css('display', 'none');
 }
 
 //로그인창 입력창

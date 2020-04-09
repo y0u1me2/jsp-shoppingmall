@@ -126,7 +126,7 @@
 		margin-top: 20px;
     	width: 100%;
    		height: auto;
-   		background-color: rgb(251, 251, 249);
+   		background-color:#f7f7f7;
 	}
 	#nc_tbl{
 		width:100%;
@@ -182,6 +182,31 @@
    color: rgb(134, 134, 133);
    margin-right: 5px;
 	}
+	/* 목록 */
+	.btn_Wihte{
+        padding: 3px 10px;
+        /* line-height: 32px; */
+        font-size: 12px;
+        color: rgb(0, 0, 0);
+         line-height: 32px;
+        text-align: center;
+        background-color: white;
+        border: 1px solid rgb(161, 161, 161);
+   }
+   .btnre{
+   		display:none;
+		height: 40px;
+   		width: 50px;
+   		border: solid 1px rgb(147, 147, 194);
+   		background: white;
+   		border-radius: 10px;
+   		font-size: 15px;
+   		color: rgb(134, 134, 133);
+   		margin-right: 5px;
+   }
+   tr:hover button.btn-reply{
+		display:inline;
+	}
 	
 </style>
 <section class="back">
@@ -231,7 +256,7 @@
 					<p><%=nc.getNcContent() %></p>
 				</td>
 				<td>
-					<button class="btn-reply" name="commentNo" id="rep-btn" value="<%=nc.getNcNo()%>">답글</button> 
+					<button class="btn-reply btnre" name="commentNo" id="rep-btn" value="<%=nc.getNcNo()%>">답글</button> 
 				</td>
 			</tr>
 			<%}else if(nc.getNcLevel()==2){ %>
@@ -266,7 +291,7 @@
 	<p class="not-btn">
 		<span class="button small">
 			<span class="typeA">
-				<button type="button"onclick="goList()">목록</button>
+				<button type="button"onclick="goList()" class="btn_Wihte">목록</button>
 			</span>
 		</span>
 	</p>
@@ -345,6 +370,7 @@
 			$(this).off("click");
 		}
 	})
+	
 	//서밋 안시키기
 	function nosubmit(){
 		if($(".comment-content").val().length==0){

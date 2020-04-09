@@ -63,7 +63,7 @@ public class AdminOrderListDao {
 		Statement stmt=null;
 		ResultSet rs=null;
 		String sql="SELECT * FROM "
-				+ "(SELECT ROWNUM AS RNUM,A.* FROM(SELECT * FROM PAYMENTDETAIL PD JOIN CUSTOM C USING(C_NO) JOIN PRODUCT P ON C.P_NO=P.P_NO JOIN PAYMENT PM USING(O_NO) WHERE "+type+" LIKE '%"+keyword+"%' ORDER BY O_NO) A) "
+				+ "(SELECT ROWNUM AS RNUM,A.* FROM(SELECT * FROM PAYMENTDETAIL PD JOIN CUSTOM C USING(C_NO) JOIN PRODUCT P ON C.P_NO=P.P_NO JOIN PAYMENT PM USING(O_NO) WHERE "+type+" LIKE '%"+keyword+"%' ORDER BY O_DATE DESC) A) "
 						+ "WHERE RNUM BETWEEN "+((cPage-1)*numPerPage+1)+" AND "+(cPage*numPerPage);
 		List<OrderList> list=new ArrayList();
 		try {

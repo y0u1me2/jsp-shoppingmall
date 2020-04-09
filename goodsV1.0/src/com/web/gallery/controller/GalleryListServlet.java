@@ -37,7 +37,7 @@ public class GalleryListServlet extends HttpServlet {
 		
 	    
 		String sort = request.getParameter("sort");
-		if(sort==null) sort="down_cnt";
+		if(sort==null) sort="g_enroll_date";
 		
 		String category = request.getParameter("category");
 		if(category==null) category = "";

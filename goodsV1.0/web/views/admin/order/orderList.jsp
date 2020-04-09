@@ -496,7 +496,7 @@
                         <col style="width:80px;">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox"></th>
+                                <th scope="col"><input type="checkbox" id="allck"></th>
                                 <th scope="col">No</th>
                                 <th scope="col">상품정보</th>
                                 <th scope="col">가격/수량</th>
@@ -523,7 +523,10 @@
 	                        			<img src="<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>" width="100x" height="100px"/>
 	                        			<%=ol.getpName() %> <%=ol.getcColor() %>
 	                        		</td>
-	                        		<td><%=ol.gettPrice()*ol.getoQuan() %>원</br><%=ol.getoQuan() %>개</td>
+	                        		<td>
+	                        		<%=ol.gettPrice()*ol.getoQuan() %>원
+	                        		</br><%=ol.getoQuan() %>개
+	                        		</td>
 	                        		<td><%=ol.getoName() %></td>
 	                        		<td><%=ol.getoDate() %></td>
 	                        		<td>배송중</td>
@@ -570,11 +573,23 @@
     	//전체선택
     	function allcheck(){
     		$(".mRowCheck").prop("checked",true);
+    		$("#allck").prop("checked",true);
     	}
     	//전체해제
     	function allclear(){
     		$(".mRowCheck").prop("checked",false);
+    		$("#allck").prop("checked",false);
     	}
+    	$(function(){
+    		$("#allck").click(function(){
+    			if($("#allck").is(":checked")){
+    				$(".mRowCheck").prop("checked",true);
+    			}else{
+    				$(".mRowCheck").prop("checked",false);
+    			}
+    		})
+    		
+    	})
     	//한개삭제
     	function orderDelete(){
     		var result=confirm("주문내역을 취소하시겠습니까?");
