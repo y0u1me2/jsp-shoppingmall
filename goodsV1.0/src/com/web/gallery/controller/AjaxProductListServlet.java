@@ -38,7 +38,6 @@ public class AjaxProductListServlet extends HttpServlet {
 		
 		String category = request.getParameter("category");
 		List<Product> list = new ProductService().selectByCategory(category);
-		List<String> list2 = new ArrayList<String>();
 		
 		JSONArray jsonArr = new JSONArray();
 		for(Product p : list) {

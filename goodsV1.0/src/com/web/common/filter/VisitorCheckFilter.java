@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class VisitorCheckFilter
  */
-@WebFilter("/*")
+@WebFilter(urlPatterns={"/index.jsp", "/"})
 public class VisitorCheckFilter implements Filter {
 
     /**
@@ -58,7 +58,7 @@ public class VisitorCheckFilter implements Filter {
 		 * } if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { ip =
 		 * req.getRemoteAddr(); }
 		 */
-
+		
 		String ip = Inet4Address.getLocalHost().getHostAddress();
 		
 		Connection conn = null;

@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import com.web.admin.dashboard.service.AdminDashboardService;
+
 /**
  * Servlet implementation class AjaxGetVisitorServlet
  */
@@ -39,30 +41,32 @@ public class AjaxGetVisitorServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "select TO_CHAR(TO_DATE(visit_date), 'MM/DD'), count(*) from history group by visit_date order by 1";
-		LinkedHashMap<String, Integer> map = new LinkedHashMap<String, Integer>();
+		LinkedHashMap<String, Integer> map = new AdminDashboardService().visitorCheck();
 		
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				map.put(rs.getString(1), rs.getInt(2));
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		String sql = "select TO_CHAR(TO_DATE(visit_date), 'MM/DD'), count(*) from history group by visit_date order by 1";
+//		LinkedHashMap<String, Integer> map = new LinkedHashMap<String, Integer>();
+//		
+//		try {
+//			conn = getConnection();
+//			pstmt = conn.prepareStatement(sql);
+//			rs=pstmt.executeQuery();
+//			while(rs.next()) {
+//				map.put(rs.getString(1), rs.getInt(2));
+//			}
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				rs.close();
+//				pstmt.close();
+//				conn.close();
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 		
 		JSONObject jsonObject = new JSONObject();
 		for(String key : map.keySet()) {

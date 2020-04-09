@@ -141,12 +141,15 @@
          background:red;
     }
     
-      /* 빨강색 버튼 */
+      /* 오렌지색 버튼 */
     input[type="radio"]#오렌지{
          background:orange;
     }
     
-     
+      /* 베이지색 버튼 */
+    input[type="radio"]#베이지{
+         background:beige;
+    }
     
      /* 네이비색 버튼 */
     input[type="radio"]#네이비{
@@ -170,6 +173,7 @@
          border: 0;
          font-size: 15px;
          color: rgb(233, 233, 229);
+         cursor: pointer;
          
      }
      .make-btn:hover{
