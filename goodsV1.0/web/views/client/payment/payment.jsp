@@ -1070,12 +1070,12 @@
                         <!-- 약관동의 백그라운드 색상 -->
                         <div style="background-color: #fafafa;">
                             <!-- 약관동의 span 스타일설정,내용 및 약관보기 클릭 -->
-                            <span
-                                style="display: block; color: #666; padding: 20px; line-height: 1.67em; font-size: 13px;">
+                            <span style="display: block; color: #666; padding: 20px; line-height: 1.67em; font-size: 13px;">
 						                                주문할 상품의 상품명,상품가격, 배송정보를 확인하였으며,<br>
-						                                구매에 동의하시겠습니까? <button type="button">
-                                    <p style="text-decoration: underline;" onclick="openPayPolicy()">약관보기</p>
-                                </button>
+						                                구매에 동의하시겠습니까?
+							        <button type="button">
+							            <p style="text-decoration: underline;" onclick="openPayPolicy()">약관보기</p>
+	                                </button>
                                 <br>
                                 <!-- 동의합니다 체크박스 클릭 -->
                                 <div style="padding-top:10px;">
@@ -1123,17 +1123,16 @@
     var inputPilsu = $('input.pilsu');//요거 유효성검사 상태정보 input 변수
     var agreeWon=$('div>label>input[type="checkbox"]');//요거 유혀성검사 약관동의하기 input 변수
     var paymentBt=$("#paymenyBt");
+    
  	// 이용약관 열기
     function openPayPolicy() {
         $('#payPolicy').css('display', 'block');
     }
     // 이용약관 닫기
     function closePayPolicy() {
-    	
         $('#payPolicy').css('display', 'none');
     }
-    
-    
+
     
         $(function () {
            
@@ -1179,12 +1178,44 @@
                   if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
                            $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
                            $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
-
+						console.log($(this).attr('name'));
                       //필수 클릭후 다른데 클릭했을때 이벤트 발생
                       $(this).removeClass('error');
                       //input에 클래스 에러(있을때) 삭제
                       $(this).siblings('span').remove();
                       //input밑에 span경고창(있을때) 삭제
+  						
+                      if($("#userEmail").val()=="" && $(this).attr('name')=='userEmail'){
+                    	  console.log("나오냐 트루");
+                         	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+                 	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
+                 	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
+              	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+                 	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
+                 	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+                 	    	    } else { //유효성 오케이이면
+                 	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
+                 	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+                 	    	}
+        
+                      }else if($("#userEmail").val()!="" && $(this).attr('name')=='userEmail'){
+
+                          	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+                  	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
+                  	    		 console.log("나오냐 엘스2");
+                  	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
+               	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+                  	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
+                  	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+                  	    	    } else { //유효성 오케이이면
+                  	    	    	 console.log("나오냐 엘3");
+                  	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
+                  	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+                  	    	}
+                          
+                      }
+               
+                     
                       if ($(this).val() == "") {
                           // input에 값이 없을때 if 들어감
                           if ($(this).siblings('span.error').length == 0) {
@@ -1219,8 +1250,13 @@
                            $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
                            $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
                           }
+                         
+                	    	 
+                	
                       }
                   }else{
+                	  
+                	 
                      //console.log(this);
                       if ($(this).attr('name') == "userPhone[2]" && $(this).val().length < 4) {
                            //console.log("언제쯤나오냐");
@@ -1296,13 +1332,45 @@
           if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
                            $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
                            $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
-          
+  
           }else{
+        	  
               $("#paymentBt").css("color","black");
               $("#paymentBt").css("border-top","1px solid black");
               $("#finalPayment").css("border", "1px solid black");
           }
             
+          if($("#userEmail").val()==""){
+        	  console.log("나오냐 트루");
+        	 
+             	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+     	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
+     	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
+  	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+     	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
+     	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+     	    	    } else { //유효성 오케이이면
+     	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
+     	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+     	    	}
+              
+          }else{
+        	
+        	
+              	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+      	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
+      	    		 console.log("나오냐 엘스2");
+      	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
+   	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+      	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
+      	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+      	    	    } else { //유효성 오케이이면
+      	    	    	 console.log("나오냐 엘3");
+      	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
+      	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+      	    	}
+            
+          }
             
         }
 
@@ -1431,9 +1499,25 @@
         }
         
         function payment() {
+        	
+        	
             if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
                 $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
                 $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
+            	if($("#userEmail").val()!=""){
+            		 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+        	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
+        
+        	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
+     	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+        	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
+        	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+        	    	    } else { //유효성 오케이이면
+        	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
+        	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+        	    	}
+            	}
+            	
                 for (let i = 0; i < inputPilsu.length; i++) { //일단 입력창갯수 만큼 for문 돌리긔
                     if ($(inputPilsu[i]).val() == "") { //입력창에 입력된거 없으면
                         if ($(inputPilsu[i]).siblings().length == 0) { //근데 없는데 형제로 span이라던지 뭐 없어 그러면
@@ -1467,7 +1551,7 @@
              if(agreeWon[0].checked==false){
                 $(agreeWon[0]).parent().siblings('span').remove(); //그러면 어 그 span이 있을수도 있고 내가 몰랐을수 있으니까 지워주고
                 $(agreeWon[0]).parent().addClass('error'); //error클래스 추가하고
-                $(agreeWon[0]).parent().after($('<span>').html('필수 항목입니다.').addClass('error')); //span태그 추가하긔
+                $(agreeWon[0]).parent().after($('<span>').html('필수 항목입니다').addClass('error')); //span태그 추가하긔
              }
               
                 
@@ -1487,6 +1571,19 @@
                 // input안에 error클래스 추가 해줌
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
+             }else if($("#userEmail").val()!=""){
+               		 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+           	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
+           	    		 console.log("들어올걸?");
+           	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
+        	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+           	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
+           	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+           	    	    } else { //유효성 오케이이면
+           	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
+           	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+           	    	}
+               	
              }else{
                var IMP = window.IMP; // 생략가능
                var payChoice = $('input[name="payChoice"]:checked').val(); //선태된 결제방법의 값
@@ -1553,6 +1650,7 @@
 
 		})
       
+		  
     </script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
