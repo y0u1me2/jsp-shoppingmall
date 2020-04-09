@@ -625,7 +625,7 @@ span.perror {
 						<!-- 배송정보 밑에 경계선 -->
 						<div class="top2 active drop" onclick="pilsuInput2();">
 							<!-- 배송정보 타이틀(문구) 폰트 16px-->
-							<span style="font-size: 16px;">배송정보</span>
+							<span style="font-size: 16px;">배송정보</span><span style="font-size:13px; color:blue;" >(click)</span>
 						</div> <!-- 주문자 및 배송지정보 -->
 						<div class="bottomInform" style="display: block;">
 							<!-- 주문자 -->
@@ -843,7 +843,7 @@ span.perror {
 						<!-- 할인/배송비 밑에 경계선 -->
 						<div class="top2 active drop" onclick="pilsuInput2();">
 							<!-- 할인/배송비 타이틀(문구) 폰트 16px-->
-							<span style="font-size: 16px;">할인/배송비</span>
+							<span style="font-size: 16px;">할인/배송비</span><span style="font-size:13px; color:blue;" >(click)</span>
 						</div> <!-- 할인 배송비 div -->
 						<div class="bottomInform">
 							<!-- 할인 배송비 테이블 -->
@@ -927,7 +927,7 @@ span.perror {
 						<!-- 결제방법 밑에 경계선 -->
 						<div class="top2 active drop" onclick="pilsuInput2();">
 							<!-- 결제방법 타이틀(문구) 폰트 16px-->
-							<span style="font-size: 16px;">결제 방법</span>
+							<span style="font-size: 16px;">결제 방법</span><span style="font-size:13px; color:blue;" >(click)</span>
 						</div> <!-- 결제 방법 div -->
 						<div class="bottomInform">
 							<!--  <table style="margin-top: 0;"> -->
@@ -1575,9 +1575,9 @@ span.perror {
 			}
 
 		}
-
+		
 		function pilsuInput() {
-	
+			let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
 			if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == ""
 					|| $(inputPilsu[2]).val() == ""
 					|| $(inputPilsu[3]).val() == ""
@@ -1588,7 +1588,9 @@ span.perror {
 					|| $(inputPilsu[8]).val() == ""
 					|| $(inputPilsu[9]).val() == ""
 					|| $(inputPilsu[10]).val() == ""
-					|| $(inputPilsu[11]).val() == "") {
+					|| $(inputPilsu[11]).val() == ""
+					|| !emailRule.test($("#userEmail").val()))
+					 {
 				for (let i = 0; i < inputPilsu.length; i++) { //일단 입력창갯수 만큼 for문 돌리긔
 					if ($(inputPilsu[i]).val() == "") { //입력창에 입력된거 없으면
 						if ($(inputPilsu[i]).siblings().length == 0) { //근데 없는데 형제로 span이라던지 뭐 없어 그러면
@@ -1603,6 +1605,15 @@ span.perror {
 						}
 					}
 				}
+
+				$("#userEmail").removeClass('error');//input error 클래스 삭젠
+				$("#userEmail").siblings('span')
+						.remove();//input의 형제인 span 태그 삭제
+				$("#userEmail").addClass('error'); //input에 error 클래스 추가하고
+				$("#userEmail").after(
+						$('<span>').html(
+								'유효하지 않은 이메일입니다.')
+								.addClass('error')); //span태그 추가해서 유효하지 않다고 표시
 			} else {
 			
 
@@ -1627,7 +1638,8 @@ span.perror {
 					|| $(inputPilsu[8]).val() == ""
 					|| $(inputPilsu[9]).val() == ""
 					|| $(inputPilsu[10]).val() == ""
-					|| $(inputPilsu[11]).val() == "") {
+					|| $(inputPilsu[11]).val() == ""
+					|| !emailRule.test($("#userEmail").val())) {
 				for (let i = 0; i < inputPilsu.length; i++) { //일단 입력창갯수 만큼 for문 돌리긔
 					if ($(inputPilsu[i]).val() == "") { //입력창에 입력된거 없으면
 						if ($(inputPilsu[i]).siblings().length == 0) { //근데 없는데 형제로 span이라던지 뭐 없어 그러면
@@ -1642,6 +1654,14 @@ span.perror {
 						}
 					}
 				}
+				$("#userEmail").removeClass('error');//input error 클래스 삭젠
+				$("#userEmail").siblings('span')
+						.remove();//input의 형제인 span 태그 삭제
+				$("#userEmail").addClass('error'); //input에 error 클래스 추가하고
+				$("#userEmail").after(
+						$('<span>').html(
+								'유효하지 않은 이메일입니다.')
+								.addClass('error')); //span태그 추가해서 유효하지 않다고 표시
 			} else {
 				$(event.target).next().slideDown(500);
 				$(event.target).parent().siblings(".dropdown").children(
