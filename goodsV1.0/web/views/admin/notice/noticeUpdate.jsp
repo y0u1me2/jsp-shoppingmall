@@ -79,7 +79,7 @@
             <th>첨부파일</th>
             <td>
             <form action="<%=request.getContextPath() %>/admin/noticeUpdateEnd" id="frm" method="post" enctype="multipart/form-data">
-            <input type="file" name="upfile" multiple>
+            <input type="file" name="upfile" multiple accept=".jpg,.pdf,.txt,.jpeg,.png">
             <%if(n.getnOriginalFile()!=null) {%>
 	            		<span id="fname"><%=n.getnOriginalFile() %></span>
 	            		<input type="hidden" name="oriFile" value="<%=n.getnOriginalFile() %>">
