@@ -14,11 +14,10 @@ div.content-wrapper {
 div.goodsback {
 	height: auto;
 	width: 100%;
-	margin-bottom:150px;
+	top: 50px;
+	margin-bottom:25px;
 	width: 80%;
 	position: relative;
-	top: 50px;
-	bottom: 50px;
 }
 
 * {
@@ -157,8 +156,7 @@ div#answer-content {
 
 
 		<div class="goodsback">
-			<br>
-			<br>
+	
 			<h1 id="one">1:1문의 답변하기</h1>
 			<hr id="gline">
 			<br>

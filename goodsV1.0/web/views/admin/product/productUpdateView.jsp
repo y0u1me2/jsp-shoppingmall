@@ -30,9 +30,9 @@ div.content-wrapper {
 div.goodsback {
 	height: auto;
 	position: relative;
-	top: 100px;
 	width: 100%;
-	margin-bottom:150px;
+	top: 50px;
+	margin-bottom:25px;
 }
 
 /* 상품정보수정 텍스트 */
@@ -136,7 +136,7 @@ button.pColor-minus {
 
 
 	<div class="goodsback">
-		<br> <br>
+
 		<h1 id="one">상품정보수정</h1>
 		<hr id="gline">
 		<br> <br>

@@ -335,19 +335,20 @@
     	border: 1px solid #191919;
     	color: #191919;
     }
-    
+    #one{
+      font-weight: bolder;
+         font-size: 30px;
+   }
     </style>
 
 
 
 
-<section style="height:auto;">
+<section style="height:auto; padding-bottom:50px;">
         <div class="back">
 
     
         <div class="goodsback">
-            <br><br>
-
             <h1 id="one">회원조회/목록</h1>
             <hr id="gline">
             <br/><br/>
@@ -379,7 +380,7 @@
                                         <option value="m_Enroll" <%=type!=null&&type.equals("m_Enroll")?"selected":"" %>>가입일</option>
                                         <option value="m_NickName" <%=type!=null&&type.equals("m_NickName")?"selected":"" %>>닉네임</option>
                                         <option value="m_No" <%=type!=null&&type.equals("m_No")?"selected":"" %>>회원번호</option>
-                                        <option value="m_Phone" <%=type!=null&&type.equals("m_Phone")?"selected":"" %>>전화번호</option>
+                               <%--          <option value="m_Phone" <%=type!=null&&type.equals("m_Phone")?"selected":"" %>>전화번호</option> --%>
                                     	</select> 
                                     <!-- 개인정보 검색 -->
 
@@ -426,13 +427,13 @@
 	                                    	<button type="submit" class="btn_Search">검색</button>
                                     	</form>
                                     </div>
-                                     <div id="search_m_Phone">
+                                  <%--    <div id="search_m_Phone">
                                      	<form action="<%=request.getContextPath()%>/admin/memberFinder">
 	                                    	<input type="hidden" name="searchType" value="m_Phone"/>
 	                                    	<input type="text" name="searchKeyword" value="<%=type!=null&&type.equals("m_Phone")?keyword:""%>" placeholder="검색할 전화번호 입력"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
                                     	</form>
-                                    </div>
+                                    </div> --%>
                                     
                                 </td>
                             </tr>
@@ -488,7 +489,6 @@
                         <col style="width:90px;">
                         <col style="width:100px;">
                         <col style="width:130px;">
-                        <col style="width:130px;">
                         <col style="width:auto;">
                         <col style="width:155px;">
                         <thead>
@@ -498,7 +498,6 @@
                                 <th scope="col">회원번호</th>
                                 <th scope="col">이름</th>
                                 <th scope="col">아이디</th>
-                                <th scope="col">전화번호</th>     
                                 <th scope="col">이메일</th>
                                 <th scope="col">회원삭제</th>
                             </tr>
@@ -507,8 +506,8 @@
                         <tbody>
                         <%if (list.isEmpty()) {%>
           	       			<tr>
-                     			<td id="conbox" colspan='8'>
-                     				<p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
+                     			<td id="conbox" colspan='7'>
+                     				<p style="padding:100px 0; margin:0; font-size:20px;">검색된 회원 내역이 없습니다.</p>
                      			</td>
                   			</tr>
                   		<%} else { %>
@@ -520,7 +519,6 @@
 	                        		<td><%=m.getM_No() %></td>
 	                        		<td><%=m.getM_Name() %></td>
 	                        		<td><%=m.getM_NickName() %></td>
-	                        		<td><%=m.getM_Phone() %></td>
 	                        		<td><%=m.getM_Email() %></td>
 	                        		<td>
 	                        			<button type="button" class="btn_Wihte" onclick="memberDelete();" value="<%=m.getM_Email()%>">삭제</button>

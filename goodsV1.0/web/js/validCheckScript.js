@@ -97,6 +97,25 @@
 	                            $('#passwordCheck').after($('<span>').html('비밀번호가 일치합니다.').addClass('correct'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시하기
 	                        }
 	                    }
+	                } else if ($(this).attr('name') == 'nickName') {
+	                	console.log("아니??닉")
+	                	$.ajax({
+                        	url:contextPath+'/checkNickDuplicate',
+                        	type:'post',
+                        	//dataType:"json",
+                        	data: {nickName:$('#nickName').val()},
+                        	success:function(resp){	  
+                        		if(resp.isUseAble) {
+                        			console.log("닉성공시 : "+resp.isUseAble);
+                        			$('#nickName').removeClass('error');//이메일 확인창에 error 클래스 지우고
+                        			$('#nickName').after($('<span>').html('사용가능한 닉네임 입니다.').addClass('correct'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시하
+                        		}else {
+                        			console.log("닉실패시 : "+resp.isUseAble);
+                        			$('#nickName').addClass('error');  //input에 error 클래스 추가하고
+                        			$('#nickName').after($('<span>').html('사용중인 닉네임이 있습니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+                        		}
+                        	}
+                        })	          
 	                }
 	            }
 	        });

@@ -29,7 +29,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 	}
 	
 	
-	private String getSha512(String password) {
+	public static String getSha512(String password) {
 		String encPw=null;
 		//sha512암호화를 위한 암호화 객체생성
 		MessageDigest md=null;

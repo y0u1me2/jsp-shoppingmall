@@ -1,4 +1,4 @@
-package com.web.profile.controller;
+package com.web.member.controller;
 
 import java.io.IOException;
 
@@ -8,19 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.profile.model.service.ProfileService;
+import org.json.simple.JSONObject;
+
+import com.web.member.model.service.MemberService;
 
 /**
- * Servlet implementation class Profile
+ * Servlet implementation class CheckEmailDuplicateServlet
  */
-@WebServlet(name="profileServlet", urlPatterns ="/profile")
-public class Profile extends HttpServlet {
+@WebServlet("/checkNickDuplicate")
+public class CheckNickDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Profile() {
+    public CheckNickDuplicateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,21 +31,24 @@ public class Profile extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("editMember");
-		String pw = request.getParameter("password");//사용자가 입력하는 비밀번호값
-	 
+		// TODO Auto-generated method stub
+		String nickName=(String) request.getParameter("nickName");//중복검사할 이메일 변수에 저장
+		int data=0;
+		boolean isUseAble=new MemberService().duplicationNickName(nickName);
+		//isUseAble이 true면 사용가능 / false면 불가능
+		JSONObject obj = new JSONObject();
+		//값 전달함
 		
-		int result = new ProfileService().pwCheck(email,pw);
-		System.out.println(result);
+		try{
+	        obj.put("isUseAble", isUseAble);
+	    }catch (Exception e) {    
+	    	e.printStackTrace();
+	    }
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(obj.toString());
 		
-		if(result == 1) {
-			request.getRequestDispatcher("/views/client/mypage/MemberModify.jsp").forward(request, response);
-			System.out.println(result);
-		}else {
-			//비밀번호가 일치하지 않기 때문에 다시 입력받아야 함
-			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('비밀번호를 잘못 입력하셨습니다.');history.back();</script>");
-		}
 	}
 
 	/**
@@ -51,6 +56,7 @@ public class Profile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

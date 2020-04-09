@@ -1,28 +1,28 @@
-package com.web.faq.controller;
+package com.web.member.controller;
 
 import java.io.IOException;
-import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.faq.model.service.FAQService;
-import com.web.faq.model.vo.FAQ;
+import com.web.common.filter.EncryptWrapper;
+import com.web.member.model.service.MemberService;
 
 /**
- * Servlet implementation class FaqPayServlet
+ * Servlet implementation class SaveRandomPwServlet
  */
-@WebServlet("/faqPay")
-public class FaqPayServlet extends HttpServlet {
+@WebServlet(name="SaveRandomPwServlet", urlPatterns = "/saveRandomPw")
+public class SaveRandomPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FaqPayServlet() {
+    public SaveRandomPwServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +32,21 @@ public class FaqPayServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		int no=Integer.parseInt(request.getParameter("no"));
-		String cg=request.getParameter("cg");
-		List<FAQ> list= new FAQService().selectCategory(cg);
-	//	System.out.println(list.toString());
-		request.setAttribute("faq", list);
-           		
-		request.getRequestDispatcher("/views/client/servicecenter/Faqmember.jsp").forward(request, response);
-//		private FAQService fser=new FAQService();
-		
-		
+		String password=(String) request.getAttribute("password");
+		String email=(String) request.getAttribute("email");
+		System.out.println(EncryptWrapper.getSha512(password));
+		String tempPw=EncryptWrapper.getSha512(password);
+		//비밀번호 암호화 저장 로직
+		int result=new MemberService().saveTempPw(email,tempPw);
+		String loc="";
+		if(result>0) {
+			request.setAttribute("savePw", true);
+			loc=request.getContextPath()+"/index.jsp";
+		}else {
+			request.setAttribute("savePw", false);
+			loc=request.getContextPath()+"/index.jsp";
+		}
+		response.sendRedirect(loc);
 	}
 
 	/**

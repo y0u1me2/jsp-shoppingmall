@@ -56,7 +56,6 @@
 <section>
 	<div class="back">
 		<div class="writeback">
-			<br><br>
 			<h1 id="one">공지사항 수정</h1>
 			<hr id="gline">
 			<br><br>

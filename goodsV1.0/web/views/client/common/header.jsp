@@ -17,13 +17,11 @@
 	String loginResult=(String)session.getAttribute("loginResult");
 	String emailCheck=(String)session.getAttribute("emailCheck");//이메일체크 여부
 	String m_status=(String)session.getAttribute("m_status");//회원상태	
-	//boolean isUseAble=(boolean)request.getAttribute("isUseAble");//중복사용 가능 불가능
-	//String checkedEmail=(String)request.getAttribute("emailCheck");//중복검사한 이메일
-	//int duplication=Integer.parseInt(request.getParameter("duplication"));
 	
 	
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
+	String savePw=(String)request.getParameter("savePw");//임시비번 저장여부
 	
 	ProductService service =  new ProductService();
 	List<Product> 케이스 = service.selectByCategory("케이스");
@@ -130,6 +128,64 @@ img#leftLogo{
 	bottom:5px;
 	left:90px;
 }
+
+/* 유의사항 */
+.container {
+            margin: 0;
+            padding: 0;
+        }
+        .top>h1 {
+            margin: 0;
+            padding: 0 0 40px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: normal;
+        }
+        /* 입력창 */
+        .input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid rgb(238, 238, 238);
+            font-size: 14px;
+            cursor: text;
+        }
+        /* 입력창 선택시 */
+        .input:active {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid black;
+            font-size: 14px;
+            cursor: text;
+        }
+         /* 유의사항 */
+         .middle {
+            padding-top: 40px;
+        }
+        .middle>dl>dt>span {
+            margin-bottom: 15px;
+            line-height: 1;
+            font-size: 16px;
+            text-align: left;
+        }
+        .middle>dl>dd {
+            font-size: 12px;
+            text-align: left;
+            color: #666;
+            line-height: 1.67em;
+            padding-left: 8px;
+            margin-bottom: 4px;
+        }
+        .middle>dl>dd>span {
+            text-align: left;
+            color: #e5362c;
+            margin-bottom: 0;
+        }
+        .bottom {
+            padding-top: 108px;
+            margin-bottom: 0;
+        }
 
 </style>
 
@@ -311,11 +367,36 @@ img#leftLogo{
 			<!-- 이용약관 팝업-->
 			<div class="modal-findPw animate">
 				<div class="url-html">
-					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/findPw.html" id="htmlPw"></object>
+					<div class="container">
+				        <div class="top">
+				            <h1>아이디/비밀번호 찾기</h1>
+				            <form method="post" action="<%=request.getContextPath()%>/findPw">
+					            <input id="findPwEmail" name="findPwEmail" type="text" class="input" placeholder="이메일">
+					            <input id="findPwUserName" name="findPwUserName" type="text" class="input" placeholder="이름"> 
+				        </div>
+				        <div class="middle">
+				            <dl>
+				                <dt>
+				                    <span>유의사항</span>
+				                </dt>
+				                <dd>
+				                    이메일이 확인이 불가능한 경우, <span>고객센터(1544-9970)</span> 로 연락 주시기 바랍니다.
+				                </dd>
+				                <dd>
+				                    회원님의 이메일 주소로 임시 비밀번호가 발송됩니다.
+				                </dd>
+				                <dd>
+				                    로그인후 비밀번호를 꼭 변경해 주세요.
+				                </dd>
+				            </dl>
+				        </div>        
+				    </div>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeFindPw();" class="close" title="Close Modal">&times;</span>
 				</div>
+            	<button type="submit" class="big-gray-btn">보내기</button>
+				            </form>     
 			</div>
 		</div>
 		
@@ -365,7 +446,7 @@ img#leftLogo{
 								</tr>
 								<tr>
 									<th>닉네임 <em><sup>*</sup></em></th>
-									<td class="inputEnroll"><input type="text" name="nickName"
+									<td class="inputEnroll"><input id="nickName" type="text" name="nickName"
 										value="" placeholder="닉네임 입력" maxlength="15"></td>
 								</tr>
 							</tbody>
@@ -469,10 +550,10 @@ img#leftLogo{
 					</h4>
 				</div>
 				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>	
@@ -487,10 +568,10 @@ img#leftLogo{
 					</h4>
 				</div>
 				<div class="enrol lEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>	
@@ -505,20 +586,38 @@ img#leftLogo{
 					<h4>이메일을 확인하여 인증을 완료해주세요.</h4>
 				</div>
 				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>	
 		</div>
-		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("N")) {%>
+		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&(emailCheck.equals("N")||m_status.equals("N"))) {%>
 		<div class="modal-back" id="enrollEnd" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
 					<h4>로그인에 실패하였습니다.
 					관리자에게 문의하여주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} }%>
+		
+		<% if(savePw!=null&&savePw.equals("true")) { %> <!-- 임시비밀번호 저장성공 -->
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class="modal-enrollEnd animate">
+				<div>
+					<h4>해당 이메일 주소로 임시비밀번호를 발송했습니다.
+					이메일을 확인해 주세요.</h4>
 				</div>
 				<div class="enrollEnd">
 					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
@@ -528,7 +627,23 @@ img#leftLogo{
 				</div>
 			</div>	
 		</div>
-		<%} }%>
+		<%} else if(savePw!=null&&savePw.equals("false")) {%>
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class="modal-enrollEnd animate">
+				<div>
+					<h4>임시 비밀번호 발송에 실패하였습니다.
+					고객센터(1544-9970)로 문의하여 주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} %>
 		
 
 

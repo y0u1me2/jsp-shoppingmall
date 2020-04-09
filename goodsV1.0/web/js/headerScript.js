@@ -1,17 +1,11 @@
 ﻿
-//드롭다운 메뉴
-//$(function() {
-
-// 서브메뉴가 처음화면엔 안보이게 숨김
-$("ul.subMenu").show();
-// 메인메뉴 li에 마우스 클릭하면
-//$("ul.mainMenu").mouseenter(function () {
-//    $(".subMenu").slideDown(1000);
-//})
-//$(".topMenu").mouseleave(function () {
-//    $(".subMenu").slideUp(1000);
-//})
-
+//상태 팝업
+$('.enrollEnd').siblings().click(function(){
+	$('#enrollEnd').css('display', 'none');
+})
+$('.close-btn').siblings().click(function() {
+	$('#enrollEnd').css('display', 'none');
+})
 
 // 로그인, 회원가입 팝업
 
@@ -292,5 +286,44 @@ if (loginResult == 'Y') {
 }
 
 
+//비번찾기
+$(".top>form>input").blur(function() {
+	if($(this).val()!="") {
+		$.ajax({
+			url: contextPath+'/checkEmailDuplicate',
+	        type: 'post',
+	        data: { email: $('#findPwEmail').val() },
+			success:function(resp){	  
+				if(!resp.isUseAble) {
+					$('#findPwEmail').next('span').remove();
+					$('#findPwEmail').removeClass('error');//이메일 확인창에 error 클래스 지우고
+					$('#findPwEmail').after($('<span>').html('등록한 이메일 입니다.').addClass('correct'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시한다.
+
+					$.ajax({//이메일 보내서 이름 일치여부 확인
+						url: contextPath+'/searchAccount',
+						type: 'post',
+						data: { email: $('#findPwEmail').val(), userName: $('#findPwUserName').val() },
+						success:function(findPw){	
+							if(findPw.same) {
+								$('#findPwUserName').next('span').remove();
+								$('#findPwUserName').removeClass('error');//이메일 확인창에 error 클래스 지우고
+								$('#findPwUserName').after($('<span>').html('일치하는 계정이 있습니다.').addClass('correct'));
+							}else {
+								$('#findPwUserName').next('span').remove();
+								$('#findPwUserName').addClass('error');  //input에 error 클래스 추가하고
+								$('#findPwUserName').after($('<span>').html('일치하는 계정이 없습니다.').addClass('error'));
+							}
+						}
+					})
+				}else {
+					$('#findPwEmail').next('span').remove();
+					$('#findPwEmail').addClass('error');  //input에 error 클래스 추가하고
+					$('#findPwEmail').after($('<span>').html('등록한 이메일이 없습니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+				}
+			}
+		})   
+	}//if
+})//blur
+	
 
 

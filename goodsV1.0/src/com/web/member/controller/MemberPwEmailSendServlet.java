@@ -24,14 +24,14 @@ import com.web.common.SHA256;
 /**
  * Servlet implementation class MemberEmailSendServlet
  */
-@WebServlet("/memberEmailSend")
-public class MemberEmailSendServlet extends HttpServlet {
+@WebServlet(name="MemberPwEmailSendServlet", urlPatterns = "/memberPwEmailSend")
+public class MemberPwEmailSendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberEmailSendServlet() {
+    public MemberPwEmailSendServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,26 +40,21 @@ public class MemberEmailSendServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String oriPassword=(String) request.getAttribute("password");
 		String email=(String) request.getAttribute("email");
-		String nickName=(String)request.getAttribute("nickName");
-		int result=(int) request.getAttribute("result");
-		
+		System.out.println(oriPassword);
 		//String host="http://rclass.iptime.org:9999/20AM_GoodGoods/";
 		//String host="http://localhost:9090/goods/";
 		String host=request.getRequestURL().toString().replace(request.getRequestURI(),"")+request.getContextPath()+"/";
 		
 		String from="errornotzoo@gmail.com";
 		String to = email;
-		String subject="GOODGOODS 회원가입을 감사드립니다.";
-		String sha256=SHA256.getSHA256(to);
+		String subject="GOODGOODS 회원님의 임시 비밀번호 입니다.";
 		String content="<div style='background-color:pink; width:300px;'>"
-						+ "<div>다음 링크에 접속하시면 회원가입이 완료됩니다.</br></div>"
+						+ "<div>임시비밀번호 입니다.</br></div>"
 						+ "<div>"
-							+ "<img width='200px' height='100px' src='https://postfiles.pstatic.net/MjAyMDAzMTZfMTE4/MDAxNTg0MzU0NzY4NTE2.E1U0LOI5LkQUVkIPpTpDMa7yKLOAEONjqtWEhzHrpI4g.30-tvuOG3ncs0Ll-6qzx82T8K3agWuuN5Gf2J_kqf9Qg.PNG.sciencho/%EC%98%81%EB%AC%B8%EA%B2%80%EC%A0%95.png?type=w580'>"
-						+ "</div>"
-						+"<div>"
-							+ "<a href='"+host+"memberEmailCheckAction?code="+sha256+"&nickName="+nickName+"'>이메일 인증하기</a>"
-						+ "</div>"
+						+"<h2>"+oriPassword+"</h2>"
+						+ "</div>"					
 					+ "</div>";
 		
 		Properties p=new Properties();//실제로 smtp서버를 이용하기위한 정보
@@ -70,8 +65,7 @@ public class MemberEmailSendServlet extends HttpServlet {
 		p.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		p.put("mail.smtp.port", "465");
 		p.put("mail.smtp.user", from);
-		p.put("mail.smtp.auth", "true");
-		
+		p.put("mail.smtp.auth", "true");		
 		
 		try{
 			Authenticator auth=new Gmail();
@@ -92,13 +86,10 @@ public class MemberEmailSendServlet extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		String loc="";
-		if(result>0) {
-			loc="/index.jsp?auth=false&enroll=true";
-		}else {
-			loc="/index.jsp?auth=false&enroll=false";
-		}
-		RequestDispatcher rd=request.getRequestDispatcher(loc);
+		request.setAttribute("password", oriPassword);
+		request.setAttribute("email", email);
+		
+		RequestDispatcher rd=request.getRequestDispatcher("/saveRandomPw");
 		rd.forward(request, response);
 	}
 

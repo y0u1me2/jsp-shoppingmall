@@ -61,7 +61,7 @@
     padding-left: 13px;
     line-height: 25px;
     font-size: 16px;
-    color: #000;
+    color: #949494;
     background: transparent url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg) no-repeat left 6px;
 }
         .senter>li>a{
@@ -71,6 +71,12 @@
         ul{
             list-style:none;
         }
+        h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
+}
     </style>
     
     <section>
@@ -81,8 +87,8 @@
 
             <ul class="lnb_list">
                 <!-- 고객센터 목록 -->
-                <li><a href="<%=request.getContextPath() %>/schome" style="color: rgb(23, 7, 248); font-weight: bolder;">고객센터 Home</a></li><br />
-                <li><a href="">공지사항</a></li><br />
+                <li><a href="<%=request.getContextPath() %>/schome" style="color: #0E0E0E; font-weight: bolder;">고객센터 Home</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/notice/noticeList">공지사항</a></li><br />
                 <li><a href="<%=request.getContextPath() %>/faqPay?cg=FAQ_1">FAQ</a></li><br />
                 <li><a href="">이벤트</a></li><br />
                 <li><a href="">이용안내</a></li><br />
@@ -131,7 +137,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan=2 style="font-weight:bolder;color: rgb(23,7,248);">사무실 [방문 수령처] : (월~금) 저녁7시까지</td>
+                    <td colspan=2 style="font-weight:bolder;color: #0E0E0E;">사무실 [방문 수령처] : (월~금) 저녁7시까지</td>
                 </tr>
                 <tr>
                     <td style="font-size: 13px;">연락처 / 1544-0000</td>

@@ -274,7 +274,6 @@
     .modal-login {
         /* border: 1px solid black; */
         width: 360px;
-        /* height: 470px; */
         max-height: 650px;
         padding: 40px;
         background-color: #fefefe;
@@ -315,8 +314,7 @@
     .bottom-login {
         /* border: 1px solid blue; */
         width: 100%;
-        height: 50%;
-        padding: 70px 0px 0px;
+        padding: 20px 0px 0px;
     }
 
     /* 로고 사진 */
@@ -361,7 +359,7 @@
 
     /* 로그인 버튼 */
     .big-gray-btn {
-        padding: 0 97px;
+        padding: 0 20px;
         line-height: 48px;
         width: 100%;
         font-size: 13px;
@@ -396,7 +394,7 @@
 
     /* 로그인창 하단 회원가입, 비번찾기 구역 */
     .find-info {
-        padding: 30px 0 0 0;
+        padding: 20px 0 0 0;
         width: 100%;
         text-align: center;
     }
@@ -569,7 +567,7 @@
     .url-html {
         /* border: 1px solid red; */
         width: 100%;
-        height: 100%;
+        height: 90%;
     }
 
     /* 이용약관 등 새로운 html들 크기 */
