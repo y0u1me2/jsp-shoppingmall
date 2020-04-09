@@ -141,6 +141,11 @@
          background:red;
     }
     
+      /* 빨강색 버튼 */
+    input[type="radio"]#오렌지{
+         background:orange;
+    }
+    
      
     
      /* 네이비색 버튼 */

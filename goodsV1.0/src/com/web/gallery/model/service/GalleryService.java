@@ -96,4 +96,14 @@ public class GalleryService {
 		close(conn);
 		return result;
 	}
+
+
+	public int replyDelete(int rNo) {
+		Connection conn = getConnection();
+		int result = dao.replyDelete(conn, rNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

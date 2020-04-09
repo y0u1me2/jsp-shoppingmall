@@ -73,7 +73,7 @@ public class AnswerDetailFileDownLoadServlet extends HttpServlet {
 		// application/octet-stream MIME방식 -> 불특정 파일형식을 응답하겠다는 뜻
 		response.setContentType("application/octet-stream");
 		// attachment 새창열어서 파일 다운로드 할 수 있게 해주는 것
-		response.setHeader("Content-Disposition", "attachment;fileName=" + resFileName);
+		response.setHeader("Content-Disposition", "attachment;fileName="+resFileName);
 
 		// 스트림에서 파일을 읽어 오고 다시 파일을 클라이언트에게 전송!
 		// 파일을 끝까지 다읽었을때는 -1이 나온다

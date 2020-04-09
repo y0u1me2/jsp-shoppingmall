@@ -258,7 +258,7 @@ div#pageBar a {
 
 				<table class="box">
 					<tr>
-						<td><input type="checkbox" name="allCheck"
+						<td><input type="checkbox" name="allCheck" id="allck"
 							onclick="iAllClick();"></td>
 						<td>번호</td>
 						<td>제목</td>
@@ -402,7 +402,18 @@ div#pageBar a {
    		}else {
    			
    		}	
-       }         
+       } 
+     
+        $(function(){
+            $("#allck").click(function(){
+               if($("#allck").is(":checked")){
+                  $(".rowCheck").prop("checked",true);
+               }else{
+                  $(".rowCheck").prop("checked",false);
+               }
+            })
+            
+         })
              
 		//사용자가 조회기간 지정하기		
 	   $("#numPerPage").change(()=>{
