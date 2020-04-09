@@ -610,7 +610,7 @@ img#leftLogo{
 				</div>
 			</div>	
 		</div>
-		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&(emailCheck.equals("N")||m_status.equals("N"))) {%>
+		<%}else if(m_status!=null&&m_status.equals("N")) {%>
 		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
