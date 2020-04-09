@@ -81,12 +81,12 @@
             height: 450px;
             text-align: center;
             background: rgb(245, 245, 245);
-            cursor:pointer;
         }
 
         .board img {
             width: 350px;
             height:350px;
+            cursor: pointer;
         }
 
         
@@ -107,7 +107,7 @@
 
 #modal-container {
 	margin: auto;
-	width: 800px;
+	width: 700px;
 	height: 650px;
 	background-color: white;
 	text-align: center;
@@ -203,11 +203,9 @@
 .btnBlack{
 	border-radius:10px;
 	border: none;
-	background: #eee;
-	
 	background: #303030;
 	color: white;
-	
+	font-size: 15px;
 	padding:5px 10px;
 }
 
@@ -215,6 +213,41 @@ table td{
 	padding: 5px;
 }
 
+
+
+/* 댓글등록 버튼  */
+button#comment-update{
+	padding: 3px 10px;
+	font-size: 12px;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	background-color: white;
+	border: 1px solid rgb(161, 161, 161);
+	position: relative;
+	height:40px;
+	left: 10px;
+	font-size: 15px;
+	border-radius: 7px;
+}
+
+
+/* 검색버튼 */
+.btnWhite{
+	padding: 3px 10px;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	background-color: white;
+	border: 1px solid rgb(161, 161, 161);
+	position: relative;
+	height:30px;
+	left: 10px;
+	font-size: 15px;
+	border-radius: 7px;
+}
+
+button {
+	cursor: pointer;
+}
 </style>
 
 
@@ -249,7 +282,7 @@ table td{
                 <select id="select2" name="pName" style="vertical-align: middle; display: none;">
                 </select>
         		
-        		<button type="button" id="btn1">검색</button>
+        		<button type="button" id="btn1" class="btnWhite">검색</button>
         	</form>   
             
         </div>
@@ -262,7 +295,7 @@ table td{
 		      		
 		      	  <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
-		          <p>다운로드수: <%=g.getDownCnt()%></p>
+		          <p style="margin-top:10px;">다운로드수: <%=g.getDownCnt()%></p>
 		          <p>조회수: <%=g.getViewCnt()%></p>
 		          <p>등록일: <%=g.getEnrollDate()%></p>
 		      
@@ -294,21 +327,21 @@ table td{
 		</div>
 		<div style="margin-top:40px;">
 			<span id="caption"></span>
-			<button class="btnBlack" type="button" id="modalBtn" style="cursor:pointer;">이미지 다운로드</button>
+			<button class="btnBlack" type="button" id="modalBtn" style="">이미지 다운로드</button>
 		</div>
 		
 		
 		<%if(loginMember!=null){ %>
-		<form style=" margin-top:40px;" method="post" action="<%=request.getContextPath() %>/gallery/replyInsert" onsubmit="return validate();">
+		<form id="frm2" style=" margin-top:40px;" onsubmit="return validate();">
 			<textarea id="ta1" style="vertical-align:middle; resize:none; width:50%; border:1px solid #eee;" rows="3" placeholder="100자 이내로 입력해주시기 바랍니다." name="content"></textarea>
 			<input type="hidden" id="gNo" name="gNo">
 			<input type="hidden" id="mNo" name="mNo">
-			<button class="btnBlack" style="cursor:pointer; vertical-align:middle;">댓글 등록</button>
+			<button id="comment-update" style="vertical-align:middle;">댓글 등록</button>
 		</form>
 		<%}else{ %>
-		<p>댓글은 로그인 후 작성하실 수 있습니다.</p>
+		<p style="margin-top:40px;">댓글은 로그인 후 작성하실 수 있습니다 <button class="btnWhite" onclick="function showModal(){$('#login').show();} showModal();">로그인</button></p>
 		<%} %>
-		<div id="replyList" style="margin-top:40px; "></div>
+		<div id="replyList" style="margin-top:40px; margin-bottom:20px;"></div>
 	</div>
 	
 	
@@ -343,6 +376,7 @@ $(".myImg").click(function(){
 			$('#login').show();
 		}
 	});
+	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/gallery/ajaxViewCntPlus",
 		data:{'gNo' : $(this).next().val()},
@@ -351,30 +385,35 @@ $(".myImg").click(function(){
 		}
 	});
 	
+	getReplyList($(this).next().val());
+});
+
+
+//댓글 리스트 불러오기(ajax)
+function getReplyList(gNo){
 	$.ajax({
 		url:"<%=request.getContextPath()%>/gallery/getReplyList",
-		data:{'gNo' : $(this).next().val()},
+		data:{'gNo' : gNo},
 		type:"post",
 		dataType:"json",
 		async:false,
 		success:function(data){
 			console.log(data);
 			var table = $('<table>').css({'margin-left': '10%','width': '80%', 'border-collapse': 'collapse'});
-			
 			var html;
-			
 			data.forEach(function(reply) {
-				html+= "<tr style='border-bottom:1px solid #eee;'><td width='30%'>"+reply['mNickname']+"<br>"+reply['rDate']+"</td><td width='70%'>"+reply['rContent']+"</td></tr>";
+				if(reply['mNo']==mNo){
+					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'><button onclick='replyDelete("+reply['rNo']+","+reply['gNo']+");' style='padding: 3px 10px; font-size: 10px; color: rgb(0, 0, 0); text-align: center; background-color: white; border: 1px solid rgb(161, 161, 161); height:30px; border-radius: 7px;'>댓글 삭제</button></td></tr>";
+				}else{
+					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'></td></tr>";
+				}
 			});
 			
-			
 			table.append(html);
-			
-			
 			$('#replyList').html(table);
 		}
-	});
-});
+	});	
+}
 
 // Get the <span> element that closes the modal
 var span = $("#close");
@@ -386,7 +425,19 @@ span.click(function() {
 });
 
 
-
+//댓글 삭제(삭제 후 댓글 리스트 다시 불러오기)
+function replyDelete(rNo, gNo){
+	$.ajax({
+		url:"<%=request.getContextPath()%>/ajax/replyDelete",
+		data:{'rNo': rNo},
+		type: 'post',
+		async:false,
+		success:function(data){
+			alert('댓글 삭제 성공');
+			getReplyList(gNo);
+		}
+	});
+}
 
 function ajaxPageMove(cPage){
 	let frm1=$('#frm1').serialize();
@@ -449,17 +500,37 @@ function validate(){
 	}else{
 		$('#mNo').val('<%=loginMember!=null?loginMember.getM_No():""%>');
 	}
-	console.log($('#ta1').val().length);
 	if($('#ta1').val().length>100){
 		alert('100자를 초과하여 입력하셨습니다.');
 		return false;
 	}
-	return true;
+	if($('#ta1').val().length==0){
+		alert('내용을 입력하세요');
+		return false;
+	}
+
+	const frm2 = $('#frm2').serialize();
+	$.ajax({
+		url: "<%=request.getContextPath() %>/gallery/replyInsert",
+		type: "post",
+		data: frm2,
+		async:false,
+		success: function(data){
+			alert('댓글 등록 성공');
+			getReplyList($('#frm2 #gNo').val());
+		},
+		error: function(){
+			alert('댓글 등록 실패');
+		}
+	});
+	
+	return false;
 }
 
 function emptyTextarea(){
 	$('#ta1').val('');
 }
+
 
 </script>
 

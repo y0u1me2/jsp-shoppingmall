@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.gallery.model.service.GalleryService;
-import com.web.gallery.model.vo.Reply;
 
 /**
- * Servlet implementation class ReplyInsertServlet
+ * Servlet implementation class AjaxReplyDelete
  */
-@WebServlet("/gallery/replyInsert")
-public class ReplyInsertServlet extends HttpServlet {
+@WebServlet("/ajax/replyDelete")
+public class AjaxReplyDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReplyInsertServlet() {
+    public AjaxReplyDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +31,11 @@ public class ReplyInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		int gNo = Integer.parseInt(request.getParameter("gNo"));
-		int mNo = Integer.parseInt(request.getParameter("mNo"));
-		String content = request.getParameter("content");
-		
-		Reply reply = new Reply(0, gNo, mNo, null, content, null);
-		
-		int result = new GalleryService().insertReply(reply);
-		if(result==0) System.out.println("댓글 등록 실패");
-//		String msg = result>0?"댓글등록 성공!": "댓글등록 실패";
-//		String loc= "/gallery/list";
-//		request.setAttribute("msg", msg);
-//		request.setAttribute("loc", loc);
-//		request.getRequestDispatcher("/views/client/common/msg.jsp").forward(request, response);
+		int rNo = Integer.parseInt(request.getParameter("rNo"));
+		int result = new GalleryService().replyDelete(rNo);
+		if(result==0) {
+			System.out.println("댓글 삭제 실패");
+		}
 		
 	}
 
