@@ -1186,7 +1186,7 @@
                       //input밑에 span경고창(있을때) 삭제
   						
                       if($("#userEmail").val()=="" && $(this).attr('name')=='userEmail'){
-                    	  console.log("나오냐 트루");
+                  
                          	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
                  	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
                  	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
@@ -1202,13 +1202,13 @@
 
                           	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
                   	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
-                  	    		 console.log("나오냐 엘스2");
+                  	  
                   	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
                	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
                   	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
                   	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
                   	    	    } else { //유효성 오케이이면
-                  	    	    	 console.log("나오냐 엘3");
+                  
                   	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
                   	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
                   	    	}
@@ -1255,8 +1255,7 @@
                 	
                       }
                   }else{
-                	  
-                	 
+              	 
                      //console.log(this);
                       if ($(this).attr('name') == "userPhone[2]" && $(this).val().length < 4) {
                            //console.log("언제쯤나오냐");
@@ -1285,7 +1284,20 @@
                               $("#paymentBt").css("color","#eee");
                            $("#paymentBt").css("border","1px solid rgb(220, 220, 220)");
                            $("#finalPayment").css("border", "1px solid rgb(220, 220, 220)");
-                           }else{
+                           }else if(!emailRule.test($("#userEmail").val())){
+                           	
+                     	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
+                     	    		 console.log("들어올걸?");
+                     	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
+                  	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+                     	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
+                     	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+                     	    	    } else { //유효성 오케이이면
+                     	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
+                     	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
+                     	    	}
+                         	
+                       		}else{
                               $(this).removeClass('error');
                                //input에 클래스 에러(있을때) 삭제
                                $(this).siblings('span').remove();
@@ -1341,8 +1353,7 @@
           }
             
           if($("#userEmail").val()==""){
-        	  console.log("나오냐 트루");
-        	 
+	 
              	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
      	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
      	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
@@ -1355,17 +1366,15 @@
      	    	}
               
           }else{
-        	
-        	
+
               	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
       	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
-      	    		 console.log("나오냐 엘스2");
       	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
    	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
       	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
       	    	        $("#userEmail").after($('<span>').html('유효하지 않은 이메일입니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
       	    	    } else { //유효성 오케이이면
-      	    	    	 console.log("나오냐 엘3");
+      	    
       	    	        $("#userEmail").removeClass('error');//input error 클래스 삭젠
       	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
       	    	}
@@ -1499,8 +1508,7 @@
         }
         
         function payment() {
-        	
-        	
+ 	
             if ($(inputPilsu[0]).val() == "" || $(inputPilsu[1]).val() == "" || $(inputPilsu[2]).val() == "" || $(inputPilsu[3]).val() == "" || $(inputPilsu[4]).val() == "" ||
                 $(inputPilsu[5]).val() == "" || $(inputPilsu[6]).val() == "" || $(inputPilsu[7]).val() == "" || $(inputPilsu[8]).val() == "" ||
                 $(inputPilsu[9]).val() == "" || $(inputPilsu[10]).val() == "" || $(inputPilsu[11]).val() == ""||agreeWon[0].checked==false) {
@@ -1556,7 +1564,8 @@
               
                 
             } else {
-               
+            	 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+            	// console.log(!emailRule.test($("#userEmail").val()));
                if ($(inputPilsu[3]).attr('name') == "userPhone[2]" && $(inputPilsu[3]).val().length < 4) {
                    $(inputPilsu[3]).siblings('span').remove();
                   //input name이 "userPhone[2]" 이고 input 값이 3자리 이하일때
@@ -1571,10 +1580,9 @@
                 // input안에 error클래스 추가 해줌
                 $(inputPilsu[8]).after($('<span>').html("최소 4자리이상.").addClass('error'));
                 // input다음에 span을 넣어줌 html(내용).addclass는(css
-             }else if($("#userEmail").val()!=""){
-               		 let emailRule = /(?=^\w+@[a-zA-Z]+[.][a-zA-Z.]+$).{5,}/i;//이메일 유효성
+             }else if(!emailRule.test($("#userEmail").val())){
            	    	 if (!emailRule.test($("#userEmail").val())) { //이메일 유효성 검사하고 결과 이상하면
-           	    		 console.log("들어올걸?");
+           	    		
            	    		 $("#userEmail").removeClass('error');//input error 클래스 삭젠
         	    	        $("#userEmail").siblings('span').remove();//input의 형제인 span 태그 삭제
            	    	        $("#userEmail").addClass('error');  //input에 error 클래스 추가하고
