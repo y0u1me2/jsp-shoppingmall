@@ -1,11 +1,4 @@
 ﻿
-//상태 팝업
-$('.enrollEnd').siblings().click(function(){
-	$('#enrollEnd').css('display', 'none');
-})
-$('.close-btn').siblings().click(function() {
-	$('#enrollEnd').css('display', 'none');
-})
 
 // 로그인, 회원가입 팝업
 
