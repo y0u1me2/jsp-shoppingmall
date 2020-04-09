@@ -346,7 +346,7 @@ img#leftLogo{
 							<input type="password" name="password" placeholder="비밀번호"
 								maxlength="15">
 						</div>
-						<div>
+						<div style="margin-top:15px;">
 							<input type="checkbox" name="saveEmail" id="saveEmail"
 							<%=saveEmail!=null?"checked":"" %>>
 							<label style="font-size:12px" for="saveEmail">이메일 기억하기&nbsp;&nbsp;</label>
@@ -542,7 +542,7 @@ img#leftLogo{
 		<!-- 가입완료 -->
 		<!-- 뒷배경 -->
 		<% if(auth!=null&&auth.equals("true")) { %> <!-- 가입성공한 상태에서 인증 완료 -->
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
@@ -557,7 +557,7 @@ img#leftLogo{
 			</div>	
 		</div>
 		<%} else if(auth!=null&&enroll!=null&&auth.equals("false")&&enroll.equals("true")) {%>
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
@@ -575,7 +575,7 @@ img#leftLogo{
 			</div>
 		</div>	
 			<%} else if(auth!=null&&enroll!=null&&auth.equals("false")&&enroll.equals("false")) { %> <!-- 가입 실패! 이메일 인증은 미완료! -->
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
@@ -584,7 +584,7 @@ img#leftLogo{
 					관리자에게 문의하세요
 					</h4>
 				</div>
-				<div class="enrol lEnd">
+				<div class="enrollEnd">
 					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
@@ -596,7 +596,7 @@ img#leftLogo{
 			<!-- 로그인 실패시 알림창 -->
 		<% if(loginMember!=null) {
 		if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("Y")) { %> <!-- 로그인 실패 -->
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
@@ -611,7 +611,7 @@ img#leftLogo{
 			</div>	
 		</div>
 		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&(emailCheck.equals("N")||m_status.equals("N"))) {%>
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
@@ -629,7 +629,7 @@ img#leftLogo{
 		<%} }%>
 		
 		<% if(savePw!=null&&savePw.equals("true")) { %> <!-- 임시비밀번호 저장성공 -->
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class="modal-enrollEnd animate">
 				<div>
@@ -645,7 +645,7 @@ img#leftLogo{
 			</div>	
 		</div>
 		<%} else if(savePw!=null&&savePw.equals("false")) {%>
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class="modal-enrollEnd animate">
 				<div>
@@ -668,7 +668,7 @@ $('.enrollEnd').children().click(function(){
 	$('#enrollEnd').css('display', 'none');
 	location.replace("<%=request.getContextPath()%>/index.jsp");
 })
-$('.close-btn').children().click(function() {
+$('div#alertMsg>div>div.close-btn').children().click(function() {
 	$('#enrollEnd').css('display', 'none');
 	location.replace("<%=request.getContextPath()%>/index.jsp");
 })
