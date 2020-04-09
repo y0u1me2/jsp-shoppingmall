@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +51,20 @@ public class LoginServlet extends HttpServlet {
 		if (m != null&&m_status.equals("Y")&&emailCheck.equals("Y")) {
 			loginResult="Y";		
 		}
+		String saveEmail=request.getParameter("saveEmail");
+		if(saveEmail.equals("true")) {
+			//아이디를 쿠키에 저장하게함.
+			Cookie c=new Cookie("saveEmail",email);
+			//쿠키의 유효기간설정 7일
+			c.setMaxAge(7*24*60*60);
+			response.addCookie(c);
+		}else {
+			//저장된 cookie값 지우고 check된것 해제
+			Cookie c=new Cookie("saveEmail",email);
+			c.setMaxAge(0);
+			response.addCookie(c);
+		}
+		
 		session.setAttribute("loginedMember", m);
 		session.setAttribute("loginResult", loginResult);
 		session.setAttribute("emailCheck", emailCheck);

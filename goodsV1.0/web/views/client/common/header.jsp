@@ -29,15 +29,26 @@
 	List<Product> 생활용품 = service.selectByCategory("생활용품");
 	List<Product> 패션 = service.selectByCategory("패션");
 	
+	
+	Cookie[] cookies=request.getCookies();
+	String saveEmail=null;
+	if(cookies!=null){
+		for(Cookie c : cookies){
+			String key=c.getName();
+			String value=c.getValue();
+			if(key.equals("saveEmail")){
+				saveEmail=value;
+			}
+		}
+	}
 
 %>
 <script>
 		var loginResult='<%=loginResult%>';
 		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
 		var mNo = '<%=session.getAttribute("loginedMember")==null?"":((Member)session.getAttribute("loginedMember")).getM_No()%>';
-		/* console.log(loginResult); */
-		//var contextPath = "/20AM_GoodGoods";
 		var contextPath = '<%=request.getContextPath()%>';
+		var saveEmail='<%=saveEmail%>';
 </script>
 
 <!DOCTYPE html>
@@ -329,11 +340,16 @@ img#leftLogo{
 							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
 						</span>
 						<div class="inputLogin">
-							<input type="text" name="email" placeholder="이메일 또는 아이디">
+							<input type="text" name="email" placeholder="이메일" value='<%=saveEmail!=null?saveEmail:""%>'>
 						</div>
 						<div class="inputLogin">
 							<input type="password" name="password" placeholder="비밀번호"
 								maxlength="15">
+						</div>
+						<div>
+							<input type="checkbox" name="saveEmail" id="saveEmail"
+							<%=saveEmail!=null?"checked":"" %>>
+							<label style="font-size:12px" for="saveEmail">이메일 기억하기&nbsp;&nbsp;</label>
 						</div>
 					</div>
 					<div id="loginCenterImg">
@@ -355,6 +371,7 @@ img#leftLogo{
 						</div>
 					</div>
 				</form>
+			
 				<!-- 로그인 창 X표시 -->
 				<div class="close-btn">
 					<span onclick="closeLogin();" class="close" title="Close Modal">&times;</span>
@@ -649,14 +666,13 @@ img#leftLogo{
 //상태 팝업
 $('.enrollEnd').children().click(function(){
 	$('#enrollEnd').css('display', 'none');
-	console.log("하하하");
 	location.replace("<%=request.getContextPath()%>/index.jsp");
 })
 $('.close-btn').children().click(function() {
 	$('#enrollEnd').css('display', 'none');
-	console.log("하하하");
 	location.replace("<%=request.getContextPath()%>/index.jsp");
 })
+
 </script>
 
 
