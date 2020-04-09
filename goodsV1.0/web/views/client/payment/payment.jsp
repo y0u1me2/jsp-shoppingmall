@@ -925,7 +925,7 @@ span.perror {
 					</li>
 					<li class="dropdown">
 						<!-- 결제방법 밑에 경계선 -->
-						<div class="top2 active drop" onclick="pilsuInput2();">
+						<div class="top2 active drop" id="paymentCho" onclick="pilsuInput2();">
 							<!-- 결제방법 타이틀(문구) 폰트 16px-->
 							<span style="font-size: 16px;">결제 방법</span><span style="font-size:13px; color:blue;" >(click)</span>
 						</div> <!-- 결제 방법 div -->
@@ -1143,7 +1143,6 @@ span.perror {
 		}
 
 		$(function() {
-
 			$("#agreeWon")
 					.change(
 							function() {
@@ -1589,7 +1588,9 @@ span.perror {
 					|| $(inputPilsu[9]).val() == ""
 					|| $(inputPilsu[10]).val() == ""
 					|| $(inputPilsu[11]).val() == ""
-					|| !emailRule.test($("#userEmail").val()))
+					|| !emailRule.test($("#userEmail").val())
+					|| ($(inputPilsu[3]).val().length != 4)
+					|| ($(inputPilsu[8]).val().length != 4))
 					 {
 				for (let i = 0; i < inputPilsu.length; i++) { //일단 입력창갯수 만큼 for문 돌리긔
 					if ($(inputPilsu[i]).val() == "") { //입력창에 입력된거 없으면
@@ -1606,14 +1607,7 @@ span.perror {
 					}
 				}
 
-				$("#userEmail").removeClass('error');//input error 클래스 삭젠
-				$("#userEmail").siblings('span')
-						.remove();//input의 형제인 span 태그 삭제
-				$("#userEmail").addClass('error'); //input에 error 클래스 추가하고
-				$("#userEmail").after(
-						$('<span>').html(
-								'유효하지 않은 이메일입니다.')
-								.addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+				
 			} else {
 			
 
@@ -1639,7 +1633,9 @@ span.perror {
 					|| $(inputPilsu[9]).val() == ""
 					|| $(inputPilsu[10]).val() == ""
 					|| $(inputPilsu[11]).val() == ""
-					|| !emailRule.test($("#userEmail").val())) {
+					|| !emailRule.test($("#userEmail").val())
+					|| ($(inputPilsu[3]).val().length != 4)
+					|| ($(inputPilsu[8]).val().length != 4)) {
 				for (let i = 0; i < inputPilsu.length; i++) { //일단 입력창갯수 만큼 for문 돌리긔
 					if ($(inputPilsu[i]).val() == "") { //입력창에 입력된거 없으면
 						if ($(inputPilsu[i]).siblings().length == 0) { //근데 없는데 형제로 span이라던지 뭐 없어 그러면
@@ -1654,19 +1650,29 @@ span.perror {
 						}
 					}
 				}
-				$("#userEmail").removeClass('error');//input error 클래스 삭젠
-				$("#userEmail").siblings('span')
-						.remove();//input의 형제인 span 태그 삭제
-				$("#userEmail").addClass('error'); //input에 error 클래스 추가하고
-				$("#userEmail").after(
-						$('<span>').html(
-								'유효하지 않은 이메일입니다.')
-								.addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+				/* if(!emailRule.test($("#userEmail").val())){
+					$("#userEmail").removeClass('error');//input error 클래스 삭젠
+					$("#userEmail").siblings('span')
+							.remove();//input의 형제인 span 태그 삭제
+					$("#userEmail").addClass('error'); //input에 error 클래스 추가하고
+					$("#userEmail").after(
+							$('<span>').html(
+									'유효하지 않은 이메일입니다.')
+									.addClass('error')); //span태그 추가해서 유효하지 않다고 표시
+				} */
+		
 			} else {
 				$(event.target).next().slideDown(500);
 				$(event.target).parent().siblings(".dropdown").children(
 						".bottomInform").not($(this).next(".bottomInform"))
 						.slideUp(500);
+			/* 	let payCho=$('input[name="payChoice"]');
+				for(let i=0;i<payCho.length;i++){
+					if(payCho[i].checked==true&&$(event.target)[0]==$("#paymentCho")[0]){
+						$(event.target).children().next().after($('<span>').html("-"+$(payCho[0]).val()));
+					}
+				} */
+				
 			}
 		}
 
