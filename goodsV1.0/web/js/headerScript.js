@@ -141,7 +141,7 @@ $(function(){
                 if ($(this).val() == "") {
                     $(this).siblings('span').remove();
                     $(this).addClass('error');
-                    $(this).after($('<span>').html('아이디를 입력하세요.').addClass('error'));
+                    $(this).after($('<span>').html('이메일을 입력하세요.').addClass('error'));
                     emailCheck=false;
                 } else {
                     $(this).removeClass('empty error');
@@ -200,6 +200,31 @@ $(function(){
                 }
         });
 });//function onload
+console.log(saveEmail);
+if($(inputLogin[0]).val()==saveEmail) {
+	$(this).removeClass('empty error');
+    $(this).siblings('span').remove();
+    $.ajax({
+        url: contextPath+'/checkEmailDuplicate',
+        type: 'post',
+        async:false,
+        data: { email: $(inputLogin[0]).val() },
+        success: function (login) {
+            if (login.isUseAble) {
+                //$(this).removeClass('error');//input error 클래스 삭젠
+                $(inputLogin[0]).siblings('span').remove();//input의 형제인 span 태그 삭제
+                $(inputLogin[0]).addClass('error');//이메일 확인창에 error 클래스 지우고
+                $(inputLogin[0]).after($('<span>').html('가입해야하는 이메일주소 입니다.').addClass('error'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시하
+                emailCheck=false;
+            } else {
+                $(inputLogin[0]).removeClass('error');
+                $(inputLogin[0]).siblings('span').remove();
+                emailCheck=true;
+            }
+        }
+    })
+}
+
 //로그인 가자아 
 function loginSubmit() {
     if(emailCheck==true&&passwordCheck==true) {
@@ -207,7 +232,7 @@ function loginSubmit() {
     		url:contextPath+'/login',
     		type: 'post',
     		async:false,
-            data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
+            data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val(), saveEmail: $("#saveEmail").is(":checked")?"true":"" },
             success: function (login) {
             	console.log("성공");
             	
@@ -279,44 +304,7 @@ if (loginResult == 'Y') {
 }
 
 
-//비번찾기
-$(".top>form>input").blur(function() {
-	if($(this).val()!="") {
-		$.ajax({
-			url: contextPath+'/checkEmailDuplicate',
-	        type: 'post',
-	        data: { email: $('#findPwEmail').val() },
-			success:function(resp){	  
-				if(!resp.isUseAble) {
-					$('#findPwEmail').next('span').remove();
-					$('#findPwEmail').removeClass('error');//이메일 확인창에 error 클래스 지우고
-					$('#findPwEmail').after($('<span>').html('등록한 이메일 입니다.').addClass('correct'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시한다.
 
-					$.ajax({//이메일 보내서 이름 일치여부 확인
-						url: contextPath+'/searchAccount',
-						type: 'post',
-						data: { email: $('#findPwEmail').val(), userName: $('#findPwUserName').val() },
-						success:function(findPw){	
-							if(findPw.same) {
-								$('#findPwUserName').next('span').remove();
-								$('#findPwUserName').removeClass('error');//이메일 확인창에 error 클래스 지우고
-								$('#findPwUserName').after($('<span>').html('일치하는 계정이 있습니다.').addClass('correct'));
-							}else {
-								$('#findPwUserName').next('span').remove();
-								$('#findPwUserName').addClass('error');  //input에 error 클래스 추가하고
-								$('#findPwUserName').after($('<span>').html('일치하는 계정이 없습니다.').addClass('error'));
-							}
-						}
-					})
-				}else {
-					$('#findPwEmail').next('span').remove();
-					$('#findPwEmail').addClass('error');  //input에 error 클래스 추가하고
-					$('#findPwEmail').after($('<span>').html('등록한 이메일이 없습니다.').addClass('error')); //span태그 추가해서 유효하지 않다고 표시
-				}
-			}
-		})   
-	}//if
-})//blur
 	
 
 

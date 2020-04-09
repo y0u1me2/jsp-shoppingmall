@@ -89,9 +89,8 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		File f = mr.getFile("listImage"); //클라이언트가 넘긴 파일이 있는지 없는지 확인 하는 것
 		
 		if(f!=null && f.length()>0) { //새로 업로드한 파일이 있으면?
-			File deleteFile = new File(path+"oriThumbnail");
+			File deleteFile = new File(path+oriThumbnail);
 			boolean flag = deleteFile.delete();
-			System.out.println(flag?"기존파일삭제 성공":"기존파일삭제 실패");	
 		}
 		
 		// 상품이미지저장
@@ -99,9 +98,14 @@ public class ProductUpdateEndServlet extends HttpServlet {
 		for (String n : color) {
 			imgList.add(new ProductImage(0, 0, n, mr.getOriginalFileName(n)));
 		}
-		
-			Product p = new Product(0, category, name, price, listImage, comment, null,null);
 			
+			Product p = null;
+			
+			if(listImage!=null) {
+				p = new Product(pNo, category, name, price, listImage, comment, null,null);
+			}else {
+				p = new Product(pNo, category, name, price, oriThumbnail, comment, null,null);	
+			}
 			int result = new AdminProductService().updateProduct(p, imgList,pNo);
 			
 			if (result > 0) {
