@@ -40,13 +40,15 @@ public class SaveRandomPwServlet extends HttpServlet {
 		int result=new MemberService().saveTempPw(email,tempPw);
 		String loc="";
 		if(result>0) {
-			request.setAttribute("savePw", true);
-			loc=request.getContextPath()+"/index.jsp";
+			//request.setAttribute("savePw", true);
+			loc=request.getContextPath()+"/index.jsp?savePw=true";
 		}else {
-			request.setAttribute("savePw", false);
-			loc=request.getContextPath()+"/index.jsp";
+			//request.setAttribute("savePw", false);
+			loc=request.getContextPath()+"/index.jsp?savePw=false";
 		}
 		response.sendRedirect(loc);
+		//RequestDispatcher rd=request.getRequestDispatcher(loc);
+		//rd.forward(request, response);
 	}
 
 	/**
