@@ -302,7 +302,7 @@ color: rgb(0, 0, 0);
 								if (p.getpStatus().equals("Y")) {				
 						%>
 					<tr>
-						<td><input type="checkbox" class="prowCheck" name="pRowCheck" 
+						<td><input type="checkbox" class="prowCheck" name="pRowCheck" id="allck" 
 							value="<%=p.getpNo()%>"></td>
 
 						<td><%=p.getpNo()%></td>
@@ -418,7 +418,18 @@ color: rgb(0, 0, 0);
 		}else {
 			
 		}	
-   }         
+   }      
+ 
+    $(function(){
+        $("#allck").click(function(){
+           if($("#allck").is(":checked")){
+              $(".pRowCheck").prop("checked",true);
+           }else{
+              $(".pRowCheck").prop("checked",false);
+           }
+        })
+        
+     })
 		
 		//사용자가 조회기간 지정하기		
 	   $("#numPerPage").change(()=>{
