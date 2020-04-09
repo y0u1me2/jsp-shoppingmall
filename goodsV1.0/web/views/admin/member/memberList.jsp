@@ -497,7 +497,7 @@
                                 <th scope="col">가입일</th>
                                 <th scope="col">회원번호</th>
                                 <th scope="col">이름</th>
-                                <th scope="col">아이디</th>
+                                <th scope="col">닉네임</th>
                                 <th scope="col">이메일</th>
                                 <th scope="col">회원삭제</th>
                             </tr>
