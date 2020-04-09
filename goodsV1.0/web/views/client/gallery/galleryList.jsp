@@ -332,7 +332,7 @@ button {
 		
 		
 		<%if(loginMember!=null){ %>
-		<form style=" margin-top:40px;" method="post" action="<%=request.getContextPath() %>/gallery/replyInsert" onsubmit="return validate();">
+		<form id="frm2" style=" margin-top:40px;" onsubmit="return validate();">
 			<textarea id="ta1" style="vertical-align:middle; resize:none; width:50%; border:1px solid #eee;" rows="3" placeholder="100자 이내로 입력해주시기 바랍니다." name="content"></textarea>
 			<input type="hidden" id="gNo" name="gNo">
 			<input type="hidden" id="mNo" name="mNo">
@@ -376,6 +376,7 @@ $(".myImg").click(function(){
 			$('#login').show();
 		}
 	});
+	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/gallery/ajaxViewCntPlus",
 		data:{'gNo' : $(this).next().val()},
@@ -384,36 +385,11 @@ $(".myImg").click(function(){
 		}
 	});
 	
-	$.ajax({
-		url:"<%=request.getContextPath()%>/gallery/getReplyList",
-		data:{'gNo' : $(this).next().val()},
-		type:"post",
-		dataType:"json",
-		async:false,
-		success:function(data){
-			console.log(data);
-			var table = $('<table>').css({'margin-left': '10%','width': '80%', 'border-collapse': 'collapse'});
-			
-			var html;
-			
-			data.forEach(function(reply) {
-				if(reply['mNo']==mNo){
-					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'><button style='padding: 3px 10px; font-size: 10px; color: rgb(0, 0, 0); text-align: center; background-color: white; border: 1px solid rgb(161, 161, 161); height:30px; border-radius: 7px;'>댓글 삭제</button></td></tr>";
-				}else{
-					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'></td></tr>";
-				}
-			});
-			
-			
-			table.append(html);
-			
-			
-			$('#replyList').html(table);
-		}
-	});
+	getReplyList($(this).next().val());
 });
 
 
+//댓글 리스트 불러오기(ajax)
 function getReplyList(gNo){
 	$.ajax({
 		url:"<%=request.getContextPath()%>/gallery/getReplyList",
@@ -427,7 +403,7 @@ function getReplyList(gNo){
 			var html;
 			data.forEach(function(reply) {
 				if(reply['mNo']==mNo){
-					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'><button style='padding: 3px 10px; font-size: 10px; color: rgb(0, 0, 0); text-align: center; background-color: white; border: 1px solid rgb(161, 161, 161); height:30px; border-radius: 7px;'>댓글 삭제</button></td></tr>";
+					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'><button onclick='replyDelete("+reply['rNo']+","+reply['gNo']+");' style='padding: 3px 10px; font-size: 10px; color: rgb(0, 0, 0); text-align: center; background-color: white; border: 1px solid rgb(161, 161, 161); height:30px; border-radius: 7px;'>댓글 삭제</button></td></tr>";
 				}else{
 					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'></td></tr>";
 				}
@@ -449,13 +425,15 @@ span.click(function() {
 });
 
 
+//댓글 삭제(삭제 후 댓글 리스트 다시 불러오기)
 function replyDelete(rNo, gNo){
 	$.ajax({
 		url:"<%=request.getContextPath()%>/ajax/replyDelete",
-		data:{'rNo', rNo},
+		data:{'rNo': rNo},
 		type: 'post',
 		async:false,
 		success:function(data){
+			alert('댓글 삭제 성공');
 			getReplyList(gNo);
 		}
 	});
@@ -522,12 +500,31 @@ function validate(){
 	}else{
 		$('#mNo').val('<%=loginMember!=null?loginMember.getM_No():""%>');
 	}
-	console.log($('#ta1').val().length);
 	if($('#ta1').val().length>100){
 		alert('100자를 초과하여 입력하셨습니다.');
 		return false;
 	}
-	return true;
+	if($('#ta1').val().length==0){
+		alert('내용을 입력하세요');
+		return false;
+	}
+
+	const frm2 = $('#frm2').serialize();
+	$.ajax({
+		url: "<%=request.getContextPath() %>/gallery/replyInsert",
+		type: "post",
+		data: frm2,
+		async:false,
+		success: function(data){
+			alert('댓글 등록 성공');
+			getReplyList($('#frm2 #gNo').val());
+		},
+		error: function(){
+			alert('댓글 등록 실패');
+		}
+	});
+	
+	return false;
 }
 
 function emptyTextarea(){
