@@ -300,7 +300,7 @@ $(".top>form>input").blur(function() {
 					$('#findPwEmail').after($('<span>').html('등록한 이메일 입니다.').addClass('correct'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시한다.
 
 					$.ajax({//이메일 보내서 이름 일치여부 확인
-						url: contextPath+'/findPassword',
+						url: contextPath+'/searchAccount',
 						type: 'post',
 						data: { email: $('#findPwEmail').val(), userName: $('#findPwUserName').val() },
 						success:function(findPw){	

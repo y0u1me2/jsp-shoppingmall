@@ -17,13 +17,11 @@
 	String loginResult=(String)session.getAttribute("loginResult");
 	String emailCheck=(String)session.getAttribute("emailCheck");//이메일체크 여부
 	String m_status=(String)session.getAttribute("m_status");//회원상태	
-	//boolean isUseAble=(boolean)request.getAttribute("isUseAble");//중복사용 가능 불가능
-	//String checkedEmail=(String)request.getAttribute("emailCheck");//중복검사한 이메일
-	//int duplication=Integer.parseInt(request.getParameter("duplication"));
 	
 	
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
+	String savePw=(String)request.getParameter("savePw");//임시비번 저장여부
 	
 	ProductService service =  new ProductService();
 	List<Product> 케이스 = service.selectByCategory("케이스");
@@ -372,10 +370,9 @@ img#leftLogo{
 					<div class="container">
 				        <div class="top">
 				            <h1>아이디/비밀번호 찾기</h1>
-				            <form>
-					            <input id="findPwEmail" type="text" class="input" placeholder="이메일">
-					            <input id="findPwUserName" type="text" class="input" placeholder="이름"> 
-				            </form>     
+				            <form method="post" action="<%=request.getContextPath()%>/findPw">
+					            <input id="findPwEmail" name="findPwEmail" type="text" class="input" placeholder="이메일">
+					            <input id="findPwUserName" name="findPwUserName" type="text" class="input" placeholder="이름"> 
 				        </div>
 				        <div class="middle">
 				            <dl>
@@ -383,7 +380,7 @@ img#leftLogo{
 				                    <span>유의사항</span>
 				                </dt>
 				                <dd>
-				                    이메일이 확인이 불가능한 경우, <span>고객센터(1577-4701)</span> 로 연락 주시기 바랍니다.
+				                    이메일이 확인이 불가능한 경우, <span>고객센터(1544-9970)</span> 로 연락 주시기 바랍니다.
 				                </dd>
 				                <dd>
 				                    회원님의 이메일 주소로 임시 비밀번호가 발송됩니다.
@@ -399,6 +396,7 @@ img#leftLogo{
 					<span onclick="closeFindPw();" class="close" title="Close Modal">&times;</span>
 				</div>
             	<button type="submit" class="big-gray-btn">보내기</button>
+				            </form>     
 			</div>
 		</div>
 		
@@ -612,6 +610,40 @@ img#leftLogo{
 			</div>	
 		</div>
 		<%} }%>
+		
+		<% if(savePw!=null&&savePw.equals("true")) { %> <!-- 임시비밀번호 저장성공 -->
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class="modal-enrollEnd animate">
+				<div>
+					<h4>해당 이메일 주소로 임시비밀번호를 발송했습니다.
+					이메일을 확인해 주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} else if(savePw!=null&&savePw.equals("false")) {%>
+		<div class="modal-back" id="enrollEnd" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class="modal-enrollEnd animate">
+				<div>
+					<h4>임시 비밀번호 발송에 실패하였습니다.
+					고객센터(1544-9970)로 문의하여 주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} %>
 		
 
 

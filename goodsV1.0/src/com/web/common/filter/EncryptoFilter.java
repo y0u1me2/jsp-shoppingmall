@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 				"LoginAbleServlet",
 				"AdminLoginServlet",
 				"pwmodifyServlet",
+				"SaveRandomPwServlet",
+				//"MemberPwEmailSendServlet"
 //				"MemberUpdateServlet"
 //				"PasswordUupdateEndServlet"
 		})

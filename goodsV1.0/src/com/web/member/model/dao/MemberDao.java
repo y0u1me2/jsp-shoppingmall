@@ -245,4 +245,22 @@ public class MemberDao {
 		}
 		return passwordCheck;
 	}
+	
+//	임시 비밀번호 저장하는 로직
+	public int saveTempPw(Connection conn, String email, String tempPw) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("saveTempPw");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, tempPw);
+			pstmt.setString(2, email);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
