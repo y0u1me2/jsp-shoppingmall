@@ -83,10 +83,10 @@
 	}
 	.content{
 		position: relative;
-    	padding: 15px 20px;
+    	padding: 20px 20px 30px 20px;
     	border-bottom: 1px solid black;
 		text-align:left;
-		height:300px;
+		height:auto;
 	}
 	.context{
 		width:80%;
@@ -186,7 +186,6 @@
 </style>
 <section class="back">
 	<div class="back-div top">
-		<br><br>
 		<h1 id="hone">공지사항</h1>
 		<br><br>
 	</div>
