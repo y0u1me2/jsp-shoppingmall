@@ -71,10 +71,14 @@
     <div>
 <p>탈퇴 완료되었습니다.</p>
 <p>그동안 굿굿즈를 이용해주셔서 감사합니다.</p>
-<button id="btn1" class="iBtn1" style="background-color: #eee;color: #989898;"><a href="<%=request.getContextPath()%>/">메인화면 이동</a></button>
+<button id="btn1" class="iBtn1" style="background-color: #eee;color: #989898;">메인화면 이동</button>
 </div>
 
 </div>
 </section>
-
+<script>
+	$("button#btn1").click(function() {
+		location.replace("<%=request.getContextPath()%>/index.jsp");
+	})
+</script>
 <%@ include file="/views/client/common/footer.jsp" %>

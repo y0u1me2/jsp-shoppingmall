@@ -542,14 +542,14 @@ img#leftLogo{
 		<!-- 가입완료 -->
 		<!-- 뒷배경 -->
 		<% if(auth!=null&&auth.equals("true")) { %> <!-- 가입성공한 상태에서 인증 완료 -->
-		<div class="modal-back" id="alertMsg" style="display:block;">
+		<div class="modal-back" id="loginEndMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4><br><br><br><br>굿굿즈의 가족이 되신것을 환영합니다.</h4>
+					<h4><br><br>굿굿즈의 가족이 되신것을 환영합니다.</h4><br><br>
 				</div>
-				<div class="enrollEnd">
-					<button type="button" onclick="openLogin(); closeEnrollEnd();" class="big-gray-btn">로그인 하러가기</button>
+				<div id="emailSuccess">
+					<button type="button" onclick="closeEnrollEnd(); openLogin();" class="big-gray-btn">로그인 하러가기</button>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
@@ -557,7 +557,7 @@ img#leftLogo{
 			</div>	
 		</div>
 		<%} else if(auth!=null&&enroll!=null&&auth.equals("false")&&enroll.equals("true")) {%>
-		<div class="modal-back" id="alertMsg" style="display:block;">
+		<div class="modal-back" id="loginMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
@@ -570,7 +570,7 @@ img#leftLogo{
 					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span class="close" title="Close Modal">&times;</span>
+					<span class="close" onclick="closeEnrollEnd();" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>	
@@ -579,10 +579,10 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4><br><br><br><br>
+					<h4><br><br>
 					가입이 실패되었습니다.<br>
 					관리자에게 문의하세요
-					</h4>
+					</h4><br><br>
 				</div>
 				<div class="enrollEnd">
 					<button type="button" class="big-gray-btn">확인</button>
@@ -602,7 +602,7 @@ img#leftLogo{
 				<div>
 					<h4><br><br><br><br>이메일을 확인하여 인증을 완료해주세요.</h4>
 				</div>
-				<div class="enrollEnd">
+				<div id="statusN">
 					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
@@ -610,15 +610,15 @@ img#leftLogo{
 				</div>
 			</div>	
 		</div>
-		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&(emailCheck.equals("N")||m_status.equals("N"))) {%>
+		<%}else if(m_status!=null&&m_status.equals("N")) {%>
 		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4><br><br><br><br>로그인에 실패하였습니다.<br>
-					관리자에게 문의하여주세요.</h4>
+					<h4><br>로그인에 실패하였습니다.<br>
+					관리자에게 문의하여주세요.</h4><br><br>
 				</div>
-				<div class="enrollEnd">
+				<div id="statusN">
 					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
@@ -667,6 +667,11 @@ img#leftLogo{
 $('.enrollEnd').children().click(function(){
 	$('#enrollEnd').css('display', 'none');
 	location.replace("<%=request.getContextPath()%>/index.jsp");
+})
+$('#statusN').children().click(function(){
+	$('#enrollEnd').css('display', 'none');
+	location.replace("<%=request.getContextPath()%>/logout.do");
+	signOut();
 })
 $('div#alertMsg>div>div.close-btn').children().click(function() {
 	$('#enrollEnd').css('display', 'none');
