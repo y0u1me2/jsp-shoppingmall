@@ -108,7 +108,6 @@
 	margin: auto;
 	width: 800px;
 	height: 600px;
-	overflow: scroll;
 	background-color: white;
 }
 
