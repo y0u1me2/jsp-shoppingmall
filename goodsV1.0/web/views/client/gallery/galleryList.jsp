@@ -215,22 +215,6 @@ table td{
 
 
 
-/* 댓글등록 버튼  */
-button#comment-update{
-	padding: 3px 10px;
-	font-size: 12px;
-	color: rgb(0, 0, 0);
-	text-align: center;
-	background-color: white;
-	border: 1px solid rgb(161, 161, 161);
-	position: relative;
-	height:40px;
-	left: 10px;
-	font-size: 15px;
-	border-radius: 7px;
-}
-
-
 /* 검색버튼 */
 .btnWhite{
 	padding: 3px 10px;
@@ -336,7 +320,7 @@ button {
 			<textarea id="ta1" style="vertical-align:middle; resize:none; width:50%; border:1px solid #eee;" rows="3" placeholder="100자 이내로 입력해주시기 바랍니다." name="content"></textarea>
 			<input type="hidden" id="gNo" name="gNo">
 			<input type="hidden" id="mNo" name="mNo">
-			<button id="comment-update" style="vertical-align:middle;">댓글 등록</button>
+			<button class="btnWhite" style="vertical-align:middle;">댓글 등록</button>
 		</form>
 		<%}else{ %>
 		<p style="margin-top:40px;">댓글은 로그인 후 작성하실 수 있습니다 <button class="btnWhite" onclick="function showModal(){$('#login').show();} showModal();">로그인</button></p>
@@ -518,6 +502,7 @@ function validate(){
 		success: function(data){
 			alert('댓글 등록 성공');
 			getReplyList($('#frm2 #gNo').val());
+			$('#ta1').val('');
 		},
 		error: function(){
 			alert('댓글 등록 실패');

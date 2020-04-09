@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ page import="com.web.gallery.model.vo.Gallery2, java.util.ArrayList, java.util.LinkedHashMap" %>
+
 <%@ include file="/views/admin/common/header.jsp" %>
 
+<%
+	ArrayList<Gallery2> list = ((ArrayList)request.getAttribute("list"));
+	LinkedHashMap<String, Integer> map = (LinkedHashMap)request.getAttribute("map");
+%>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -32,7 +38,7 @@
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
                   <h3 class="card-title">홈페이지 방문자 수</h3>
-                  <a href="javascript:void(0);">View Report</a>
+                  <!-- <a href="javascript:void(0);">View Report</a> -->
                 </div>
               </div>
               <div class="card-body">
@@ -69,104 +75,37 @@
 
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">인기상품 순위</h3>
-                <div class="card-tools">
+                <h3 class="card-title">갤러리 다운로드 순위</h3>
+                <!-- <div class="card-tools">
                   <a href="#" class="btn btn-tool btn-sm">
                     <i class="fas fa-download"></i>
                   </a>
                   <a href="#" class="btn btn-tool btn-sm">
                     <i class="fas fa-bars"></i>
                   </a>
-                </div>
+                </div> -->
               </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
-                    <th>More</th>
+                    <th>이미지</th>
+                    <th>작성자</th>
+                    <th>다운로드 횟수</th>
                   </tr>
                   </thead>
                   <tbody>
+                  <%for(Gallery2 g: list) {%>
                   <tr>
                     <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Some Product
+                      <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="img-circle img-size-32 mr-2">
                     </td>
-                    <td>$13 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      12,000 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
+                    <td><%=g.getmNickname() %></td>
+                    <td><%=g.getDownCnt() %></td>
+                    
                   </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      <small class="text-warning mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        0.5%
-                      </small>
-                      123,234 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      <small class="text-danger mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        3%
-                      </small>
-                      198 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Perfect Item
-                      <span class="badge bg-danger">NEW</span>
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        63%
-                      </small>
-                      87 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
+                  <%} %>
+                  
                   </tbody>
                 </table>
               </div>
@@ -178,8 +117,8 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title">판매금액</h3>
-                  <a href="javascript:void(0);">View Report</a>
+                  <h3 class="card-title">매출현황</h3>
+                  <!-- <a href="javascript:void(0);">View Report</a> -->
                 </div>
               </div>
               <div class="card-body">
@@ -216,18 +155,28 @@
 
             <div class="card">
               <div class="card-header border-0">
-                <h3 class="card-title">Online Store Overview</h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-sm btn-tool">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
+                <h3 class="card-title">인기판매 상품 순위</h3>
+                
               </div>
               <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+              	<table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+                    <th>상품명</th>
+                    <th>판매량</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <%for(String key : map.keySet() ){%>
+                  <tr>
+                    <td><%=key %></td>
+                    <td><%=map.get(key) %></td>
+                  </tr>
+                  <%} %>
+                  
+                  </tbody>
+                </table>
+                <!-- <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                   <p class="text-success text-xl">
                     <i class="ion ion-ios-refresh-empty"></i>
                   </p>
@@ -238,7 +187,7 @@
                     <span class="text-muted">CONVERSION RATE</span>
                   </p>
                 </div>
-                <!-- /.d-flex -->
+                /.d-flex
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
                   <p class="text-warning text-xl">
                     <i class="ion ion-ios-cart-outline"></i>
@@ -250,7 +199,7 @@
                     <span class="text-muted">SALES RATE</span>
                   </p>
                 </div>
-                <!-- /.d-flex -->
+                /.d-flex
                 <div class="d-flex justify-content-between align-items-center mb-0">
                   <p class="text-danger text-xl">
                     <i class="ion ion-ios-people-outline"></i>
@@ -261,7 +210,7 @@
                     </span>
                     <span class="text-muted">REGISTRATION RATE</span>
                   </p>
-                </div>
+                </div> -->
                 <!-- /.d-flex -->
               </div>
             </div>

@@ -25,6 +25,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script>
 	var contextPath = '<%=request.getContextPath()%>';
 	</script>
+	
+	<style>
+	
+	.btnWhite{
+	padding: 3px 10px;
+	color: rgb(0, 0, 0);
+	text-align: center;
+	background-color: white;
+	border: 1px solid rgb(161, 161, 161);
+	position: relative;
+	height:30px;
+	left: 10px;
+	font-size: 15px;
+	border-radius: 7px;
+}
+	</style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -34,10 +50,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4";">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="<%=request.getContextPath() %>/resources/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">관리자페이지</span>
+    <a href="#" class="brand-link" style="text-align:center">
+      <%-- <img src="<%=request.getContextPath() %>/images/common/풋터 로고.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8"> --%>
+      <span class="brand-text font-weight-light" >관리자페이지</span>
     </a>
 
     <!-- Sidebar -->
@@ -45,11 +61,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="<%=request.getContextPath() %>/resources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="<%=request.getContextPath() %>/images/common/풋터 로고.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">admin 님 접속중</a>
-          <button onclick="location.replace('<%=request.getContextPath()%>/admin/logout')">로그아웃</button>
+          <button class="btnWhite" onclick="location.replace('<%=request.getContextPath()%>/admin/logout')">로그아웃</button>
         </div>
       </div>
 

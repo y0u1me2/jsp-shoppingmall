@@ -12,7 +12,7 @@
 		      		
 		      	  <img src="<%=request.getContextPath() %>/upload/custom/<%=g.getFilename() %>" class="myImg" alt="<%=g.getmNickname()%> 님의 디자인">
 		          <input name="gNo" type="hidden" value="<%=g.getgNo()%>">
-		          <p>다운로드수: <%=g.getDownCnt()%></p>
+		          <p style="margin-top:10px;">다운로드수: <%=g.getDownCnt()%></p>
 		          <p>조회수: <%=g.getViewCnt()%></p>
 		          <p>등록일: <%=g.getEnrollDate()%></p>
 		      
@@ -33,7 +33,7 @@
 			<%=request.getAttribute("pageBar")%>
 		</div>
 <script>
-// Get the modal
+//Get the modal
 var modal = $("#myModal");
 
 // Get the image and insert it inside the modal - use its "alt" text as a caption
@@ -57,6 +57,7 @@ $(".myImg").click(function(){
 			$('#login').show();
 		}
 	});
+	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/gallery/ajaxViewCntPlus",
 		data:{'gNo' : $(this).next().val()},
@@ -65,30 +66,35 @@ $(".myImg").click(function(){
 		}
 	});
 	
+	getReplyList($(this).next().val());
+});
+
+
+//댓글 리스트 불러오기(ajax)
+function getReplyList(gNo){
 	$.ajax({
 		url:"<%=request.getContextPath()%>/gallery/getReplyList",
-		data:{'gNo' : $(this).next().val()},
+		data:{'gNo' : gNo},
 		type:"post",
 		dataType:"json",
 		async:false,
 		success:function(data){
 			console.log(data);
-			var table = $('<table>');
-			
+			var table = $('<table>').css({'margin-left': '10%','width': '80%', 'border-collapse': 'collapse'});
 			var html;
-			
 			data.forEach(function(reply) {
-				html+= "<tr><td>"+reply['mNickname']+"<br>"+reply['rDate']+"</td><td>"+reply['rContent']+"</td></tr>";
+				if(reply['mNo']==mNo){
+					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'><button onclick='replyDelete("+reply['rNo']+","+reply['gNo']+");' style='padding: 3px 10px; font-size: 10px; color: rgb(0, 0, 0); text-align: center; background-color: white; border: 1px solid rgb(161, 161, 161); height:30px; border-radius: 7px;'>댓글 삭제</button></td></tr>";
+				}else{
+					html+= "<tr style='border-bottom:1px solid #eee;'><td width='20%'>"+reply['mNickname']+"<br><span style='color:#303030; font-size:12px;'>"+reply['rDate']+"</span></td><td width='65%'>"+reply['rContent']+"</td><td width='15%'></td></tr>";
+				}
 			});
 			
-			
-			table.append(html).css({'border': '1px solid black', 'border-collapse': 'collapse'});
-			
-			
+			table.append(html);
 			$('#replyList').html(table);
 		}
-	});
-});
+	});	
+}
 
 // Get the <span> element that closes the modal
 var span = $("#close");
@@ -100,7 +106,19 @@ span.click(function() {
 });
 
 
-
+//댓글 삭제(삭제 후 댓글 리스트 다시 불러오기)
+function replyDelete(rNo, gNo){
+	$.ajax({
+		url:"<%=request.getContextPath()%>/ajax/replyDelete",
+		data:{'rNo': rNo},
+		type: 'post',
+		async:false,
+		success:function(data){
+			alert('댓글 삭제 성공');
+			getReplyList(gNo);
+		}
+	});
+}
 
 function ajaxPageMove(cPage){
 	let frm1=$('#frm1').serialize();
@@ -155,6 +173,12 @@ $(function(){
 	});
 	
 })
+
+
+
+function emptyTextarea(){
+	$('#ta1').val('');
+}
 
 
 
