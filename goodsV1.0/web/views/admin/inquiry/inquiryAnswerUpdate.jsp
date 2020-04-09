@@ -150,10 +150,10 @@ input#update-btn:hover {
 								<%if(ia.getIa_Original_Filename()!=null){ %> 
 								</br>
 								<input type="file" name="upfile" /> 
-								<div style="display:flex;">
-								<p>이전 첨부파일&nbsp&nbsp<%=ia.getIa_Original_Filename()%></p></div>
-								<%} %>
-							</td>
+								<span><%=ia.getIa_Original_Filename()%></span>
+								<input type="hidden" name="orifile" value="<%=ia.getIa_Original_Filename()%>" />
+								<%} %>								
+						</td>									
 						</tr>
 			
 				</table>

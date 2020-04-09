@@ -72,7 +72,7 @@
         </tr>
         <tr id="fileup">
             <th>첨부파일</th>
-            <td><input type="file" name="upfile" multiple></td>
+            <td><input type="file" name="upfile" multiple accept=".jpg,.pdf,.txt,.jpeg,.png"></td>
         </tr>
         <tr>
             <th>내 용</th>
@@ -119,7 +119,7 @@
 				 	location.replace(contextPath+"/admin/noticeList")
 				},
 				error:function(r,e,m){
-					alert("공지사항 등록을 실패하였습니다.");
+					alert("공지사항 등록을 실패하였습니다. 확장자를 확인해주세요");
 				}
 			})
 		})

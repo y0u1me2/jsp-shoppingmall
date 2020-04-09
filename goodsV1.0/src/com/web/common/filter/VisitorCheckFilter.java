@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class VisitorCheckFilter
  */
-@WebFilter("/dddddddddd")
+@WebFilter("/*")
 public class VisitorCheckFilter implements Filter {
 
     /**
@@ -59,36 +59,35 @@ public class VisitorCheckFilter implements Filter {
 		 * req.getRemoteAddr(); }
 		 */
 
-//		String ip = Inet4Address.getLocalHost().getHostAddress();
-//		System.out.println("접속 아이피 주소: "+ip);
-//		
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		String sql = "INSERT INTO HISTORY VALUES(?, to_char(sysdate, 'YYYYMMDD'))";
-//		int result = 0;
-//		try {
-//			conn = getConnection();
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, ip);
-//			result = pstmt.executeUpdate();
-//		}catch(SQLException e) {
-//			System.out.println("해당 아이피 오늘자 방문 기록 있음!");
-//		}finally {
-//			try {
-//				pstmt.close();
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		if(result>0) {
-//			commit(conn);
-//		}
-//		else {
-//			rollback(conn);
-//		}
-//		
-//		close(conn);
+		String ip = Inet4Address.getLocalHost().getHostAddress();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO HISTORY VALUES(?, to_char(sysdate, 'YYYYMMDD'))";
+		int result = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ip);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			//System.out.println("해당 아이피 오늘자 방문 기록 있음!");
+		}finally {
+			try {
+				pstmt.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		
+		close(conn);
     		
 		
 		// pass the request along the filter chain
