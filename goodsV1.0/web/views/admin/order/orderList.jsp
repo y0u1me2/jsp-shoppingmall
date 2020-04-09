@@ -50,6 +50,7 @@
             bottom:50px;
             display: flex;
             left:360px;
+            margin-bottom: 270px;
         }
        
          /* 밑에 라인 */
