@@ -76,7 +76,6 @@
 </style>
 <section class="back">
 	<div class="back-div top">
-		<br>
 		<h1 id="hone">공지사항</h1>
 		<br>
 	</div>

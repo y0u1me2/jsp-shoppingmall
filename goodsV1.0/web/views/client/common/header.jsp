@@ -529,7 +529,7 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>굿굿즈의 가족이 되신것을 환영합니다.</h4>
+					<h4><br><br><br><br>굿굿즈의 가족이 되신것을 환영합니다.</h4>
 				</div>
 				<div class="enrollEnd">
 					<button type="button" onclick="openLogin(); closeEnrollEnd();" class="big-gray-btn">로그인 하러가기</button>
@@ -544,7 +544,7 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>
+					<h4><br><br><br><br>
 					가입이 완료되었습니다.<br>
 					이메일을 확인하여 인증을 완료해주세요.
 					</h4>
@@ -562,8 +562,8 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>
-					가입이 실패되었습니다.
+					<h4><br><br><br><br>
+					가입이 실패되었습니다.<br>
 					관리자에게 문의하세요
 					</h4>
 				</div>
@@ -583,7 +583,7 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>이메일을 확인하여 인증을 완료해주세요.</h4>
+					<h4><br><br><br><br>이메일을 확인하여 인증을 완료해주세요.</h4>
 				</div>
 				<div class="enrollEnd">
 					<button type="button" class="big-gray-btn">확인</button>
@@ -598,7 +598,7 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>로그인에 실패하였습니다.
+					<h4><br><br><br><br>로그인에 실패하였습니다.<br>
 					관리자에게 문의하여주세요.</h4>
 				</div>
 				<div class="enrollEnd">
@@ -616,7 +616,7 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class="modal-enrollEnd animate">
 				<div>
-					<h4>해당 이메일 주소로 임시비밀번호를 발송했습니다.
+					<h4><br><br><br><br>해당 이메일 주소로 임시비밀번호를 발송했습니다.<br>
 					이메일을 확인해 주세요.</h4>
 				</div>
 				<div class="enrollEnd">
@@ -632,7 +632,7 @@ img#leftLogo{
 			<!-- 가입완료 팝업-->		
 			<div class="modal-enrollEnd animate">
 				<div>
-					<h4>임시 비밀번호 발송에 실패하였습니다.
+					<h4><br><br><br><br>임시 비밀번호 발송에 실패하였습니다.<br>
 					고객센터(1544-9970)로 문의하여 주세요.</h4>
 				</div>
 				<div class="enrollEnd">
@@ -645,7 +645,19 @@ img#leftLogo{
 		</div>
 		<%} %>
 		
-
+<script>
+//상태 팝업
+$('.enrollEnd').children().click(function(){
+	$('#enrollEnd').css('display', 'none');
+	console.log("하하하");
+	location.replace("<%=request.getContextPath()%>/index.jsp");
+})
+$('.close-btn').children().click(function() {
+	$('#enrollEnd').css('display', 'none');
+	console.log("하하하");
+	location.replace("<%=request.getContextPath()%>/index.jsp");
+})
+</script>
 
 
 
