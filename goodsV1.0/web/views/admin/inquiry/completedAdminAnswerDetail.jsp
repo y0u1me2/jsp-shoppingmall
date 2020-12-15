@@ -19,7 +19,8 @@ div.goodsback{
 	width:80%;
 	height:auto;
 	position: relative;
-	top:100px;
+	top: 50px;
+	margin-bottom:25px;
 }
 
 * {
@@ -116,7 +117,7 @@ input#update-btn:hover {
 
  <div class="content-wrapper">
 
-		<br><br>
+
 		<div class="goodsback">
 		<h1 id="title">답변내역</h1>
 		<hr id="line1">

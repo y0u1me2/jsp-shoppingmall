@@ -32,7 +32,6 @@ public class AdminMemberDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String deleteEmail=request.getParameter("m_Email");
-		System.out.println(deleteEmail);
 		int result=new AdminMemberService().memberDelete(deleteEmail);
 		
 		String msg="";//사용자자에게 띄울 메세지 내용

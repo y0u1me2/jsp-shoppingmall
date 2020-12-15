@@ -35,10 +35,6 @@ public class MmbrsWthdr extends HttpServlet {
 		String pw = request.getParameter("password"); //사용자가 입력하는 비밀번호 값
 		
 		int result = new ModifyPasswordService().Modifypw(email,pw);
-		
-		System.out.println("어떤값"+result);
-		System.out.println("이메일은?"+email);
-		System.out.println(pw);
 		HttpSession session=request.getSession(false);
 		
 		if(result>0) {
@@ -48,8 +44,8 @@ public class MmbrsWthdr extends HttpServlet {
 			}
 
 			
-			response.setContentType("text/html; charset=UTF-8"); 
-			response.getWriter().write("<script>alert('회원탈퇴가 완료되었습니다.'); location.replace('"+request.getContextPath()+"/');</script>");
+
+			request.getRequestDispatcher("/views/client/mypage/Wthdrpage.jsp").forward(request, response);
 
 			
 			

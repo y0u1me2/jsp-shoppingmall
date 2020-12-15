@@ -1,5 +1,5 @@
 package com.web.gallery.model.dao;
-import static com.web.common.JDBCTemplate.*;
+import static com.web.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,12 +7,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
 import com.web.gallery.model.vo.Gallery;
+import com.web.gallery.model.vo.Reply;
+import com.web.mypage.vo.ODMember;
 
 public class GalleryDao {
 	private Properties prop = new Properties();
@@ -35,7 +38,7 @@ public class GalleryDao {
 			pstmt.setInt(1, cNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -90,9 +93,10 @@ public class GalleryDao {
 				g.setgNo(rs.getInt("G_NO"));
 				g.setcNo(rs.getInt("C_NO"));
 				g.setEnrollDate(rs.getDate("G_ENROLL_DATE"));
-				g.setLikeCnt(rs.getInt("LIKE_CNT"));
+				g.setDownCnt(rs.getInt("DOWN_CNT"));
 				g.setViewCnt(rs.getInt("VIEW_CNT"));
 				g.setFilename(rs.getString("C_COMPLETE_FILE"));
+				g.setmNickname(rs.getString("M_NICKNAME"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -125,6 +129,126 @@ public class GalleryDao {
 			close(pstmt);
 		}
 		return count;
+	}
+
+	//다운로드 횟수 1 증가
+	public int downCountPlus(Connection conn, int gNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("downCountPlus");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int viewCntPlus(Connection conn, int gNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("viewCountPlus");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<Reply> getReplyList(Connection conn, int gNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("getReplyList");
+		List<Reply> list = new ArrayList<Reply>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, gNo);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Reply r = new Reply();
+				r.setgNo(gNo);
+				r.setmNickname(rs.getString("m_nickname"));
+				r.setmNo(rs.getInt("M_NO"));
+				r.setrContent(rs.getString("r_content"));
+				r.setrDate(new SimpleDateFormat("yyyy.MM.dd").format(rs.getDate("r_date")));
+				r.setrNo(rs.getInt("r_no"));
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public List<ODMember> statusGallery(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ODMember> list= new ArrayList();
+		String sql = prop.getProperty("statusGallery");
+		try {
+			pstmt=conn.prepareStatement("select GALLERY_STATUS from custom where m_no=?");
+			pstmt.setInt(1, mNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				ODMember odm=new ODMember();
+				odm.setGalleryStatus(rs.getString("GALLERY_STATUS"));
+				list.add(odm);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int insertReply(Connection conn, Reply reply) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertReply");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reply.getgNo());
+			pstmt.setInt(2, reply.getmNo());
+			pstmt.setString(3, reply.getrContent());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int replyDelete(Connection conn, int rNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteReply");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	

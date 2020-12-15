@@ -1,17 +1,4 @@
 ﻿
-//드롭다운 메뉴
-//$(function() {
-
-// 서브메뉴가 처음화면엔 안보이게 숨김
-$("ul.subMenu").show();
-// 메인메뉴 li에 마우스 클릭하면
-//$("ul.mainMenu").mouseenter(function () {
-//    $(".subMenu").slideDown(1000);
-//})
-//$(".topMenu").mouseleave(function () {
-//    $(".subMenu").slideUp(1000);
-//})
-
 
 // 로그인, 회원가입 팝업
 
@@ -75,7 +62,7 @@ function closePersonalInfo() {
     $('#personalInfo').css('display', 'none');
 }
 function closeEnrollEnd() {
-    $('#enrollEnd').css('display', 'none');
+    $('.modal-back').css('display', 'none');
 }
 
 //로그인창 입력창
@@ -99,7 +86,7 @@ for (let i = 0; i < inputLogin.length; i++) {
                 $(this).removeClass('empty error');
                 $(this).siblings('span').remove();
                 $.ajax({
-                    url: '/goods/checkEmailDuplicate',
+                    url: contextPath+'/checkEmailDuplicate',
                     type: 'post',
                     data: { email: $(inputLogin[0]).val() },
                     success: function (login) {
@@ -126,7 +113,7 @@ for (let i = 0; i < inputLogin.length; i++) {
                 $(this).removeClass('empty error');
                 $(this).siblings('span').remove();
                 $.ajax({
-                    url: '/goods/loginAble',
+                    url: contextPath+'/loginAble',
                     type: 'post',
                     data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
                     success: function (login) {
@@ -154,13 +141,13 @@ $(function(){
                 if ($(this).val() == "") {
                     $(this).siblings('span').remove();
                     $(this).addClass('error');
-                    $(this).after($('<span>').html('아이디를 입력하세요.').addClass('error'));
+                    $(this).after($('<span>').html('이메일을 입력하세요.').addClass('error'));
                     emailCheck=false;
                 } else {
                     $(this).removeClass('empty error');
                     $(this).siblings('span').remove();
                     $.ajax({
-                        url: '/goods/checkEmailDuplicate',
+                        url: contextPath+'/checkEmailDuplicate',
                         type: 'post',
                         async:false,
                         data: { email: $(inputLogin[0]).val() },
@@ -192,7 +179,7 @@ $(function(){
                     $(this).removeClass('empty error');
                     $(this).siblings('span').remove();
                     $.ajax({
-                        url: '/goods/loginAble',
+                        url: contextPath+'/loginAble',
                         type: 'post',
                         async:false,
                         data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
@@ -213,14 +200,39 @@ $(function(){
                 }
         });
 });//function onload
+console.log(saveEmail);
+if($(inputLogin[0]).val()==saveEmail) {
+	$(this).removeClass('empty error');
+    $(this).siblings('span').remove();
+    $.ajax({
+        url: contextPath+'/checkEmailDuplicate',
+        type: 'post',
+        async:false,
+        data: { email: $(inputLogin[0]).val() },
+        success: function (login) {
+            if (login.isUseAble) {
+                //$(this).removeClass('error');//input error 클래스 삭젠
+                $(inputLogin[0]).siblings('span').remove();//input의 형제인 span 태그 삭제
+                $(inputLogin[0]).addClass('error');//이메일 확인창에 error 클래스 지우고
+                $(inputLogin[0]).after($('<span>').html('가입해야하는 이메일주소 입니다.').addClass('error'));// 같다고 표시할 correct 클래스 추가해서 같다고 표시하
+                emailCheck=false;
+            } else {
+                $(inputLogin[0]).removeClass('error');
+                $(inputLogin[0]).siblings('span').remove();
+                emailCheck=true;
+            }
+        }
+    })
+}
+
 //로그인 가자아 
 function loginSubmit() {
     if(emailCheck==true&&passwordCheck==true) {
     	$.ajax({
-    		url:'/goods/login',
+    		url:contextPath+'/login',
     		type: 'post',
     		async:false,
-            data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val() },
+            data: { email: $(inputLogin[0]).val(), password: $(inputLogin[1]).val(), saveEmail: $("#saveEmail").is(":checked")?"true":"" },
             success: function (login) {
             	console.log("성공");
             	
@@ -245,7 +257,7 @@ function onSignIn(googleUser) {
     //console.log("Image URL: " + profile.getImageUrl());
     //console.log("Email: " + profile.getEmail());
     $.ajax({
-		url:'/goods/googleLogin',
+		url:contextPath+'/googleLogin',
 		type: 'post',
         data: { email: profile.getEmail(), name: profile.getName(), nickName:profile.getGivenName(), password:profile.getId() },
         success: function (login) {
@@ -254,7 +266,6 @@ function onSignIn(googleUser) {
         	if(sessionCount==1) location.reload();
         }		
 	})
-
     // The ID token you need to pass to your backend:
     //var id_token = googleUser.getAuthResponse().id_token;
     //console.log("ID Token: " + id_token);
@@ -268,27 +279,6 @@ function signOut() {
     });
 }
 
-//네이버 로그인 부분
-var naver_id_login = new naver_id_login("D2AFKSTSMw20Ced_tf5I","http://localhost:9090/" );
-var state = naver_id_login.getUniqState();
-//naver_id_login.setButton("white", 2,40);
-naver_id_login.setDomain("http://localhost:9090/");
-naver_id_login.setState(state);
-//naver_id_login.setPopup();
-naver_id_login.init_naver_id_login();
-
-//네이버 콜백 부분
-
-// 접근 토큰 값 출력
-//alert(naver_id_login.oauthParams.access_token);
-//// 네이버 사용자 프로필 조회
-//naver_id_login.get_naver_userprofile("naverSignInCallback()");
-//// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-//function naverSignInCallback() {
-//  alert(naver_id_login.getProfileData('email'));
-//  alert(naver_id_login.getProfileData('nickname'));
-//  alert(naver_id_login.getProfileData('age'));
-//}
 
 //로그인 구분버튼(카카오, 페이스북, 구글, 네이버)
 var loginImg = $('#loginCenterImg>.img>img');
@@ -314,5 +304,7 @@ if (loginResult == 'Y') {
 }
 
 
+
+	
 
 

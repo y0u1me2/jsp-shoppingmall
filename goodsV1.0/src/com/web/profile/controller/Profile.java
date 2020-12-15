@@ -30,9 +30,8 @@ public class Profile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("editMember");
-		System.out.println(email);
 		String pw = request.getParameter("password");//사용자가 입력하는 비밀번호값
-		System.out.println("암호화된 비밀번호:"+pw);//암호화됐는지 확인위해 출력테스트 
+	 
 		
 		int result = new ProfileService().pwCheck(email,pw);
 		System.out.println(result);

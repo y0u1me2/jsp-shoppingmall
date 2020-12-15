@@ -74,10 +74,23 @@ public class InquiryAdminAnswerUpdateEndServlet extends HttpServlet {
 		String content = mr.getParameter("content");
 		String oriFileName = mr.getOriginalFileName("upfile");
 		String renamedFileName = mr.getFilesystemName("upfile");
+		String originalFile = mr.getParameter("orifile");
+		String reFile = mr.getParameter("orifile");
 		
-		String id = "admin";
+		File f = mr.getFile("upfile"); //클라이언트가 넘긴 파일이 있는지 없는지 확인 하는 것
 		
-		InquiryAnswer ia = new InquiryAnswer(0,ino,id,title,content,null,oriFileName,renamedFileName,"Y",null);
+		if(f!=null && f.length()>0) { //새로 업로드한 파일이 있으면?
+			File deleteFile = new File(path+originalFile);
+			boolean flag = deleteFile.delete();
+		}
+		
+		InquiryAnswer ia = null;
+		
+		if(oriFileName!=null) {
+			ia = new InquiryAnswer(0,ino,title,content,null,oriFileName,renamedFileName,"Y",null);
+		}else {
+			ia = new InquiryAnswer(0,ino,title,content,null,originalFile,reFile,"Y",null);	
+		}
 		
 		int result = new AdminInquiryService().updateInquiryAnswer(ia);
 

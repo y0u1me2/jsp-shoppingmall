@@ -6,8 +6,7 @@ public class Review {
 	private int rv_No;
 	private int m_No;
 	private String m_nickName;
-	private int p_No;
-	private String rv_Title;
+	private int c_No;
 	private String rv_Content;
 	private int rv_Star;
 	private String rv_Ori_Name;
@@ -16,25 +15,23 @@ public class Review {
 	public Review() {
 		super();
 	}
+	public Review(int m_No, int c_No, String rv_Content, int rv_Star, String rv_Ori_Name, String rv_Re_Name) {
+		this.m_No = m_No;
+		this.c_No = c_No;
+		this.rv_Content=rv_Content;
+		this.rv_Star=rv_Star;
+		this.rv_Ori_Name=rv_Ori_Name;
+		this.rv_Re_Name=rv_Re_Name;
+	}
+	
+	
 	public Date getRv_Date() {
 		return rv_Date;
 	}
 	public void setRv_Date(Date rv_Date) {
 		this.rv_Date = rv_Date;
 	}
-	public Review(int rv_No, int m_No, String m_nickName, int p_No, String rv_Title, String rv_Content, int rv_Star, String rv_Ori_Name,
-			String rv_Re_Name ) {
-		super();
-		this.rv_No = rv_No;
-		this.m_No = m_No;
-		this.p_No = p_No;
-		this.rv_Title = rv_Title;
-		this.rv_Content = rv_Content;
-		this.rv_Star = rv_Star;
-		this.rv_Ori_Name = rv_Ori_Name;
-		this.rv_Re_Name = rv_Re_Name;
-		this.m_nickName = m_nickName;
-	}
+	
 	public int getRv_No() {
 		return rv_No;
 	}
@@ -47,18 +44,13 @@ public class Review {
 	public void setM_No(int m_No) {
 		this.m_No = m_No;
 	}
-	public int getP_No() {
-		return p_No;
+	public int getC_No() {
+		return c_No;
 	}
-	public void setP_No(int p_No) {
-		this.p_No = p_No;
+	public void setC_No(int c_No) {
+		this.c_No = c_No;
 	}
-	public String getRv_Title() {
-		return rv_Title;
-	}
-	public void setRv_Title(String rv_Title) {
-		this.rv_Title = rv_Title;
-	}
+	
 	public String getRv_Content() {
 		return rv_Content;
 	}

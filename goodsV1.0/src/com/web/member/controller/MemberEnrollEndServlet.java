@@ -46,7 +46,7 @@ public class MemberEnrollEndServlet extends HttpServlet {
 		int result = new MemberService().enrollMember(m);
 		
 		request.setAttribute("email", email);
-		request.setAttribute("userName", userName);
+		request.setAttribute("nickName", nickName);
 		request.setAttribute("result", result);
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/memberEmailSend");

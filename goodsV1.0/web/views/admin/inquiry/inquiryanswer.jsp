@@ -13,6 +13,11 @@ div.content-wrapper {
 
 div.goodsback {
 	height: auto;
+	width: 100%;
+	top: 50px;
+	margin-bottom:25px;
+	width: 80%;
+	position: relative;
 }
 
 * {
@@ -24,14 +29,7 @@ body {
 	height: auto;
 }
 
-.back {
-	height: 100%;
-	width: 80%;
-	position: relative;
-	top: 50px;
-	bottom: 50px;
-	display: flex;
-}
+
 
 /*리스트 스타일*/
 .lnb_list>li {
@@ -55,10 +53,6 @@ hr#gline {
 	border: 1px solid rgb(177, 174, 174);
 	position: relative;
 	top: 20px;
-	width: 100%;
-}
-
-.goodsback {
 	width: 100%;
 }
 
@@ -160,11 +154,9 @@ div#answer-content {
 
 <div class="content-wrapper">
 
-	<div class="back">
 
 		<div class="goodsback">
-			<br>
-			<br>
+	
 			<h1 id="one">1:1문의 답변하기</h1>
 			<hr id="gline">
 			<br>
@@ -206,7 +198,6 @@ div#answer-content {
 
 			</form>
 		</div>
-	</div>
 
 </div>
 

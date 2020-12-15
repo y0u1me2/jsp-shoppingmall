@@ -31,7 +31,7 @@ div.back {
 	position: relative;
 	left: 110px;
 	top: 50px;
-	height: 1100px;
+	margin-bottom:25px;
 }
 
 /* content 공간 */
@@ -207,7 +207,7 @@ div#pageBar a {
 	<div class="back">
 
 		<div class="goodsback">
-			<br> <br>
+
 
 			<h1 id="title">전체1:1문의 목록</h1>
 			<hr id="gline">
@@ -258,7 +258,7 @@ div#pageBar a {
 
 				<table class="box">
 					<tr>
-						<td><input type="checkbox" name="allCheck"
+						<td><input type="checkbox" name="allCheck" id="allck"
 							onclick="iAllClick();"></td>
 						<td>번호</td>
 						<td>제목</td>
@@ -402,7 +402,18 @@ div#pageBar a {
    		}else {
    			
    		}	
-       }         
+       } 
+     
+        $(function(){
+            $("#allck").click(function(){
+               if($("#allck").is(":checked")){
+                  $(".rowCheck").prop("checked",true);
+               }else{
+                  $(".rowCheck").prop("checked",false);
+               }
+            })
+            
+         })
              
 		//사용자가 조회기간 지정하기		
 	   $("#numPerPage").change(()=>{

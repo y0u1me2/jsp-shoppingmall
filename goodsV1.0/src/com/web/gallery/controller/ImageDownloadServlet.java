@@ -37,13 +37,15 @@ public class ImageDownloadServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		GalleryService service = new GalleryService();
+		
 		//프론트에서 갤러리번호를 전달받고, 디비에서 해당 갤러리 번호를 가지고 압축파일명 가져옴, 해당 압축파일을 다운로드함
 		int gNo = Integer.parseInt(request.getParameter("gNo"));
-		System.out.println(gNo);
+		//System.out.println(gNo);
 		
 		String path = getServletContext().getRealPath("/upload/custom/");
-		String file = new GalleryService().getZipFilename(gNo);
-		System.out.println(file);
+		String file = service.getZipFilename(gNo);
+		//System.out.println(file);
 		
 		
 		
@@ -73,12 +75,14 @@ public class ImageDownloadServlet extends HttpServlet {
 			bos.write(read);
 		}
 		
+		
 		bis.close();
 		bos.close();
 		
-		response.sendRedirect(request.getContextPath()+"/product/view?pNo=1");
-		
-		
+		//다운로드 횟수 1 증가
+		//result가 0이면 실패, 1이면 성공
+		int result = service.downCountPlus(gNo);
+		if(result==0) System.out.println("파일 다운로드 횟수 증가 실패");
 	}
 
 	/**

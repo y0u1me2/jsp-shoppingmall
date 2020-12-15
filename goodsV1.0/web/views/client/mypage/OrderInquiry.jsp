@@ -1,14 +1,17 @@
+<%@page import="com.web.mypage.vo.ODMember"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ include file="/views/client/common/header.jsp" %>
-
+<%
+	List <ODMember> od = (List)request.getAttribute("od");
+%>
     <style>
   
  /* aside메뉴 */
 div.aside {
 	width: 20%;
-	height: 100%;
+	height: 0;
 	line-height: 130%;
 }
 
@@ -18,6 +21,9 @@ div.aside2 {
 	height: 100%;
 	line-height: 130%;
 }
+aside2{
+	width : 10%;
+}
 
 /*리스트 스타일 */
 ul.lnb_list a {
@@ -25,7 +31,7 @@ ul.lnb_list a {
 	padding-left: 13px;
 	line-height: 25px;
 	font-size: 16px;
-	color: #000;
+	color: #949494;
 	background: transparent
 		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
 		no-repeat left 6px;
@@ -35,17 +41,24 @@ ul.lnb_list a {
 ul {
 	list-style: none;
 }
+h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
+}
 
 /* ======================================================================== */       
     /* 섹션 스타일 */
     .back{
         width: 80%;
         position: relative;
-        left: 10%;  
+        left: 10%;
     }
     
     .backDiv{
-        width:100%;
+        width:96%;
+        padding:0px 15%;
     }
   
     /* 첫번째 테이블 첫번째 줄 스타일 */
@@ -54,12 +67,12 @@ ul {
         height: 50px;
         color: rgb(95, 93, 93);  
     } 
-    #btn1{
-        font-size: 12px;
+    .btn1{
+        font-size: 12px;    
     }
 
     /* 6개월 12개월 24개월 버튼 */
-    #btn1>button{
+    .btn1>button{
         height: 40px;
         width: 70px;
         border: solid 1px rgb(217, 217, 221);
@@ -122,7 +135,7 @@ ul {
    #conbox{
        text-align: center;
        height: 300px;
-       font-size: 11px;
+       font-size: 20px;
        color: rgb(139, 138, 138);
        position: relative;
        left: 250px;
@@ -165,6 +178,21 @@ ul {
         top: 5px;
         font-size: 11px;
     }
+    .uldiv{
+    	padding:0px 20%;
+    }
+    .iBtn1, .dBtn1{
+    	cursor:pointer;
+   }
+   .iBtn1:hover{
+         background-color:#747474;
+         color:white;
+     }
+    .dBtn1:hover{
+         background-color:#747474;
+           color:white;
+     }
+
 
     </style>
 
@@ -177,15 +205,15 @@ ul {
 
 		<ul class="lnb_list">
 			<li><a href="<%=request.getContextPath()%>/orderDelivery"
-			style="color: rgb(23, 7, 248); font-weight: bold;">주문/배송 조회</a></li>
+			style="color:#0E0E0E; font-weight: bold;">주문/배송 조회</a></li>
 			<br>
-			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
+			<li><a href="#">찜 목록 조회</a></li>
 			<br>
 			<li><a href=>반품/환불</a></li>
 			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
-			<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>">1:1문의내역</a></li>
+			<li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No()%>">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>
@@ -199,9 +227,7 @@ ul {
 	</div>
 	
 	<!-- aside2 목록과붙어있는공간띄우기-->
-	<div class="aside2"></div>
-      
-    
+
         <div class="backDiv">
             <br><br>
             <h1 id="one">주문 · 배송 내역</h1>
@@ -210,7 +236,7 @@ ul {
         <div id="bstyle1">
             <table id="box1">
                 <tr>
-                    <td id="btn1">
+                    <td class="btn1">
                         &nbsp;&nbsp;기간별 조회&nbsp;&nbsp;
                         <button>6개월</button>
                         <button>12개월</button>
@@ -234,29 +260,93 @@ ul {
                 <form>
                    <p id="msg"> 주문 취소는 결제 완료 후 1시간 이내에 [주문취소] 버튼을 이용해 가능합니다. </p>
                     <table class="box">
+                     <colgroup>
+                     <!-- 주문자정보 테이블 헤더/바디 크기 -->
+                         <col style="width: 70px;">
+                         <col style="width: 90px;">
+                         <col style="width: 200px;">
+                         <col style="width: 120px;">
+                       	 <col style="width: 80px;">
+                         <col style="width: 80px;">
+                         <col style="width: 80px;">
+                         <col style="width: 80px;">
+                         
+                     </colgroup>
+                     <thead>
                         <tr  id="bstyle">
                             <th>
-                                주문일/주문번호
+              	 주문번호             
                             </th>
-                            <th>
-                                상품정보
+
+                            <th colspan="2">
+                   	상품정보        
                             </th>
                             <th>
                                 수량/금액
                             </th>
                             <th>
+                  	주문일             
+                            </th>
+                            <th>
                                 진행상태
                             </th>    
                             <th>
-                               비고
-                            </th>              
+                               주문삭제
+                            </th>
+                            <th>
+                               갤러리
+                            </th>                        
                         </tr>
+                     </thead>
+                     <tbody style="text-align: center;">
+                        <%
+                        	if(od.isEmpty()){
+                        %>
                         <tr>
-                            <td id="conbox">
-                           주문한 내역이 없습니다. <br>
-                        이전 구매내역은 기간별조회를 통해 확인 가능합니다.    
+                            <td id="conbox" colspan="8" style="right: 250px; left: 50px;"> 
+                            <p style="padding:30px 0; margin:0; ">주문 배송내역이 없습니다.</p> 
                             </td>
+                       	</tr>
+                        <%
+                        	}else{
+                        %>
+                        	<%
+                        		for(ODMember o : od){
+                        	%>
+                        <tr>
+                        <td>
+                        <%=o.getoNo() %>
+                        </td>
+                        <td style="text-align: center;">
+                        <img src="<%=request.getContextPath()%>/upload/custom/<%=o.getCfileName()%>" style="width:100px; height : 100px; margin-left: 20px; "/>
+                        </td>
+                        <td>
+                        <span style="display: inline-flex; vertical-align: bottom; padding: 50px 0px 50px; text-align: left; ">
+                        <%=o.getpName() %> <%=o.getcColor() %>                
+                        </span>
+                        </td>
+                        <td><%=o.getoQuan() %>개 / <%=o.gettPrice()*o.getoQuan() %>원</td>
+                        <td><%=o.getoDate() %></td>
+                        <td>배송중</td>
+                        <td class="btn1"><button class="dBtn1" type="button" onclick="orderDeliverydt();" value="<%=o.getcNo() %>" >삭&nbsp&nbsp&nbsp제</button></td>
+                       	
+                       	<%if(o.getGalleryStatus().equals("N")){ %>
+                        <td class="btn1"><button class="iBtn1"  type="button" id="deleteorder" onclick="orderGallery();" value="<%=o.getcNo()%>" style="font-size:11px;">
+                        	갤러리등록</button>
+                        </td>
+                        <%}else{ %>
+                        <td class="btn1">
+                        <button style="background-color: #eee;color: #989898;" type="button" disabled="disabled">등록완료</button>
+                        </td>
+                      	<%} %>
+                      	
                         </tr>
+                    	<%} %>
+                       <%} %>
+                        </tbody>
+                        
+                        
+                        
                         
                     </table>
                 </form>
@@ -265,7 +355,7 @@ ul {
         
 
         <div class="notice">
-            <ul>
+            <ul class="uldiv">
             <h4>주문 · 배송 유의사항</h4>          
             <li>주문내역에 대해 메일 및 SMS를 발송해드립니다.</li>
             <li>
@@ -289,12 +379,25 @@ ul {
             <li>현금영수증을 먼저 신청한 경우 세금계산서는 발급할 수 없습니다. </li>
             <li>무통장 입금의 경우, 세금계산서와 제출서류 다운로드는 결제완료 전에도 신청 및 다운로드가 가능합니다.</li>
         </ul>
-        </div>
-    
-    </div>
-    
+
     <br> <br> <br> <br> <br>
 </section>
+<script>
+function orderDeliverydt(){
+    var result=confirm("주문을 취소하시겠습니까?");
+    var value=$(event.target).val();
+    if(result){
+       location.replace("<%=request.getContextPath()%>/orderdelete?no="+value);
+    }
+ }
+ function orderGallery(){
+	 var result=confirm("갤러리에 등록하시겠습니까?");
+	    var value=$(event.target).val();
+	    if(result){
+	       location.replace("<%=request.getContextPath()%>/orderGallery?no="+value);			
+	    } 
+ }
+</script>
 
 
 <%@ include file="/views/client/common/footer.jsp" %>

@@ -118,7 +118,6 @@ public class AdminMemberDao {
 			close(rs);
 			close(stmt);
 		}
-		System.out.println("다오"+list.size());
 		return list;
 	}
 	
@@ -162,9 +161,9 @@ public class AdminMemberDao {
 		   PreparedStatement pstmt=null;
 		   int result = 0;
 		   String sql=prop.getProperty("memberDelete");
-		   for(int i=0;i<memCkDelete.length;i++) {
-			   System.out.println(memCkDelete[i]);
-		   }
+//		   for(int i=0;i<memCkDelete.length;i++) {
+//			   System.out.println(memCkDelete[i]);
+//		   }
 		   try {
 			   pstmt=conn.prepareStatement(sql);
 			   for(int i=0;i<memCkDelete.length;i++) {
@@ -250,5 +249,25 @@ public class AdminMemberDao {
 	      }
 	      return list;
 		
+	}
+	
+	public int memberVisitCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rs=null;
+		String sql=prop.getProperty("memberVisitCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally { 
+			   close(rs);
+		       close(pstmt);
+		}
+		return result;
 	}
 }

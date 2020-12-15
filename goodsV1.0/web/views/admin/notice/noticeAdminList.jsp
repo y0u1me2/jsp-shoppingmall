@@ -5,8 +5,8 @@
 
 <%
    List<Notice> list=(List)request.getAttribute("list");
-   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
-   String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
+   String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";
+   String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
    int totalDate=(int)request.getAttribute("totalDate");
    int finderDate=(int)request.getAttribute("finderDate");
    int cPage=(int)request.getAttribute("cPage");
@@ -343,6 +343,10 @@
 	    display: inline-block;
 	    vertical-align: top;
 	}
+	 #pageBar>span.cPage{
+    	border: 1px solid #191919;
+    	color: #191919;
+    }
 	/* 공지사항 관리 글귀 */
 	#one{
 		font-weight: bolder;
@@ -358,11 +362,7 @@
 
 <section style="height:auto;">
         <div class="back">
-
-    
         <div class="goodsback">
-            <br><br>
-
             <h1 id="one">공지사항 조회/목록</h1>
             <hr id="gline">
             <br/><br/>
@@ -397,7 +397,7 @@
 
                                     <div id="search_All">
                                        <form action="<%=request.getContextPath()%>/admin/noticeList">
-                                          <input type="hidden" name="searchType" value="All"/>
+                                          <input type="hidden" name="searchType" value=""/>
                                           <input type="text" name="searchKeyword"  placeholder="전체 검색" readonly/>
                                            <button type="submit" class="btn_Search">검색</button>
                                         </form>
@@ -450,7 +450,7 @@
 	                </div>
 	                <div class="gright numPer" id="numPerPage-container" >
 	                    <form name="numPerPageFrm" id="numPerPageFrm" style="margin-left:5px" action="<%=request.getContextPath()%>/admin/<%=type==""||type.equals("All")?"noticeList":"noticeFinder"%>">   
-	                       <input type="hidden" name="cPage" value="<%=cPage%>">
+	                       <input type="hidden" name="cPage" value="1">
 	                       <input type="hidden" name="searchType" value="<%=type%>">
 	                       <input type="hidden" name="searchKeyword" value="<%=keyword%>">                                          
 	                       <select name="numPerPage" id="numPerPage">
@@ -492,7 +492,7 @@
                         <col style="width:100px">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox" class="mRowCheck"></th>
+                                <th scope="col"><input type="checkbox" class="mRowCheck" id="allck"></th>
                                 <th scope="col">번호</th>
                                 <th scope="col">제목</th>
                                 <th scope="col">첨부파일</th>
@@ -506,7 +506,7 @@
                         <%if (list.isEmpty()) {%>
                              <tr>
                               <td id="conbox" colspan='7'>
-                                 <p style="padding:30px 0; margin:0;">검색된 회원 내역이 없습니다.</p>
+                                 <p style="padding:100px 0; margin:0;font-size:20px">검색된 회원 내역이 없습니다.</p>
                               </td>
                            </tr>
                         <%} else { %>
@@ -587,6 +587,16 @@
    				$(".mRowCheck").prop("checked",false);
    			})
    		})
+    	$(function(){
+    		$("#allck").click(function(){
+    			if($("#allck").is(":checked")){
+    				$(".mRowCheck").prop("checked",true);
+    			}else{
+    				$(".mRowCheck").prop("checked",false);
+    			}
+    		})
+    		
+    	})
    		
    		//한개삭제
    		function noticeDelete(){

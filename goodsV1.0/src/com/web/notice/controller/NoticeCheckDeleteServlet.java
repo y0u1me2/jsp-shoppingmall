@@ -31,13 +31,16 @@ public class NoticeCheckDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String[] check=request.getParameterValues("mRowCheck");
+		for(String s : check) {
+			System.out.println(s);
+		}
 		String type=request.getParameter("type");
 		String keyword=request.getParameter("keyword");
 		
 		int count=new NoticeService().checkDelete(check);
 		String msg=" ";
 		if(type.length()>0) {
-			if(count>0) {
+			if(count>check.length-1) {
 				msg="글을 삭제 하였습니다.";
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", "/admin/noticeFinder?searchType="+type+"&searchKeyword="+keyword);
@@ -49,7 +52,7 @@ public class NoticeCheckDeleteServlet extends HttpServlet {
 				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
 			}
 		}else {
-			if(count>0) {
+			if(count>check.length-1) {
 				msg="글을 삭제 하였습니다.";
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", "/admin/noticeList");

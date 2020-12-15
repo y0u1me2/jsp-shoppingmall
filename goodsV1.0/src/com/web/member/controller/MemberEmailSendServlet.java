@@ -41,10 +41,13 @@ public class MemberEmailSendServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=(String) request.getAttribute("email");
-		String userName=(String)request.getAttribute("userName");
+		String nickName=(String)request.getAttribute("nickName");
 		int result=(int) request.getAttribute("result");
 		
-		String host="http://localhost:9090/goods/";
+		//String host="http://rclass.iptime.org:9999/20AM_GoodGoods/";
+		//String host="http://localhost:9090/goods/";
+		String host=request.getRequestURL().toString().replace(request.getRequestURI(),"")+request.getContextPath()+"/";
+		
 		String from="errornotzoo@gmail.com";
 		String to = email;
 		String subject="GOODGOODS 회원가입을 감사드립니다.";
@@ -52,23 +55,15 @@ public class MemberEmailSendServlet extends HttpServlet {
 		String content="<div style='background-color:pink; width:300px;'>"
 						+ "<div>다음 링크에 접속하시면 회원가입이 완료됩니다.</br></div>"
 						+ "<div>"
-							+ "<img width='200px' height='200px' src='https://postfiles.pstatic.net/MjAyMDAzMTZfMTE4/MDAxNTg0MzU0NzY4NTE2.E1U0LOI5LkQUVkIPpTpDMa7yKLOAEONjqtWEhzHrpI4g.30-tvuOG3ncs0Ll-6qzx82T8K3agWuuN5Gf2J_kqf9Qg.PNG.sciencho/%EC%98%81%EB%AC%B8%EA%B2%80%EC%A0%95.png?type=w580'>"
+							+ "<img width='200px' height='100px' src='https://postfiles.pstatic.net/MjAyMDAzMTZfMTE4/MDAxNTg0MzU0NzY4NTE2.E1U0LOI5LkQUVkIPpTpDMa7yKLOAEONjqtWEhzHrpI4g.30-tvuOG3ncs0Ll-6qzx82T8K3agWuuN5Gf2J_kqf9Qg.PNG.sciencho/%EC%98%81%EB%AC%B8%EA%B2%80%EC%A0%95.png?type=w580'>"
 						+ "</div>"
 						+"<div>"
-							+ "<a href='"+host+"memberEmailCheckAction?code="+sha256+"&userName="+userName+"'>이메일 인증하기</a>"
+							+ "<a href='"+host+"memberEmailCheckAction?code="+sha256+"&nickName="+nickName+"'>이메일 인증하기</a>"
 						+ "</div>"
 					+ "</div>";
 		
 		Properties p=new Properties();//실제로 smtp서버를 이용하기위한 정보
-//		p.put("mail.smtp.user",from);//사용할 계정
-//		p.put("mail.smtp.host","smtp.googlemail.com");//구글에서 제공하는 smtp 서버
-//		p.put("mail.smtp.port","456");//구글에서 제공하는 포트 번호(정해져잇음)
-//		p.put("mail.smtp.starttls.enable","true");
-//		p.put("mail.smtp.auth","true");
-//		p.put("mail.smtp.debug","true");
-//		p.put("mail.smtp.socketFactory.port","456");
-//		p.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-//		p.put("mail.smtp.socketFactory.fallback","false");
+
 		p.put("mail.smtp.starttls.enable", "true");
 		p.put("mail.transport.protocol", "smtp");
 		p.put("mail.smtp.host", "smtp.gmail.com");

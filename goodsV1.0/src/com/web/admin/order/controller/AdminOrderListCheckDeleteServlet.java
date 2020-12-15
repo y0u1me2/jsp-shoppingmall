@@ -31,19 +31,37 @@ public class AdminOrderListCheckDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String[] check=request.getParameterValues("mRowCheck");
+		String type=request.getParameter("type");
+		String keyword=request.getParameter("keyword");
 		
 		int result=new AdminOrderListService().checkdelete(check);
 		
 		String msg="";
-		String loc="";
-		if(result>0) {
-			msg="주문을 취소하였습니다";
-			loc="/admin/orderList";
+		if(type.length()>0) {
+			if(result>check.length-1) {
+				msg="주문내역을 삭제 하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderFinder?searchType="+type+"&searchKeyword="+keyword);
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}else {
+				msg="주문내역 삭제를 실패하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderFinder?searchType="+type+"&searchKeyword="+keyword);
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}
 		}else {
-			msg="주문취소를 실패하였습니다";
-			loc="/admin/orderList";
+			if(result>check.length-1) {
+				msg="주문내역을 삭제 하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderList");
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}else {
+				msg="주문내역 삭제를 실패하였습니다.";
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", "/admin/orderList");
+				request.getRequestDispatcher("/views/admin/notice/msg.jsp").forward(request, response);
+			}
 		}
-		request.getRequestDispatcher("/views/client/notice/msg.jsp").forward(request, response);
 	}
 
 	/**

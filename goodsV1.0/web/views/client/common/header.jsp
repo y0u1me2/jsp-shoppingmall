@@ -17,25 +17,38 @@
 	String loginResult=(String)session.getAttribute("loginResult");
 	String emailCheck=(String)session.getAttribute("emailCheck");//이메일체크 여부
 	String m_status=(String)session.getAttribute("m_status");//회원상태	
-	//boolean isUseAble=(boolean)request.getAttribute("isUseAble");//중복사용 가능 불가능
-	//String checkedEmail=(String)request.getAttribute("emailCheck");//중복검사한 이메일
-	//int duplication=Integer.parseInt(request.getParameter("duplication"));
 	
 	
 	String auth=(String)request.getParameter("auth");//인증했는지 안했는지
 	String enroll=(String)request.getParameter("enroll");//가입성공 실패여부
+	String savePw=(String)request.getParameter("savePw");//임시비번 저장여부
 	
-	List<Product> 케이스 = new ProductService().selectByCategory("케이스");
-	List<Product> 악세사리 = new ProductService().selectByCategory("악세사리");
-	List<Product> 생활용품 = new ProductService().selectByCategory("생활용품");
-	List<Product> 패션 = new ProductService().selectByCategory("패션");
+	ProductService service =  new ProductService();
+	List<Product> 케이스 = service.selectByCategory("케이스");
+	List<Product> 악세사리 = service.selectByCategory("악세사리");
+	List<Product> 생활용품 = service.selectByCategory("생활용품");
+	List<Product> 패션 = service.selectByCategory("패션");
 	
+	
+	Cookie[] cookies=request.getCookies();
+	String saveEmail=null;
+	if(cookies!=null){
+		for(Cookie c : cookies){
+			String key=c.getName();
+			String value=c.getValue();
+			if(key.equals("saveEmail")){
+				saveEmail=value;
+			}
+		}
+	}
 
 %>
 <script>
 		var loginResult='<%=loginResult%>';
 		var sessionCount='<%=session.getAttribute("loginCount")==null?1:session.getAttribute("loginCount")%>'
-		console.log(loginResult);
+		var mNo = '<%=session.getAttribute("loginedMember")==null?"":((Member)session.getAttribute("loginedMember")).getM_No()%>';
+		var contextPath = '<%=request.getContextPath()%>';
+		var saveEmail='<%=saveEmail%>';
 </script>
 
 <!DOCTYPE html>
@@ -49,9 +62,7 @@
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="434214577564-es7em89nej7dmjke6sa184ttis3ndb70.apps.googleusercontent.com">
 <script src="<%=request.getContextPath()%>/js/googleSignIn.js" async defer></script>
-<!-- 네이버 로그인 -->
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 <title>굿굿즈</title>
 
 <!-- css폴더에있는 css파일 불러오기 -->
@@ -82,7 +93,7 @@ li{
 /* 메인 메뉴들 가로로 배열(flex) */
 .main{
 	width:80%;
-	height: 80px;
+	height: 120px;
 	display:flex;
 	align-items: center;
 }
@@ -99,6 +110,9 @@ li{
 	height: 100%;
 	display:block;
 	line-height:80px;
+	position:relative;
+	top:20px;
+	font-size:20px;
 }
 
 /* 서브메뉴들 */
@@ -119,6 +133,70 @@ li{
 .main li:hover .sub{
 	display: block;
 }
+
+img#leftLogo{
+	position:relative;
+	bottom:5px;
+	left:90px;
+}
+
+/* 유의사항 */
+.container {
+            margin: 0;
+            padding: 0;
+        }
+        .top>h1 {
+            margin: 0;
+            padding: 0 0 40px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: normal;
+        }
+        /* 입력창 */
+        .input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid rgb(238, 238, 238);
+            font-size: 14px;
+            cursor: text;
+        }
+        /* 입력창 선택시 */
+        .input:active {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid black;
+            font-size: 14px;
+            cursor: text;
+        }
+         /* 유의사항 */
+         .middle {
+            padding-top: 40px;
+        }
+        .middle>dl>dt>span {
+            margin-bottom: 15px;
+            line-height: 1;
+            font-size: 16px;
+            text-align: left;
+        }
+        .middle>dl>dd {
+            font-size: 12px;
+            text-align: left;
+            color: #666;
+            line-height: 1.67em;
+            padding-left: 8px;
+            margin-bottom: 4px;
+        }
+        .middle>dl>dd>span {
+            text-align: left;
+            color: #e5362c;
+            margin-bottom: 0;
+        }
+        .bottom {
+            padding-top: 108px;
+            margin-bottom: 0;
+        }
 
 </style>
 
@@ -142,12 +220,7 @@ li{
 						<button type="button"><a href="<%=request.getContextPath() %>/schome"
 						style="text-decoration:none;">고객센터</a></button>
 					</li>
-					<li>
-						<button type="button">주문/배송</button>
-					</li>
-					<li>
-						<button type="button">장바구니</button>
-					</li>
+					
 					<%
 						if (loginMember == null || loginMember != null&&emailCheck.equals("N")) {
 					%>
@@ -161,7 +234,7 @@ li{
 			</div>
 		</div>
 		<%
-			} else {
+			} else if(loginMember != null&&emailCheck.equals("Y")) {
 		%>
 		<li>
 			<div class="dropdown" id="memberName">
@@ -176,12 +249,19 @@ li{
 					<ul>
 						<li>
 						<button type="button">
-						<a href="<%=request.getContextPath()%>/orderDelivery">마이페이지</a>
+						<a href="<%=request.getContextPath()%>/orderDelivery?mNo=<%=loginMember.getM_No()%>">마이페이지</a>
 						</button></li>
 						<li>
 							<button type="button">
 								<a href="<%=request.getContextPath()%>/myReviewList">나의 리뷰</a>
 							</button>
+						</li>
+						<li>
+							<button type="button">주문/배송</button>
+						</li>
+						<li>
+							<button type="button"><a href="<%=request.getContextPath() %>/cart"
+							style="text-decoration:none;">장바구니</a></button>
 						</li>
 						<li>
 							<button type="button">
@@ -203,10 +283,10 @@ li{
 		
 		
 <!-- 드롭다운 메뉴 -->
-<div style=" display:flex;">
+<div style=" display:flex;padding-bottom:20px;padding-top:20px; border-bottom: 2px solid rgb(240, 240, 240);">
 	<!-- 로고 -->
 	<a href="<%=request.getContextPath()%>/index.jsp" style="display:block; width:20%; height:80px;">
-		<img src="<%=request.getContextPath()%>/images/common/영문검정.png" style="width:100%; height:100%;" alt="goodgoods">
+		<img src="<%=request.getContextPath()%>/images/common/좌측로고.png"  id="leftLogo" alt="goodgoods">
 	</a>
 	
 	<ul class="main">
@@ -260,35 +340,27 @@ li{
 							src="<%=request.getContextPath()%>/images/common/로그인영문.png">
 						</span>
 						<div class="inputLogin">
-							<input type="text" name="email" placeholder="이메일 또는 아이디">
+							<input type="text" name="email" placeholder="이메일" value='<%=saveEmail!=null?saveEmail:""%>'>
 						</div>
 						<div class="inputLogin">
 							<input type="password" name="password" placeholder="비밀번호"
 								maxlength="15">
 						</div>
+						<div style="margin-top:15px;">
+							<input type="checkbox" name="saveEmail" id="saveEmail"
+							<%=saveEmail!=null?"checked":"" %>>
+							<label style="font-size:12px" for="saveEmail">이메일 기억하기&nbsp;&nbsp;</label>
+						</div>
 					</div>
 					<div id="loginCenterImg">
-						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/common/kakao.png"
-								alt="kakao">
-						</div> 
 						
-		
-						<div class="img">
-							<img src="<%=request.getContextPath()%>/images/common/face.png"
-								alt="facebook">												
-						</div>
 						
 						<div class="img g-signin2" data-onsuccess="onSignIn" data-theme="dark">
 							<img src="<%=request.getContextPath()%>/images/common/googleicon.png"
 								alt="google">
 						</div>
 				
-						<div class="img" id="naver_id_login">
-						<!-- <div id="naverIdLogin"></div> -->
-							<img src="<%=request.getContextPath()%>/images/common/naver.png"
-								alt="naver">
-						</div>
+						
 					</div>
 					<div class="bottom-login">
 						<button type="submit" class="big-gray-btn" onclick="loginSubmit();">로그인</button>
@@ -299,6 +371,7 @@ li{
 						</div>
 					</div>
 				</form>
+			
 				<!-- 로그인 창 X표시 -->
 				<div class="close-btn">
 					<span onclick="closeLogin();" class="close" title="Close Modal">&times;</span>
@@ -311,11 +384,36 @@ li{
 			<!-- 이용약관 팝업-->
 			<div class="modal-findPw animate">
 				<div class="url-html">
-					<object type="text/html" data="<%=request.getContextPath()%>/views/client/popup/findPw.html" id="htmlPw"></object>
+					<div class="container">
+				        <div class="top">
+				            <h1>비밀번호 찾기</h1>
+				            <form method="post" action="<%=request.getContextPath()%>/findPw">
+					            <input id="findPwEmail" name="findPwEmail" type="text" class="input" placeholder="이메일">
+					            <input id="findPwUserName" name="findPwUserName" type="text" class="input" placeholder="이름"> 
+				        </div>
+				        <div class="middle">
+				            <dl>
+				                <dt>
+				                    <span>유의사항</span>
+				                </dt>
+				                <dd>
+				                    이메일이 확인이 불가능한 경우, <span>고객센터(1544-9970)</span> 로 연락 주시기 바랍니다.
+				                </dd>
+				                <dd>
+				                    회원님의 이메일 주소로 임시 비밀번호가 발송됩니다.
+				                </dd>
+				                <dd>
+				                    로그인후 비밀번호를 꼭 변경해 주세요.
+				                </dd>
+				            </dl>
+				        </div>        
+				    </div>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeFindPw();" class="close" title="Close Modal">&times;</span>
 				</div>
+            	<button type="submit" class="big-gray-btn">보내기</button>
+				            </form>     
 			</div>
 		</div>
 		
@@ -365,7 +463,7 @@ li{
 								</tr>
 								<tr>
 									<th>닉네임 <em><sup>*</sup></em></th>
-									<td class="inputEnroll"><input type="text" name="nickName"
+									<td class="inputEnroll"><input id="nickName" type="text" name="nickName"
 										value="" placeholder="닉네임 입력" maxlength="15"></td>
 								</tr>
 							</tbody>
@@ -444,14 +542,14 @@ li{
 		<!-- 가입완료 -->
 		<!-- 뒷배경 -->
 		<% if(auth!=null&&auth.equals("true")) { %> <!-- 가입성공한 상태에서 인증 완료 -->
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="loginEndMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>굿굿즈의 가족이 되신것을 환영합니다.</h4>
+					<h4><br><br>굿굿즈의 가족이 되신것을 환영합니다.</h4><br><br>
 				</div>
-				<div class="enrollEnd">
-					<button type="button" onclick="openLogin(); closeEnrollEnd();" class="big-gray-btn">로그인 하러가기</button>
+				<div id="emailSuccess">
+					<button type="button" onclick="closeEnrollEnd(); openLogin();" class="big-gray-btn">로그인 하러가기</button>
 				</div>
 				<div class="close-btn">
 					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
@@ -459,38 +557,38 @@ li{
 			</div>	
 		</div>
 		<%} else if(auth!=null&&enroll!=null&&auth.equals("false")&&enroll.equals("true")) {%>
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="loginMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>
+					<h4><br><br><br><br>
 					가입이 완료되었습니다.<br>
 					이메일을 확인하여 인증을 완료해주세요.
 					</h4>
 				</div>
 				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" onclick="closeEnrollEnd();" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>	
 			<%} else if(auth!=null&&enroll!=null&&auth.equals("false")&&enroll.equals("false")) { %> <!-- 가입 실패! 이메일 인증은 미완료! -->
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>
-					가입이 실패되었습니다.
+					<h4><br><br>
+					가입이 실패되었습니다.<br>
 					관리자에게 문의하세요
-					</h4>
+					</h4><br><br>
 				</div>
-				<div class="enrol lEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				<div class="enrollEnd">
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>
 		</div>	
@@ -498,39 +596,89 @@ li{
 			<!-- 로그인 실패시 알림창 -->
 		<% if(loginMember!=null) {
 		if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("Y")) { %> <!-- 로그인 실패 -->
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>이메일을 확인하여 인증을 완료해주세요.</h4>
+					<h4><br><br><br><br>이메일을 확인하여 인증을 완료해주세요.</h4>
 				</div>
-				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				<div id="statusN">
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>	
 		</div>
-		<%}else if(loginResult!=null&&emailCheck!=null&&m_status!=null&&loginResult.equals("N")&&emailCheck.equals("N")&&m_status.equals("N")) {%>
-		<div class="modal-back" id="enrollEnd" style="display:block;">
+		<%}else if(m_status!=null&&m_status.equals("N")) {%>
+		<div class="modal-back" id="alertMsg" style="display:block;">
 			<!-- 가입완료 팝업-->		
 			<div class=" modal-enrollEnd animate">
 				<div>
-					<h4>로그인에 실패하였습니다.
-					관리자에게 문의하여주세요.</h4>
+					<h4><br>로그인에 실패하였습니다.<br>
+					관리자에게 문의하여주세요.</h4><br><br>
 				</div>
-				<div class="enrollEnd">
-					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				<div id="statusN">
+					<button type="button" class="big-gray-btn">확인</button>
 				</div>
 				<div class="close-btn">
-					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+					<span class="close" title="Close Modal">&times;</span>
 				</div>
 			</div>	
 		</div>
 		<%} }%>
 		
+		<% if(savePw!=null&&savePw.equals("true")) { %> <!-- 임시비밀번호 저장성공 -->
+		<div class="modal-back" id="alertMsg" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class="modal-enrollEnd animate">
+				<div>
+					<h4><br><br><br><br>해당 이메일 주소로 임시비밀번호를 발송했습니다.<br>
+					이메일을 확인해 주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} else if(savePw!=null&&savePw.equals("false")) {%>
+		<div class="modal-back" id="alertMsg" style="display:block;">
+			<!-- 가입완료 팝업-->		
+			<div class="modal-enrollEnd animate">
+				<div>
+					<h4><br><br><br><br>임시 비밀번호 발송에 실패하였습니다.<br>
+					고객센터(1544-9970)로 문의하여 주세요.</h4>
+				</div>
+				<div class="enrollEnd">
+					<button type="button" onclick="closeEnrollEnd();" class="big-gray-btn">확인</button>
+				</div>
+				<div class="close-btn">
+					<span onclick="closeEnrollEnd();" class="close" title="Close Modal">&times;</span>
+				</div>
+			</div>	
+		</div>
+		<%} %>
+		
+<script>
+//상태 팝업
+$('.enrollEnd').children().click(function(){
+	$('#enrollEnd').css('display', 'none');
+	location.replace("<%=request.getContextPath()%>/index.jsp");
+})
+$('#statusN').children().click(function(){
+	$('#enrollEnd').css('display', 'none');
+	location.replace("<%=request.getContextPath()%>/logout.do");
+	signOut();
+})
+$('div#alertMsg>div>div.close-btn').children().click(function() {
+	$('#enrollEnd').css('display', 'none');
+	location.replace("<%=request.getContextPath()%>/index.jsp");
+})
 
+</script>
 
 
 

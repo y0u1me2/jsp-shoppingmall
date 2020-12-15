@@ -27,6 +27,8 @@ body {
 /* section */
 div.content-wrapper {
 	background-color: white;
+	height: auto;
+
 }
 
 /* 전체상품목록 div */
@@ -35,7 +37,9 @@ div.goodsback {
 	position: relative;
 	left: 110px;
 	top: 50px;
-	height: 1100px;
+	margin-bottom:25px;
+	pdding-bottom:100px;
+
 }
 
 /* 전체상품목록 텍스트 */
@@ -111,6 +115,7 @@ td#conbox {
 div.box-container{
 	position: relative;
 	top:50px;
+	padding-bottom:100px;
 }
 
 /* 3개 버튼 위치 */
@@ -225,7 +230,7 @@ color: rgb(0, 0, 0);
 <div class="content-wrapper">
 
 		<div class="goodsback">
-			<br> <br>
+
 
 			<h1 id="title">전체상품목록</h1>
 			<hr id="gline">
@@ -242,7 +247,7 @@ color: rgb(0, 0, 0);
 							onclick=" pAllClickSelect()">전체선택</button>
 						<button type="button" class="btn_Wihte"
 							onclick=" pAllClickRelease()">선택해제</button>
-						<button type="button" class="btn_Wihte" onclick=" pCkDelete()">삭제</button>
+						<button type="button" class="btn_Wihte" onclick="pCkDelete();">삭제</button>
 					</div>
 
 					<div class="numPerPage-container">
@@ -252,14 +257,14 @@ color: rgb(0, 0, 0);
 
 							<input type="hidden" name="cPage" value="<%=cPage%>"> <select
 								name="numPerPage" id="numPerPage">
-								<option value="5"
-									<%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩
+								<option value="15"
+									<%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩
 									보기</option>
 								<option value="10"
 									<%=numPer==null || numPer.equals("10")?"selected":"" %>>10개씩
 									보기</option>
-								<option value="15"
-									<%=numPer==null || numPer.equals("15")?"selected":"" %>>15개씩
+								<option value="5"
+									<%=numPer==null || numPer.equals("5")?"selected":"" %>>5개씩
 									보기</option>
 							</select>
 
@@ -297,7 +302,7 @@ color: rgb(0, 0, 0);
 								if (p.getpStatus().equals("Y")) {				
 						%>
 					<tr>
-						<td><input type="checkbox" class="prowCheck" name="pRowCheck" 
+						<td><input type="checkbox" class="prowCheck" name="pRowCheck" id="allck" 
 							value="<%=p.getpNo()%>"></td>
 
 						<td><%=p.getpNo()%></td>
@@ -332,7 +337,7 @@ color: rgb(0, 0, 0);
 				</div>
 				</div>
 	</div>
-
+</div>
 	<script>
 	 //체크박스 전체선택하기
     var check = false;
@@ -396,14 +401,14 @@ color: rgb(0, 0, 0);
  	        	}; 
  	      
  	        	  $.ajax({
- 	                  url         :   "<%=request.getContextPath()%>/productCheckDelete",
+ 	                  url         :   "<%=request.getContextPath()%>/admin/productCheckDelete",
  	                  dataType    :   "html",
  	                  contentType :   "application/x-www-form-urlencoded; charset=UTF-8",
  	                  type        :   "post",
  	                  data        :   objParams,
  	                  success     :   function(retVal){
 				 	     alert(retVal);
-				 	     location.replace("<%=request.getContextPath()%>/ProductListView");
+				 	     location.replace("<%=request.getContextPath()%>/admin/ProductListView");
  	                  },
  	                  error       :   function(request, status, error){
  	                      			  console.log("AJAX_ERROR");
@@ -413,7 +418,18 @@ color: rgb(0, 0, 0);
 		}else {
 			
 		}	
-   }         
+   }      
+ 
+    $(function(){
+        $("#allck").click(function(){
+           if($("#allck").is(":checked")){
+              $(".pRowCheck").prop("checked",true);
+           }else{
+              $(".pRowCheck").prop("checked",false);
+           }
+        })
+        
+     })
 		
 		//사용자가 조회기간 지정하기		
 	   $("#numPerPage").change(()=>{

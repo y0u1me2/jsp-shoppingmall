@@ -12,6 +12,42 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
+button#update-btn {
+   height: 30px;
+   width: 80px;
+   background: #313030;
+   border-radius: 3px;
+   margin-left: auto;
+   margin-right: auto;
+   border: 0;
+   font-size: 15px;
+   color: rgb(233, 233, 229);
+   position: relative;
+   left: 2px;
+}
+
+button#update-btn:hover {
+   background: black;
+   outline: none;
+}
+
+/* 색상수정 버튼 */
+button#color-btn {
+   height: 30px;
+   width: 80px;
+   border: solid 1px rgb(190, 190, 196);
+   background: white;
+   border-radius: 3px;
+   font-size: 15px;
+   color: rgb(134, 134, 133);
+   margin-right: 5px;
+}
+
+button#color-btn:hover {
+   background: rgb(251, 251, 249);
+   outline: none;
+}
+
 /* 리뷰 창 */
 div.review-container {
 	width: 1140px;
@@ -28,7 +64,7 @@ div.review-title {
 	padding: 20px 0;
 }
 
-#reviewWriteBtn {
+.reviewWriteBtn {
 	margin: 30px 0;
 	border: none;
 	cursor: pointer;
@@ -146,8 +182,8 @@ td.reviewProductImg {
 }
 
 .reviewViewPhoto>ul>li>img {
-	width: 624px;
-	/* height: 768px; */
+    width: 500px;
+    height: 500px;
 }
 /* 리뷰보기 글창(오른쪽) */
 .reviewViewRight {
@@ -298,13 +334,11 @@ to {
 					나의리뷰 ( <span id="number-of-object"></span> )
 				</h1>
 			</div>
-			<div class="review-selection">
-
+			<!-- <div class="review-selection">
 				<div id="reviewWrite">
 					<button type="button" id="reviewWriteBtn">리뷰쓰기</button>
 				</div>
-
-			</div>
+			</div> -->
 			<div class="review-toggle">
 				<button class="selected" id="writeAbleReview" type="button">작성
 					가능한 리뷰</button>
@@ -313,43 +347,7 @@ to {
 			</div>
 		</div>
 		<div class="review-middle">
-			<!-- 다시해야할듯........================div로 ======================= -->
-			<%-- <%for(Review r : list) { %>
-			<div id="writtenReviewList" style="border-bottom: 2px solid rgba(0, 0, 0, 0.2); width: 100%;">
-				<input id="RvNo" type="hidden" value="<%=r.getRv_No()%>">
-				<table>
-					<tr>
-						<td class="reviewProductImg" rowspan="3"><a href="#"> 
-						<img class="review-product"
-								src="http://blogfiles.naver.net/MjAyMDAyMjhfMjk1/MDAxNTgyODg3OTYxNTAx.65if9cw_x-J4nP-t9AUFic4VeVhf_V0mi88ZZ5XODUgg.XvjMwjsTpXdosK9tlxsm7nTTWE0YTYJtbc9Qq0pkXnMg.JPEG.momo7891/Description.jpg">
-						</a></td>
-						<td class="reviewTitle" colspan="3">
-						<a href="#">
-							상품이구요
-						</a></td>
-					</tr>
-					<tr class="reviewTR">
-						<td class="reviewStar">
-						<%for(int i=0;i<r.getRv_Star();i++) { %>
-							<span class="fa fa-star checked"></span>
-						<%} %>
-						<%for(int i=0;i<5-(r.getRv_Star());i++) { %>
-							<span class="fa fa-star"></span>
-						<%} %>
-						
-						<td class="reviewDate"><%=r.getRv_Date() %></td>
-						<td class="reviewWriter"><%=r.getM_nickName() %></td>
-					</tr>
-					<tr>
-						<td class="reviewContent" style="width:150px;" colspan="3"><%=r.getRv_Content() %></td>
-					</tr>
-				</table>
-				<div class="reviewImg">
-					<img
-						src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
-				</div>
-			</div>
-			<%} %> --%>
+			
 			<!-- -============================================================================== -->
 		</div>
 	</div>
@@ -366,8 +364,7 @@ to {
 			<div class="reviewView-middle">
 				<div class="reviewViewPhoto">
 					<ul>
-						<li><img
-							src="https://s3.marpple.co/files/u_1206533/2020/3/900/18296301f2293ae1ec778c915db20e7aab4de4adc53c16b.jpg">
+						<li><img id="reviewImg">
 						</li>
 					</ul>
 				</div>
@@ -399,15 +396,19 @@ to {
 	<!-- ================================리뷰 작성 창 ================================= -->
 	<div class="reviewWrite-modal-back">
 		<div class="animate reviewWrite">
-			<form onsubmit="return reviewWrite()" method="post">
+			<form id="reviewWriteFrm" action="<%=request.getContextPath()%>/reviewWrite" method="post" onsubmit="return reviewWrite();"
+					enctype="multipart/form-data">
 				<div class="reviewWrite-top">
-					<h2 style="margin: 0 0 20px 0">리뷰쓰기</h2>
+					<!-- <h2 style="margin: 0 0 20px 0">리뷰쓰기</h2> -->
 					<!-- 로그인 창 X표시 -->
 					<div class="close-btn">
 						<span onclick="closeReviewWrite();" class="close"
 							title="Close Modal">&times;</span>
 					</div>
 				</div>
+				<!-- 커스터 넘버 받아와야함 !! -->
+				<input id="pdNoInput" type="hidden" name="cNo" value="">
+				<input type="hidden" name="mNo" value="<%=loginMember.getM_No() %>">
 				<div class="reviewWrite-middle">
 					<h3 style="text-align: center; margin: 40px 0 20px 0">상품은
 						만족하셨나요?</h3>
@@ -431,17 +432,17 @@ to {
 					</div>
 					<div class="reviewContent">
 						<h3>어떤 점이 좋았나요?</h3>
-						<textarea rows="5" cols="50" name="content"
+						<textarea style="margin-top:50px; resize:initial;" rows="5" cols="50" name="content"
 							placeholder="최소 10자 이상 입력해주세요"></textarea>
 					</div>
 					<div class="reviewPhoto">
 						<h3></h3>
-						<input type="file" name="up_file">
+						<input style="margin-top:50px;" type="file" name="up_file">
 					</div>
 				</div>
 				<div class="reviewWrite-bottom">
-					<button type="button" onclick="closeReviewWrite();">취소</button>
-					<button type="submit">등록</button>
+					<button id="update-btn" type="submit">등록</button>
+					<button id="color-btn" type="button" onclick="closeReviewWrite();">취소</button>
 				</div>
 			</form>
 		</div>
@@ -453,6 +454,8 @@ to {
 var writtenCount=0;
 if($('#writtenReview').attr("class")=="selected") {
 	$('.writtenReviewList').show();
+	$('.writeAbleReviewList').hide();
+	
 	//============================여기 아이작스====================================
 	/* 나의 리뷰 리스트 */
 	$.ajax({
@@ -476,6 +479,8 @@ if($('#writtenReview').attr("class")=="selected") {
 							$('#reviewViewWriter').text(data.m_nickName);
 							$('#reviewViewDate').text(data.rv_Date);
 							$('#reviewViewContent').text(data.rv_Content);
+							//
+							$('#reviewImg').attr('src','<%=request.getContextPath()%>/upload/review/'+data.rv_Re_Name);
 							for(let i=0;i<5;i++) {
 								$(star[i]).removeClass('checked');
 							}
@@ -489,7 +494,27 @@ if($('#writtenReview').attr("class")=="selected") {
 		})
 		//============================여기 아이작스====================================
 }else {	
-		$('.writtenReviewList').hide();
+	//리뷰 작성 안한 상품 보기
+	$('.writtenReviewList').hide();
+	$('.writeAbleReviewList').show();
+	//===========================================
+	$.ajax({
+		url:'<%=request.getContextPath()%>/myReviewWriteAble',
+		type:'post',
+		dataType:"json",
+		data:{myNo:<%=loginMember.getM_No()%>},
+		success:function(data) {
+			var reviewList=data.reviewList;
+			$('.review-middle').html(data.reviewList);
+			$('#number-of-object').html(data.count);
+			$('.reviewWriteBtn').click(function() {
+				$('.reviewWrite-modal-back').css("display","block");
+				$('#pdNoInput').val($(this).next().val());
+				reviewWrite();
+			})
+		}
+	})
+	//===========================================
 }
 	// 리뷰작성창 닫기
 	function closeReviewView() {
@@ -507,6 +532,8 @@ if($('#writtenReview').attr("class")=="selected") {
 				$('#reviewViewWriter').text(data.m_nickName);
 				$('#reviewViewDate').text(data.rv_Date);
 				$('#reviewViewContent').text(data.rv_Content);
+				//
+				$('#reviewImg').attr('src','<%=request.getContextPath()%>/upload/review/'+data.rv_Re_Name);
 				for(let i=0;i<5;i++) {
 					$(star[i]).removeClass('checked');
 				}
@@ -524,6 +551,7 @@ if($('#writtenReview').attr("class")=="selected") {
 		$(this).siblings('button').removeClass('selected');
 		if($(this).attr("id")=="writtenReview") {
 			$('.writtenReviewList').show();
+			$('.writeAbleReviewList').hide();
 			//============================여기 아이작스====================================
 			/* 나의 리뷰 리스트 */
 			$.ajax({
@@ -546,6 +574,8 @@ if($('#writtenReview').attr("class")=="selected") {
 									$('#reviewViewWriter').text(data.m_nickName);
 									$('#reviewViewDate').text(data.rv_Date);
 									$('#reviewViewContent').text(data.rv_Content);
+									//
+									$('#reviewImg').attr('src','<%=request.getContextPath()%>/upload/review/'+data.rv_Re_Name);
 									for(let i=0;i<5;i++) {
 										$(star[i]).removeClass('checked');
 									}
@@ -560,13 +590,36 @@ if($('#writtenReview').attr("class")=="selected") {
 				//============================여기 아이작스====================================
 		}else {	
 				$('.writtenReviewList').hide();
+				$('.writeAbleReviewList').show();
+				
+				//===========================================
+				$.ajax({
+					url:'<%=request.getContextPath()%>/myReviewWriteAble',
+					type:'post',
+					dataType:"json",
+					data:{myNo:<%=loginMember.getM_No()%>},
+					success:function(data) {
+						var reviewList=data.reviewList;
+						$('.review-middle').html(data.reviewList);
+						$('#number-of-object').html(data.count);
+						$('.reviewWriteBtn').click(function() {
+							$('.reviewWrite-modal-back').css("display","block");
+							console.log($(this).next());
+							$('#pdNoInput').val($(this).next().val());
+							reviewWrite();
+						})
+					}
+				})
+				//===========================================
 		}
 	})
 	
+	//======================작성창============================
+	
 	/* 작성모달창 */
-	$('#reviewWriteBtn').click(function() {
+	/* $('#reviewWriteBtn').click(function() {
 		$('.reviewWrite-modal-back').css("display","block");
-	})
+	}) */
 	
 	//리뷰작성창 닫기
     function closeReviewWrite() {
@@ -591,26 +644,19 @@ if($('#writtenReview').attr("class")=="selected") {
                 for (let j = 0; j < i + 1; j++) {//마우스로 별점 클릭했을때
                     $(star[j]).children('span').addClass('checked');//별점 유지
                 }
-                /* starPointValue=i+1;
-                $("#starPointValue").val()=starPointValue;
-    			console.log($("#starPointValue").val()); */
             })
         }
         
         function reviewWrite() {
-        	//for(let i=0;i<star.length; i++){
-        		//console.log($(star[i]).children('span'));
-        	//}
         	console.log($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
-        	$("#starPointValue").val()=$(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length;
-        	return false;        	
+        	$("#starPointValue").val($(".reviewWriterStar>.starOut>span.fa.fa-star.checked").length);
+        	if($("#starPointValue").val()>0) {
+ 	       		return true;        	
+        	}else {
+        		return false;
+        	}
         }
         
-        
-        
-	
-	
-	
 </script>
 
 

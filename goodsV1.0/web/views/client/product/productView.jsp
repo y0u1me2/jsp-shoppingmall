@@ -141,7 +141,15 @@
          background:red;
     }
     
-     
+      /* 오렌지색 버튼 */
+    input[type="radio"]#오렌지{
+         background:orange;
+    }
+    
+      /* 베이지색 버튼 */
+    input[type="radio"]#베이지{
+         background:beige;
+    }
     
      /* 네이비색 버튼 */
     input[type="radio"]#네이비{
@@ -165,6 +173,7 @@
          border: 0;
          font-size: 15px;
          color: rgb(233, 233, 229);
+         cursor: pointer;
          
      }
      .make-btn:hover{
@@ -221,7 +230,7 @@
         <div class="color-select" style="text-align:center; position:relative; top:100px; margin-bottom:50px;">
         	<p style="font-size:20px;  font-weight: bold; ">색상 선택</p>
     		
-    		<form action="<%=request.getContextPath() %>/product/custom" method="post" onsubmit="return invalid();">
+    		<form action="<%=request.getContextPath() %>/product/custom" method="post" onsubmit="return validate();">
     			<input type="hidden" name="pNo" value="<%=p.getpNo()%>">
     			<input type="hidden" name="mNo" value="<%=loginMember!=null?loginMember.getM_No():""%>">
     			<input type="hidden" id="imgFile" name="imgFile" value="">
@@ -250,7 +259,7 @@
 		<table>
 			<tr>
 				<td style="width:30%;">사이즈</td>
-				<td>2.8cm x 3.8cm</td>
+				<td><%=p.getpSize() %></td>
 			</tr>
 			
 			<tr>
@@ -272,12 +281,20 @@
 
 
 <script>
-	function invalid(){
-		if($(':radio[name="colorType"]:checked').length < 1){
-			alert('색상을 선택하세요');
+	function validate(){
+		if(mNo!=""){
+			if($(':radio[name="colorType"]:checked').length < 1){
+				alert('색상을 선택하세요');
+				return false;
+			}
+			return true;
+		}else{
+			alert('로그인이 필요한 서비스입니다.');
+			$('#login').show();
 			return false;
+			
 		}
-		return true;
+		
 	}
 
 	$(function(){

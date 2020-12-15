@@ -71,6 +71,13 @@ public class ProductService {
 		return cno;
 	}
 	
+	public Custom customNo(int cNo) {
+		Connection conn=getConnection();
+		Custom c=dao.getCustom(conn, cNo);
+		close(conn);
+		return c;
+	}
+	
 	
 	
 }

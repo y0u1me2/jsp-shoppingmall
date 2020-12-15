@@ -1,6 +1,7 @@
 package com.web.admin.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.admin.order.model.service.AdminOrderListService;
 import com.web.admin.order.model.vo.OrderList;
-import com.web.notice.model.service.NoticeService;
 
 /**
  * Servlet implementation class AdminOrderFinderListServlet
@@ -48,19 +48,30 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
 			
 		}catch(NumberFormatException e) {
-			numPerPage=5;
+			numPerPage=10;
 		}
-		List<OrderList> list = new AdminOrderListService().searchOrderList(cPage,numPerPage,type,keyword);
+		List<OrderList> list=new ArrayList();
+		if(type.equals("o_date")) {
+			 list = new AdminOrderListService().searchDateOrderList(cPage,numPerPage,type,keyword);
+		}else {
+			list = new AdminOrderListService().searchOrderList(cPage,numPerPage,type,keyword);
+		}
 		//pageBar만들기
 		
-		
 		int totalDate=new AdminOrderListService().amountOrderList();
-		int finderDate=new AdminOrderListService().amountOrderList(type,keyword);
+		int finderDate=0;
+		if(type.equals("o_date")) {
+			finderDate=new AdminOrderListService().amountDateOrderList(type,keyword);
+		}else {
+			finderDate=new AdminOrderListService().amountOrderList(type,keyword);
+		}
+		
+		int totalPrice=new AdminOrderListService().totalPrice();
+		
 		int totalPage=(int)Math.ceil((double)finderDate/numPerPage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
-		System.out.println(finderDate);
 		String pageBar="";
 		//이전페이지 만들기
 		if(pageNo==1) {
@@ -71,7 +82,7 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar+="<span>"+pageNo+"</span>";
+				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()+"/admin/orderFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}
@@ -83,11 +94,9 @@ public class AdminOrderFinderListServlet extends HttpServlet {
 		}else {
 			pageBar+="<a href='"+request.getContextPath()+"/admin/orderFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>></a>";
 		}
+		//총 매출
 		
-		
-		System.out.println(type);
-		
-
+		request.setAttribute("totalPrice", totalPrice);
 		request.setAttribute("totalDate",totalDate);
 		request.setAttribute("finderDate",finderDate);
 		request.setAttribute("list", list);

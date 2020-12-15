@@ -1,13 +1,17 @@
+<%@page import="com.web.admin.order.model.vo.OrderList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/admin/common/header.jsp" %>
 <%
-	String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";;
-	String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";;
-	/* int totalDate=(int)request.getAttribute("totalDate");
+	String type=request.getParameter("searchType")!=null?request.getParameter("searchType"):"";
+	String keyword=request.getParameter("searchKeyword")!=null?request.getParameter("searchKeyword"):"";
+	List<OrderList> list=(List)request.getAttribute("list");
+	int totalPrice=(int)request.getAttribute("totalPrice");
+	int totalDate=(int)request.getAttribute("totalDate");
 	int finderDate=(int)request.getAttribute("finderDate");
 	int cPage=(int)request.getAttribute("cPage");
-	int numPer=(int)request.getAttribute("numPerPage"); */
+	int numPer=(int)request.getAttribute("numPerPage"); 
 %>
  <style>
 
@@ -73,7 +77,6 @@
     table.tbodyCenter td{
     	font-size:14px;
     	padding: 9px 9px 7px;
-    	vertical-align: top;
     	text-align: center;
     }
     /* 회원정보 조회 스타일  */
@@ -216,7 +219,21 @@
    .total>strong{
         color: rgb(255, 109, 1);
    }
-
+   
+   /* 엑셀파일 */
+	#eleft{
+		float:left;
+	}
+	#eright{
+		float:right;
+		padding-right:220px;
+    	padding-top: 40px;
+	}
+	#exeldiv:after{
+		clear: both;
+		content:"";
+		display:block;
+	}
  	div#search_All{display:inline-block;}
     div#search_o_no{display:none;}
     div#search_p_name{display:none;}
@@ -343,8 +360,6 @@
 
     
         <div class="goodsback">
-            <br><br>
-
             <h1 id="one">주문 전체관리</h1>
             <hr id="gline">
             <br/><br/>
@@ -380,7 +395,7 @@
 
                                     <div id="search_All">
                                     	<form action="<%=request.getContextPath()%>/admin/orderList">
-	                                    	<input type="hidden" name="searchType" value="All"/>
+	                                    	<input type="hidden" name="searchType" value=""/>
 	                                    	<input type="text" name="searchKeyword" value="" placeholder="전체 검색" readonly/>
 	                                     	<button type="submit" class="btn_Search">검색</button>
                                      	</form>
@@ -403,7 +418,7 @@
                                      <div id="search_o_date">
                                      	<form action="<%=request.getContextPath()%>/admin/orderFinder">
 	                                    	<input type="hidden" name="searchType" value="o_date"/>
-	                                    	<input type="text" name="searchKeyword" value="" placeholder="검색할 구매날짜 입력"/>
+	                                    	<input type="text" name="searchKeyword" value="" placeholder="날짜 입력[형식을 맞춰주세요 ex)20200301]"/>
 	                                    	<button type="submit" class="btn_Search">검색</button>
                                     	</form>
                                     </div>
@@ -424,16 +439,22 @@
 
             <!-- 회원 목록 div -->
             <div style="margin-bottom: 30px;">
-                <div class="mListTitle">
-                <!-- 회원목록 타이틀 -->
-                    <h4 style="font-size: 17px;">주문 목록</h4>
-                </div>
-                <!-- 총 회원수 및 검색 결과 -->
-                <div class="mState">
-                    <p class="total">
-                        [총 매출 <strong>19</strong>원] 검색결과 
-                        <strong>19</strong>원
-                    </p>
+                <div id="exeldiv">
+	                <div id="eleft">
+		                <div class="mListTitle">
+		                <!-- 회원목록 타이틀 -->
+		                    <h4 style="font-size: 17px;">주문 목록</h4>
+		                </div>
+		                <!-- 총 회원수 및 검색 결과 -->
+		                <div class="mState">
+		                    <p class="total">
+		                        [총 매출 <strong><%=totalPrice %></strong>원]
+		                    </p>
+		                </div>
+	                </div>
+	                <div id="eright">
+	                	<button type="button" class="btn_Wihte" id="excel">엑셀파일 저장</button>
+	                </div>
                 </div>
                 <!-- 회원목록 박스 헤더 -->
                 <div class="mListHeader">
@@ -449,9 +470,9 @@
         					<input type="hidden" name="searchType" value="<%=type%>">
         					<input type="hidden" name="searchKeyword" value="<%=keyword%>">														
         					<select name="numPerPage" id="numPerPage">
-        						<option value="10" selected>5개씩 보기</option>
-        						<option value="20" >10개씩 보기</option>
-        						<option value="30" >15개씩 보기</option>
+        						<option value="10" <%=numPer==10?"selected":"" %>>10개씩 보기</option>
+        						<option value="20" <%=numPer==20?"selected":"" %>>20개씩 보기</option>
+        						<option value="30" <%=numPer==30?"selected":"" %>>30개씩 보기</option>
         					</select>
         					
         			<!-- select선택을하면 데이터 출력갯수가 옵션값으로 변경 -->
@@ -461,6 +482,8 @@
                 </div>
                 <!-- 회원목록 박스 바디 -->
                 <form id="ckvalue">
+                <input type="hidden" name="type" value="<%=type %>"/>
+                <input type="hidden" name="keyword" value="<%=keyword %>"/>
                 <div class="mlist"> 
                     <table border="1" style="width: 875px;" class="tbodyCenter">
                         <col style="width:30px;">
@@ -473,7 +496,7 @@
                         <col style="width:80px;">
                         <thead>
                             <tr>
-                                <th scope="col"><input type="checkbox"></th>
+                                <th scope="col"><input type="checkbox" id="allck"></th>
                                 <th scope="col">No</th>
                                 <th scope="col">상품정보</th>
                                 <th scope="col">가격/수량</th>
@@ -484,85 +507,43 @@
                             </tr>
                         </thead>
                        
-                        <tbody>                        
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="sunmi1926@naver.com"></td>
-	                        		
-	                        		<td>12111</td>
-	                        		<td>114</td>
-	                        		<td>가격</br>갯수</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
+                        <tbody>     
+                        	   <%if(list.size()==0){ %> 
+                        	   <tr>
+	                        		<td id="conbox" colspan='8'>
+	                        			<p style="padding:100px 0; margin:0;font-size:20px">검색된 회원 내역이 없습니다.</p>
+	                        		</td>
+	                        	</tr>
+	                        	<%}else {
+	                        		for(OrderList ol : list) {%>         
+	                        	<tr id="centerInfo">
+	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="<%=ol.getcNo()%>"></td>
+	                        		<td><%=ol.getoNo() %></td>
 	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="sunmi1926@naver.com">삭제</button>
+	                        			<img src="<%=request.getContextPath()%>/upload/custom/<%=ol.getCfileName()%>" width="100x" height="100px"/>
+	                        			<%=ol.getpName() %> <%=ol.getcColor() %>
+	                        		</td>
+	                        		<td>
+	                        		<%=ol.gettPrice()*ol.getoQuan() %>원
+	                        		</br><%=ol.getoQuan() %>개
+	                        		</td>
+	                        		<td><%=ol.getoName() %></td>
+	                        		<td><%=ol.getoDate() %></td>
+	                        		<td>배송중</td>
+	                        		<td>
+	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="<%=ol.getcNo()%>">삭제</button>
 	                        		</td>
 	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="choscien@gmail.com"></td>
-	                        		
-	                        		<td>2</td>
-	                        		<td>113</td>
-	                        		<td>지수</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="choscien@gmail.com">삭제</button>
-	                        		</td>
-	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="girin@email.com"></td>
-	                        		
-	                        		<td>3</td>
-	                        		<td>84</td>
-	                        		<td>기린</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="girin@email.com">삭제</button>
-	                        		</td>
-	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="apdlwl1582@naver.com"></td>
-	                        		
-	                        		<td>4</td>
-	                        		<td>82</td>
-	                        		<td>재훈</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="apdlwl1582@naver.com">삭제</button>
-	                        		</td>
-	                        	</tr>	                   
-	                        	                         
-	                        	<tr>
-	                        		<td><input class="mRowCheck" name="mRowCheck" type="checkbox" value="sciencho@naver.com"></td>
-	                        		
-	                        		<td>5</td>
-	                        		<td>81</td>
-	                        		<td>산더미</td>
-	                        		<td>null</td>
-	                        		<td></td>
-	                        		<td></td>
-	                        		<td>
-	                        			<button type="button" class="btn_Wihte" onclick="orderDelete();" value="sciencho@naver.com">삭제</button>
-	                        		</td>
-	                        	</tr> 
+	                        	 <%}
+	                        	} %>
                         </tbody>
-                       
                     </table>
                     
                   <!--   <p class="empty">검색한 회원 결과가 없습니다.</p> -->
                 </div>
                 </form>
 				<div id="pageBar" style="width:80%; text-align:center; padding:20px 0;">
-        				<span><</span><span class='cPage'>1</span><a href='/goods/admin/memberList?cPage=2&numPerPage=10'>2</a> <span>></span>
+        			<%=request.getAttribute("pageBar") %>
         		</div>
 		
             </div>
@@ -592,17 +573,29 @@
     	//전체선택
     	function allcheck(){
     		$(".mRowCheck").prop("checked",true);
+    		$("#allck").prop("checked",true);
     	}
     	//전체해제
     	function allclear(){
     		$(".mRowCheck").prop("checked",false);
+    		$("#allck").prop("checked",false);
     	}
+    	$(function(){
+    		$("#allck").click(function(){
+    			if($("#allck").is(":checked")){
+    				$(".mRowCheck").prop("checked",true);
+    			}else{
+    				$(".mRowCheck").prop("checked",false);
+    			}
+    		})
+    		
+    	})
     	//한개삭제
     	function orderDelete(){
-    		var result=confirm("주문을 취소하시겠습니까?");
+    		var result=confirm("주문내역을 취소하시겠습니까?");
     		var value=$(event.target).val();
     		if(result){
-    			location.replace("<%=request.getContextPath()%>/admin/orderListDelete?no="+value+"?type="+type+"keyword="+keyword);
+    			location.replace("<%=request.getContextPath()%>/admin/orderListDelete?no="+value+"&searchType=<%=type%>&searchKeyword=<%=keyword%>");
     		}
     	}
     	//선택삭제
@@ -610,6 +603,18 @@
     		$("#checkdelete").click(function(){
     			$("#ckvalue").attr("action","<%=request.getContextPath()%>/admin/orderCheckDelete");
     			$("#ckvalue").submit();
+    		})
+    	})
+    	//페이징
+    	$(function(){
+    		$("#numPerPage").change(function(){
+    			$("#numPerPageFrm").submit();
+    		})
+    	})
+    	//엑셀파일 저장
+    	$(function(){
+    		$("#excel").click(function(){
+    			location.replace("<%=request.getContextPath()%>/admin/excel");
     		})
     	})
     </script>

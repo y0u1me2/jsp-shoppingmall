@@ -3,6 +3,16 @@
 
 <%@ include file="/views/client/common/header.jsp" %>
 
+<%
+
+Product 에어팟 = service.getProduct(1);
+Product 핸드폰 = service.getProduct(3);
+Product 키링 = service.getProduct(4);
+Product 뱃지 = service.getProduct(5);
+Product 티셔츠 = service.getProduct(11);
+Product 에코백 = service.getProduct(12);
+
+%>
 <style>
  	a{
  		text-decoration:none;
@@ -12,9 +22,9 @@
     #goodslogo {
         animation: bounceInDown 4s;
         text-align: center;
-        padding-left: 450px;
+        padding-left: 400px;
         width: 500px;
-        right: 200px;
+        right: 300px;
     }
 
     /* 타이핑 텍스트 */
@@ -290,53 +300,59 @@
 
         <div>
             <div id="airpod">
-                <img src="<%=request.getContextPath()%>/images/product/airpods_thumbnail.jpg" width="300px" alt="">
-                <br><br><a href="">에어팟 케이스</a>
+                <img src="<%=request.getContextPath()%>/images/product/<%=에어팟.getpThumbnail() %>" width="300px" alt="">
+                <br><br><a href="<%=request.getContextPath()%>/product/view?pNo=1">에어팟 케이스</a>
                 <br>
                 <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
-                    매일매일 새로운 에어팟을 즐겨보세요.</p>
+                	<%=에어팟.getpComment() %>
+                </p>
                 <img id="sale" src="<%=request.getContextPath()%>/images/common/대량구매.png" width="50px">
             </div>
         </div>
 
         <div id="phone">
-            <img src="<%=request.getContextPath()%>/images/product/smartphone_thumbnail.jpg" width="300px" alt="">
-            <br><br> <a href="">핸드폰 케이스</a>
+            <img src="<%=request.getContextPath()%>/images/product/<%=핸드폰.getpThumbnail() %>" width="300px" alt="">
+            <br><br> <a href="<%=request.getContextPath()%>/product/view?pNo=3">핸드폰 케이스</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
-                매일매일 바꿔끼고 싶은<br>특별한 케이스를 만들어보세요.</p>
+            	<%=핸드폰.getpComment() %>
+            </p>
         </div>
 
         <div id="key">
-            <img src="<%=request.getContextPath()%>/images/product/keyring_thumbnail.jpg" width="300px" alt="">
-            <br><br> <a href="">키링</a>
+            <img src="<%=request.getContextPath()%>/images/product/<%=키링.getpThumbnail() %>" width="300px" alt="">
+            <br><br> <a href="<%=request.getContextPath()%>/product/view?pNo=4">키링</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109); margin-top: 10px;">
-                요즘 인싸들의 대란템!<br>키링을 만나보세요.</p>
+            	<%=키링.getpComment() %>
+            </p>
         </div>
     </div>
 
     <div class="imgss2">
 
         <div id="badge">
-            <img src="<%=request.getContextPath()%>/images/product/badge_thumbnail.jpg" width="300px  margin-top: 10px;">
-            <br><br><a href="">뱃지</a>
+            <img src="<%=request.getContextPath()%>/images/product/<%=뱃지.getpThumbnail() %>" width="300px  margin-top: 10px;">
+            <br><br><a href="<%=request.getContextPath()%>/product/view?pNo=5">뱃지</a>
             <br>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
-                세상에서 하나뿐인 나만의 디자인을<br>뱃지로 만들어보세요.</p>
+            	<%=뱃지.getpComment() %>
+            </p>
         </div>
 
         <div id="tee">
-            <img src="<%=request.getContextPath()%>/images/product/tshirt_thumbnail.jpg" width="300px" alt="">
-            <br><br> <a href="">티셔츠</a>
+            <img src="<%=request.getContextPath()%>/images/product/<%=티셔츠.getpThumbnail() %>" width="300px" alt="">
+            <br><br> <a href="<%=request.getContextPath()%>/product/view?pNo=11">티셔츠</a>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
-                친구들과 함께<br>커스텀 티셔츠를 만들어보세요.</p>
+            	<%=티셔츠.getpComment() %>
+            </p>
         </div>
 
         <div id="bag">
-            <img src="<%=request.getContextPath()%>/images/product/ecobag_thumbnail.jpg" width="300px" alt="">
-            <br><br><a href="">에코백</a>
+            <img src="<%=request.getContextPath()%>/images/product/<%=에코백.getpThumbnail() %>" width="300px" alt="">
+            <br><br><a href="<%=request.getContextPath()%>/product/view?pNo=12">에코백</a>
             <br>
             <p style="font-size: 13px; color: rgb(110, 109, 109);  margin-top: 10px;">
-                최애의 사진, 기억하고싶은 사진들을<br>가방에 담아 나만의 가방을 만들어보세요.</p>
+            	<%=에코백.getpComment() %>
+            </p>
         </div>
 
     </div>

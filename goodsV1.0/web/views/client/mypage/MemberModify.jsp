@@ -34,7 +34,7 @@
             padding-left: 13px;
             line-height: 25px;
             font-size: 16px;
-            color: #000;
+            color: #949494;
             background: transparent url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg) no-repeat left 6px;
         }
 
@@ -66,7 +66,12 @@
         em {
             color: red;
         }
-
+h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
+}
         /* ======================================================================== */
         /* 섹션 스타일 */
            .back{
@@ -89,13 +94,13 @@
 
             <ul class="lnb_list">
                 <li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li><br />
-                <li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li><br />
+                <li><a href="#">찜 목록 조회</a></li><br />
                 <li><a href="">반품/환불</a></li><br />
                 <li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1상담</a></li><br />
                 <li><a href="<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No() %>">상담내역</a></li><br>
                 <li><a href="">쿠폰관리</a></li><br />
                 <li><a href="">포인트관리</a></li><br />
-                <li><a href="<%=request.getContextPath()%>/profile2" style="color: rgb(23, 7, 248); font-weight: bold;">회원정보수정</a></li><br />
+                <li><a href="<%=request.getContextPath()%>/profile2" style="color:#0E0E0E; font-weight: bold;">회원정보수정</a></li><br />
                 <li><a href="<%=request.getContextPath()%>/mmbrswthdr2">회원탈퇴</a></li><br />
             </ul>
         </div>
@@ -135,7 +140,7 @@
                 <tr>
                     <td class="line">비밀번호</td>
                     <td class="line">
-                        <form action="<%=request.getContextPath()%>/pwmodify">            
+                        <form action="<%=request.getContextPath()%>/pwmodify2">            
                             <button
                                 style="width: 150px; height: 30px; border-radius: 5px;background: rgb(235, 229, 229);color: rgb(51, 51, 51);">       
                               	  비밀번호 수정

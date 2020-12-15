@@ -26,10 +26,12 @@ div.content-wrapper {
 	background-color: white;
 	position: relative;
 	left: 100px;
-	height: 400px;
+	height: auto;
 	position: relative;
-	top: 100px;
 	width: 100%;
+	top: 50px;
+	margin-bottom:25px;
+
 }
 
 /* 상품색상수정 텍스트 */
@@ -135,7 +137,7 @@ button.pColor-minus {
 <div class="content-wrapper">
 
 	<div class="goodsback">
-		<br> <br>
+
 		<h1 id="one">상품색상삭제</h1>
 		<hr id="gline">
 		<br> <br>

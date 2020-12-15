@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AdminLoginCheck
  */
-@WebFilter("/admin/*")
+@WebFilter(urlPatterns= {"/admin/*", "/views/admin/home.jsp"})
 public class AdminLoginCheckFilter implements Filter {
 
     /**
@@ -41,7 +41,9 @@ public class AdminLoginCheckFilter implements Filter {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		String uri = ((HttpServletRequest)request).getRequestURI();
 		
-		if(uri.equals("/goods/admin/login")||uri.equals("/goods/admin/loginCheck")) { //로그인 페이지랑 로그인 확인 서블릿은 필터 제외
+		HttpServletRequest request2 = (HttpServletRequest)request;
+		
+		if(uri.equals(request2.getContextPath()+"/admin/login")||uri.equals(request2.getContextPath()+"/admin/loginCheck")) { //로그인 페이지랑 로그인 확인 서블릿은 필터 제외
 			chain.doFilter(request, response);
 		}else {
 			if(session.getAttribute("loginStatus")==null || !((String)session.getAttribute("loginStatus")).equals("logined")) {

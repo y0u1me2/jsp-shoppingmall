@@ -62,14 +62,14 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		String pageBar="";
 		//이전페이지 만들기
 		if(pageNo==1) {
-			pageBar+="<span><<span>";
+			pageBar+="<span><</span>";
 		}else {
 			pageBar+="<a href='"+request.getContextPath()+"/admin/memberFinder?cPage="+(pageNo-1)+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'><</a>";
 		}																							//타입과 키워드가 유지되게하는 로직
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar+="<span>"+pageNo+"</span>";
+				pageBar+="<span class='cPage'>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()+"/admin/memberFinder?cPage="+pageNo+"&searchType="+type+"&searchKeyword="+keyword+"&numPerPage="+numPerPage+"'>"+pageNo+"</a>";
 			}
@@ -83,7 +83,6 @@ public class AdminMemberFinderServlet extends HttpServlet {
 		}
 		
 		
-		System.out.println(type);
 		
 
 		request.setAttribute("totalMember",totalMember);

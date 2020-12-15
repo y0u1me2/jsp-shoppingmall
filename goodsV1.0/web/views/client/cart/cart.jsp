@@ -5,6 +5,7 @@
 <%@ page import="com.web.cart.model.vo.*,java.util.List" %>
 <%
 	List<Cart> cart= (List)request.getAttribute("cart");
+    
 %>
 
 <style>
@@ -373,7 +374,8 @@ dd {
 							onclick="cartSelectAll();">전체 선택</button>
 						<button type="button" class="btn-white-small"
 							onclick="cartReleaseAll();">선택 해제</button>
-						<button type="button" class="btn-white-small" onclick="">삭제</button>
+						<button type="button" class="btn-white-small" 
+							onclick="cartSelectDelete()">삭제</button>
 					</div>
 					<div class="right">
 						<!-- 결제예정금액 및 상품주문 버튼-->
@@ -434,15 +436,21 @@ dd {
 						</thead>
 					
 						<tbody>
-						 
-						<%for(Cart c : cart) {%>
-						
+						<%if(cart.isEmpty()){%>
+	            			<tr>
+	            				<td colspan='6' style="padding: 60px 0"><h3>장바구니 리스트가 없습니다.</h3></td>
+	            			</tr>
+	            		<%}else{ %>	
+							<%for(Cart c : cart) {%>
+							
 							<tr>
 								<td style="text-align: center; vertical-align: top;">
+									
 									<div class="cartCheckbox">
 										<input type="checkbox" name="cartSelect" class="cartSelect"
 											 value="<%=c.getcCno()%>">										
 									</div> <!-- 전체클릭하면 위에 체크되기-->
+									
 								</td>
 								<td>
 									<div
@@ -484,24 +492,30 @@ dd {
 									<span class="format-Price payPrice" name="payPrice"></span>원
 								</td>
 							</tr>
+						
 							<tr class="shoppingutil">
 
 								<td colspan="6" style="padding: 0;">
 									<div
 										style="padding: 18px 0; height: 14px; border-top: 1px dashed rgb(218, 218, 218); padding-bottom: 25px;">
 										<span style="float: left; font-size: 12px;">
-											<button>편집하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>복사하기</button> <span
-											style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
-											<button>삭제하기</button>
-										</span> <span
+											<span style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
+											<button type="button" class="cLDelete">삭제하기</button>
+											<span style="padding: 0 20px; color: rgb(218, 218, 218);">|</span>
+											<form class="cartDeleteF" action="<%=request.getContextPath()%>/cart/cartListDelete" method="post">
+												<input type="hidden" class="cLDeleteNo" name="cLDeleteNo" value=<%=c.getcCno()%>>
+											</form>
+										</span>
+										<span
 											style="float: right; font-size: 12px; padding-top: 5px;">최종
-											편집일 <%=c.getcDate() %></span>
+											편집일 <%=c.getcDate() %>
+										</span>
 									</div>
 								</td>
 							</tr>	
-							<% } %>		
+							
+							<% } %>	
+						<%} %>		
 					
 						</tbody>
 						
@@ -511,7 +525,8 @@ dd {
 				</div>
 			</div>
 		
-		
+		<form id="cartAllDelete" action="<%=request.getContextPath()%>/cart/cartSelectDelete" method="post">
+		</form>
 		<form id="cartF" action="<%=request.getContextPath()%>/payment" method="post">
 		</form> 
 	</div>
@@ -552,17 +567,25 @@ dd {
 			}
 			// 로드 시 전체체크/삭제가 체크돼이으면 체크 해제
 			$('#cartSelectReleaseAll').prop('checked',false);
-			
-			
-	
-			
+
 		})
 		 $.each($('.pdQuantity'),function(i,item){
 			//최초 로드시 수량 1개로 초기화
 			let quan=$(item);
-			console.log(quan.val());
+			//console.log(quan.val());
 			$(quan).attr("pdQuantity",'1');
-		}) 
+		})
+		$(".cLDelete").click(function(){
+			var result = confirm('선택하신 상품을 삭제하시겠습니까?'); 
+			//console.log($(this).next().children());
+			if(result) {
+				$(this).next(".cartDeleteF").submit();
+			}else{
+				
+			}
+			
+		})
+		
 		$("#cartOrderBtn").click(function(){
 			let num = parseInt($("#cartSelCount").text());
 			if(num>0){
@@ -591,8 +614,32 @@ dd {
 			}
 			
 		});
+		//선택항목삭제
+		function cartSelectDelete(){
+			let num = parseInt($("#cartSelCount").text());
+			if(num>0){
+				form=$("#cartAllDelete");
+				$(form).children().remove();
+				$.each($(".cartSelect"),function(i,item){
+					if(item.checked==true){
+						const inputCk = $("<input>").attr({
+							type:"hidden",name:"cartSelectDelete",value:$(item).val()
+						});
+
+						form.append(inputCk);
+					}
+				});
+				
+				var result = confirm('선택하신 상품을 삭제하시겠습니까?'); 
+				if(result) {
+					$("#cartAllDelete").submit();
+				}
+			
+			}else{
+				alert("선택사항을 확인해주세요.");
+			}
+		};
 		
-	
 		function cartSelRelAll() {
 
 			var AllPayResult;
@@ -824,9 +871,9 @@ dd {
 			for (let i = 0; i < productPrice.length; i++) {
 				var amount = new Array();
 				var productAmount = new Array();
-				console.log($(quan[i]).val());
+				//console.log($(quan[i]).val());
 				amount[i] = $(quan[i]).val() * parseInt(productPrice.eq(i).text());
-				console.log(amount[i]);
+				//console.log(amount[i]);
 				var productAmount = quan.parent().parent().parent().next()
 						.children();
 
@@ -862,7 +909,7 @@ dd {
 					var num = target.val();
 					num++;
 					;
-					console.log(target.val(num))
+					//console.log(target.val(num))
 					var quantity = target.val(num);
 					// 1. "," 있는 스트링을 변환
 					var amount = $(this).parent().parent().parent().prev()

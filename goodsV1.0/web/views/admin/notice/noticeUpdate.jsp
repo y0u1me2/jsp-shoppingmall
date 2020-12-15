@@ -43,7 +43,7 @@
    }
    	#subm{
    		text-align:right;
-   		padding:15px 17px 0 0;
+   		padding:15px 42px 0 0;
    }
    #write-tbl>th,td{
    		padding:10px 0 10px 0;
@@ -52,11 +52,21 @@
 		font-weight: bolder;
    		font-size: 30px;
 	}
+	/* 완료버튼 */
+	.btn_Wihte{
+        padding: 3px 10px;
+        /* line-height: 32px; */
+        font-size: 12px;
+        color: rgb(0, 0, 0);
+         line-height: 32px;
+        text-align: center;
+        background-color: white;
+        border: 1px solid rgb(161, 161, 161);
+   }
 </style>
 <section>
 	<div class="back">
 		<div class="writeback">
-			<br><br>
 			<h1 id="one">공지사항 수정</h1>
 			<hr id="gline">
 			<br><br>
@@ -80,7 +90,7 @@
             <th>첨부파일</th>
             <td>
             <form action="<%=request.getContextPath() %>/admin/noticeUpdateEnd" id="frm" method="post" enctype="multipart/form-data">
-            <input type="file" name="upfile" multiple>
+            <input type="file" name="upfile" multiple accept=".jpg,.pdf,.txt,.jpeg,.png">
             <%if(n.getnOriginalFile()!=null) {%>
 	            		<span id="fname"><%=n.getnOriginalFile() %></span>
 	            		<input type="hidden" name="oriFile" value="<%=n.getnOriginalFile() %>">
@@ -95,7 +105,7 @@
         </tr>
         <tr>
             <th colspan="2" id="subm">
-               	<button type="button" id="btn">수정완료</button>
+               	<button type="button" id="btn" class="btn_Wihte">수정완료</button>
             </th>
         </tr>
     </table>
@@ -129,17 +139,17 @@
 		<% } %>
 		//<input type="file" nam="bs">
 		$.ajax({
-			url:"<%=request.getContextPath()%>/admin/noticeUpdateEnd",
+			url:contextPath+'/admin/noticeUpdateEnd',
 			data:fd,
 			type:"post",
 			processData:false,
 			contentType:false,
 			success:function(data){
-				alert("수정 성공");
-			 	location.replace("<%=request.getContextPath()%>/admin/noticeList");
+				alert("공지사항을 수정하였습니다.");
+			 	location.replace(contextPath+"/admin/noticeList");
 			},
 			error:function(r,e,m){
-				alert("수정 실패");
+				alert("공지사항 수정을 실패하였습니다.");
 			}
 		})
 	})

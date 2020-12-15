@@ -106,7 +106,12 @@ table#tbl-detail td {
         outline: none;
     } 
 }
-
+h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
+}
 </style>
 
 <%@ include file="/views/client/common/header.jsp"%>
@@ -123,22 +128,22 @@ table#tbl-detail td {
 		<ul class="lnb_list">
 			<li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li>
 			<br>
-			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
+			<li><a href="#">찜 목록 조회</a></li>
 			<br>
 			<li><a href=>반품/환불</a></li>
 			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
 			<li><a href="<%=request.getContextPath()%>/myInquiryList"
-			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의내역</a></li>
+			style="color:#0E0E0E; font-weight: bold;">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>
 			<li><a href="">포인트관리</a></li>
 			<br>
-			<li><a href="회원정보1.html">회원정보수정</a></li>
+			<li><a href="<%=request.getContextPath()%>/profile2">회원정보수정</a></li>
 			<br>
-			<li><a href="회원탈퇴.html">회원탈퇴</a></li>
+			<li><a href="<%=request.getContextPath()%>/mmbrswthdr2">회원탈퇴</a></li>
 			<br>
 		</ul>
 	</div>
@@ -182,7 +187,7 @@ table#tbl-detail td {
 				</tr>
 									
 			</table>
-					<input type="button" id="back-btn" value="나가기" onclick="fn_out();"> 
+				<input type="button" id="back-btn" value="나가기" onclick="fn_out();"> 
 
 
 			<div id="callArea">
@@ -193,9 +198,9 @@ table#tbl-detail td {
 		
 	<script>
 		function fn_out(){
-			location.replace("<%=request.getContextPath()%>/myInquiryList");
+			location.replace("<%=request.getContextPath()%>/myInquiryList?mNo=<%=loginMember.getM_No()%>");
 		}
-	
+	 
 	
 	</script>
 </section>

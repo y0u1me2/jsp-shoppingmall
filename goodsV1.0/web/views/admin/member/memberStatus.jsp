@@ -11,6 +11,7 @@
 	int totalMember=(int)request.getAttribute("totalMember");
 	int deleteMember=(int)request.getAttribute("deleteMember");
 	int todayEnrollMember=(int)request.getAttribute("todayEnrollMember");
+	int visitMember=(int)request.getAttribute("visitMember");
 	//int finderMember=(int)request.getAttribute("finderMember");
 	//int cPage=(int)request.getAttribute("cPage");
 	//int numPer=(int)request.getAttribute("numPerPage");
@@ -162,6 +163,11 @@
         vertical-align: top;
         font-size: 13px;
     }
+    
+    #one{
+      font-weight: bolder;
+         font-size: 30px;
+   }
 
     </style>
 
@@ -175,7 +181,6 @@
         
 
         <div class="goodsback">
-            <br><br>
             <h1 id="one">회원방문/가입 현황</h1>
             <hr id="gline">
             <br><br>
@@ -209,7 +214,7 @@
                                     <em><%=todayEnrollMember%></em>&nbsp;명
                                 </td>
                                 <td>
-                                    <em>0</em>&nbsp;명
+                                    <em><%=visitMember %></em>&nbsp;명
                                 </td>
                                 <td>
                                     <em><%=deleteMember%></em>&nbsp;명

@@ -21,7 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 				"profileServlet",
 				"mmbrswthdrServlet",
 				"LoginAbleServlet",
-				"AdminLoginServlet"
+				"AdminLoginServlet",
+				"pwmodifyServlet",
+				"SaveRandomPwServlet",
+				//"MemberPwEmailSendServlet"
 //				"MemberUpdateServlet"
 //				"PasswordUupdateEndServlet"
 		})

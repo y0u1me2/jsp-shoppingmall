@@ -33,7 +33,6 @@ public class NoticeDeleteServlet extends HttpServlet {
 		int no=Integer.parseInt(request.getParameter("no"));
 		String type=request.getParameter("searchType");
 		String keyword=request.getParameter("searchKeyword");
-		System.out.println(type+keyword);
 		int count=new NoticeService().oneDelete(no);
 		
 		

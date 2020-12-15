@@ -1,7 +1,6 @@
 package com.web.cart.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.cart.model.service.CartService;
 import com.web.cart.model.vo.Cart;
+import com.web.member.model.vo.Member;
 
 /**
  * Servlet implementation class CartServlet
@@ -34,27 +34,30 @@ public class CartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//for문 사용하면
-		//String[] strA = {"22","33","1"};
-		//int[] numsA = new int[strA.length];
-		//for(int i=0;i<strA.length; i++){ numsA[i] = Integer.parseInt(strA[i]); }
+		Member lm = (Member)request.getSession().getAttribute("loginedMember");
 		//쿠키
+		String cartCook = "";
 		Cookie[] cookies = request.getCookies(); //null이거나 쿠키배열
+	
 		String [] cart=new String[cookies.length];
-		if(cookies!=null) {//기존에 쿠키가 있는 경우
-			for(int i=0; i<cookies.length; i++) {
-				if(cookies[i].getName().equals("cart")) {
-					cart = cookies[i].getValue().split("\\|");
-
-				}
+		for(Cookie c : cookies) {
+			if(String.valueOf(lm.getM_No()).equals(c.getName())) {
+				cart = c.getValue().split("\\|");
+			}else {
+				cart = new String[0];
 			}
 		}
 		
+//		if(cookies!=null) {//기존에 쿠키가 있는 경우
+//			for(int i=0; i<cookies.length; i++) {
+//				if(cookies[i].getName().equals(String.valueOf(lm.getM_No()))) {
+//					cart = cookies[i].getValue().split("\\|");
+//
+//				}
+//			}
+//		}
 		List<Cart> c = new CartService().searchCart(cart); 
-		
-		
-		
+
 		request.setAttribute("cart", c);
 		request.getRequestDispatcher("/views/client/cart/cart.jsp").forward(request, response);
 	}

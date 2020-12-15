@@ -29,7 +29,7 @@
 	padding-left: 13px;
 	line-height: 25px;
 	font-size: 16px;
-	color: #000;
+	color: #949494;
 	background: transparent
 		url(https://s3-ap-northeast-2.amazonaws.com/redprintingweb.common/2017/img/icon/menu_arrow.svg)
 		no-repeat left 6px;
@@ -38,6 +38,12 @@
 
 ul {
 	list-style: none;
+}
+h2{
+color:#5F5D5D;
+}
+h5{
+color:#5F5D5D;
 }
 
 section.back {
@@ -136,22 +142,22 @@ a img{
 			<ul class="lnb_list">
 			<li><a href="<%=request.getContextPath()%>/orderDelivery">주문/배송 조회</a></li>
 			<br>
-			<li><a href="<%=request.getContextPath()%>/listLookUp">찜 목록 조회</a></li>
+			<li><a href="#">찜 목록 조회</a></li>
 			<br>
 			<li><a href=>반품/환불</a></li>
 			<br>
 			<li><a href="<%=request.getContextPath()%>/MyInquiryWrite">1:1문의</a></li>
 			<br />
 			<li><a href="<%=request.getContextPath()%>/myInquiryList"
-			style="color: rgb(23, 7, 248); font-weight: bold;">1:1문의내역</a></li>
+			style="color:#0E0E0E; font-weight: bold;">1:1문의내역</a></li>
 			<br>
 			<li><a href="">쿠폰관리</a></li>
 			<br>
 			<li><a href="">포인트관리</a></li>
 			<br>
-			<li><a href="회원정보1.html">회원정보수정</a></li>
+			<li><a href="<%=request.getContextPath()%>/profile2">회원정보수정</a></li>
 			<br>
-			<li><a href="회원탈퇴.html">회원탈퇴</a></li>
+			<li><a href="<%=request.getContextPath()%>/mmbrswthdr2">회원탈퇴</a></li>
 			<br>
 		</ul>
 		</div>
@@ -192,11 +198,11 @@ a img{
 					<th>첨부파일</th>
 					<td>
 						<%
-							if (i.getI_Original_Filename() != null) {
+							if (i.getI_Renamed_Filename() != null) {
 						%> 
-						<a href="<%=request.getContextPath()%>/answerDetailFileDownLoad?filePath=<%=i.getI_Original_Filename()%>">
+						<a href="<%=request.getContextPath()%>/answerDetailFileDownLoad?filePath=<%=i.getI_Renamed_Filename()%>">
 						<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
-						<span><%=i.getI_Original_Filename()%></span> 
+						<span><%=i.getI_Renamed_Filename()%></span> 
 						</a>
 						 <%
 						 	}

@@ -39,7 +39,7 @@
    }
    	#subm{
    		text-align:right;
-   		padding:15px 17px 0 0;
+   		padding:15px 42px 0 0;
    }
    #write-tbl>th,td{
    		padding:10px 0 10px 0;
@@ -48,11 +48,21 @@
 		font-weight: bolder;
    		font-size: 30px;
 	}
+	/* 완료버튼 */
+	.btn_Wihte{
+        padding: 3px 10px;
+        /* line-height: 32px; */
+        font-size: 12px;
+        line-height: 32px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        background-color: white;
+        border: 1px solid rgb(161, 161, 161);
+   }
 </style>
 <section>
 	<div class="back">
 		<div class="writeback">
-			<br><br>
 			<h1 id="one">공지사항 글쓰기</h1>
 			<hr id="gline">
 			<br><br>
@@ -73,7 +83,7 @@
         </tr>
         <tr id="fileup">
             <th>첨부파일</th>
-            <td><input type="file" name="upfile" multiple></td>
+            <td><input type="file" name="upfile" multiple accept=".jpg,.pdf,.txt,.jpeg,.png"></td>
         </tr>
         <tr>
             <th>내 용</th>
@@ -81,7 +91,7 @@
         </tr>
         <tr>
             <th colspan="2" id="subm">
-              	<button type="button" id="btn">작성완료</button>
+              	<button type="button" id="btn" class="btn_Wihte">작성완료</button>
             </th>
         </tr>
     </table>
@@ -110,17 +120,17 @@
 	
 			//<input type="file" nam="bs">
 			$.ajax({
-				url:"<%=request.getContextPath()%>/admin/noticeWriteEnd",
+				url:contextPath+'/admin/noticeWriteEnd',
 				data:fd,
 				type:"post",
 				processData:false,
 				contentType:false,
 				success:function(data){
 				 	alert("공지사항을 등록하였습니다.");
-				 	location.replace("<%=request.getContextPath()%>/admin/noticeList")
+				 	location.replace(contextPath+"/admin/noticeList")
 				},
 				error:function(r,e,m){
-					alert("작성 실패");
+					alert("공지사항 등록을 실패하였습니다. 확장자를 확인해주세요");
 				}
 			})
 		})

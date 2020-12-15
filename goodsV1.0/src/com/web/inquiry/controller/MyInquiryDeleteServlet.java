@@ -27,7 +27,6 @@ public class MyInquiryDeleteServlet extends HttpServlet {
 		
 		// 글번호 가져오기
 		int no = Integer.parseInt(request.getParameter("no"));
-		System.out.println(no);
 		
 		int mNo = Integer.parseInt(request.getParameter("mNo"));
 		

@@ -19,7 +19,8 @@ div.goodsback{
 	width:80%;
 	height:auto;
 	position: relative;
-	top:100px;
+	top: 50px;
+	margin-bottom:25px;
 }
 
 * {
@@ -112,7 +113,6 @@ table#tbl-detail td {
 
  <div class="content-wrapper">
 
-		<br><br>
 		<div class="goodsback">
 		<h1 id="title">문의내역</h1>
 		<hr id="line1">
@@ -142,10 +142,10 @@ table#tbl-detail td {
 				<tr>
 					<th>첨부파일</th>
 					<td>
-						<%if(i.getI_Original_Filename()!=null){ %> 
-						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=i.getI_Original_Filename()%>">
+						<%if(i.getI_Renamed_Filename()!=null){ %> 
+						<a href="<%=request.getContextPath()%>/admin/answerDetailFileDownLoad?filePath=<%=i.getI_Renamed_Filename()%>">
 							<img src="<%=request.getContextPath()%>/images/common/file.png" width="25px;" />
-								<span><%=i.getI_Original_Filename()%></span> 
+								<span><%=i.getI_Renamed_Filename()%></span> 
 						</a>
 						<%} %>
 					</td>

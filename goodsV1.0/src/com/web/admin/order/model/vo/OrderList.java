@@ -3,44 +3,33 @@ package com.web.admin.order.model.vo;
 import java.util.Date;
 
 public class OrderList {
-	private int omNo;
+	
 	private int oNo;
-	private int cNo;
-	private int pNo;
-	private String fileName;
+	private String cfileName;
 	private String pName;
-	private int pQuan;
-	private int pPrice;
+	private String cColor;
 	private int tPrice;
+	private int oQuan;
 	private String oName;
 	private Date oDate;
-	
+	private int cNo;
+
 	public OrderList() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderList(int omNo, int oNo, int cNo, int pNo, String fileName, String pName, int pQuan, int pPrice,
-			int tPrice, String oName, Date oDate) {
+	public OrderList(int oNo, String cfileName, String pName, String cColor, int tPrice, int oQuan, String oName,
+			Date oDate, int cNo) {
 		super();
-		this.omNo = omNo;
 		this.oNo = oNo;
-		this.cNo = cNo;
-		this.pNo = pNo;
-		this.fileName = fileName;
+		this.cfileName = cfileName;
 		this.pName = pName;
-		this.pQuan = pQuan;
-		this.pPrice = pPrice;
+		this.cColor = cColor;
 		this.tPrice = tPrice;
+		this.oQuan = oQuan;
 		this.oName = oName;
 		this.oDate = oDate;
-	}
-
-	public int getOmNo() {
-		return omNo;
-	}
-
-	public void setOmNo(int omNo) {
-		this.omNo = omNo;
+		this.cNo = cNo;
 	}
 
 	public int getoNo() {
@@ -51,28 +40,12 @@ public class OrderList {
 		this.oNo = oNo;
 	}
 
-	public int getcNo() {
-		return cNo;
+	public String getCfileName() {
+		return cfileName;
 	}
 
-	public void setcNo(int cNo) {
-		this.cNo = cNo;
-	}
-
-	public int getpNo() {
-		return pNo;
-	}
-
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
-	}
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setCfileName(String cfileName) {
+		this.cfileName = cfileName;
 	}
 
 	public String getpName() {
@@ -83,20 +56,12 @@ public class OrderList {
 		this.pName = pName;
 	}
 
-	public int getpQuan() {
-		return pQuan;
+	public String getcColor() {
+		return cColor;
 	}
 
-	public void setpQuan(int pQuan) {
-		this.pQuan = pQuan;
-	}
-
-	public int getpPrice() {
-		return pPrice;
-	}
-
-	public void setpPrice(int pPrice) {
-		this.pPrice = pPrice;
+	public void setcColor(String cColor) {
+		this.cColor = cColor;
 	}
 
 	public int gettPrice() {
@@ -105,6 +70,14 @@ public class OrderList {
 
 	public void settPrice(int tPrice) {
 		this.tPrice = tPrice;
+	}
+
+	public int getoQuan() {
+		return oQuan;
+	}
+
+	public void setoQuan(int oQuan) {
+		this.oQuan = oQuan;
 	}
 
 	public String getoName() {
@@ -123,13 +96,20 @@ public class OrderList {
 		this.oDate = oDate;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderList [omNo=" + omNo + ", oNo=" + oNo + ", cNo=" + cNo + ", pNo=" + pNo + ", fileName=" + fileName
-				+ ", pName=" + pName + ", pQuan=" + pQuan + ", pPrice=" + pPrice + ", tPrice=" + tPrice + ", oName="
-				+ oName + ", oDate=" + oDate + "]";
+	public int getcNo() {
+		return cNo;
 	}
 
-	
+	public void setcNo(int cNo) {
+		this.cNo = cNo;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderList [oNo=" + oNo + ", cfileName=" + cfileName + ", pName=" + pName + ", cColor=" + cColor
+				+ ", tPrice=" + tPrice + ", oQuan=" + oQuan + ", oName=" + oName + ", oDate=" + oDate + ", cNo=" + cNo
+				+ "]";
+	}
+
 	
 }

@@ -43,7 +43,7 @@ public class AdminOrderListServlet extends HttpServlet {
 		try {
 			numPerPage=Integer.parseInt(request.getParameter("numPerPage"));
 		}catch(NumberFormatException e) {
-			numPerPage=5;
+			numPerPage=10;
 		}
 		
 		List<OrderList> list=new AdminOrderListService().selectOrderList(cPage,numPerPage);
@@ -79,6 +79,11 @@ public class AdminOrderListServlet extends HttpServlet {
 			pageBar+="<a href='"+request.getContextPath()+"/admin/orderList?cPage="+pageNo+"&numPerPage="+numPerPage+"'>></a>";
 		}
 		
+		int totalPrice=new AdminOrderListService().totalPrice();
+		int searchPrice=new AdminOrderListService().totalPrice();
+		
+		request.setAttribute("totalPrice", totalPrice);
+		request.setAttribute("searchPrice", searchPrice);
 		request.setAttribute("finderDate", finderDate);
 		request.setAttribute("totalDate", totalDate);
 		request.setAttribute("list", list);
